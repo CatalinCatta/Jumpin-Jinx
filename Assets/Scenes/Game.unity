@@ -2180,7 +2180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122146003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -1.44, z: -1}
+  m_LocalPosition: {x: -5, y: -1.44, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2247,12 +2247,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e729a90f63c07442985a48c6f58ad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 20
-  jumpPower: 50
-  _movement: {x: 0, y: 0, z: 0}
-  _jump: 0
-  _velocity: {x: 0, y: 0, z: 0}
-  _groundCollisions: 0
+  movementSpeed: 15
+  jumpPower: 60
+  playerAnimations:
+  - {fileID: 9100000, guid: 8b793cae8fffcc14590914dae16f6965, type: 2}
+  - {fileID: 9100000, guid: be5c1c9a8091caf4eaf7f0618daaade4, type: 2}
+  - {fileID: 9100000, guid: 99b7490ca7d3c894e81df7448bbc8d85, type: 2}
 --- !u!1 &1235479107
 GameObject:
   m_ObjectHideFlags: 0
