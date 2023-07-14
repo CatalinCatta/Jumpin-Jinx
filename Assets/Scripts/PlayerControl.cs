@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
     public float movementSpeed = 15f;
     public float jumpPower = 60f;
@@ -17,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private List<RuntimeAnimatorController> playerAnimations;
     [SerializeField] private List<Sprite> playerSprites;
-
+    [SerializeField] private GameObject bullet;
+    
     private void Start()
     {
         _animator = transform.GetComponent<Animator>();
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         if (!_isFireActivated)
             PlayAnimation();
 
-        if (Time.time - _fireTimer >= 0.3f)
+        if (Time.time - _fireTimer >= 0.4f)
             _isFireActivated = false;
     }
 
@@ -85,6 +87,19 @@ public class PlayerMovement : MonoBehaviour
         _animator.enabled = false;
         _sprite.sprite = playerSprites[(int)PlayerSprites.Shot];
         transform.GetChild(1).gameObject.SetActive(true);
+
+        StartCoroutine(CreateBullet());
+    }
+
+    private IEnumerator CreateBullet()
+    {
+        yield return new WaitForSeconds(0.4f);
+        
+        var playerTransform = transform;
+        var bulletTransform = Instantiate(bullet,  playerTransform.position + new Vector3(
+            playerTransform.rotation == Quaternion.Euler(0, 0, 0) ? -0.4f : 0.4f, 0.5f) ,playerTransform.rotation);
+        
+        Physics2D.IgnoreCollision(bulletTransform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
     private void PlayAnimation()
