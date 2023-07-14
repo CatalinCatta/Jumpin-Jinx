@@ -46,7 +46,6 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_groundCollisions.Count);
         if (_playerStatus.FreezedFromDamage)
             return;
 

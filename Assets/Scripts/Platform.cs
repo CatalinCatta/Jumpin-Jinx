@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Collections;
+using System;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -10,27 +12,75 @@ public class Platform : MonoBehaviour
     public float rotationSpeed = 2f;
 
     [SerializeField] private PlatformType platformType;
+    [SerializeField] private List<Sprite> plants;
+    [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject coin;
     
     private void Start()
     {
+        PlantEnvironment();
+        
         switch (platformType)
         {
             case PlatformType.HorizontalMoving:
+                transform.position += Vector3.forward;
                 StartCoroutine(MoveHorizontal());
                 break;
             
             case PlatformType.VerticalMoving:
+                transform.position += Vector3.forward * 2;
                 StartCoroutine(MoveVertical());
                 break;
             
             case PlatformType.CircularMoving:
+                transform.position += Vector3.forward * 3;
                 StartCoroutine(MoveCircular());
                 break;
             
         }
     }
 
+    private void PlantEnvironment()
+    {
+        var random = new System.Random();
 
+        var randomNumber = random.Next(100);
+
+        switch (randomNumber)
+        {
+            case < 10:  //Enemy
+                Instantiate(enemy, transform.position + Vector3.up, Quaternion.identity, transform);
+                return;
+                
+            case < 30: // Coin
+                Instantiate(coin, transform.position + Vector3.up * 3, Quaternion.identity, transform);
+                return;
+
+            case < 60: // Plants
+                CreatePlant();
+                return;
+            
+            default:   // Empty  
+                return;
+        }
+    }
+
+    private void CreatePlant()
+    {
+        var random = new System.Random();
+        var randomPlant = random.Next(0, plants.Count);
+        
+        var plant = new GameObject("Plant");
+        plant.transform.SetParent(transform);
+        plant.transform.localPosition = new Vector2((float)(random.NextDouble() * 2 - 1), randomPlant > 1 ?
+            (float)(random.NextDouble() * 0.5) + 0.9f :
+            (float)(
+                random.NextDouble() * 0.5f) + 3f);
+        
+        var plantRenderer = plant.AddComponent<SpriteRenderer>();
+        plantRenderer.sprite = plants[randomPlant];
+    }
+    
     private IEnumerator MoveHorizontal()
     {
         var startPos = transform.position;
