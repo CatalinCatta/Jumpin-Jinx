@@ -11,7 +11,7 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _movement;
     private bool _jump;
     private Vector3 _velocity;
-    private int _groundCollisions;
+    private readonly List<GameObject> _groundCollisions = new();
     private Animator _animator;
     private float _fireTimer;
     private bool _isFireActivated;
@@ -46,13 +46,17 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_groundCollisions.Count);
         if (_playerStatus.FreezedFromDamage)
             return;
+
+        if (_groundCollisions.Count == 0)
+            transform.SetParent(null);
             
         _movement = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ? Vector3.left :
             Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector3.right : Vector3.zero;
 
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && _groundCollisions > 0)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && _groundCollisions.Count > 0)
             _jump = true;
       
         FlipCharacter();
@@ -104,10 +108,10 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         
         var playerTransform = transform;
-        var bulletTransform = Instantiate(bullet,  playerTransform.position + new Vector3(
+        var bulletObject = Instantiate(bullet,  playerTransform.position + new Vector3(
             playerTransform.rotation == Quaternion.Euler(0, 0, 0) ? -0.4f : 0.4f, 0.5f) ,playerTransform.rotation);
-        
-        Physics2D.IgnoreCollision(bulletTransform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    
+        Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
     private void PlayAnimation()
@@ -116,7 +120,7 @@ public class PlayerControl : MonoBehaviour
         _sprite.sprite = playerSprites[(int)PlayerSprites.Idle];
         transform.GetChild(1).gameObject.SetActive(false);
 
-        if (_groundCollisions == 0)
+        if (_groundCollisions.Count == 0)
         {
             if (_animator.runtimeAnimatorController == playerAnimations[(int)PlayerAnimationsNames.Jump])
                 return;
@@ -147,8 +151,11 @@ public class PlayerControl : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-            _groundCollisions++;
+        if (collision.gameObject.CompareTag("Ground") && collision.transform.position.y < transform.position.y - 0.9 )
+        {
+            _groundCollisions.Add(collision.gameObject);
+            transform.SetParent(collision.transform);
+        }
         
         if (collision.gameObject.CompareTag("Enemy"))
             _playerStatus.GetDamage(collision.transform.position);
@@ -159,7 +166,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-            _groundCollisions--;
+        if (collision.gameObject.CompareTag("Ground") && _groundCollisions.Contains(collision.gameObject))
+            _groundCollisions.Remove(collision.gameObject);
     }
 }
