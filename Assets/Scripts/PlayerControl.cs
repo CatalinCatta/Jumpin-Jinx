@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
@@ -15,11 +16,15 @@ public class PlayerControl : MonoBehaviour
     private float _fireTimer;
     private bool _isFireActivated;
     private SpriteRenderer _sprite;
+    private PlayerStatus _playerStatus;
     
     [SerializeField] private List<RuntimeAnimatorController> playerAnimations;
     [SerializeField] private List<Sprite> playerSprites;
     [SerializeField] private GameObject bullet;
-    
+
+    private void Awake() =>
+        _playerStatus = transform.GetComponent<PlayerStatus>();
+
     private void Start()
     {
         _animator = transform.GetComponent<Animator>();
@@ -41,6 +46,9 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        if (_playerStatus.FreezedFromDamage)
+            return;
+            
         _movement = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ? Vector3.left :
             Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector3.right : Vector3.zero;
 
@@ -141,6 +149,12 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
             _groundCollisions++;
+        
+        if (collision.gameObject.CompareTag("Enemy"))
+            _playerStatus.GetDamage(collision.transform.position);
+        
+        if (collision.gameObject.CompareTag("Death"))
+            _playerStatus.Die();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
