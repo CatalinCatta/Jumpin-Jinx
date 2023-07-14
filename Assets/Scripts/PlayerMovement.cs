@@ -11,11 +11,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _velocity;
     private int _groundCollisions;
     private Animator _animator;
-
+    private float _fireTimer;
+    private bool _isFireActivated;
+    private SpriteRenderer _sprite;
+    
     [SerializeField] private List<RuntimeAnimatorController> playerAnimations;
+    [SerializeField] private List<Sprite> playerSprites;
 
-    private void Start() =>
+    private void Start()
+    {
         _animator = transform.GetComponent<Animator>();
+        _sprite = transform.GetComponent<SpriteRenderer>();
+    }
     
     private enum PlayerAnimationsNames
     {
@@ -24,16 +31,34 @@ public class PlayerMovement : MonoBehaviour
         Jump
     }
     
+    private enum PlayerSprites
+    {
+        Idle = 0,
+        Shot
+    }
+
     private void Update()
     {
         _movement = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ? Vector3.left :
             Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector3.right : Vector3.zero;
 
-        if (Input.GetKeyDown(KeyCode.Space) && _groundCollisions > 0)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && _groundCollisions > 0)
             _jump = true;
-
+      
         FlipCharacter();
-        PlayAnimation();
+    
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Fire();
+            _fireTimer = Time.time;
+            _isFireActivated = true;
+        }
+
+        if (!_isFireActivated)
+            PlayAnimation();
+
+        if (Time.time - _fireTimer >= 0.3f)
+            _isFireActivated = false;
     }
 
     private void FixedUpdate()
@@ -54,9 +79,20 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position = newPosition;
     }
+    
+    private void Fire()
+    {
+        _animator.enabled = false;
+        _sprite.sprite = playerSprites[(int)PlayerSprites.Shot];
+        transform.GetChild(1).gameObject.SetActive(true);
+    }
 
     private void PlayAnimation()
     {
+        _animator.enabled = true;
+        _sprite.sprite = playerSprites[(int)PlayerSprites.Idle];
+        transform.GetChild(1).gameObject.SetActive(false);
+
         if (_groundCollisions == 0)
         {
             if (_animator.runtimeAnimatorController == playerAnimations[(int)PlayerAnimationsNames.Jump])
