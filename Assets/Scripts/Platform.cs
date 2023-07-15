@@ -8,11 +8,10 @@ public class Platform : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     
-    private int _horizontalDistance = 5;
-    private int _verticalDistance = 5;
-    private int _rotationAngle = 3;
-    private int _rotationSpeed = 2;
-   
+    [SerializeField]private int _movement;
+    [SerializeField]private int _rotationAngle;
+    [SerializeField]private int _rotationSpeed;
+    
     [SerializeField] private List<Sprite> plants;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject spike;
@@ -22,11 +21,12 @@ public class Platform : MonoBehaviour
     
     private void Start()
     {
-        if (platformType == PlatformType.Temporar)
-            Debug.Log(transform.position);
         _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         PlantEnvironment();
-
+        _movement = _movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : _movement;
+        _rotationAngle = _rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : _rotationAngle;
+        _rotationSpeed = _rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : _rotationSpeed;
+        
         switch (platformType)
         {
             case PlatformType.Temporar:
@@ -36,12 +36,12 @@ public class Platform : MonoBehaviour
             
             case PlatformType.VerticalMoving:
                 transform.position += Vector3.back;
-                StartCoroutine(MoveSideways(new Vector3(0f, Utils.RandomPickNumberBetween(_verticalDistance, _verticalDistance * 2), 0f)));
+                StartCoroutine(MoveSideways(new Vector3(0f, _movement, 0f)));
                 break;
             
             case PlatformType.HorizontalMoving:
                 transform.position += Vector3.back * 2f;
-                StartCoroutine(MoveSideways(new Vector3(Utils.RandomPickNumberBetween(_horizontalDistance, _horizontalDistance * 2), 0f, 0f)));
+                StartCoroutine(MoveSideways(new Vector3(_movement, 0f, 0f)));
                 break;
             
             case PlatformType.CircularMoving:

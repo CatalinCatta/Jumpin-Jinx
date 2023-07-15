@@ -8,7 +8,7 @@ TagManager:
   - Death
   - Bullet
   - Enemy
-  - Coin
+  - Consumable
   layers:
   - Default
   - TransparentFX

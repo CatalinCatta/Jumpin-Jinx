@@ -4,7 +4,11 @@ public class Enemy : MonoBehaviour
 {
     private float _direction;
     
-    private void Start() => _direction = Utils.RandomPickNumberExcludingZero(2) == 1? -1f : 1f;
+    private void Start()
+    {
+        _direction = Utils.RandomPickNumberExcludingZero(2) == 1 ? -1f : 1f;
+        //transform.rotation = Quaternion.Euler(0, (_direction + 1 ) * 90 , 0);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,13 +22,18 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        var movement = Vector3.right * _direction;
+        var movement = Vector3.right;
         
-        var hit = Physics2D.Raycast(transform.position + movement, Vector3.down, 1.5f);
+        var hit = Physics2D.Raycast(transform.position + movement* _direction, Vector3.down, 1.5f);
 
-        if (hit.collider != null && hit.collider.CompareTag("Ground") && transform.position.y - hit.transform.position.y is > 1.1f and < 1.4f)
-            transform.Translate(movement * 0.03f);
+        if (hit.collider != null && ((hit.collider.CompareTag("Ground") &&
+                                      transform.position.y - hit.transform.position.y is > 1.1f and < 1.4f) ||
+                                     hit.collider.CompareTag("Player")))
+            transform.Translate(movement * 0.03f );
         else
+        {
             _direction *= -1f;
+            transform.rotation = Quaternion.Euler(0, (_direction - 1 ) * -90 , 0);
+        }
     }
 }

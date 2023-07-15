@@ -81,9 +81,7 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        var targetVelocity = _movement * movementSpeed;
-        _velocity = Vector3.Lerp(_velocity, targetVelocity, 0.2f);
+        _velocity = Vector3.Lerp(_velocity, _movement * movementSpeed, 0.2f);
 
         var newPosition = transform.position + _velocity * Time.fixedDeltaTime;
 
