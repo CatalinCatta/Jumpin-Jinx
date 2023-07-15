@@ -69,31 +69,6 @@ public class WorldGenerator : MonoBehaviour
             background3.transform.position = new Vector3(i, 21.55f, 0);
         }
     }
-
-    private void InstantiatePlatform(float xPosition)
-    {
-        for (var i = 0; i < _platformsLengths.Length; i++)
-        {
-            if (_platformsGaps[i] == 0)
-            {
-                if (_platformsLengths[i] > 0)
-                {
-                    _platformsLengths[i]--;
-                    var platformObject = Instantiate(platform, new Vector3(xPosition,  i * 2.55f * 2 -3.55f, 0), Quaternion.identity);
-                    platformObject.GetComponent<Platform>().platformType =
-                        i == 0 ? (PlatformType)Utils.RandomPickNumberBetween(0, 2) : 
-                        (PlatformType)Utils.RandomPickNumberBetween(0, Enum.GetValues(typeof(PlatformType)).Length);
-                }
-                else
-                {
-                    _platformsLengths[i] = Utils.RandomPickNumberExcludingZero(10);
-                    _platformsGaps[i] = Utils.RandomPickNumberExcludingZero(2);
-                }
-            }
-            else
-                _platformsGaps[i]--;   
-        }
-    }
     
     private void ClearLastChunk()
     {
@@ -110,6 +85,30 @@ public class WorldGenerator : MonoBehaviour
         wall.transform.localScale *= 10;
     }
 
+    private void InstantiatePlatform(float xPosition)
+    {
+        for (var i = 0; i < _platformsLengths.Length; i++)
+        {
+            if (_platformsGaps[i] == 0)
+            {
+                if (_platformsLengths[i] > 0)
+                {
+                    _platformsLengths[i]--;
+                    var platformObject = Instantiate(platform, new Vector3(xPosition,  i * 2.55f * 2 -3.55f, 0), Quaternion.identity);
+                    platformObject.GetComponent<Platform>().platformType =
+                        i == 0 ? (PlatformType)Utils.RandomPickNumberBetween(0, 2) : 
+                            (PlatformType)Utils.RandomPickNumberBetween(0, Enum.GetValues(typeof(PlatformType)).Length);
+                }
+                else
+                {
+                    _platformsLengths[i] = Utils.RandomPickNumberExcludingZero(10);
+                    _platformsGaps[i] = Utils.RandomPickNumberExcludingZero(2);
+                }
+            }
+            else
+                _platformsGaps[i]--;   
+        }
+    }
 
     private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position)
     {

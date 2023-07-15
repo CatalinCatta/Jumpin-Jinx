@@ -22,17 +22,17 @@ public class Platform : MonoBehaviour
         switch (platformType)
         {
             case PlatformType.VerticalMoving:
-                transform.position += Vector3.forward;
+                transform.position += Vector3.back;
                 StartCoroutine(MoveSideways(new Vector3(0f, Utils.RandomPickNumberBetween(_verticalDistance, _verticalDistance * 2), 0f)));
                 break;
             
             case PlatformType.HorizontalMoving:
-                transform.position += Vector3.forward * 2;
+                transform.position += Vector3.back * 2;
                 StartCoroutine(MoveSideways(new Vector3(Utils.RandomPickNumberBetween(_horizontalDistance, _horizontalDistance * 2), 0f, 0f)));
                 break;
             
             case PlatformType.CircularMoving:
-                transform.position += Vector3.forward * 3;
+                transform.position += Vector3.back * 3;
                 StartCoroutine(MoveCircular());
                 break;
             
@@ -48,7 +48,7 @@ public class Platform : MonoBehaviour
         switch (randomNumber)
         {
             case < 10:  //Enemy
-                Instantiate(enemy, transform.position + Vector3.up, Quaternion.identity, transform);
+                Instantiate(enemy, transform.position + Vector3.up + Vector3.back, Quaternion.identity, transform);
                 return;
                 
             case < 30: // Coin
@@ -71,9 +71,8 @@ public class Platform : MonoBehaviour
         
         var plant = new GameObject("Plant");
         plant.transform.SetParent(transform);
-        plant.transform.localPosition = new Vector2((float)(random.NextDouble() * 2 - 1), randomPlant > 1 ?
-            (float)(random.NextDouble() * 0.5) + 0.9f :
-            (float)(random.NextDouble() * 0.5f) + 3f);
+        plant.transform.localPosition = new Vector3((float)(random.NextDouble() * 2 - 1), 
+            (float)(random.NextDouble() * 0.5f) + (randomPlant > 1 ? 0.9f : 3f), -1);
         
         var plantRenderer = plant.AddComponent<SpriteRenderer>();
         plantRenderer.sprite = plants[randomPlant];
