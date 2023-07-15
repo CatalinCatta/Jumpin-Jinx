@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
@@ -22,6 +23,7 @@ public class WorldGenerator : MonoBehaviour
         
         _lastChunk++;
         GenerateNewChunk();
+        ClearLastChunk();
     }
 
     private void GenerateNewChunk()
@@ -30,20 +32,23 @@ public class WorldGenerator : MonoBehaviour
         _platformsLengths = new []{
             Utils.RandomPickNumberExcludingZero(10), Utils.RandomPickNumberExcludingZero(7), Utils.RandomPickNumberExcludingZero(4), Utils.RandomPickNumberExcludingZero(4), Utils.RandomPickNumberExcludingZero(2)
         };
+        
         _platformsGaps =  new []{
             Utils.RandomPickNumberExcludingZero(3), Utils.RandomPickNumberExcludingZero(7), Utils.RandomPickNumberExcludingZero(10), Utils.RandomPickNumberExcludingZero(15), Utils.RandomPickNumberExcludingZero(20)
         };
+        
         for (var i = (_lastChunk + 1) * 38.25f + 2.55f; i < (_lastChunk + 2) * 38.25 + 2.55f; i += 2.55f)
         {
             Instantiate(watter, new Vector3(i, -3.55f, 1), Quaternion.identity);
+            Instantiate(emptyPlatform, new Vector3(i, -6.11f, 1), Quaternion.identity);
             InstantiatePlatform(i);
         }
 
         for (var i = (_lastChunk + 1) * 38.25f + 2.55f; i < (_lastChunk + 2) * 38.25 + 2.55f; i += 19)
         {
-            var background1 = new GameObject();
-            var background2 = new GameObject();
-            var background3 = new GameObject();
+            var background1 = new GameObject("Background");
+            var background2 = new GameObject("Background");
+            var background3 = new GameObject("Background");
             
             var spriteRenderer1 = background1.AddComponent<SpriteRenderer>();
             var spriteRenderer2 = background2.AddComponent<SpriteRenderer>();
@@ -58,6 +63,7 @@ public class WorldGenerator : MonoBehaviour
             spriteRenderer3.sortingOrder = -1;
             
             background2.transform.rotation = Quaternion.Euler(180, 0, 0);
+            
             background1.transform.position = new Vector3(i, 0, 0);
             background2.transform.position = new Vector3(i, 10.8f, 0);
             background3.transform.position = new Vector3(i, 21.55f, 0);
@@ -91,6 +97,27 @@ public class WorldGenerator : MonoBehaviour
     
     private void ClearLastChunk()
     {
+        var startPoint = new Vector2((_lastChunk - 2) * 38.25f - 10, -10);
+        var endPoint = new Vector2((_lastChunk - 1) * 38.25f - 2.55f, 30);
         
+        foreach (var collider in Physics2D.OverlapAreaAll(startPoint, endPoint))
+            Destroy(collider.gameObject);
+
+        foreach (var obj in FindObjectsOfType<GameObject>().Where(obj => obj.name == "Background" && IsWithinPoints(startPoint, endPoint, obj.transform.position)))
+            Destroy(obj);
+
+        var wall = Instantiate(emptyPlatform, new Vector2((_lastChunk - 1) * 38.25f - 20, 8), Quaternion.identity);
+        wall.transform.localScale *= 10;
+    }
+
+
+    private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position)
+    {
+        var minX = Mathf.Min(startPoint.x, endPoint.x);
+        var maxX = Mathf.Max(startPoint.x, endPoint.x);
+        var minY = Mathf.Min(startPoint.y, endPoint.y);
+        var maxY = Mathf.Max(startPoint.y, endPoint.y);
+
+        return position.x >= minX && position.x <= maxX && position.y >= minY && position.y <= maxY;
     }
 }
