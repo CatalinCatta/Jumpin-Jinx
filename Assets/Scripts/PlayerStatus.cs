@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
@@ -8,16 +9,50 @@ public class PlayerStatus : MonoBehaviour
 
     private int _coins;
     private int _hp = 500;
+    private int _speedBuffs = 5;
+    private int _jumpBuffs = 5;
 
     public bool FreezedFromDamage;
+    public bool SpeedBuffActive;
+    public bool JumpBuffActive;
 
-    private void Start() =>
+    private PlayerControl _playerControl;
+
+    private void Awake() => 
+        _playerControl = transform.GetComponent<PlayerControl>();
+
+    private void Start()
+    {
         ShowLife();
+        ShowJumpBuffs();
+        ShowSpeedBuffs();
+        
+    }
 
     public void AddCoin()
     {
         _coins++;
         ShowCoins();
+    }
+
+    public void ConsumeSpeedBuff()
+    {
+        if (_speedBuffs == 0)
+            return;
+        
+        _speedBuffs--;
+        ShowSpeedBuffs();
+        StartCoroutine(SpeedTimer());
+    }
+
+    public void ConsumeJumpBuff()
+    {
+        if (_jumpBuffs == 0)
+            return;
+
+        _jumpBuffs--;
+        ShowJumpBuffs();
+        StartCoroutine(JumpTimer());
     }
 
     public void Heal()
@@ -41,7 +76,66 @@ public class PlayerStatus : MonoBehaviour
     
     private void ShowCoins() =>
         display.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
+
+    private void ShowSpeedBuffs() =>
+        display.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _speedBuffs.ToString();
     
+    private void ShowJumpBuffs() =>
+        display.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = _jumpBuffs.ToString();
+
+    private IEnumerator JumpTimer()
+    {
+        JumpBuffActive = true;
+        _playerControl.jumpPower *= 2;
+        
+        var timer = display.transform.GetChild(3).GetChild(0).GetChild(0).gameObject;
+        var rectTransform = timer.GetComponent<RectTransform>();
+
+        var elapsedTime = 0f;
+        var initialPosition = rectTransform.localPosition;
+
+        timer.SetActive(true);
+
+        while (elapsedTime < 5f)
+        {
+            elapsedTime += Time.deltaTime;
+            rectTransform.localPosition = Vector3.Lerp(initialPosition, initialPosition + new Vector3(0f, timer.transform.parent.GetComponent<RectTransform>().rect.height, 0f), Mathf.Clamp01(elapsedTime / 5f));
+            yield return null;
+        }
+
+        rectTransform.localPosition = initialPosition;
+        timer.SetActive(false);
+        
+        JumpBuffActive = false;
+        _playerControl.jumpPower /= 2;
+    }
+    
+    private IEnumerator SpeedTimer()
+    {
+        SpeedBuffActive = true;
+        _playerControl.movementSpeed *= 2;
+        
+        var timer = display.transform.GetChild(2).GetChild(0).GetChild(0).gameObject;
+        var rectTransform = timer.GetComponent<RectTransform>();
+
+        var elapsedTime = 0f;
+        var initialPosition = rectTransform.localPosition;
+
+        timer.SetActive(true);
+
+        while (elapsedTime < 3f)
+        {
+            elapsedTime += Time.deltaTime;
+            rectTransform.localPosition = Vector3.Lerp(initialPosition, initialPosition + new Vector3(0f, timer.transform.parent.GetComponent<RectTransform>().rect.height, 0f), Mathf.Clamp01(elapsedTime / 5f));
+            yield return null;
+        }
+
+        rectTransform.localPosition = initialPosition;
+        timer.SetActive(false);
+       
+        SpeedBuffActive = false;
+        _playerControl.movementSpeed /= 2;
+    }
     
     private IEnumerator MoveToDirection(float direction)
     {

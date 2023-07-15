@@ -59,6 +59,12 @@ public class PlayerControl : MonoBehaviour
       
         FlipCharacter();
     
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !_playerStatus.JumpBuffActive)
+            _playerStatus.ConsumeJumpBuff();
+    
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && !_playerStatus.SpeedBuffActive)
+            _playerStatus.ConsumeSpeedBuff();
+    
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Fire();
@@ -158,7 +164,7 @@ public class PlayerControl : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
             _playerStatus.GetDamage(collision.transform.position, 5);
         
-        if (collision.gameObject.CompareTag("Death"))
+        if (collision.gameObject.CompareTag("Death") && !_playerStatus.SpeedBuffActive)
             _playerStatus.Die();
     }
 
