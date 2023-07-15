@@ -32,7 +32,7 @@ public class PlayerStatus : MonoBehaviour
         FreezedFromDamage = true;
      
         var oldPosition = transform.position; 
-        var targetPosition = new Vector2(oldPosition.x * 2.5f - direction * 1.5f, oldPosition.y + 1);
+        var targetPosition = new Vector3(oldPosition.x * 2.5f - direction * 1.5f, oldPosition.y + 1, -5);
         var elapsedTime = 0f;
 
         transform.GetComponent<SpriteRenderer>().color = Color.red;

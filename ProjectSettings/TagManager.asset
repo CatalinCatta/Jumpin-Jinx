@@ -8,6 +8,7 @@ TagManager:
   - Death
   - Bullet
   - Enemy
+  - Coin
   layers:
   - Default
   - TransparentFX

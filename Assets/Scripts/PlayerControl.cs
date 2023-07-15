@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public float movementSpeed = 15f;
-    public float jumpPower = 60f;
+    public float jumpPower = 100f;
 
     private Vector3 _movement;
     private bool _jump;
@@ -150,7 +149,7 @@ public class PlayerControl : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") && collision.transform.position.y < transform.position.y - 0.9 )
+        if (collision.gameObject.CompareTag("Ground") && collision.transform.position.y < transform.position.y - 0.9f )
         {
             _groundCollisions.Add(collision.gameObject);
             transform.SetParent(collision.transform);

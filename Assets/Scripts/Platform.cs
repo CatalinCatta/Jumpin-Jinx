@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using System.Collections;
-using System;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    public PlatformType platformType;
 
-    public float horizontalDistance = 5f;
-    public float verticalDistance = 5f;
-    public float rotationAngle = 3f;
-    public float rotationSpeed = 2f;
-
-    [SerializeField] private PlatformType platformType;
+    private int _horizontalDistance = 5;
+    private int _verticalDistance = 5;
+    private int _rotationAngle = 3;
+    private int _rotationSpeed = 2;
+   
     [SerializeField] private List<Sprite> plants;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject coin;
@@ -22,14 +21,14 @@ public class Platform : MonoBehaviour
         
         switch (platformType)
         {
-            case PlatformType.HorizontalMoving:
+            case PlatformType.VerticalMoving:
                 transform.position += Vector3.forward;
-                StartCoroutine(MoveHorizontal());
+                StartCoroutine(MoveSideways(new Vector3(0f, Utils.RandomPickNumberBetween(_verticalDistance, _verticalDistance * 2), 0f)));
                 break;
             
-            case PlatformType.VerticalMoving:
+            case PlatformType.HorizontalMoving:
                 transform.position += Vector3.forward * 2;
-                StartCoroutine(MoveVertical());
+                StartCoroutine(MoveSideways(new Vector3(Utils.RandomPickNumberBetween(_horizontalDistance, _horizontalDistance * 2), 0f, 0f)));
                 break;
             
             case PlatformType.CircularMoving:
@@ -68,46 +67,22 @@ public class Platform : MonoBehaviour
     private void CreatePlant()
     {
         var random = new System.Random();
-        var randomPlant = random.Next(0, plants.Count);
+        var randomPlant = Utils.RandomPickNumberExcludingZero(plants.Count);
         
         var plant = new GameObject("Plant");
         plant.transform.SetParent(transform);
         plant.transform.localPosition = new Vector2((float)(random.NextDouble() * 2 - 1), randomPlant > 1 ?
             (float)(random.NextDouble() * 0.5) + 0.9f :
-            (float)(
-                random.NextDouble() * 0.5f) + 3f);
+            (float)(random.NextDouble() * 0.5f) + 3f);
         
         var plantRenderer = plant.AddComponent<SpriteRenderer>();
         plantRenderer.sprite = plants[randomPlant];
     }
     
-    private IEnumerator MoveHorizontal()
+    private IEnumerator MoveSideways(Vector3 distance)
     {
         var startPos = transform.position;
-        var targetPos = startPos + new Vector3(horizontalDistance, 0f, 0f);
-
-        while (true)
-        {
-            while (transform.position != targetPos)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime);
-
-                yield return null;
-            }
-
-            while (transform.position != startPos)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, startPos, Time.deltaTime);
-
-                yield return null;
-            }
-        }
-    }
-
-    private IEnumerator MoveVertical()
-    {
-        var startPos = transform.position;
-        var targetPos = startPos + new Vector3(0f, verticalDistance, 0f);
+        var targetPos = startPos + distance;
 
         while (true)
         {
@@ -134,9 +109,9 @@ public class Platform : MonoBehaviour
 
         while (true)
         {
-            angle += rotationSpeed * Time.deltaTime;
-            var x = center.x + Mathf.Cos(angle) * rotationAngle;
-            var y = center.y + Mathf.Sin(angle) * rotationAngle;
+            angle += _rotationSpeed * Time.deltaTime;
+            var x = center.x + Mathf.Cos(angle) * _rotationAngle;
+            var y = center.y + Mathf.Sin(angle) * _rotationAngle;
             var z = center.z; 
 
             transform.position = new Vector3(x, y, z);

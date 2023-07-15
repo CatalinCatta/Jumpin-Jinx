@@ -1,8 +1,8 @@
 ﻿public enum PlatformType
 {
     Static,
-    HorizontalMoving,
+    Temporar,
     VerticalMoving,
     CircularMoving,
-    Temporar
+    HorizontalMoving
 }
