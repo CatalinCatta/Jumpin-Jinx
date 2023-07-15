@@ -10,22 +10,38 @@ public class PlayerStatus : MonoBehaviour
     private int _hp = 500;
 
     public bool FreezedFromDamage;
-    
+
+    private void Start() =>
+        ShowLife();
+
     public void AddCoin()
     {
         _coins++;
-        display.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
+        ShowCoins();
     }
 
-    public void GetDamage(Vector3 direction)
+    public void Heal()
     {
-        _hp--;
-        display.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = _hp.ToString();
+        _hp += 10;
+        ShowLife();
+    }
+
+    public void GetDamage(Vector3 direction, int amount)
+    {
+        _hp -= amount;
+        ShowLife();
         StartCoroutine(MoveToDirection(direction.x));
         
         if (_hp == 0)
             Die();
     }
+
+    private void ShowLife() =>
+        display.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = _hp.ToString();
+    
+    private void ShowCoins() =>
+        display.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
+    
     
     private IEnumerator MoveToDirection(float direction)
     {
@@ -53,7 +69,7 @@ public class PlayerStatus : MonoBehaviour
     public void Die()
     {
         _hp = 0;
-        display.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = _hp.ToString();
+        ShowLife();
         Destroy(gameObject);
     }
 }

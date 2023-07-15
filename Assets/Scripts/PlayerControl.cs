@@ -156,7 +156,7 @@ public class PlayerControl : MonoBehaviour
         }
         
         if (collision.gameObject.CompareTag("Enemy"))
-            _playerStatus.GetDamage(collision.transform.position);
+            _playerStatus.GetDamage(collision.transform.position, 5);
         
         if (collision.gameObject.CompareTag("Death"))
             _playerStatus.Die();

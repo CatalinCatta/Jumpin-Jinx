@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float speed = 5f;
+    private const float Speed = 5f;
 
     private void Start() =>
         StartCoroutine(DestroyAfterDelay());
@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
     }
     
     private void Update() =>
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * Speed * Time.deltaTime);
     
     private void OnCollisionEnter2D(Collision2D collision)
     {

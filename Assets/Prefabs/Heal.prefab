@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &720811117464374823
+--- !u!1 &5658132860675772406
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 720811117464374822}
-  - component: {fileID: 720811117464374821}
-  - component: {fileID: 720811117464374820}
-  - component: {fileID: -1930933142953375341}
+  - component: {fileID: 5658132860675772407}
+  - component: {fileID: 5658132860675772400}
+  - component: {fileID: -8465565891107262510}
+  - component: {fileID: -3717825373662740810}
   m_Layer: 0
-  m_Name: Block
-  m_TagString: Ground
+  m_Name: Heal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &720811117464374822
+--- !u!4 &5658132860675772407
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720811117464374823}
+  m_GameObject: {fileID: 5658132860675772406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &720811117464374821
+--- !u!212 &5658132860675772400
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720811117464374823}
+  m_GameObject: {fileID: 5658132860675772406}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,69 +75,53 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7d6be741cc5c597469a6e466e5a62462, type: 3}
+  m_Sprite: {fileID: 21300040, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &720811117464374820
+--- !u!114 &-8465565891107262510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658132860675772406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fd5472f707af042b7b7ff6f79f1841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consumableType: 1
+--- !u!61 &-3717825373662740810
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720811117464374823}
+  m_GameObject: {fileID: 5658132860675772406}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.17153567}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1.8300002, y: 1.6302106}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.2169285}
+  m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &-1930933142953375341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720811117464374823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3b8121a1e049443a766fe9f001f2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformType: 0
-  plants:
-  - {fileID: 21300000, guid: a8446295fd31a954c8ca931a37fc89b4, type: 3}
-  - {fileID: 21300000, guid: f9fe5cf468717be439bfd40a409758d8, type: 3}
-  - {fileID: 21300000, guid: 3067d59ec56470449adc96cfafdabc04, type: 3}
-  - {fileID: 21300000, guid: 748557b8dbecec641818c746fb730e52, type: 3}
-  - {fileID: 21300000, guid: a09def66ddbd2154d8527411fec4cf32, type: 3}
-  - {fileID: 21300000, guid: 00ecf519adc921544825f55ab2f28177, type: 3}
-  - {fileID: 21300000, guid: d671be13068d76d478c36766419a35b0, type: 3}
-  - {fileID: 21300000, guid: 1843a3e9b91c82b42b9ffb55ddedc4bd, type: 3}
-  - {fileID: 21300000, guid: c4aa5ecb3a25b864a8ce984a6b56cec8, type: 3}
-  - {fileID: 21300000, guid: 04d3492151cf07447969d611aebd70a3, type: 3}
-  - {fileID: 21300000, guid: a48f3a17787d5f64aaa159674a5bd0bc, type: 3}
-  - {fileID: 21300000, guid: c0967db3fe716a74fa0767d218f1deb6, type: 3}
-  enemy: {fileID: 5944313260030266398, guid: d4b23b3238d29b34bb70be284998de08, type: 3}
-  coin: {fileID: 5658132860675772406, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
-  heal: {fileID: 5658132860675772406, guid: 8bf972a5a7907994387e93355f396c8b, type: 3}

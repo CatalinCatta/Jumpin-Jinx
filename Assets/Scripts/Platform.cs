@@ -14,6 +14,7 @@ public class Platform : MonoBehaviour
     [SerializeField] private List<Sprite> plants;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject heal;
     
     private void Start()
     {
@@ -51,8 +52,12 @@ public class Platform : MonoBehaviour
                 Instantiate(enemy, transform.position + Vector3.up + Vector3.back, Quaternion.identity, transform);
                 return;
                 
-            case < 30: // Coin
+            case < 25: // Coin
                 Instantiate(coin, transform.position + Vector3.up * 3, Quaternion.identity, transform);
+                return;
+                
+            case < 30: // Coin
+                Instantiate(heal, transform.position + Vector3.up * 3, Quaternion.identity, transform);
                 return;
 
             case < 60: // Plants

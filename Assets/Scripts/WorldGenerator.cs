@@ -46,27 +46,17 @@ public class WorldGenerator : MonoBehaviour
 
         for (var i = (_lastChunk + 1) * 38.25f + 2.55f; i < (_lastChunk + 2) * 38.25 + 2.55f; i += 19)
         {
-            var background1 = new GameObject("Background");
-            var background2 = new GameObject("Background");
-            var background3 = new GameObject("Background");
-            
-            var spriteRenderer1 = background1.AddComponent<SpriteRenderer>();
-            var spriteRenderer2 = background2.AddComponent<SpriteRenderer>();
-            var spriteRenderer3 = background3.AddComponent<SpriteRenderer>();
-            
-            spriteRenderer1.sprite = backgrounds[0];
-            spriteRenderer2.sprite = backgrounds[1];
-            spriteRenderer3.sprite = backgrounds[1];
+            for (var j = 0; j < 4; j++)
+            {
+                var background = new GameObject("Background");
+                var spriteRenderer = background.AddComponent<SpriteRenderer>();
 
-            spriteRenderer1.sortingOrder = -1;
-            spriteRenderer2.sortingOrder = -1;
-            spriteRenderer3.sortingOrder = -1;
-            
-            background2.transform.rotation = Quaternion.Euler(180, 0, 0);
-            
-            background1.transform.position = new Vector3(i, 0, 0);
-            background2.transform.position = new Vector3(i, 10.8f, 0);
-            background3.transform.position = new Vector3(i, 21.55f, 0);
+                spriteRenderer.sprite = backgrounds[j == 0 ? 0 : 1];
+                spriteRenderer.sortingOrder = -1;
+                
+                background.transform.rotation = Quaternion.Euler(j%2==0? 0 : 180, 0, 0);
+                background.transform.position = new Vector3(i, j * 10.8f, 0f);
+            }
         }
     }
     
