@@ -159,6 +159,9 @@ public class PlayerControl : MonoBehaviour
         {
             _groundCollisions.Add(collision.gameObject);
             transform.SetParent(collision.transform);
+            if (collision.gameObject.TryGetComponent<Platform>(out var platform) &&
+                platform.platformType == PlatformType.Temporar)
+                StartCoroutine(platform.DestroyTemporarPlatform());
         }
         
         if (collision.gameObject.CompareTag("Enemy"))

@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Death"))
             Destroy(gameObject);
-        if (collision.gameObject.CompareTag("Coin"))
+        if (collision.gameObject.CompareTag("Consumable") || collision.gameObject.CompareTag("Enemy") )
             Physics2D.IgnoreCollision(collision.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         if (collision.gameObject.CompareTag("Ground") && collision.transform.position.y < transform.position.y - 1.25f )
             transform.SetParent(collision.transform);
