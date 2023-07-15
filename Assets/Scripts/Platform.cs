@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -19,10 +20,13 @@ public class Platform : MonoBehaviour
     [SerializeField] private GameObject heal;
     [SerializeField] private Sprite dirt;
     
+    [SerializeField] private bool endlessRun = true; 
+    
     private void Start()
     {
         _spriteRenderer = transform.GetComponent<SpriteRenderer>();
-        PlantEnvironment();
+        if (endlessRun) 
+            PlantEnvironment();
         _movement = _movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : _movement;
         _rotationAngle = _rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : _rotationAngle;
         _rotationSpeed = _rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : _rotationSpeed;
@@ -161,10 +165,12 @@ public class Platform : MonoBehaviour
         }
 
         _spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
-        
+        string[] entitiesTags = { "Player", "Enemy", "Consumable" };
+            
         if (transform.childCount > 0)
             for (var i = 0; i < transform.childCount; i++)
-                transform.GetChild(i).parent = null;
+                if (entitiesTags.Contains(transform.GetChild(i).tag))
+                    transform.GetChild(i).parent = null;
         
         Destroy(gameObject);
     }
