@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 public static class Utils
 {
-    private readonly static Random Random = new(); 
+    private readonly static System.Random Random = new(); 
     
     public static int RandomPickNumberExcludingZero(int max) =>
         Random.Next(1, max);
@@ -45,4 +48,15 @@ public static class Utils
         _ => number.ToString("F2") + " "
 
     };
+
+    public static IEnumerator PlaySoundOnDeath(GameObject actor)
+    {
+        actor.GetComponent<AudioSource>().Play();
+        actor.GetComponent<Collider2D>().isTrigger = true;
+        actor.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+
+        yield return new WaitForSeconds(1f);
+
+        Object.Destroy(actor);
+    }
 }

@@ -10,20 +10,25 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _movement;
     private bool _jump;
     private Vector3 _velocity;
-    private readonly List<GameObject> _groundCollisions = new();
-    private Animator _animator;
     private float _fireTimer;
     private bool _isFireActivated;
+    private readonly List<GameObject> _groundCollisions = new();
+  
+    private Animator _animator;
     private SpriteRenderer _sprite;
     private PlayerStatus _playerStatus;
-    
+    private PlayerAudioControl _playerAudioControl;
+
     [SerializeField] private List<RuntimeAnimatorController> playerAnimations;
     [SerializeField] private List<Sprite> playerSprites;
     [SerializeField] private GameObject bullet;
 
-    private void Awake() =>
+    private void Awake()
+    {
         _playerStatus = transform.GetComponent<PlayerStatus>();
-
+        _playerAudioControl = transform.GetComponent<PlayerAudioControl>();
+    }
+    
     private void Start()
     {
         _animator = transform.GetComponent<Animator>();
@@ -55,8 +60,11 @@ public class PlayerControl : MonoBehaviour
             Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector3.right : Vector3.zero;
 
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && _groundCollisions.Count > 0)
+        {
+            _playerAudioControl.PlayJumpSoud();
             _jump = true;
-      
+        }
+        
         FlipCharacter();
     
         if (Input.GetKeyDown(KeyCode.LeftControl) && !_playerStatus.JumpBuffActive)
@@ -81,6 +89,9 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_movement.x != 0)
+            _playerAudioControl.PlayWalkSoud();
+        
         _velocity = Vector3.Lerp(_velocity, _movement * movementSpeed, 0.2f);
 
         var newPosition = transform.position + _velocity * Time.fixedDeltaTime;
@@ -101,6 +112,7 @@ public class PlayerControl : MonoBehaviour
         _animator.enabled = false;
         _sprite.sprite = playerSprites[(int)PlayerSprites.Shot];
         transform.GetChild(1).gameObject.SetActive(true);
+        _playerAudioControl.PlayShootArrowSoud();
 
         StartCoroutine(CreateBullet());
     }

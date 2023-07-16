@@ -17,8 +17,10 @@ public class EndLvl : MonoBehaviour
 
     private IEnumerator AnimationFinished(PlayerStatus player)
     {
+        transform.GetComponent<AudioSource>().Play();
+        
         yield return new WaitForSeconds(0.6f);
-
+        
         player.Win();
     }
     

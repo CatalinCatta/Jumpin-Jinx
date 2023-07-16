@@ -26,7 +26,7 @@ public class Consumable : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        
-        Destroy(gameObject);
+
+        StartCoroutine(Utils.PlaySoundOnDeath(gameObject));
     }
 }

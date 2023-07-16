@@ -20,10 +20,12 @@ public class PlayerStatus : MonoBehaviour
     public bool JumpBuffActive;
 
     private PlayerControl _playerControl;
+    private PlayerAudioControl _playerAudioControl;
 
     private void Awake()
     {
         _playerControl = transform.GetComponent<PlayerControl>();
+        _playerAudioControl = transform.GetComponent<PlayerAudioControl>();
         Time.timeScale = 1f;
     }
     
@@ -79,6 +81,8 @@ public class PlayerStatus : MonoBehaviour
         
         if (_hp == 0)
             Die();
+        
+        _playerAudioControl.PlayGetHitSoud();
     }
 
     private void ShowLife() =>
@@ -172,6 +176,9 @@ public class PlayerStatus : MonoBehaviour
     
     public void Die()
     {
+        _playerAudioControl.PlayDieSoud();
+        gameObject.SetActive(false);
+        
         Time.timeScale = 0f;
         display.SetActive(false);
 
@@ -190,7 +197,6 @@ public class PlayerStatus : MonoBehaviour
             insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(transform.position.x / 2.55) + "m";
         }
         
-        Destroy(gameObject);
     }
     
     public void Win()
