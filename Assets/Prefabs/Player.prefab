@@ -299,7 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607da4442fc70dc4cb8c390dba4a90ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  display: {fileID: 0}
+  display: {fileID: 7932450579412689140, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+  endlessRun: 0
+  KillCounter: 0
   FreezedFromDamage: 0
   SpeedBuffActive: 0
   JumpBuffActive: 0
