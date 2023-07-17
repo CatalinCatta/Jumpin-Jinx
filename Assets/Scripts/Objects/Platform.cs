@@ -9,9 +9,9 @@ public class Platform : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     
-    [SerializeField]private int _movement;
-    [SerializeField]private int _rotationAngle;
-    [SerializeField]private int _rotationSpeed;
+    [SerializeField]private int movement;
+    [SerializeField]private int rotationAngle;
+    [SerializeField]private int rotationSpeed;
     
     [SerializeField] private List<Sprite> plants;
     [SerializeField] private GameObject enemy;
@@ -27,25 +27,25 @@ public class Platform : MonoBehaviour
         _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         if (endlessRun) 
             PlantEnvironment();
-        _movement = _movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : _movement;
-        _rotationAngle = _rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : _rotationAngle;
-        _rotationSpeed = _rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : _rotationSpeed;
+        movement = movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : movement;
+        rotationAngle = rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : rotationAngle;
+        rotationSpeed = rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : rotationSpeed;
         
         switch (platformType)
         {
-            case PlatformType.Temporar:
-                SetUpTemporarPlatform();
+            case PlatformType.Temporary:
+                SetUpTemporaryPlatform();
                 transform.position += Vector3.back * 0.5f;
                 break;
             
             case PlatformType.VerticalMoving:
                 transform.position += Vector3.back;
-                StartCoroutine(MoveSideways(new Vector3(0f, _movement, 0f)));
+                StartCoroutine(MoveSideways(new Vector3(0f, movement, 0f)));
                 break;
             
             case PlatformType.HorizontalMoving:
                 transform.position += Vector3.back * 2f;
-                StartCoroutine(MoveSideways(new Vector3(_movement, 0f, 0f)));
+                StartCoroutine(MoveSideways(new Vector3(movement, 0f, 0f)));
                 break;
             
             case PlatformType.CircularMoving:
@@ -56,7 +56,7 @@ public class Platform : MonoBehaviour
         }
     }
 
-    private void SetUpTemporarPlatform()
+    private void SetUpTemporaryPlatform()
     {
         _spriteRenderer.sprite = dirt;
         _spriteRenderer.color = Color.gray;
@@ -67,27 +67,30 @@ public class Platform : MonoBehaviour
         var random = new System.Random();
 
         var randomNumber = random.Next(100);
-
+        var selfTransform = transform;
+        var selfPosition = selfTransform.position;
+        
+        
         switch (randomNumber)
         {
             case < 5:               //Enemy
-                Instantiate(enemy, transform.position + Vector3.up + Vector3.back, Quaternion.identity, transform);
+                Instantiate(enemy, selfPosition + Vector3.up + Vector3.back, Quaternion.identity, selfTransform);
                 return;
             case < 10:              //Spike
-                if (platformType != PlatformType.Temporar)
-                    Instantiate(spike, transform.position + Vector3.up * 1.5f + Vector3.back, Quaternion.identity, transform);
+                if (platformType != PlatformType.Temporary)
+                    Instantiate(spike, selfPosition + Vector3.up * 1.5f + Vector3.back, Quaternion.identity, selfTransform);
                 return;
                 
             case < 25:              // Coin
-                Instantiate(coin, transform.position + Vector3.up * 3, Quaternion.identity, transform);
+                Instantiate(coin, selfPosition + Vector3.up * 3, Quaternion.identity, selfTransform);
                 return;
                 
             case < 30:              // Coin
-                Instantiate(heal, transform.position + Vector3.up * 3, Quaternion.identity, transform);
+                Instantiate(heal, selfPosition + Vector3.up * 3, Quaternion.identity, selfTransform);
                 return;
 
             case < 60:              // Plants
-                if (platformType != PlatformType.Temporar)
+                if (platformType != PlatformType.Temporary)
                     CreatePlant();
                 return;
             
@@ -106,8 +109,7 @@ public class Platform : MonoBehaviour
         plant.transform.localPosition = new Vector3((float)(random.NextDouble() * 2 - 1), 
             (float)(random.NextDouble() * 0.5f) + (randomPlant > 1 ? 0.9f : 3f), -1);
         
-        var plantRenderer = plant.AddComponent<SpriteRenderer>();
-        plantRenderer.sprite = plants[randomPlant];
+        plant.AddComponent<SpriteRenderer>().sprite = plants[randomPlant];
     }
     
     private IEnumerator MoveSideways(Vector3 distance)
@@ -140,18 +142,15 @@ public class Platform : MonoBehaviour
 
         while (true)
         {
-            angle += _rotationSpeed * Time.deltaTime;
-            var x = center.x + Mathf.Cos(angle) * _rotationAngle;
-            var y = center.y + Mathf.Sin(angle) * _rotationAngle;
-            var z = center.z; 
+            angle += rotationSpeed * Time.deltaTime;
 
-            transform.position = new Vector3(x, y, z);
+            transform.position = new Vector3(center.x + Mathf.Cos(angle) * rotationAngle, center.y + Mathf.Sin(angle) * rotationAngle, center.z);
 
             yield return null;
         }
     }
 
-    public IEnumerator DestroyTemporarPlatform()
+    public IEnumerator DestroyTemporaryPlatform()
     {
         var elapsedTime = 0f;
         var originalColor = _spriteRenderer.color;

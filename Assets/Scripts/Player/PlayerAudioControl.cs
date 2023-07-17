@@ -13,31 +13,31 @@ public class PlayerAudioControl : MonoBehaviour
     private void Start() =>
         _audioSource = transform.GetComponent<AudioSource>();
 
-    public void PlayWalkSoud() 
+    public void PlayWalkSound() 
     {
         _audioSource.clip = walk;
         _audioSource.Play();
     }
     
-    public void PlayJumpSoud() 
+    public void PlayJumpSound() 
     {
         _audioSource.clip = jump;
         _audioSource.Play();
     }
     
-    public void PlayGetHitSoud() 
+    public void PlayGetHitSound() 
     {
         _audioSource.clip = getHit;
         _audioSource.Play();
     }
     
-    public void PlayDieSoud() 
+    public void PlayDieSound() 
     {
         _audioSource.clip = die;
         _audioSource.Play();
     }
     
-    public void PlayShootArrowSoud() 
+    public void PlayShootArrowSound() 
     {
         _audioSource.clip = shootArrow;
         _audioSource.Play();

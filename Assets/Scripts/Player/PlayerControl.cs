@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections;
+using System;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -12,7 +13,6 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _velocity;
     private float _fireTimer;
     private bool _isFireActivated;
-    private readonly List<GameObject> _groundCollisions = new();
   
     private Animator _animator;
     private SpriteRenderer _sprite;
@@ -50,27 +50,34 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (_playerStatus.FreezedFromDamage)
-            return;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = Math.Abs(Time.timeScale - 1f);
+            _playerStatus.display.transform.parent.GetChild(1).gameObject.SetActive(Time.timeScale < 1f);
+            _playerStatus.display.gameObject.SetActive(Time.timeScale > 0f);
+        }
 
-        if (_groundCollisions.Count == 0)
+        if (_playerStatus.freezeFromDamage || Time.timeScale == 0f)
+            return;
+        
+        if (!IsGrounded())
             transform.SetParent(null);
             
         _movement = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ? Vector3.left :
             Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector3.right : Vector3.zero;
 
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && _groundCollisions.Count > 0)
+        if (IsGrounded() && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
-            _playerAudioControl.PlayJumpSoud();
+            _playerAudioControl.PlayJumpSound();
             _jump = true;
         }
         
         FlipCharacter();
     
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !_playerStatus.JumpBuffActive)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !_playerStatus.jumpBuffActive)
             _playerStatus.ConsumeJumpBuff();
     
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && !_playerStatus.SpeedBuffActive)
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && !_playerStatus.speedBuffActive)
             _playerStatus.ConsumeSpeedBuff();
     
         if (Input.GetKeyDown(KeyCode.Space))
@@ -90,7 +97,7 @@ public class PlayerControl : MonoBehaviour
     private void FixedUpdate()
     {
         if (_movement.x != 0)
-            _playerAudioControl.PlayWalkSoud();
+            _playerAudioControl.PlayWalkSound();
         
         _velocity = Vector3.Lerp(_velocity, _movement * movementSpeed, 0.2f);
 
@@ -112,7 +119,7 @@ public class PlayerControl : MonoBehaviour
         _animator.enabled = false;
         _sprite.sprite = playerSprites[(int)PlayerSprites.Shot];
         transform.GetChild(1).gameObject.SetActive(true);
-        _playerAudioControl.PlayShootArrowSoud();
+        _playerAudioControl.PlayShootArrowSound();
 
         StartCoroutine(CreateBullet());
     }
@@ -122,10 +129,9 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         
         var playerTransform = transform;
-        var bulletObject = Instantiate(bullet,  playerTransform.position + new Vector3(
-            playerTransform.rotation == Quaternion.Euler(0, 0, 0) ? -0.4f : 0.4f, 0.5f) ,playerTransform.rotation);
-    
-        Physics2D.IgnoreCollision(bulletObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        
+        Physics2D.IgnoreCollision(Instantiate(bullet,  playerTransform.position + new Vector3(
+            playerTransform.rotation == Quaternion.Euler(0, 0, 0) ? -0.4f : 0.4f, 0.5f) ,playerTransform.rotation).GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
     private void PlayAnimation()
@@ -134,17 +140,19 @@ public class PlayerControl : MonoBehaviour
         _sprite.sprite = playerSprites[(int)PlayerSprites.Idle];
         transform.GetChild(1).gameObject.SetActive(false);
 
-        if (_groundCollisions.Count == 0)
+        var shadow = transform.GetChild(0).gameObject;
+        
+        if (!IsGrounded())
         {
             if (_animator.runtimeAnimatorController == playerAnimations[(int)PlayerAnimationsNames.Jump])
                 return;
                 
             _animator.runtimeAnimatorController = playerAnimations[(int)PlayerAnimationsNames.Jump];
-            transform.GetChild(0).gameObject.SetActive(false);
+            shadow.SetActive(false);
         }
         else
         {
-            transform.GetChild(0).gameObject.SetActive(true);
+            shadow.SetActive(true);
             if (_movement != Vector3.zero)
             {
                 if (_animator.runtimeAnimatorController != playerAnimations[(int)PlayerAnimationsNames.Run])
@@ -165,25 +173,28 @@ public class PlayerControl : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") && collision.transform.position.y < transform.position.y - 0.9f )
-        {
-            _groundCollisions.Add(collision.gameObject);
-            transform.SetParent(collision.transform);
-            if (collision.gameObject.TryGetComponent<Platform>(out var platform) &&
-                platform.platformType == PlatformType.Temporar)
-                StartCoroutine(platform.DestroyTemporarPlatform());
-        }
-        
         if (collision.gameObject.CompareTag("Enemy"))
             _playerStatus.GetDamage(collision.transform.position, 5);
         
-        if (collision.gameObject.CompareTag("Death") && !_playerStatus.SpeedBuffActive)
+        if (collision.gameObject.CompareTag("Death") && !_playerStatus.speedBuffActive)
             _playerStatus.Die();
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+
+    private bool IsGrounded()
     {
-        if (collision.gameObject.CompareTag("Ground") && _groundCollisions.Contains(collision.gameObject))
-            _groundCollisions.Remove(collision.gameObject);
+        var playerPosition = transform.position;
+        foreach (var objectCollider in Physics2D.OverlapAreaAll(playerPosition + new Vector3(-0.35f, 0, 0), playerPosition + new Vector3(0.35f, -0.5f, 0)))
+        {
+            if (objectCollider.CompareTag("Ground"))
+            {
+                transform.SetParent(objectCollider.transform);
+                if (objectCollider.gameObject.TryGetComponent<Platform>(out var platform) &&
+                    platform.platformType == PlatformType.Temporary)
+                    StartCoroutine(platform.DestroyTemporaryPlatform());
+                return true;
+            }
+        }
+        return false;
     }
 }

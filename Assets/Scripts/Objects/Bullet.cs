@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class Bullet : MonoBehaviour
     private void Start() =>
         StartCoroutine(DestroyAfterDelay());
 
-    private System.Collections.IEnumerator DestroyAfterDelay()
+    private IEnumerator DestroyAfterDelay()
     {
         yield return new WaitForSeconds(9f);
         
@@ -17,10 +18,7 @@ public class Bullet : MonoBehaviour
 
         while (elapsedTime < 1f)
         {
-            var normalizedTime = elapsedTime / 1;
-            var fadeAlpha = Mathf.Lerp(1f, 0f, normalizedTime);
-
-            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, fadeAlpha);
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(1f, 0f, elapsedTime / 1));
 
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -37,7 +35,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
-            FindObjectOfType<PlayerStatus>().KillCounter++;
+            FindObjectOfType<PlayerStatus>().killCounter++;
         }
         else if (collision.gameObject.CompareTag("Ground"))
             Destroy(gameObject);

@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    
     public void StartEndlessRun() =>
         SceneManager.LoadScene("EndlessRun");
     

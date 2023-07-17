@@ -65,8 +65,8 @@ public class WorldGenerator : MonoBehaviour
         var startPoint = new Vector2((_lastChunk - 2) * 38.25f - 10, -10);
         var endPoint = new Vector2((_lastChunk - 1) * 38.25f - 2.55f, 30);
         
-        foreach (var collider in Physics2D.OverlapAreaAll(startPoint, endPoint))
-            Destroy(collider.gameObject);
+        foreach (var objectCollider in Physics2D.OverlapAreaAll(startPoint, endPoint))
+            Destroy(objectCollider.gameObject);
 
         foreach (var obj in FindObjectsOfType<GameObject>().Where(obj => obj.name == "Background" && IsWithinPoints(startPoint, endPoint, obj.transform.position)))
             Destroy(obj);
@@ -100,13 +100,6 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position)
-    {
-        var minX = Mathf.Min(startPoint.x, endPoint.x);
-        var maxX = Mathf.Max(startPoint.x, endPoint.x);
-        var minY = Mathf.Min(startPoint.y, endPoint.y);
-        var maxY = Mathf.Max(startPoint.y, endPoint.y);
-
-        return position.x >= minX && position.x <= maxX && position.y >= minY && position.y <= maxY;
-    }
+    private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position) => 
+        position.x >= Mathf.Min(startPoint.x, endPoint.x) && position.x <= Mathf.Max(startPoint.x, endPoint.x) && position.y >= Mathf.Min(startPoint.y, endPoint.y) && position.y <= Mathf.Max(startPoint.y, endPoint.y);
 }

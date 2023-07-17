@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 public static class Utils
 {
-    private readonly static System.Random Random = new(); 
+    private static readonly System.Random Random = new(); 
     
     public static int RandomPickNumberExcludingZero(int max) =>
         Random.Next(1, max);

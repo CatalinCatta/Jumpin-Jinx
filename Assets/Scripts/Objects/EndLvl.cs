@@ -10,7 +10,7 @@ public class EndLvl : MonoBehaviour
         
         var playerStatus = collision.transform.GetComponent<PlayerStatus>();
         
-        playerStatus.FreezedFromDamage = true;
+        playerStatus.freezeFromDamage = true;
         transform.GetComponent<Animator>().enabled = true;
         StartCoroutine(AnimationFinished(playerStatus));
     }

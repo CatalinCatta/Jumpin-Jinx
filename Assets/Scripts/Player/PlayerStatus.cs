@@ -5,19 +5,19 @@ using System.Collections;
     
 public class PlayerStatus : MonoBehaviour
 {
-    [SerializeField] private GameObject display;
+    [SerializeField] public GameObject display;
     [SerializeField] private bool endlessRun;
     
-    public int KillCounter;
+    public int killCounter;
     
     private int _coins;
     private int _hp;
     private int _speedBuffs;
     private int _jumpBuffs;
 
-    public bool FreezedFromDamage;
-    public bool SpeedBuffActive;
-    public bool JumpBuffActive;
+    public bool freezeFromDamage;
+    public bool speedBuffActive;
+    public bool jumpBuffActive;
 
     private PlayerControl _playerControl;
     private PlayerAudioControl _playerAudioControl;
@@ -82,24 +82,12 @@ public class PlayerStatus : MonoBehaviour
         if (_hp == 0)
             Die();
         
-        _playerAudioControl.PlayGetHitSoud();
+        _playerAudioControl.PlayGetHitSound();
     }
-
-    private void ShowLife() =>
-        display.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = _hp.ToString();
     
-    private void ShowCoins() =>
-        display.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
-
-    private void ShowSpeedBuffs() =>
-        display.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _speedBuffs.ToString();
-    
-    private void ShowJumpBuffs() =>
-        display.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = _jumpBuffs.ToString();
-
     private IEnumerator JumpTimer()
     {
-        JumpBuffActive = true;
+        jumpBuffActive = true;
         _playerControl.jumpPower *= 2;
         
         var timer = display.transform.GetChild(3).GetChild(0).GetChild(0).gameObject;
@@ -120,13 +108,13 @@ public class PlayerStatus : MonoBehaviour
         rectTransform.localPosition = initialPosition;
         timer.SetActive(false);
         
-        JumpBuffActive = false;
+        jumpBuffActive = false;
         _playerControl.jumpPower /= 2;
     }
     
     private IEnumerator SpeedTimer()
     {
-        SpeedBuffActive = true;
+        speedBuffActive = true;
         _playerControl.movementSpeed *= 2;
         
         var timer = display.transform.GetChild(2).GetChild(0).GetChild(0).gameObject;
@@ -147,13 +135,13 @@ public class PlayerStatus : MonoBehaviour
         rectTransform.localPosition = initialPosition;
         timer.SetActive(false);
        
-        SpeedBuffActive = false;
+        speedBuffActive = false;
         _playerControl.movementSpeed /= 2;
     }
     
     private IEnumerator MoveToDirection(float direction)
     {
-        FreezedFromDamage = true;
+        freezeFromDamage = true;
      
         var oldPosition = transform.position; 
         var targetPosition = new Vector3(oldPosition.x * 2.5f - direction * 1.5f, oldPosition.y + 1, -5);
@@ -167,16 +155,17 @@ public class PlayerStatus : MonoBehaviour
             elapsedTime += Time.deltaTime * 5;
             yield return null;
         }
-        
-        transform.GetComponent<SpriteRenderer>().color = Color.white;
-        transform.position = targetPosition;
 
-        FreezedFromDamage = false;
+        Transform selfTransform;
+        (selfTransform = transform).GetComponent<SpriteRenderer>().color = Color.white;
+        selfTransform.position = targetPosition;
+
+        freezeFromDamage = false;
     }
     
     public void Die()
     {
-        _playerAudioControl.PlayDieSoud();
+        _playerAudioControl.PlayDieSound();
         gameObject.SetActive(false);
         
         Time.timeScale = 0f;
@@ -193,7 +182,7 @@ public class PlayerStatus : MonoBehaviour
             var insideEndScreenFrame = endScreen.GetChild(0);
 
             insideEndScreenFrame.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
-            insideEndScreenFrame.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = KillCounter.ToString();
+            insideEndScreenFrame.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = killCounter.ToString();
             insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(transform.position.x / 2.55) + "m";
         }
         
@@ -212,4 +201,17 @@ public class PlayerStatus : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private void ShowLife() =>
+        display.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = _hp.ToString();
+    
+    private void ShowCoins() =>
+        display.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
+
+    private void ShowSpeedBuffs() =>
+        display.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _speedBuffs.ToString();
+    
+    private void ShowJumpBuffs() =>
+        display.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = _jumpBuffs.ToString();
+
 }
