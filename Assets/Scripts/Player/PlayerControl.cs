@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float movementSpeed = 15f;
-    public float jumpPower = 100f;
+    public float movementSpeed = 10f;
+    public float jumpPower = 1000f;
 
     private Vector3 _movement;
     private bool _jump;
     private Vector3 _velocity;
     private float _fireTimer;
     private bool _isFireActivated;
+    private Vector2 _smoothVelocity;
   
     private Animator _animator;
     private SpriteRenderer _sprite;
@@ -99,19 +100,14 @@ public class PlayerControl : MonoBehaviour
         if (_movement.x != 0)
             _playerAudioControl.PlayWalkSound();
         
-        _velocity = Vector3.Lerp(_velocity, _movement * movementSpeed, 0.2f);
+        var rigidBody = GetComponent<Rigidbody2D>();
 
-        var newPosition = transform.position + _velocity * Time.fixedDeltaTime;
+        rigidBody.velocity = new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y); //Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f);
 
-        if (_jump)
-        {
-            _velocity.y = jumpPower;
-            _jump = false;
-        }
+        if (!_jump) return;
 
-        _velocity.y += Physics.gravity.y * Time.fixedDeltaTime;
-
-        transform.position = newPosition;
+        rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower)); // Vector2.SmoothDamp (rigidBody.velocity, Vector2.up * jumpPower, ref _smoothVelocity, 0.1f);
+        _jump = false;
     }
     
     private void Fire()
@@ -184,16 +180,18 @@ public class PlayerControl : MonoBehaviour
     private bool IsGrounded()
     {
         var playerPosition = transform.position;
+        
         foreach (var objectCollider in Physics2D.OverlapAreaAll(playerPosition + new Vector3(-0.35f, 0, 0), playerPosition + new Vector3(0.35f, -0.5f, 0)))
         {
-            if (objectCollider.CompareTag("Ground"))
-            {
-                transform.SetParent(objectCollider.transform);
-                if (objectCollider.gameObject.TryGetComponent<Platform>(out var platform) &&
-                    platform.platformType == PlatformType.Temporary)
-                    StartCoroutine(platform.DestroyTemporaryPlatform());
-                return true;
-            }
+            if (!objectCollider.CompareTag("Ground"))
+                continue;
+            
+            transform.SetParent(objectCollider.transform);
+            if (objectCollider.gameObject.TryGetComponent<Platform>(out var platform) &&
+                platform.platformType == PlatformType.Temporary)
+                StartCoroutine(platform.DestroyTemporaryPlatform());
+            
+            return true;
         }
         return false;
     }

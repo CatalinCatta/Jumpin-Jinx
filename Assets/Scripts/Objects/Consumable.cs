@@ -12,8 +12,11 @@ public class Consumable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Physics2D.IgnoreCollision(collision.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
         if (!collision.gameObject.CompareTag("Player"))
             return;
+
 
         switch (consumableType)
         {
