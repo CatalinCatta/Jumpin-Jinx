@@ -36,7 +36,7 @@ public class SettingsMenu : MonoBehaviour
         StartCoroutine(MoveObject(SettingsManager.Instance.currentCategoryTab, true, false));
     }
 
-    private void OnDisable() => DeactivateAllCheckings();
+    private void OnDisable() => DeactivateAllChecking();
     
     private void Update()
     {
@@ -143,12 +143,15 @@ public class SettingsMenu : MonoBehaviour
         var currentTime = 0f;
         var objectToMove = transform.GetChild((int)settingsFrames).GetComponent<RectTransform>();
         
+        objectToMove.gameObject.SetActive(true);
+        
         while (currentTime < 0.5f)
         {
             currentTime += Time.deltaTime;
             
             if (settingsFrames == SettingsFrames.Categories)
-                objectToMove.anchoredPosition = new Vector2(Mathf.Lerp(isAppearing? -600f : 0f, isAppearing? 0f : -600f, currentTime / 0.5f), objectToMove.anchoredPosition.y);
+                objectToMove.anchoredPosition = 
+                    new Vector2(Mathf.Lerp(isAppearing? -600f : 0f, isAppearing? 0f : -600f, currentTime / 0.5f), objectToMove.anchoredPosition.y);
             else
             {
                 if (verticalRotation)
@@ -176,7 +179,7 @@ public class SettingsMenu : MonoBehaviour
     public void ChangeCategory(int settingsFrames)
     {
         if (settingsFrames == 2)
-            DeactivateAllCheckings();
+            DeactivateAllChecking();
         
         StartCoroutine(ChangeCategoryAnimation((SettingsFrames)settingsFrames));
     }
@@ -268,6 +271,10 @@ public class SettingsMenu : MonoBehaviour
 
     public void ShowDisplay()
     {
+        SettingsManager.Instance.resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
+        SettingsManager.Instance.fullscreen = Screen.fullScreen;
+        SettingsManager.Instance.vsync = QualitySettings.vSyncCount > 0;
+        
         var displayObject = transform.GetChild(3);
         var language = SettingsManager.Instance.language;
 
@@ -284,26 +291,22 @@ public class SettingsMenu : MonoBehaviour
         fullscreenToggleObject.GetChild(1).gameObject.SetActive(!SettingsManager.Instance.fullscreen);
         
         var vSyncToggleObject = displayObject.GetChild(2).GetChild(1);
-        vSyncToggleObject.GetChild(0).gameObject.SetActive(SettingsManager.Instance.fullscreen);
-        vSyncToggleObject.GetChild(1).gameObject.SetActive(!SettingsManager.Instance.fullscreen);
+        vSyncToggleObject.GetChild(0).gameObject.SetActive(SettingsManager.Instance.vsync);
+        vSyncToggleObject.GetChild(1).gameObject.SetActive(!SettingsManager.Instance.vsync);
         
-        var brightnessObject = displayObject.GetChild(3);
-        var brightnessVolume = SettingsManager.Instance.brightness;
-        brightnessObject.GetChild(0).GetComponent<TextMeshProUGUI>().text =
-            language == Language.English ? "Brightness" : "Luminozitate";
-        brightnessObject.GetChild(1).GetComponent<Slider>().value = brightnessVolume;
-        brightnessObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(brightnessVolume * 100) + "%";
-        
-        var languageObject = displayObject.GetChild(4);
-        var dropdown = languageObject.GetChild(1).GetComponent<TMP_Dropdown>();
+        var languageObject = displayObject.GetChild(3);
+        var dropdownObject = languageObject.GetChild(1);
+        var dropdown = dropdownObject.GetComponent<TMP_Dropdown>();
         languageObject.GetChild(0).GetComponent<TextMeshProUGUI>().text =
             language == Language.English ? "Language" : "Limba";
         dropdown.value = (int)SettingsManager.Instance.language;
-        dropdown.options[0].text = "Engleza";
-        dropdown.options[1].text = "Romana";
+        dropdown.options[0].text = language == Language.English ? "English" : "Engleza";
+        dropdown.options[1].text = language == Language.English ? "Romanian" : "Romana";
+        dropdownObject.GetChild(0).GetComponent<TextMeshProUGUI>().text =
+            language == Language.English ? "English" : "Romana";
     }
 
-    private void DeactivateAllCheckings()
+    private void DeactivateAllChecking()
     {
         _isCheckingForJump = false;
         transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.jumpKeyCode)!, @"(\p{Lu})", " $1").Trim();
@@ -333,6 +336,7 @@ public class SettingsMenu : MonoBehaviour
         var value = generalSoundObject.GetChild(1).GetComponent<Slider>().value;
         SettingsManager.Instance.generalVolume = value;
         generalSoundObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
+        SettingsManager.SetUpSound(FindObjectOfType<Camera>().transform);
     }
     
     public void SaveMusicVolume()
@@ -341,6 +345,7 @@ public class SettingsMenu : MonoBehaviour
         var value = musicObject.GetChild(1).GetComponent<Slider>().value;
         SettingsManager.Instance.musicVolume = value;
         musicObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
+        SettingsManager.SetUpSound(FindObjectOfType<Camera>().transform);
     }
     
     public void SaveSfxSound()
@@ -353,83 +358,86 @@ public class SettingsMenu : MonoBehaviour
 
     public void SaveJumpValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForJump = true;
         transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
     
     public void SaveMoveLeftValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForMoveLeft = true;
         transform.GetChild(2).GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
     
     public void SaveMoveRightValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForMoveRight = true;
         transform.GetChild(2).GetChild(2).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
     
     public void SaveFireValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForFire = true;
         transform.GetChild(2).GetChild(3).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
     
     public void SaveSpeedBuffValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForSpeedBuff = true;
         transform.GetChild(2).GetChild(4).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
     
     public void SaveJumpBuffValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForJumpBuff = true;
         transform.GetChild(2).GetChild(5).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
     
     public void SavePauseValue()
     {
-        DeactivateAllCheckings();
+        DeactivateAllChecking();
         _isCheckingForPause = true;
         transform.GetChild(2).GetChild(6).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
 
     public void SaveResolution()
     {
-        SettingsManager.Instance.resolution =
+        var isFullScreen = SettingsManager.Instance.fullscreen;
+        var resolutionBeforeTransformation =
             transform.GetChild(3).GetChild(0).GetChild(1).GetComponent<TMP_Dropdown>().value;
+        var resolution = Utils.ResolutionIndexToTuple(resolutionBeforeTransformation);
+     
+        SettingsManager.Instance.resolution = resolutionBeforeTransformation;
+        Screen.SetResolution(resolution.Item1, resolution.Item2, isFullScreen);
     }
     
     public void SaveFullscreen()
     {
-        SettingsManager.Instance.fullscreen =
-            transform.GetChild(3).GetChild(1).GetChild(1).GetChild(0).gameObject.activeSelf;
+        var isFullScreen = transform.GetChild(3).GetChild(1).GetChild(1).GetChild(0).gameObject.activeSelf;
+        var resolution = Utils.ResolutionIndexToTuple(SettingsManager.Instance.resolution);
+    
+        SettingsManager.Instance.fullscreen = isFullScreen;
+        Screen.SetResolution(resolution.Item1, resolution.Item2, isFullScreen);
     }
+
     
     public void SaveVsyncScreen()
     {
-        SettingsManager.Instance.fullscreen =
-            transform.GetChild(3).GetChild(2).GetChild(1).GetChild(0).gameObject.activeSelf;
+        var isVSyncEnabled = transform.GetChild(3).GetChild(2).GetChild(1).GetChild(0).gameObject.activeSelf;
+
+        QualitySettings.vSyncCount = isVSyncEnabled? 1 : 0;
+        SettingsManager.Instance.vsync = isVSyncEnabled;
     }
     
-    public void SaveBrightnessScreen()
-    {
-        var brightnessObject = transform.GetChild(3).GetChild(3);
-        var value = brightnessObject.GetChild(1).GetComponent<Slider>().value;
-        SettingsManager.Instance.brightness = value;
-        brightnessObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
-    }
-
     public void SaveLanguage()
     {
         SettingsManager.Instance.language =
-            (Language)transform.GetChild(3).GetChild(4).GetChild(1).GetComponent<TMP_Dropdown>().value;
+            (Language)transform.GetChild(3).GetChild(3).GetChild(1).GetComponent<TMP_Dropdown>().value;
         ShowDisplay();
         FindObjectOfType<Menu>().SetUpLanguage();
     }

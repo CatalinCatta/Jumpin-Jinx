@@ -18,12 +18,11 @@ public class SettingsManager: MonoBehaviour
     public KeyCode jumpBuffKeyCode = KeyCode.LeftControl;
     public KeyCode pauseKeyCode = KeyCode.Escape;
 
-    public int resolution = 15;
+    public int resolution = 14;
     public bool fullscreen = true;
     public bool vsync = true;
-    public float brightness = 0.5f;
     public Language language = Language.English;
-    
+
     private void Awake()
     {
         if (Instance != null)
@@ -35,4 +34,9 @@ public class SettingsManager: MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    
+    public static void SetUpSound(Transform camera) =>
+        camera.GetComponent<AudioSource>().volume =
+            Instance.musicVolume * Instance.generalVolume / 2;
+
 }

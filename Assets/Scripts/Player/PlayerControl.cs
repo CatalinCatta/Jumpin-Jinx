@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    private bool _movementTestActive;
+    
+    
     public float movementSpeed = 10f;
     public float jumpPower = 1000f;
 
@@ -51,7 +54,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(SettingsManager.Instance.pauseKeyCode))
         {
             Time.timeScale = Math.Abs(Time.timeScale - 1f);
             _playerStatus.display.transform.parent.GetChild(1).gameObject.SetActive(Time.timeScale < 1f);
@@ -64,10 +67,10 @@ public class PlayerControl : MonoBehaviour
         if (!IsGrounded())
             transform.SetParent(null);
             
-        _movement = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ? Vector3.left :
-            Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? Vector3.right : Vector3.zero;
+        _movement = Input.GetKey(SettingsManager.Instance.moveLeftKeyCode) ? Vector3.left :
+            Input.GetKey(SettingsManager.Instance.moveRightKeyCode) ? Vector3.right : Vector3.zero;
 
-        if (IsGrounded() && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        if (IsGrounded() && Input.GetKeyDown(SettingsManager.Instance.jumpKeyCode))
         {
             _playerAudioControl.PlayJumpSound();
             _jump = true;
@@ -75,13 +78,13 @@ public class PlayerControl : MonoBehaviour
         
         FlipCharacter();
     
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !_playerStatus.jumpBuffActive)
+        if (Input.GetKeyDown(SettingsManager.Instance.jumpBuffKeyCode) && !_playerStatus.jumpBuffActive)
             _playerStatus.ConsumeJumpBuff();
     
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && !_playerStatus.speedBuffActive)
+        if (Input.GetKeyDown(SettingsManager.Instance.speedBuffKeyCode) && !_playerStatus.speedBuffActive)
             _playerStatus.ConsumeSpeedBuff();
     
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(SettingsManager.Instance.fireKeyCode))
         {
             Fire();
             _fireTimer = Time.time;
@@ -102,13 +105,22 @@ public class PlayerControl : MonoBehaviour
         
         var rigidBody = GetComponent<Rigidbody2D>();
 
-        rigidBody.velocity = new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y); //Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f);
+        rigidBody.velocity = _movementTestActive ?Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f) : new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y); //Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f);
 
         if (!_jump) return;
 
-        rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower)); // Vector2.SmoothDamp (rigidBody.velocity, Vector2.up * jumpPower, ref _smoothVelocity, 0.1f);
+        if (_movementTestActive)
+            rigidBody.velocity =
+                Vector2.SmoothDamp(rigidBody.velocity, Vector2.up * jumpPower / 5f, ref _smoothVelocity, 0.1f);
+        else
+            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower)); // Vector2.SmoothDamp (rigidBody.velocity, Vector2.up * jumpPower, ref _smoothVelocity, 0.1f);
+      
         _jump = false;
     }
+
+    public void ChangeMovementTest() =>
+        _movementTestActive = !_movementTestActive;
+    
     
     private void Fire()
     {
@@ -171,12 +183,15 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
             _playerStatus.GetDamage(collision.transform.position, 5);
-        
-        if (collision.gameObject.CompareTag("Death") && !_playerStatus.speedBuffActive)
-            _playerStatus.Die();
     }
 
-
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        foreach (ContactPoint2D contact in collision.contacts)
+            if (contact.collider.gameObject.CompareTag("Death") && !_playerStatus.speedBuffActive)
+                _playerStatus.Die();
+    }
+    
     private bool IsGrounded()
     {
         var playerPosition = transform.position;

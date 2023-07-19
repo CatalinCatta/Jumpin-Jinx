@@ -1543,6 +1543,7 @@ GameObject:
   - component: {fileID: 573134195}
   - component: {fileID: 573134194}
   - component: {fileID: 573134193}
+  - component: {fileID: 573134197}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1712,6 +1713,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &573134197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573134192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794a919af7b394f47a0ab74767a6f6f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &592138081
 GameObject:
   m_ObjectHideFlags: 0
@@ -4107,6 +4120,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1623715889}
     m_Modifications:
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1667448466}
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ChangeMovementTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PlayerControl, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319217564308684351, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: currentLevel
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7932450579412689140, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
       propertyPath: m_Name
       value: UniversalUI
@@ -4262,12 +4307,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5960479789122573676, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 6abe4cb9074b0644db103760cbfb272d, type: 2}
+    - target: {fileID: 5960479789122573676, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5960479789122573677, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
+      propertyPath: jumpPower
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5960479789122573678, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
       propertyPath: display
       value: 
       objectReference: {fileID: 1656846805}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
+--- !u!114 &1667448466 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5960479789122573677, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
+  m_PrefabInstance: {fileID: 1667448465}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e729a90f63c07442985a48c6f58ad83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1686416368
 PrefabInstance:
   m_ObjectHideFlags: 0

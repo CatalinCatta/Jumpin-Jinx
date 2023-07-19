@@ -303,10 +303,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   display: {fileID: 7932450579412689140, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
   endlessRun: 0
-  KillCounter: 0
-  FreezedFromDamage: 0
-  SpeedBuffActive: 0
-  JumpBuffActive: 0
+  killCounter: 0
+  freezeFromDamage: 0
+  speedBuffActive: 0
+  jumpBuffActive: 0
 --- !u!82 &2201457601114789762
 AudioSource:
   m_ObjectHideFlags: 0

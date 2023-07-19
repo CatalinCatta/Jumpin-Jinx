@@ -88,7 +88,7 @@ public class PlayerStatus : MonoBehaviour
     private IEnumerator JumpTimer()
     {
         jumpBuffActive = true;
-        _playerControl.jumpPower *= 2;
+        _playerControl.jumpPower *= 1.5f;
         
         var timer = display.transform.GetChild(3).GetChild(0).GetChild(0).gameObject;
         var rectTransform = timer.GetComponent<RectTransform>();
@@ -109,7 +109,7 @@ public class PlayerStatus : MonoBehaviour
         timer.SetActive(false);
         
         jumpBuffActive = false;
-        _playerControl.jumpPower /= 2;
+        _playerControl.jumpPower /= 1.5f;
     }
     
     private IEnumerator SpeedTimer()

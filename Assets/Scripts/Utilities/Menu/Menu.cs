@@ -4,7 +4,11 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    private void OnEnable() => SetUpLanguage();
+    private void Start()
+    {
+        Time.timeScale = 1f;
+        SetUpLanguage();
+    }
 
     public void SetUpLanguage()
     {
@@ -32,7 +36,7 @@ public class Menu : MonoBehaviour
         settings.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
             language == Language.English ? "Back" : "Inapoi";
     }
-    
+
     public void StartEndlessRun() =>
         SceneManager.LoadScene("EndlessRun");
     

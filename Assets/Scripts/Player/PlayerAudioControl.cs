@@ -15,30 +15,40 @@ public class PlayerAudioControl : MonoBehaviour
 
     public void PlayWalkSound() 
     {
+        _audioSource.volume =
+            SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
         _audioSource.clip = walk;
         _audioSource.Play();
     }
     
     public void PlayJumpSound() 
     {
+        _audioSource.volume =
+            SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
         _audioSource.clip = jump;
         _audioSource.Play();
     }
     
     public void PlayGetHitSound() 
     {
+        _audioSource.volume =
+            SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
         _audioSource.clip = getHit;
         _audioSource.Play();
     }
     
     public void PlayDieSound() 
     {
+        _audioSource.volume =
+            SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
         _audioSource.clip = die;
         _audioSource.Play();
     }
     
     public void PlayShootArrowSound() 
     {
+        _audioSource.volume =
+            SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
         _audioSource.clip = shootArrow;
         _audioSource.Play();
     }
