@@ -1,12 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using System;
 using System.Text.RegularExpressions;
 
 public class SettingsMenu : MonoBehaviour
 {
+    private bool _isCheckingForJump;
+    private bool _isCheckingForMoveLeft;
+    private bool _isCheckingForMoveRight;
+    private bool _isCheckingForFire;
+    private bool _isCheckingForSpeedBuff;
+    private bool _isCheckingForJumpBuff;
+    private bool _isCheckingForPause;
+    
     private void OnEnable()
     {
         StartCoroutine(MoveObject(SettingsFrames.Categories, true, false));
@@ -26,13 +35,109 @@ public class SettingsMenu : MonoBehaviour
         
         StartCoroutine(MoveObject(SettingsManager.Instance.currentCategoryTab, true, false));
     }
+
+    private void OnDisable() => DeactivateAllCheckings();
     
+    private void Update()
+    {
+        if (!_isCheckingForJump && !_isCheckingForMoveLeft && !_isCheckingForMoveRight && !_isCheckingForFire && !_isCheckingForSpeedBuff && !_isCheckingForJumpBuff && !_isCheckingForPause)
+            return;
+        
+        foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+        {
+            if (!Input.GetKeyDown(keyCode) || KeyAllreadyInUse(keyCode))
+                continue;
+            
+            if(_isCheckingForJump)
+            {
+                transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.jumpKeyCode = keyCode;
+                _isCheckingForJump = false;
+                return;
+            }
+            if(_isCheckingForMoveLeft)
+            {
+                transform.GetChild(2).GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.moveLeftKeyCode = keyCode;
+                _isCheckingForMoveLeft = false;
+                return;
+            }
+            if(_isCheckingForMoveRight)
+            {
+                transform.GetChild(2).GetChild(2).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.moveRightKeyCode = keyCode;
+                _isCheckingForMoveRight = false;
+                return;
+            }
+            if(_isCheckingForFire)
+            {
+                transform.GetChild(2).GetChild(3).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.fireKeyCode = keyCode;
+                _isCheckingForFire = false;
+                return;
+            }
+            if(_isCheckingForSpeedBuff)
+            {
+                transform.GetChild(2).GetChild(4).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.speedBuffKeyCode = keyCode;
+                _isCheckingForSpeedBuff = false;
+                return;
+            }
+            if(_isCheckingForJumpBuff)
+            {
+                transform.GetChild(2).GetChild(5).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.jumpBuffKeyCode = keyCode;
+                _isCheckingForJumpBuff = false;
+                return;
+            }
+            if(_isCheckingForPause)
+            {
+                transform.GetChild(2).GetChild(6).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+                SettingsManager.Instance.pauseKeyCode = keyCode;
+                _isCheckingForPause = false;
+                return;
+            }
+        }
+    }
+
     public void HideSettings()
     {
         StartCoroutine(MoveObject(SettingsFrames.Categories, false, false));
         StartCoroutine(MoveObject(SettingsManager.Instance.currentCategoryTab, false, false));
     }
 
+    private bool KeyAllreadyInUse(KeyCode keyCode)
+    {
+        var allKeyCodes = new List<KeyCode>
+        {
+            SettingsManager.Instance.jumpKeyCode,
+            SettingsManager.Instance.moveLeftKeyCode,
+            SettingsManager.Instance.moveRightKeyCode,
+            SettingsManager.Instance.fireKeyCode,
+            SettingsManager.Instance.speedBuffKeyCode,
+            SettingsManager.Instance.jumpBuffKeyCode,
+            SettingsManager.Instance.pauseKeyCode
+        };
+        
+        if (_isCheckingForJump)
+            allKeyCodes.RemoveAt(0);
+        if (_isCheckingForMoveLeft)
+            allKeyCodes.RemoveAt(1);
+        if (_isCheckingForMoveRight)
+            allKeyCodes.RemoveAt(2);
+        if (_isCheckingForFire)
+            allKeyCodes.RemoveAt(3);
+        if (_isCheckingForSpeedBuff)
+            allKeyCodes.RemoveAt(4);
+        if (_isCheckingForJumpBuff)
+            allKeyCodes.RemoveAt(5);
+        if (_isCheckingForPause)
+            allKeyCodes.RemoveAt(6);
+
+        return allKeyCodes.Contains(keyCode);
+    }
+    
+    
     private IEnumerator MoveObject(SettingsFrames settingsFrames, bool isAppearing, bool verticalRotation)
     {
         var currentTime = 0f;
@@ -68,9 +173,14 @@ public class SettingsMenu : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    public void ChangeCategory(int settingsFrames) =>
+    public void ChangeCategory(int settingsFrames)
+    {
+        if (settingsFrames == 2)
+            DeactivateAllCheckings();
+        
         StartCoroutine(ChangeCategoryAnimation((SettingsFrames)settingsFrames));
-
+    }
+    
     private IEnumerator ChangeCategoryAnimation(SettingsFrames settingsFrames)
     {
         StartCoroutine(MoveObject(SettingsManager.Instance.currentCategoryTab, false, true));
@@ -90,10 +200,10 @@ public class SettingsMenu : MonoBehaviour
     {
         var soundsObject = transform.GetChild(1);
         
-        var genericSoundsObject = soundsObject.GetChild(0);
-        var genericVolume = SettingsManager.Instance.generalVolume;
-        genericSoundsObject.GetChild(1).GetComponent<Slider>().value = genericVolume;
-        genericSoundsObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(genericVolume * 100) + "%";
+        var generalSoundsObject = soundsObject.GetChild(0);
+        var generalVolume = SettingsManager.Instance.generalVolume;
+        generalSoundsObject.GetChild(1).GetComponent<Slider>().value = generalVolume;
+        generalSoundsObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(generalVolume * 100) + "%";
         
         var musicSoundsObject = soundsObject.GetChild(1);
         var musicVolume = SettingsManager.Instance.musicVolume;
@@ -184,7 +294,6 @@ public class SettingsMenu : MonoBehaviour
         brightnessObject.GetChild(1).GetComponent<Slider>().value = brightnessVolume;
         brightnessObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(brightnessVolume * 100) + "%";
         
-        
         var languageObject = displayObject.GetChild(4);
         var dropdown = languageObject.GetChild(1).GetComponent<TMP_Dropdown>();
         languageObject.GetChild(0).GetComponent<TextMeshProUGUI>().text =
@@ -192,5 +301,136 @@ public class SettingsMenu : MonoBehaviour
         dropdown.value = (int)SettingsManager.Instance.language;
         dropdown.options[0].text = "Engleza";
         dropdown.options[1].text = "Romana";
+    }
+
+    private void DeactivateAllCheckings()
+    {
+        _isCheckingForJump = false;
+        transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.jumpKeyCode)!, @"(\p{Lu})", " $1").Trim();
+        
+        _isCheckingForMoveLeft = false;
+        transform.GetChild(2).GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.moveLeftKeyCode)!, @"(\p{Lu})", " $1").Trim();
+        
+        _isCheckingForMoveRight = false;
+        transform.GetChild(2).GetChild(2).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.moveRightKeyCode)!, @"(\p{Lu})", " $1").Trim();
+        
+        _isCheckingForFire = false;
+        transform.GetChild(2).GetChild(3).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.fireKeyCode)!, @"(\p{Lu})", " $1").Trim();
+        
+        _isCheckingForSpeedBuff = false;
+        transform.GetChild(2).GetChild(4).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.speedBuffKeyCode)!, @"(\p{Lu})", " $1").Trim();
+        
+        _isCheckingForJumpBuff = false;
+        transform.GetChild(2).GetChild(5).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.jumpBuffKeyCode)!, @"(\p{Lu})", " $1").Trim();
+        
+        _isCheckingForPause = false;
+        transform.GetChild(2).GetChild(6).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.pauseKeyCode)!, @"(\p{Lu})", " $1").Trim();
+    }
+    
+    public void SaveGeneralSoundsVolume()
+    {
+        var generalSoundObject = transform.GetChild(1).GetChild(0);
+        var value = generalSoundObject.GetChild(1).GetComponent<Slider>().value;
+        SettingsManager.Instance.generalVolume = value;
+        generalSoundObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
+    }
+    
+    public void SaveMusicVolume()
+    {
+        var musicObject = transform.GetChild(1).GetChild(1);
+        var value = musicObject.GetChild(1).GetComponent<Slider>().value;
+        SettingsManager.Instance.musicVolume = value;
+        musicObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
+    }
+    
+    public void SaveSfxSound()
+    {
+        var sfxObject = transform.GetChild(1).GetChild(2);
+        var value = sfxObject.GetChild(1).GetComponent<Slider>().value;
+        SettingsManager.Instance.soundEffectVolume = value;
+        sfxObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
+    }
+
+    public void SaveJumpValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForJump = true;
+        transform.GetChild(2).GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+    
+    public void SaveMoveLeftValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForMoveLeft = true;
+        transform.GetChild(2).GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+    
+    public void SaveMoveRightValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForMoveRight = true;
+        transform.GetChild(2).GetChild(2).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+    
+    public void SaveFireValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForFire = true;
+        transform.GetChild(2).GetChild(3).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+    
+    public void SaveSpeedBuffValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForSpeedBuff = true;
+        transform.GetChild(2).GetChild(4).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+    
+    public void SaveJumpBuffValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForJumpBuff = true;
+        transform.GetChild(2).GetChild(5).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+    
+    public void SavePauseValue()
+    {
+        DeactivateAllCheckings();
+        _isCheckingForPause = true;
+        transform.GetChild(2).GetChild(6).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+    }
+
+    public void SaveResolution()
+    {
+        SettingsManager.Instance.resolution =
+            transform.GetChild(3).GetChild(0).GetChild(1).GetComponent<TMP_Dropdown>().value;
+    }
+    
+    public void SaveFullscreen()
+    {
+        SettingsManager.Instance.fullscreen =
+            transform.GetChild(3).GetChild(1).GetChild(1).GetChild(0).gameObject.activeSelf;
+    }
+    
+    public void SaveVsyncScreen()
+    {
+        SettingsManager.Instance.fullscreen =
+            transform.GetChild(3).GetChild(2).GetChild(1).GetChild(0).gameObject.activeSelf;
+    }
+    
+    public void SaveBrightnessScreen()
+    {
+        var brightnessObject = transform.GetChild(3).GetChild(3);
+        var value = brightnessObject.GetChild(1).GetComponent<Slider>().value;
+        SettingsManager.Instance.brightness = value;
+        brightnessObject.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(value * 100) + "%";
+    }
+
+    public void SaveLanguage()
+    {
+        SettingsManager.Instance.language =
+            (Language)transform.GetChild(3).GetChild(4).GetChild(1).GetComponent<TMP_Dropdown>().value;
+        ShowDisplay();
+        FindObjectOfType<Menu>().SetUpLanguage();
     }
 }
