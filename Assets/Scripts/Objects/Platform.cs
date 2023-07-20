@@ -20,11 +20,14 @@ public class Platform : MonoBehaviour
     [SerializeField] private GameObject heal;
     [SerializeField] private Sprite dirt;
     
-    [SerializeField] private bool endlessRun = true; 
+    [SerializeField] public bool endlessRun;
+
+    private bool _autoDesturctionStarted;
     
     private void Start()
     {
-        _spriteRenderer = transform.GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        
         if (endlessRun) 
             PlantEnvironment();
         movement = movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : movement;
@@ -78,15 +81,15 @@ public class Platform : MonoBehaviour
                 return;
             case < 10:              //Spike
                 if (platformType != PlatformType.Temporary)
-                    Instantiate(spike, selfPosition + Vector3.up * 1.5f + Vector3.back, Quaternion.identity, selfTransform);
+                    Instantiate(spike, selfPosition + Vector3.up * 0.75f + Vector3.back, Quaternion.identity, selfTransform);
                 return;
                 
             case < 25:              // Coin
-                Instantiate(coin, selfPosition + Vector3.up * 3, Quaternion.identity, selfTransform);
+                Instantiate(coin, selfPosition + Vector3.up * 1.5f, Quaternion.identity, selfTransform);
                 return;
                 
             case < 30:              // Coin
-                Instantiate(heal, selfPosition + Vector3.up * 3, Quaternion.identity, selfTransform);
+                Instantiate(heal, selfPosition + Vector3.up * 1.5f, Quaternion.identity, selfTransform);
                 return;
 
             case < 60:              // Plants
@@ -102,12 +105,12 @@ public class Platform : MonoBehaviour
     private void CreatePlant()
     {
         var random = new System.Random();
-        var randomPlant = Utils.RandomPickNumberExcludingZero(plants.Count);
+        var randomPlant = Utils.RandomPickNumberBetween(0, plants.Count);
         
         var plant = new GameObject("Plant");
         plant.transform.SetParent(transform);
-        plant.transform.localPosition = new Vector3((float)(random.NextDouble() * 2 - 1), 
-            (float)(random.NextDouble() * 0.5f) + (randomPlant > 1 ? 0.9f : 3f), -1);
+        plant.transform.localPosition = new Vector3((float)(random.NextDouble() - 0.5f), 
+            (float)(random.NextDouble() / 4) + (randomPlant > 1 ? 0.45f : 1.5f), -1);
         
         plant.AddComponent<SpriteRenderer>().sprite = plants[randomPlant];
     }
@@ -152,6 +155,11 @@ public class Platform : MonoBehaviour
 
     public IEnumerator DestroyTemporaryPlatform()
     {
+        if (_autoDesturctionStarted)
+            yield break;
+
+        _autoDesturctionStarted = true;
+        
         var elapsedTime = 0f;
         var originalColor = _spriteRenderer.color;
 
@@ -162,10 +170,10 @@ public class Platform : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        _spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
         string[] entitiesTags = { "Player", "Enemy", "Consumable" };
             
+        _spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+
         if (transform.childCount > 0)
             for (var i = 0; i < transform.childCount; i++)
                 if (entitiesTags.Contains(transform.GetChild(i).tag))

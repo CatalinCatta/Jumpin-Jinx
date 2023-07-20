@@ -5,6 +5,8 @@ public class SettingsManager: MonoBehaviour
     public static SettingsManager Instance;
    
     public SettingsFrames currentCategoryTab = SettingsFrames.Sounds;
+
+    public bool darkModeOn;
     
     public float generalVolume = 1f;
     public float musicVolume = 0.5f;

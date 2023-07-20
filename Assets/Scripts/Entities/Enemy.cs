@@ -3,6 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _direction;
+    private Vector2 _smoothVelocity;
     
     private void Start()
     {
@@ -22,16 +23,18 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        var hit = Physics2D.Raycast(transform.position + Vector3.right* _direction, Vector3.down, 1.5f);
+        var rigidBody = GetComponent<Rigidbody2D>();
+
+        var hit = Physics2D.Raycast(transform.position + Vector3.right * _direction, Vector2.down, 0.75f);
 
         if (hit.collider != null && ((hit.collider.CompareTag("Ground") &&
-                                      transform.position.y - hit.transform.position.y is > 1.1f and < 1.4f) ||
+                                      transform.position.y - hit.transform.position.y is > 0.5f and < 0.9f) ||
                                      hit.collider.CompareTag("Player")))
-            transform.Translate(Vector3.right * 0.03f );
+            rigidBody.velocity = Vector2.SmoothDamp(rigidBody.velocity, Vector2.right * _direction * 3, ref _smoothVelocity, 0.1f);
         else
         {
             _direction *= -1f;
-            transform.rotation = Quaternion.Euler(0, (_direction - 1 ) * -90 , 0);
+            transform.rotation = Quaternion.Euler(0, (_direction - 1) * -90, 0);
         }
     }
 }

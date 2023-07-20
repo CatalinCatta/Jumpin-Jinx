@@ -188,7 +188,7 @@ public class PlayerControl : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         foreach (ContactPoint2D contact in collision.contacts)
-            if (contact.collider.gameObject.CompareTag("Death") && !_playerStatus.speedBuffActive)
+            if (contact.collider.gameObject.CompareTag("Death") && !_playerStatus.speedBuffActive && !IsGrounded())
                 _playerStatus.Die();
     }
     

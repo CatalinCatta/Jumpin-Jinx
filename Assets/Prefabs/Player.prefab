@@ -118,11 +118,11 @@ GameObject:
   - component: {fileID: 5960479789122573665}
   - component: {fileID: 5960479789122573664}
   - component: {fileID: 5960479789122573676}
-  - component: {fileID: 5960479789122573667}
   - component: {fileID: 5960479789122573677}
   - component: {fileID: 5960479789122573678}
   - component: {fileID: 2201457601114789762}
   - component: {fileID: 5938719575070603388}
+  - component: {fileID: 4817724260482578875}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -235,38 +235,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_GravityScale: 5
+  m_Material: {fileID: 6200000, guid: 6abe4cb9074b0644db103760cbfb272d, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &5960479789122573667
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5960479789122573671}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.018441439, y: 0.6602863}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.1}
-    oldSize: {x: 2.7692308, y: 2.3076923}
-    newSize: {x: 2.7692308, y: 2.3076923}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.88820314, y: 1.2841918}
-  m_EdgeRadius: 0
 --- !u!114 &5960479789122573677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  jumpPower: 100
+  jumpPower: 1000
   playerAnimations:
   - {fileID: 9100000, guid: 8b793cae8fffcc14590914dae16f6965, type: 2}
   - {fileID: 9100000, guid: be5c1c9a8091caf4eaf7f0618daaade4, type: 2}
@@ -420,6 +394,22 @@ MonoBehaviour:
   getHit: {fileID: 8300000, guid: 02225e9dc16c62f40b818150e7f4085f, type: 3}
   die: {fileID: 8300000, guid: 0f9cefead84c1d24d8fd087ec7d96649, type: 3}
   shootArrow: {fileID: 8300000, guid: 941f532a4364e6b4cadeea1f2c4d97bd, type: 3}
+--- !u!70 &4817724260482578875
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5960479789122573671}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.65}
+  m_Size: {x: 0.9, y: 1.3}
+  m_Direction: 0
 --- !u!1 &5960479789680931790
 GameObject:
   m_ObjectHideFlags: 0
