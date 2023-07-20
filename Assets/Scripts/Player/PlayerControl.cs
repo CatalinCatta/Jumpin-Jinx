@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -100,12 +101,16 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_playerStatus.freezeFromDamage)
+            return;
+        
         if (_movement.x != 0)
             _playerAudioControl.PlayWalkSound();
         
         var rigidBody = GetComponent<Rigidbody2D>();
-
-        rigidBody.velocity = _movementTestActive ?Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f) : new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y); //Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f);
+        
+        rigidBody.velocity = 
+            _movementTestActive ?Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f) : new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y); //Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f);
 
         if (!_jump) return;
 
@@ -182,12 +187,19 @@ public class PlayerControl : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
-            _playerStatus.GetDamage(collision.transform.position, 5);
+        {
+            var colliderSize = (Vector3)Utils.GetColliderSize(collision);
+            var position = transform.position;
+            var colliderPosition = collision.transform.position;
+            Debug.Log((Vector3)Utils.GetColliderSize(collision));
+            _playerStatus.GetDamage(
+                position - colliderPosition - new Vector3(colliderSize.x * (position.x < colliderPosition.x ? 1 : -1) , colliderSize.y * (position.y < colliderPosition.y ? 1 : -1), 0) , 5);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        foreach (ContactPoint2D contact in collision.contacts)
+        foreach (var contact in collision.contacts)
             if (contact.collider.gameObject.CompareTag("Death") && !_playerStatus.speedBuffActive && !IsGrounded())
                 _playerStatus.Die();
     }

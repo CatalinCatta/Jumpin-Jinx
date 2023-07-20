@@ -22,6 +22,8 @@ public class PlayerStatus : MonoBehaviour
     private PlayerControl _playerControl;
     private PlayerAudioControl _playerAudioControl;
 
+    private IEnumerator _knockBack;
+
     private void Awake()
     {
         _playerControl = transform.GetComponent<PlayerControl>();
@@ -38,7 +40,6 @@ public class PlayerStatus : MonoBehaviour
         ShowLife();
         ShowJumpBuffs();
         ShowSpeedBuffs();
-        
     }
 
     public void AddCoin()
@@ -73,16 +74,29 @@ public class PlayerStatus : MonoBehaviour
         ShowLife();
     }
 
+    public bool test;
+    
     public void GetDamage(Vector3 direction, int amount)
     {
         _hp -= amount;
         ShowLife();
-        StartCoroutine(MoveToDirection(direction.x));
+
+        if (_knockBack != null)
+            StopCoroutine(_knockBack);
+        
+        freezeFromDamage = true;
+        
+        GetComponent<Rigidbody2D>().velocity = 
+            new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);
+
+        _knockBack = MoveToDirection(direction.x);
+        StartCoroutine(_knockBack);
+        
+        _playerAudioControl.PlayGetHitSound();
         
         if (_hp == 0)
             Die();
-        
-        _playerAudioControl.PlayGetHitSound();
+
     }
     
     private IEnumerator JumpTimer()
@@ -138,27 +152,16 @@ public class PlayerStatus : MonoBehaviour
         speedBuffActive = false;
         _playerControl.movementSpeed /= 2;
     }
-    
+
     private IEnumerator MoveToDirection(float direction)
     {
-        freezeFromDamage = true;
-     
-        var oldPosition = transform.position; 
-        var targetPosition = new Vector3(oldPosition.x * 2.5f - direction * 1.5f, oldPosition.y + 1, -5);
-        var elapsedTime = 0f;
-
-        transform.GetComponent<SpriteRenderer>().color = Color.red;
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+            
+        spriteRenderer.color = Color.red;
         
-        while (elapsedTime < 1f)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, elapsedTime);
-            elapsedTime += Time.deltaTime * 5;
-            yield return null;
-        }
-
-        Transform selfTransform;
-        (selfTransform = transform).GetComponent<SpriteRenderer>().color = Color.white;
-        selfTransform.position = targetPosition;
+        yield return new WaitForSeconds(0.3f);
+        
+        spriteRenderer.color = Color.white;
 
         freezeFromDamage = false;
     }

@@ -8,48 +8,64 @@ public class PlayerAudioControl : MonoBehaviour
     [SerializeField] private AudioClip die;
     [SerializeField] private AudioClip shootArrow;
 
+    private AudioSource _audioSourceWalk;
+    private AudioSource _audioSourceJump;
+    private AudioSource _audioSourceGetHit;
+    private AudioSource _audioSourceDie;
+    private AudioSource _audioSourceShootArrow;
+    
     private AudioSource _audioSource;
 
-    private void Start() =>
-        _audioSource = transform.GetComponent<AudioSource>();
+    private void Start()
+    {
+        _audioSourceWalk = gameObject.AddComponent<AudioSource>();
+        _audioSourceWalk.clip = walk;
+        
+        _audioSourceJump = gameObject.AddComponent<AudioSource>();
+        _audioSourceJump.clip = jump;
+        
+        _audioSourceGetHit = gameObject.AddComponent<AudioSource>();
+        _audioSourceGetHit.clip = getHit;
+        
+        _audioSourceDie = gameObject.AddComponent<AudioSource>();
+        _audioSourceDie.clip = die;
+        
+        _audioSourceShootArrow = gameObject.AddComponent<AudioSource>();
+        _audioSourceShootArrow.clip = shootArrow;
+    }
 
     public void PlayWalkSound() 
     {
-        _audioSource.volume =
+        _audioSourceWalk.volume =
             SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
-        _audioSource.clip = walk;
-        _audioSource.Play();
+        _audioSourceWalk.Play();
     }
     
     public void PlayJumpSound() 
     {
-        _audioSource.volume =
+        _audioSourceJump.volume =
             SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
-        _audioSource.clip = jump;
-        _audioSource.Play();
+        _audioSourceJump.Play();
     }
     
     public void PlayGetHitSound() 
     {
-        _audioSource.volume =
+        _audioSourceGetHit.volume =
             SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
-        _audioSource.clip = getHit;
-        _audioSource.Play();
+        _audioSourceGetHit.Play();
     }
     
     public void PlayDieSound() 
     {
-        _audioSource.volume =
+        _audioSourceDie.volume =
             SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
-        _audioSource.clip = die;
-        _audioSource.Play();
+        _audioSourceDie.Play();
     }
     
     public void PlayShootArrowSound() 
     {
-        _audioSource.volume =
+        _audioSourceShootArrow.volume =
             SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;
-        _audioSource.clip = shootArrow;
-        _audioSource.Play();
+        _audioSourceShootArrow.Play();
     }
 }

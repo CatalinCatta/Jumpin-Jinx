@@ -31,11 +31,11 @@ public class WorldGenerator : MonoBehaviour
     {
 
         _platformsLengths = new []{
-            Utils.RandomPickNumberExcludingZero(20), Utils.RandomPickNumberExcludingZero(14), Utils.RandomPickNumberExcludingZero(8), Utils.RandomPickNumberExcludingZero(8), Utils.RandomPickNumberExcludingZero(4)
+            Utils.RandomPickNumberExcludingZero(25), Utils.RandomPickNumberExcludingZero(20), Utils.RandomPickNumberExcludingZero(15), Utils.RandomPickNumberExcludingZero(10), Utils.RandomPickNumberExcludingZero(5)
         };
         
         _platformsGaps =  new []{
-            Utils.RandomPickNumberExcludingZero(6), Utils.RandomPickNumberExcludingZero(14), Utils.RandomPickNumberExcludingZero(20), Utils.RandomPickNumberExcludingZero(30), Utils.RandomPickNumberExcludingZero(40)
+            Utils.RandomPickNumberExcludingZero(5), Utils.RandomPickNumberExcludingZero(10), Utils.RandomPickNumberExcludingZero(15), Utils.RandomPickNumberExcludingZero(20), Utils.RandomPickNumberExcludingZero(25)
         };
         
         for (var i = (_lastChunk + 1) * 38.4f + 1.28f; i < (_lastChunk + 2) * 38.4f + 1.28f; i += 1.28f)
@@ -87,7 +87,7 @@ public class WorldGenerator : MonoBehaviour
                 {
                     _platformsLengths[i]--;
                     var platformObject = Instantiate(platform, new Vector3(xPosition, (2 * i - 1) * 1.28f, 0), Quaternion.identity);
-                    var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) : 
+                    var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) :
                         (PlatformType)(Utils.RandomPickNumberBetween(0,
                             Enum.GetValues(typeof(PlatformType)).Length + 1) % 5);
                     
@@ -106,8 +106,8 @@ public class WorldGenerator : MonoBehaviour
                 }
                 else
                 {
-                    _platformsLengths[i] = Utils.RandomPickNumberExcludingZero(10);
-                    _platformsGaps[i] = Utils.RandomPickNumberExcludingZero(2);
+                    _platformsLengths[i] = Utils.RandomPickNumberExcludingZero((Math.Abs((i - _platformsLengths.Length - 1) % 5) + 1) * 5);
+                    _platformsGaps[i] = Utils.RandomPickNumberExcludingZero((i + 1) * 5);
                 }
             }
             else

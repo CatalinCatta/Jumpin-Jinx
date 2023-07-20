@@ -163,4 +163,35 @@ public static class Utils
         _ => 0
         
     };
+
+    public static Vector2 GetColliderSize(Collision2D collision)
+    {
+        
+        // Access the collider involved in the collision
+        var otherCollider = collision.collider;
+
+        // Check if the otherCollider is a Box Collider 2D
+        var boxCollider2D = otherCollider.GetComponent<BoxCollider2D>();
+        if (boxCollider2D != null)
+        {
+            var size = boxCollider2D.size;
+            return new Vector2(size.x, size.y);
+        }
+
+        var circleCollider2D = otherCollider.GetComponent<CircleCollider2D>();
+        if (circleCollider2D != null)
+        {
+            var radius = circleCollider2D.radius;
+            return new Vector2(radius, radius);
+        }
+
+        var capsuleCollider2D = otherCollider.GetComponent<CapsuleCollider2D>();
+        if (capsuleCollider2D != null)
+        {
+            var size = capsuleCollider2D.size;
+            return new Vector2(size.x, size.y);
+        }
+
+        throw new ArgumentException("This Collider is not supported yet!");
+    }
 }
