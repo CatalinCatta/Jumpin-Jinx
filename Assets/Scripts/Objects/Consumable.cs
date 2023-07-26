@@ -10,13 +10,10 @@ public class Consumable : MonoBehaviour
     private void Awake() =>
         _playerStatus = FindObjectOfType<PlayerStatus>();
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        Physics2D.IgnoreCollision(collision.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!col.gameObject.CompareTag("Player"))
             return;
-
 
         switch (consumableType)
         {

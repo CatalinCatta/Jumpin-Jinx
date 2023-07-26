@@ -50,6 +50,10 @@ public class LvlGenerator : MonoBehaviour
 
     private void GenerateObject(char character, int row, int column)
     {
+        if (row == _height - 1)
+            for (var i = 1; i < 11; i++)
+                Instantiate(character == 'W'? watterBottom : emptyBlock, new Vector2((column - _length / 2) * 1.28f, -(row + i - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
+        
         switch (character)
         {
             case 'C':
@@ -67,17 +71,31 @@ public class LvlGenerator : MonoBehaviour
             case 'D':
                 Instantiate(emptyBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
                 break;
+            case 'X':
+                Instantiate(endLvl, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + 0.4f, -1), Quaternion.identity);
+                break;
+            case 'E':
+                Instantiate(enemy, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + 0.4f, -1), Quaternion.identity);
+                break;
+            case 'H':
+                Instantiate(heal, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + 0.4f, -1), Quaternion.identity);
+                break;
             case '<':
                 Instantiate(slopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.Euler(0, 180, 0), tilesParent);
                 break;
             case '>':
                 Instantiate(slopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
                 break;
-            case 'X':
-                Instantiate(endLvl, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + 0.4f, -1), Quaternion.identity);
+            case 'S':
+                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity);
+                break;
+            case 'W':
+                Instantiate(watter, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, watterParent);
+                break;
+            case 'M':
+                Instantiate(watterBottom, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
                 break;
         }
-       
     }
     
     private class LevelConfigurations
