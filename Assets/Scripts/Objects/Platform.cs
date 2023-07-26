@@ -22,7 +22,7 @@ public class Platform : MonoBehaviour
     
     [SerializeField] public bool endlessRun;
 
-    private bool _autoDesturctionStarted;
+    private bool _autoDestructionStarted;
     
     private void Start()
     {
@@ -30,6 +30,7 @@ public class Platform : MonoBehaviour
         
         if (endlessRun) 
             PlantEnvironment();
+        
         movement = movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : movement;
         rotationAngle = rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : rotationAngle;
         rotationSpeed = rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : rotationSpeed;
@@ -55,7 +56,6 @@ public class Platform : MonoBehaviour
                 transform.position += Vector3.back * 3f;
                 StartCoroutine(MoveCircular());
                 break;
-            
         }
     }
 
@@ -155,10 +155,10 @@ public class Platform : MonoBehaviour
 
     public IEnumerator DestroyTemporaryPlatform()
     {
-        if (_autoDesturctionStarted)
+        if (_autoDestructionStarted)
             yield break;
 
-        _autoDesturctionStarted = true;
+        _autoDestructionStarted = true;
         
         var elapsedTime = 0f;
         var originalColor = _spriteRenderer.color;

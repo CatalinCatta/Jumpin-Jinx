@@ -38,12 +38,12 @@ public class Menu : MonoBehaviour
     }
 
     public void StartEndlessRun() =>
-        SceneManager.LoadScene("EndlessRun");
+        LvlManager.Instance.StartLevel(0);
     
     public void Quit() =>
-        Application.Quit();  
-    
-    public void StartLevel(int lvl) =>  
-        SceneManager.LoadScene($"Lvl {lvl}");  
+        Application.Quit();
+
+    public void StartLevel(int lvl) =>
+        LvlManager.Instance.StartLevel(lvl);
 
 }

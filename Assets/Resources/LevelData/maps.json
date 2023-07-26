@@ -1,0 +1,46 @@
+﻿{
+  "levels": [
+    {
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                            X",
+        "                      <GGGGGG",
+        "                      {DDDDDD",
+        "              C              ",
+        "        C  <GGGGG>          C",
+        "GGGGGGGGGGG{DDDDD}GGGGGGGGGGG"
+      ]
+    },
+    { 
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "              C              ",
+        "        C     G      C      X",
+        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+      ]
+    }
+  ]
+}

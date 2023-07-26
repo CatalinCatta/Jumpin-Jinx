@@ -95,8 +95,7 @@ public class WorldGenerator : MonoBehaviour
 
                     platformComponent.platformType = platformType;
 
-                    if (_platformsLengths[i] == 0)
-                        platformComponent.endlessRun = false;
+                    platformComponent.endlessRun = _platformsLengths[i] != 0;
                     
                     if (platformType != PlatformType.Static || i != 0 ||
                         Utils.RandomPickNumberBetween(0, 2) != 0) continue;
