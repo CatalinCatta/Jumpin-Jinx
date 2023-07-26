@@ -11963,6 +11963,7 @@ MonoBehaviour:
   tilesParent: {fileID: 1275293020}
   watterParent: {fileID: 544213449}
   plantsParent: {fileID: 989921031}
+  background: {fileID: 2021722201}
 --- !u!1001 &856974430
 PrefabInstance:
   m_ObjectHideFlags: 0

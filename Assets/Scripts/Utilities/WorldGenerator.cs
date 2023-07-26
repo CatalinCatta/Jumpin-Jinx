@@ -10,12 +10,18 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private GameObject watter;
     [SerializeField] private GameObject watterBottom;
     [SerializeField] private Transform player;
-    [SerializeField] private List<Sprite> backgrounds;
+    [SerializeField] private Sprite spriteBackground;
 
     private int _lastChunk = -2;
     private List<float> _lastHeights;
     private int[] _platformsLengths = new int[5];
     private int[] _platformsGaps = new int[5];
+
+    private void Start()
+    {
+        if (SettingsManager.Instance.darkModeOn)
+            FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
+    }
     
     private void Update()
     {
@@ -48,17 +54,16 @@ public class WorldGenerator : MonoBehaviour
 
         for (var i = (_lastChunk + 1) * 38.4f + 1.28f; i < (_lastChunk + 2) * 38.4f + 1.28f; i += 19)
         {
-            for (var j = 0; j < 3; j++)
-            {
-                var background = new GameObject("Background");
-                var spriteRenderer = background.AddComponent<SpriteRenderer>();
+            var background = new GameObject("Background");
+            var spriteRenderer = background.AddComponent<SpriteRenderer>();
 
-                spriteRenderer.sprite = backgrounds[j == 0 ? 0 : 1];
-                spriteRenderer.sortingOrder = -1;
-                
-                background.transform.rotation = Quaternion.Euler(j % 2 == 0 ? 0 : 180, 0, 0);
-                background.transform.position = new Vector3(i, j * 10.8f + 4.5f , 0f);
-            }
+            spriteRenderer.sprite = spriteBackground;
+            spriteRenderer.sortingOrder = -1;
+
+            if (SettingsManager.Instance.darkModeOn)
+                spriteRenderer.color = new Color(0, 0, 0.49f);
+
+            background.transform.position = new Vector3(i, 4.5f , 0f);
         }
     }
     

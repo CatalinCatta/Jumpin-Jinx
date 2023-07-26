@@ -19,12 +19,23 @@ public class LvlGenerator : MonoBehaviour
     [SerializeField] private Transform tilesParent;
     [SerializeField] private Transform watterParent;
     [SerializeField] private Transform plantsParent;
+
+    [SerializeField] private Transform background;
     
     private int _height;
     private int _length;
     
     private void Start()
     {
+        if (SettingsManager.Instance.darkModeOn)
+        {
+            foreach (Transform backgroundImg in background)
+            {
+                backgroundImg.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.5f);
+                FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
+            }
+        }
+        
         try
         {
             var map = JsonConvert
