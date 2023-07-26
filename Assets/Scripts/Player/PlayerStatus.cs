@@ -74,8 +74,6 @@ public class PlayerStatus : MonoBehaviour
         ShowLife();
     }
 
-    public bool test;
-    
     public void GetDamage(Vector3 direction, int amount)
     {
         _hp -= amount;

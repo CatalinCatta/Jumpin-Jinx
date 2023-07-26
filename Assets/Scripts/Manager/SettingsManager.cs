@@ -3,15 +3,15 @@
 public class SettingsManager: MonoBehaviour
 {
     public static SettingsManager Instance;
-   
+    
     public SettingsFrames currentCategoryTab = SettingsFrames.Sounds;
-
+    
     public bool darkModeOn;
     
     public float generalVolume = 1f;
     public float musicVolume = 0.5f;
     public float soundEffectVolume = 1f;
-
+    
     public KeyCode jumpKeyCode = KeyCode.W;
     public KeyCode moveLeftKeyCode = KeyCode.A;
     public KeyCode moveRightKeyCode = KeyCode.D;
@@ -19,14 +19,18 @@ public class SettingsManager: MonoBehaviour
     public KeyCode speedBuffKeyCode = KeyCode.LeftAlt;
     public KeyCode jumpBuffKeyCode = KeyCode.LeftControl;
     public KeyCode pauseKeyCode = KeyCode.Escape;
-
-    public int resolution = 14;
+    
+    public int resolution;
     public bool fullscreen = true;
     public bool vsync = true;
     public Language language = Language.English;
 
     private void Awake()
     {
+        resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
+        fullscreen = Screen.fullScreen;
+        vsync = QualitySettings.vSyncCount > 0;
+
         if (Instance != null)
         {
             Destroy(gameObject);

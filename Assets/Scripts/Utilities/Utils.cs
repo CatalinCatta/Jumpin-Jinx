@@ -166,11 +166,8 @@ public static class Utils
 
     public static Vector2 GetColliderSize(Collision2D collision)
     {
-        
-        // Access the collider involved in the collision
         var otherCollider = collision.collider;
 
-        // Check if the otherCollider is a Box Collider 2D
         var boxCollider2D = otherCollider.GetComponent<BoxCollider2D>();
         if (boxCollider2D != null)
         {
