@@ -41,6 +41,132 @@
         "        C     G      C      X",
         "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
       ]
+    },
+    {
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                            X",
+        "                      <GGGGGG",
+        "                      {DDDDDD",
+        "              C              ",
+        "        C  <GGGGG>          C",
+        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+      ]
+    },
+    { 
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "              C              ",
+        "        C     G      C      X",
+        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+      ]
+    },
+    {
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                            X",
+        "                      <GGGGGG",
+        "                      {DDDDDD",
+        "              C              ",
+        "        C  <GGGGG>          C",
+        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+      ]
+    },
+    { 
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "              C              ",
+        "        C     G      C      X",
+        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+      ]
+    },
+    {
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                            X",
+        "                      <GGGGGG",
+        "                      {DDDDDD",
+        "              C              ",
+        "        C  <GGGGG>          C",
+        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+      ]
+    },
+    { 
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "              C              ",
+        "        C     G      C      X",
+        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+      ]
     }
   ]
 }

@@ -22,6 +22,8 @@ public class LvlGenerator : MonoBehaviour
 
     [SerializeField] private Transform background;
     
+    [SerializeField] private TutorialManager tutorialManager;
+    
     private int _height;
     private int _length;
     
@@ -57,8 +59,38 @@ public class LvlGenerator : MonoBehaviour
         {
             Debug.Log("Error deserializing JSON: " + ex.Message);
         }
+
+        StartTutorial();
     }
 
+    private void StartTutorial()
+    {
+        switch (LvlManager.Instance.currentLvl)
+        {
+            case 1:
+                tutorialManager.SetUpMovement();
+                break;
+            case 2:
+                tutorialManager.SetUpSpike();
+                break;
+            case 3:
+                tutorialManager.SetUpWatter();
+                break;
+            case 4:
+                tutorialManager.SetUpEnemy();
+                break;
+            case 5:
+                tutorialManager.SetUpPlatform();
+                break;
+            case 6:
+                tutorialManager.SetUpTemporaryPlatform();
+                break;
+            case 7:
+                tutorialManager.SetUpHeal();
+                break;
+        }
+    }
+    
     private void GenerateObject(char character, int row, int column)
     {
         if (row == _height - 1)
