@@ -18,7 +18,49 @@
         "                      {DDDDDD",
         "              C              ",
         "        C  <GGGGG>          C",
-        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+        "GGGGGGGGGGG{DDDDD}GGGGGGGGGGG"
+      ]
+    },
+    { 
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "    C                        ",
+        "GGGGGGGGG>                   ",
+        "DDDDDDDDD}                   ",
+        "                             ",
+        "  X          <GGGGGGGGG      ",
+        "GGGGGGGG>   <{DDDDDDDDD     C",
+        "           <{DDDDDDDDDD   <GG",
+        "          <{DDDDDDDDDDD   {DD",
+        "         <{DDDDDDDDDDDD    C ",
+        "GGGGGGGGG{DDDDDDDDDDDDDGGGGGG"
+      ]
+    },
+    {
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                             ",
+        "                            C",
+        "C                         <GG",
+        "GG            X           {DD",
+        "            <GGG>            ",
+        "                             ",
+        "GGGGGGG>             <GGGGGGG",
+        "DDDDDDD}                     ",
+        "                          C  ",
+        "                  <GGGGGGGGGG",
+        "GGGGGGGGGG        {DDDDDDDDDD",
+        "                             ",
+        "                             ",
+        "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
       ]
     },
     { 
@@ -36,10 +78,52 @@
         "                             ",
         "                             ",
         "                             ",
+        "         C         C         ",
         "                             ",
-        "              C              ",
-        "        C     G      C      X",
-        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+        "              C            X ",
+        "GGGGGGGWWWWWGGGGGWWWWWGGGGGGG"
+      ]
+    },
+    {
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "                     C       ",
+        "                   <GGG>     ",
+        "                   {DDD}     ",
+        "                             ",
+        "C                            ",
+        "GG>                        <G",
+        "         <GGGGGGGGGGGG>      ",
+        "        <{DDDDDDDDDDDD}      ",
+        "GGG>         DDD             ",
+        "             DDD         GGGG",
+        "        GGGGGDDD            X",
+        "             DDD           <G",
+        "          C  DDD             ",
+        "GGGGGWWGGGGGGDDDGGGGGGWWWWGWW"
+      ]
+    },
+    { 
+      "map": [
+        "                             ",
+        "                             ",
+        "                 X           ",
+        "         <GGGGGGGGGGGGGGG>   ",
+        "         {DDDDDDDDDDDDDDD}   ",
+        "                            C",
+        "   GGG                   <GGG",
+        "              C          {DDD",
+        "           <GGGGG>           ",
+        "GG                           ",
+        "                     GGGG    ",
+        "                             ",
+        "GGGGGGGGGGG>               C ",
+        "                         <GGG",
+        "                             ",
+        "        <GGGGGGG>            ",
+        "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
       ]
     },
     {
@@ -55,12 +139,12 @@
         "                             ",
         "                             ",
         "                             ",
-        "                            X",
-        "                      <GGGGGG",
-        "                      {DDDDDD",
-        "              C              ",
-        "        C  <GGGGG>          C",
-        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+        "                             ",
+        "                             ",
+        "         C         C         ",
+        "                             ",
+        "       SSSSS  C  SSSSS     X ",
+        "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
       ]
     },
     { 
@@ -68,20 +152,41 @@
         "                             ",
         "                             ",
         "                             ",
+        "                    SC       ",
+        "                   <GGG>     ",
+        "                   {DDD}     ",
+        "                             ",
+        "C                            ",
+        "GG>           SSS          <G",
+        "]        <GGGGGGGGGGGG>      ",
+        "]       <{DDDDDDDDDDDD}      ",
+        "GGG>    s    [D]      s      ",
+        "             [D]         GGGG",
+        "        GGGGGGD]            X",
+        "             [D]           <G",
+        "          C  [D]             ",
+        "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+      ]
+    },
+    {
+      "map": [
         "                             ",
         "                             ",
+        "          SS     X     SS    ",
+        "         <GGGGGGGGGGGGGGG>   ",
+        "         {DDDDDDDDDDDDDDD}   ",
+        "                            C",
+        "   GGG]                  <GGG",
+        "   sss        C          {DDD",
+        "S          <GGGGG>           ",
+        "GG                           ",
+        "]                   [GGGG    ",
+        "]                    ssss    ",
+        "GGGGGGGGGGG>               CS",
+        "                         <GGG",
         "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "              C              ",
-        "        C     G      C      X",
-        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+        "        <GGGGGGG>            ",
+        "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
       ]
     },
     {
@@ -97,33 +202,54 @@
         "                             ",
         "                             ",
         "                             ",
-        "                            X",
-        "                      <GGGGGG",
-        "                      {DDDDDD",
+        "                             ",
+        "         C         C         ",
+        "       TTTTT     TTTTT       ",
         "              C              ",
-        "        C  <GGGGG>          C",
-        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+        "       SSSSSTTTTTSSSSS     X ",
+        "GGGGGGGGGGGGWWWWWGGGGGGGGGGGG"
       ]
     },
-    { 
+    {
       "map": [
         "                             ",
         "                             ",
         "                             ",
+        "                    SC       ",
+        "                   <GGG>     ",
+        "                   {DDD}     ",
+        "                             ",
+        "C                            ",
+        "GG>           SSS          <G",
+        "]        <GGGGGGGGGGGG>      ",
+        "]       <{DDDDDDDDDDDD}      ",
+        "TTG>    s    [D]      s      ",
+        "             [D]         TGGG",
+        "        GGTTTGD]            X",
+        "             [D]           <G",
+        "          C  [D]             ",
+        "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+      ]
+    },
+    {
+      "map": [
         "                             ",
         "                             ",
+        "          SS     X     SS    ",
+        "         <GGGGGGGGGTTTTGG>   ",
+        "         {DDDDDDD            ",
+        "                            C",
+        "   TTG]                  <GGG",
+        "     s        C          {DDD",
+        "S          <GGGGG>           ",
+        "GG                           ",
+        "]                   [GTTT    ",
+        "]                            ",
+        "GTTGGTTTGGG>               CS",
+        "                         <GGG",
         "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "              C              ",
-        "        C     G      C      X",
-        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+        "        <GGTTTGG>            ",
+        "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
       ]
     },
     {
@@ -139,33 +265,54 @@
         "                             ",
         "                             ",
         "                             ",
-        "                            X",
-        "                      <GGGGGG",
-        "                      {DDDDDD",
-        "              C              ",
-        "        C  <GGGGG>          C",
-        "GGGGGGGGGGG{DDDDD}GGGWGGGGGGG"
+        "                             ",
+        "        EC         C E       ",
+        "       TTTTT     TTTTT       ",
+        "            E C E            ",
+        "       SSSS<GTTTG>SSSS     X ",
+        "GGGGGGGGGGG{WWWWW}GGGGGGGGGGG"
       ]
     },
-    { 
+    {
       "map": [
         "                             ",
         "                             ",
         "                             ",
+        "                    SC       ",
+        "                   <GGG>     ",
+        "                   {DDD}     ",
+        "                             ",
+        "C                            ",
+        "GG>        E  SSS   EE     <G",
+        "]        <GGGGGGGGGGGG>      ",
+        "]       <{DDDDDDDDDDDD}      ",
+        "TTG>    s    [D]      s    E ",
+        "           E [D]         TGGG",
+        "        GGTTTGD]            X",
+        "             [D]           <G",
+        "          C E[D]  E          ",
+        "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+      ]
+    },
+    {
+      "map": [
         "                             ",
         "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "                             ",
-        "              C              ",
-        "        C     G      C      X",
-        "GGGGGGGGGGGGGGDGGGGGGGGGGGGGG"
+        "          SS  E  X  EE SS    ",
+        "         <GGGGGGGGGTTTTGG>   ",
+        "         {DDDDDDD            ",
+        "                           EC",
+        "   TTG]                  <GGG",
+        "     s        C E        {DDD",
+        "S          <GGGGG>           ",
+        "GG                    E      ",
+        "]                   [GTTT    ",
+        "]    E E                     ",
+        "GTTGGTTTGGG>               CS",
+        "                         <GGG",
+        "            E E              ",
+        "        <GGTTTGG>            ",
+        "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
       ]
     }
   ]

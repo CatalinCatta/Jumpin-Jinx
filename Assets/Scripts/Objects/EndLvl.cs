@@ -3,12 +3,17 @@ using UnityEngine;
 
 public class EndLvl : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!col.gameObject.CompareTag("Player"))
             return;
         
-        var playerStatus = collision.transform.GetComponent<PlayerStatus>();
+        var playerStatus = col.transform.GetComponent<PlayerStatus>();
+        var playerRb = col.transform.GetComponent<Rigidbody2D>();
+
+        playerRb.isKinematic = true;
+        playerRb.velocity = Vector2.zero;
+        playerRb.angularVelocity = 0f;
         
         playerStatus.freezeFromDamage = true;
         transform.GetComponent<Animator>().enabled = true;

@@ -70,24 +70,24 @@ public class LvlGenerator : MonoBehaviour
             case 1:
                 tutorialManager.SetUpMovement();
                 break;
-            case 2:
-                tutorialManager.SetUpSpike();
-                break;
-            case 3:
+            case 4:
                 tutorialManager.SetUpWatter();
                 break;
-            case 4:
-                tutorialManager.SetUpEnemy();
+            case 7:
+                tutorialManager.SetUpSpike();
                 break;
-            case 5:
-                tutorialManager.SetUpPlatform();
-                break;
-            case 6:
+            case 10:
                 tutorialManager.SetUpTemporaryPlatform();
                 break;
-            case 7:
-                tutorialManager.SetUpHeal();
+            case 13:
+                tutorialManager.SetUpEnemy();
                 break;
+            // case 5:
+            //     tutorialManager.SetUpPlatform();
+            //     break;
+            // case 7:
+            //     tutorialManager.SetUpHeal();
+            //     break;
         }
     }
     
@@ -104,6 +104,9 @@ public class LvlGenerator : MonoBehaviour
                 break;
             case 'G':
                 Instantiate(block, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
+                break;
+            case 'T':
+                Instantiate(block, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent).GetComponent<Platform>().platformType = PlatformType.Temporary;
                 break;
             case '{':
                 Instantiate(halfSlopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
@@ -130,7 +133,16 @@ public class LvlGenerator : MonoBehaviour
                 Instantiate(slopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
                 break;
             case 'S':
-                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity);
+                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f - 0.5f), Quaternion.identity);
+                break;
+            case 's':
+                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + 0.5f), Quaternion.Euler(0, 0, 180));
+                break;
+            case '[':
+                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f + 0.5f, -(row - _height / 2) * 1.28f), Quaternion.Euler(0, 0, 90));
+                break;
+            case ']':
+                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f - 0.5f, -(row - _height / 2) * 1.28f), Quaternion.Euler(0, 0, -90));
                 break;
             case 'W':
                 Instantiate(watter, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, watterParent);
