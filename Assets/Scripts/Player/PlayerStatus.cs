@@ -198,7 +198,7 @@ public class PlayerStatus : MonoBehaviour
         winScreen.gameObject.SetActive(true);
         
         for (var i = 0; i < _coins; i++)
-            winScreen.GetChild(0).GetChild(i + 1).GetComponent<Image>().color = Color.white;
+            winScreen.GetChild(0).GetChild(i + 1).GetChild(0).gameObject.SetActive(true);
 
         Destroy(gameObject);
     }

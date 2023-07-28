@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AmbientalSoundManager : MonoBehaviour
+public class AmbientSoundManager : MonoBehaviour
 {
     private void Start() =>
         SettingsManager.SetUpSound(transform);
