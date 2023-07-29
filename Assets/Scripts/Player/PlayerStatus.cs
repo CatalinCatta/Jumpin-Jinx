@@ -87,7 +87,7 @@ public class PlayerStatus : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = 
             new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);
 
-        _knockBack = MoveToDirection(direction.x);
+        _knockBack = MoveToDirection();
         StartCoroutine(_knockBack);
         
         _playerAudioControl.PlayGetHitSound();
@@ -151,7 +151,7 @@ public class PlayerStatus : MonoBehaviour
         _playerControl.movementSpeed /= 2;
     }
 
-    private IEnumerator MoveToDirection(float direction)
+    private IEnumerator MoveToDirection()
     {
         var spriteRenderer = GetComponent<SpriteRenderer>();
             
