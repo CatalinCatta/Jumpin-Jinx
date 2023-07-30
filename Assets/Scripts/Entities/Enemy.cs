@@ -24,13 +24,31 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         var rigidBody = GetComponent<Rigidbody2D>();
+        var grounded = false;
+        Transform platform = null;
+        
+        foreach (var objectCollider in Physics2D.OverlapAreaAll(transform.position + Vector3.right * _direction * 1.5f,
+                     transform.position + Vector3.down))
+        {
+            if (!objectCollider.CompareTag("Ground"))
+                continue;
 
-        var hit = Physics2D.Raycast(transform.position + Vector3.right * _direction, Vector2.down, 0.75f);
+            if (transform.position.y - objectCollider.transform.position.y < 0.5f)
+                break;
 
-        if (hit.collider != null && ((hit.collider.CompareTag("Ground") &&
-                                      transform.position.y - hit.transform.position.y is > 0.5f and < 0.9f) ||
-                                     hit.collider.CompareTag("Player")))
-            rigidBody.velocity = Vector2.SmoothDamp(rigidBody.velocity, Vector2.right * _direction * 3, ref _smoothVelocity, 0.1f);
+            if (transform.position.y - objectCollider.transform.position.y is <= 0.5f or >= 0.9f || objectCollider.TryGetComponent<PolygonCollider2D>(out _) || objectCollider.transform == transform.parent) continue;
+
+            platform = objectCollider.transform;
+            grounded = true;
+            break;
+        }
+
+        if (grounded)
+        {
+            rigidBody.velocity = Vector2.SmoothDamp(rigidBody.velocity, Vector2.right * _direction * 3,
+                ref _smoothVelocity, 0.1f);
+            transform.SetParent(platform);
+        }
         else
         {
             _direction *= -1f;

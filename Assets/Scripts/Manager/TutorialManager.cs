@@ -36,7 +36,7 @@ public class TutorialManager : MonoBehaviour
             x += speedX * Time.deltaTime;
             y = Mathf.MoveTowards(y, targetY, Time.deltaTime / 2);
 
-            currentTransform.position = new Vector3(x, y, 0f);
+            currentTransform.position = new Vector3(x, y, 10f);
 
             if (Mathf.Approximately(y, targetY))
                 targetY = UnityEngine.Random.Range(3f, 5f);

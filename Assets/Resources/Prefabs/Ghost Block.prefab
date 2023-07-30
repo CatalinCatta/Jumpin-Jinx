@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7143539703315430139}
   m_Layer: 0
   m_Name: Ghost Block
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,3 +72,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originPlatform: {fileID: 0}
+  isMoving: 0

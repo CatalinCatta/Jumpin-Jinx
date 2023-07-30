@@ -27,21 +27,26 @@ public class LvlManager : MonoBehaviour
     {
         currentLvl = lvl;
 
-        StartCoroutine(LoadAsync(lvl == 0 ? "EndlessRun" : "Grass Lvl Design"));
+        StartCoroutine(LoadAsync(lvl == 0 ? "EndlessRun" : "Grass Lvl Design", lvl==13));
     }
 
-    private IEnumerator LoadAsync(string scene)
+    private IEnumerator LoadAsync(string scene, bool delay)
     {
-        var operation = SceneManager.LoadSceneAsync(scene);
         var loadingScreen = GameObject.Find("Loading Screen").transform;
         var progressbar = loadingScreen.GetChild(1); 
-        var slider = progressbar.GetChild(0).GetComponent<Slider>();
-        var percentage = progressbar.GetChild(2).GetComponent<TextMeshProUGUI>();
         
         loadingScreen.GetChild(0).gameObject.SetActive(true);
         progressbar.gameObject.SetActive(true);
         
         progressbar.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Some inspirational quote";
+
+        if (delay)
+            yield return new WaitForSeconds(10);
+        
+        var operation = SceneManager.LoadSceneAsync(scene);
+        var slider = progressbar.GetChild(0).GetComponent<Slider>();
+        var percentage = progressbar.GetChild(2).GetComponent<TextMeshProUGUI>();
+        
         
         while (!operation.isDone)
         {

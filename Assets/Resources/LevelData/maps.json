@@ -1,6 +1,7 @@
 ﻿{
   "levels": [
     {
+      "name" : "lvl 1",
       "map": [
         "                             ",
         "                             ",
@@ -17,11 +18,12 @@
         "                      <GGGGGG",
         "                      {DDDDDD",
         "              C              ",
-        "        C  <GGGGG>          C",
+        " P      C  <GGGGG>          C",
         "GGGGGGGGGGG{DDDDD}GGGGGGGGGGG"
       ]
     },
-    { 
+    {
+      "name" : "lvl 2",
       "map": [
         "                             ",
         "                             ",
@@ -38,11 +40,12 @@
         "GGGGGGGG>   <{DDDDDDDDD     C",
         "           <{DDDDDDDDDD   <GG",
         "          <{DDDDDDDDDDD   {DD",
-        "         <{DDDDDDDDDDDD    C ",
+        " P       <{DDDDDDDDDDDD    C ",
         "GGGGGGGGG{DDDDDDDDDDDDDGGGGGG"
       ]
     },
     {
+      "name" : "lvl 3",
       "map": [
         "                             ",
         "                             ",
@@ -59,11 +62,12 @@
         "                  <GGGGGGGGGG",
         "GGGGGGGGGG        {DDDDDDDDDD",
         "                             ",
-        "                             ",
+        " P                           ",
         "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
       ]
     },
-    { 
+    {
+      "name" : "lvl 4",
       "map": [
         "                             ",
         "                             ",
@@ -80,11 +84,12 @@
         "                             ",
         "         C         C         ",
         "                             ",
-        "              C            X ",
+        " P            C            X ",
         "GGGGGGGWWWWWGGGGGWWWWWGGGGGGG"
       ]
     },
     {
+      "name" : "lvl 5",
       "map": [
         "                             ",
         "                             ",
@@ -101,11 +106,12 @@
         "             DDD         GGGG",
         "        GGGGGDDD            X",
         "             DDD           <G",
-        "          C  DDD             ",
+        " P        C  DDD             ",
         "GGGGGWWGGGGGGDDDGGGGGGWWWWGWW"
       ]
     },
-    { 
+    {
+      "name" : "lvl 6",
       "map": [
         "                             ",
         "                             ",
@@ -122,11 +128,12 @@
         "GGGGGGGGGGG>               C ",
         "                         <GGG",
         "                             ",
-        "        <GGGGGGG>            ",
+        " P      <GGGGGGG>            ",
         "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
       ]
     },
     {
+      "name" : "lvl 7",
       "map": [
         "                             ",
         "                             ",
@@ -143,11 +150,12 @@
         "                             ",
         "         C         C         ",
         "                             ",
-        "       SSSSS  C  SSSSS     X ",
+        " P     SSSSS  C  SSSSS     X ",
         "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
       ]
     },
-    { 
+    {
+      "name" : "lvl 8",
       "map": [
         "                             ",
         "                             ",
@@ -164,11 +172,12 @@
         "             [D]         GGGG",
         "        GGGGGGD]            X",
         "             [D]           <G",
-        "          C  [D]             ",
+        " P        C  [D]             ",
         "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
       ]
     },
     {
+      "name" : "lvl 9",
       "map": [
         "                             ",
         "                             ",
@@ -185,11 +194,12 @@
         "GGGGGGGGGGG>               CS",
         "                         <GGG",
         "                             ",
-        "        <GGGGGGG>            ",
+        " P      <GGGGGGG>            ",
         "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
       ]
     },
     {
+      "name" : "lvl 10",
       "map": [
         "                             ",
         "                             ",
@@ -206,11 +216,12 @@
         "         C         C         ",
         "       TTTTT     TTTTT       ",
         "              C              ",
-        "       SSSSSTTTTTSSSSS     X ",
+        " P     SSSSSTTTTTSSSSS     X ",
         "GGGGGGGGGGGGWWWWWGGGGGGGGGGGG"
       ]
     },
     {
+      "name" : "lvl 11",
       "map": [
         "                             ",
         "                             ",
@@ -227,11 +238,12 @@
         "             [D]         TGGG",
         "        GGTTTGD]            X",
         "             [D]           <G",
-        "          C  [D]             ",
+        " P        C  [D]             ",
         "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
       ]
     },
     {
+      "name" : "lvl 12",
       "map": [
         "                             ",
         "                             ",
@@ -248,11 +260,12 @@
         "GTTGGTTTGGG>               CS",
         "                         <GGG",
         "                             ",
-        "        <GGTTTGG>            ",
+        " P      <GGTTTGG>            ",
         "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
       ]
     },
     {
+      "name" : "lvl 13",
       "map": [
         "                             ",
         "                             ",
@@ -269,11 +282,12 @@
         "        EC         C E       ",
         "       TTTTT     TTTTT       ",
         "            E C E            ",
-        "       SSSS<GTTTG>SSSS     X ",
+        " P     SSSS<GTTTG>SSSS     X ",
         "GGGGGGGGGGG{WWWWW}GGGGGGGGGGG"
       ]
     },
     {
+      "name" : "lvl 14",
       "map": [
         "                             ",
         "                             ",
@@ -290,11 +304,12 @@
         "           E [D]         TGGG",
         "        GGTTTGD]            X",
         "             [D]           <G",
-        "          C E[D]  E          ",
+        " P        C E[D]  E          ",
         "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
       ]
     },
     {
+      "name" : "lvl 15",
       "map": [
         "                             ",
         "                             ",
@@ -311,8 +326,74 @@
         "GTTGGTTTGGG>               CS",
         "                         <GGG",
         "            E E              ",
-        "        <GGTTTGG>            ",
+        " P      <GGTTTGG>            ",
         "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
+      ]
+    },
+    {
+      "name" : "lvl 16",
+      "map": [
+        "                             ",
+        "                             ",
+        "              C              ",
+        "                             ",
+        "                             ",
+        "          000000000          ",
+        "                          X  ",
+        "                   GGGGGGGGGG",
+        "                   DDDDDDDDDD",
+        "                   DDDDDDDDDD",
+        "                         DDDD",
+        "                       C DDDD",
+        "                   GGGGGGDDDD",
+        "                   DDDDDDDDDD",
+        "                   DDDDDDDDDD",
+        " P                     C  DDD",
+        "GGGGGGGGGGUUUUUUUUUGGGGGGGDDD"
+      ]
+    },
+    {
+      "name" : "lvl 17",
+      "map": [
+        "                             ",
+        "                             ",
+        "                             ",
+        "00 C                SC      0",
+        "  GG--              GGG>     ",
+        "                    DDD}     ",
+        "                             ",
+        "                             ",
+        "           E  SSS   EE       ",
+        "         <GGGGGGGGGGGG>      ",
+        "    00  <{DDDDDDDDDDDD}     V",
+        "VVGG    s    [D]      s    E ",
+        "             [D]         TGGG",
+        "             [D]             ",
+        "             [D]             ",
+        " P        C E[D]  E         X",
+        "GGGGUUWWGGGGGGDGGGGGGGWWWWGGG"
+      ]
+    },
+    {
+      "name" : "lvl 18",
+      "map": [
+        "                             ",
+        "                             ",
+        "          SS  E  X  EE SS    ",
+        "         <GGGGGGGGGTTTTGG>   ",
+        "         {DDDDDDD            ",
+        "                           EC",
+        "   TTG]                  <GGG",
+        "     s        C E        {DDD",
+        "           <GGGGG>           ",
+        "o                          O ",
+        "                             ",
+        "     E E                     ",
+        "GTTGGTTTGGG>               CS",
+        "                         <GGG",
+        "                             ",
+        " P                           ",
+        "GGGGG___WWWWWWWWWWWWWWGGGWWWW"
       ]
     }
   ]

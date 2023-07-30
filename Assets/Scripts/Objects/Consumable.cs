@@ -7,7 +7,7 @@ public class Consumable : MonoBehaviour
 
     [SerializeField] private ConsumableType consumableType;
     
-    private void Awake() =>
+    private void Start() =>
         _playerStatus = FindObjectOfType<PlayerStatus>();
 
     private void OnTriggerEnter2D(Collider2D col)

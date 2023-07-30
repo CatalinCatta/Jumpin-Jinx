@@ -186,14 +186,14 @@ public class PlayerControl : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            var colliderSize = (Vector3)Utils.GetColliderSize(collision);
-            var position = transform.position;
-            var colliderPosition = collision.transform.position;
-            _playerStatus.GetDamage(
-                position - colliderPosition - new Vector3(colliderSize.x * (position.x < colliderPosition.x ? 1 : -1) , colliderSize.y * (position.y < colliderPosition.y ? 1 : -1), 0) , 5);
-        }
+        if (!collision.gameObject.CompareTag("Enemy"))
+            return;
+                    
+        var colliderSize = (Vector3)Utils.GetColliderSize(collision);
+        var position = transform.position;
+        var colliderPosition = collision.transform.position;
+        _playerStatus.GetDamage(
+            position - colliderPosition - new Vector3(colliderSize.x * (position.x < colliderPosition.x ? 1 : -1) , colliderSize.y * (position.y < colliderPosition.y ? 1 : -1), 0) , 5);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -213,6 +213,7 @@ public class PlayerControl : MonoBehaviour
                 continue;
             
             transform.SetParent(objectCollider.transform);
+            
             if (objectCollider.gameObject.TryGetComponent<Platform>(out var platform) &&
                 platform.platformType == PlatformType.Temporary)
                 StartCoroutine(platform.DestroyTemporaryPlatform());

@@ -1,29 +1,19 @@
-using System;
 using UnityEngine;
 
 public class GhostBlock : MonoBehaviour
 {
     public Platform originPlatform;
+    public bool isMoving;
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.gameObject.CompareTag("Ground"))
-            return;
-        
-        var platform = col.GetComponent<Platform>();
-
-        if (CheckPlatform(platform))
+        if (col.gameObject.CompareTag("Ground") && col.TryGetComponent<Platform>(out var platform) && CheckPlatform(platform))
             platform.inCollisionWithGhostBlock = true;
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (!col.gameObject.CompareTag("Ground"))
-            return;
-        
-        var platform = col.GetComponent<Platform>();
-
-        if (CheckPlatform(platform))
+        if (col.gameObject.CompareTag("Ground") && col.TryGetComponent<Platform>(out var platform) && CheckPlatform(platform))
             platform.inCollisionWithGhostBlock = false;
     }
 
@@ -31,11 +21,17 @@ public class GhostBlock : MonoBehaviour
     {
         var platformPosition = platform.transform.position;
         var selfPosition = transform.position;
-
+        
         return platform != originPlatform &&
                ((platform.platformType == PlatformType.HorizontalMoving &&
-                 platformPosition.x <= selfPosition.x - 0.64f) ||
+                 platformPosition.x <= selfPosition.x - 0.64f &&
+                 platformPosition.y < selfPosition.y + 0.2f &&
+                 platformPosition.y > selfPosition.y - 0.2f &&
+                 (originPlatform == null || originPlatform.platformType != PlatformType.HorizontalMoving || isMoving)) ||
                 (platform.platformType == PlatformType.VerticalMoving &&
-                 platformPosition.y <= selfPosition.y - 0.64f));
+                 platformPosition.y <= selfPosition.y - 0.64f &&
+                 platformPosition.x < selfPosition.x + 0.2f &&
+                 platformPosition.x > selfPosition.x - 0.2f && 
+                 (originPlatform == null || originPlatform.platformType != PlatformType.VerticalMoving || isMoving)));
     }
 }

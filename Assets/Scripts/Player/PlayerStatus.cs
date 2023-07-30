@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections;
     
 public class PlayerStatus : MonoBehaviour
 {
-    [SerializeField] public GameObject display;
+    public GameObject display;
     [SerializeField] private bool endlessRun;
     
     public int killCounter;
@@ -26,6 +25,9 @@ public class PlayerStatus : MonoBehaviour
 
     private void Awake()
     {
+        if (display == null)
+            display = GameObject.FindWithTag("Status");
+    
         _playerControl = transform.GetComponent<PlayerControl>();
         _playerAudioControl = transform.GetComponent<PlayerAudioControl>();
         Time.timeScale = 1f;

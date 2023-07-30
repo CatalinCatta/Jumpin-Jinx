@@ -9,9 +9,9 @@ public class Platform : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     
-    [SerializeField]private int movement;
-    [SerializeField]private int rotationAngle;
-    [SerializeField]private int rotationSpeed;
+    public int movement;
+    public int rotationAngle;
+    public int rotationSpeed;
     
     [SerializeField] private List<Sprite> plants;
     [SerializeField] private GameObject enemy;
@@ -32,8 +32,12 @@ public class Platform : MonoBehaviour
     {
         if (platformType != PlatformType.CircularMoving)
         {
-            var ghostBlockObject = Instantiate(ghostBlock, transform.position, Quaternion.identity);
-            ghostBlockObject.GetComponent<GhostBlock>().originPlatform = this;
+            var currentPosition = transform.position;
+            
+            Instantiate(ghostBlock, currentPosition, Quaternion.identity).GetComponent<GhostBlock>().originPlatform = this;
+            var ghostBlockObject = Instantiate(ghostBlock, currentPosition, Quaternion.identity, transform).GetComponent<GhostBlock>();
+            ghostBlockObject.originPlatform = this;
+            ghostBlockObject.isMoving = true;
         }   
         
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -58,7 +62,10 @@ public class Platform : MonoBehaviour
                 break;
             
             case PlatformType.HorizontalMoving:
-                transform.position += Vector3.back * 2f;
+                var currentTransform = transform;
+                currentTransform.localScale = new Vector3(1.1f, 1f, 1f);
+                currentTransform.position += Vector3.back * 2f;
+                GetComponent<BoxCollider2D>().size = new Vector2(1.13f, 1f);
                 StartCoroutine(MoveSideways(new Vector3(movement, 0f, 0f)));
                 break;
             
@@ -116,8 +123,8 @@ public class Platform : MonoBehaviour
     {
         var random = new System.Random();
         var randomPlant = Utils.RandomPickNumberBetween(0, plants.Count);
-        
         var plant = new GameObject("Plant");
+        
         plant.transform.SetParent(transform);
         plant.transform.localPosition = new Vector3((float)(random.NextDouble() - 0.5f), 
             (float)(random.NextDouble() / 4) + (randomPlant > 1 ? 0.45f : 1.5f), -1);
@@ -132,17 +139,18 @@ public class Platform : MonoBehaviour
 
         while (true)
         {
+            while (transform.position != startPos)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, startPos, Time.deltaTime);
+                yield return null;
+            }
+            
             while (transform.position != targetPos && !inCollisionWithGhostBlock)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime);
                 yield return null;
             }
 
-            while (transform.position != startPos)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, startPos, Time.deltaTime);
-                yield return null;
-            }
             yield return null;
         }
     }

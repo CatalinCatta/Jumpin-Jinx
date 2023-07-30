@@ -149,6 +149,7 @@ MonoBehaviour:
   dirt: {fileID: 21300000, guid: 5b417972b4ee6e64488d28b5f7a8e576, type: 3}
   endlessRun: 0
   ghostBlock: {fileID: 720811117464374823, guid: 926c945c8a1557247bc60d3a1423dbed, type: 3}
+  inCollisionWithGhostBlock: 0
 --- !u!50 &-3154686754065493479
 Rigidbody2D:
   serializedVersion: 4
