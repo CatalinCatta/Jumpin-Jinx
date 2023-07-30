@@ -198,7 +198,12 @@ public class PlayerStatus : MonoBehaviour
         winScreen.gameObject.SetActive(true);
         
         for (var i = 0; i < _coins; i++)
-            winScreen.GetChild(0).GetChild(i + 1).GetChild(0).gameObject.SetActive(true);
+        {
+            var endCoin = winScreen.GetChild(0).GetChild(i + 1).GetChild(0);
+            endCoin.gameObject.SetActive(true);
+            endCoin.GetComponent<AudioSource>().volume = 
+                SettingsManager.Instance.soundEffectVolume * SettingsManager.Instance.generalVolume;    
+        }
 
         Destroy(gameObject);
     }

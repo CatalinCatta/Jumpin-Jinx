@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 720811117464374821}
   - component: {fileID: 720811117464374820}
   - component: {fileID: -1930933142953375341}
-  m_Layer: 6
+  - component: {fileID: -3154686754065493479}
+  m_Layer: 0
   m_Name: Block
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -147,3 +148,25 @@ MonoBehaviour:
   heal: {fileID: 5658132860675772406, guid: 8bf972a5a7907994387e93355f396c8b, type: 3}
   dirt: {fileID: 21300000, guid: 5b417972b4ee6e64488d28b5f7a8e576, type: 3}
   endlessRun: 0
+  ghostBlock: {fileID: 720811117464374823, guid: 926c945c8a1557247bc60d3a1423dbed, type: 3}
+--- !u!50 &-3154686754065493479
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720811117464374823}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

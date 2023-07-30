@@ -49,6 +49,7 @@ public class WorldGenerator : MonoBehaviour
             Instantiate(watter, new Vector3(i, -1.28f, 1), Quaternion.identity);
             Instantiate(watterBottom, new Vector3(i, -2.56f, 1), Quaternion.identity);
             Instantiate(watterBottom, new Vector3(i, -3.84f, 1), Quaternion.identity);
+            Instantiate(watterBottom, new Vector3(i, -5.12f, 1), Quaternion.identity);
             InstantiatePlatform(i);
         }
 
@@ -91,7 +92,7 @@ public class WorldGenerator : MonoBehaviour
                 if (_platformsLengths[i] > 0)
                 {
                     _platformsLengths[i]--;
-                    var platformObject = Instantiate(platform, new Vector3(xPosition, (2 * i - 1) * 1.28f, 0), Quaternion.identity);
+                    var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0), Quaternion.identity);
                     var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) :
                         (PlatformType)(Utils.RandomPickNumberBetween(0,
                             Enum.GetValues(typeof(PlatformType)).Length + 1) % 5);
@@ -99,7 +100,6 @@ public class WorldGenerator : MonoBehaviour
                     var platformComponent = platformObject.GetComponent<Platform>();
 
                     platformComponent.platformType = platformType;
-
                     platformComponent.endlessRun = _platformsLengths[i] != 0;
                     
                     if (platformType != PlatformType.Static || i != 0 ||
@@ -107,6 +107,7 @@ public class WorldGenerator : MonoBehaviour
 
                     Instantiate(emptyPlatform, new Vector3(xPosition, -2.56f, -1), Quaternion.identity);
                     Instantiate(emptyPlatform, new Vector3(xPosition, -3.84f, -1), Quaternion.identity);
+                    Instantiate(emptyPlatform, new Vector3(xPosition, -5.12f, -1), Quaternion.identity);
                 }
                 else
                 {
@@ -115,7 +116,7 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
             else
-                _platformsGaps[i]--;   
+                _platformsGaps[i]--;
         }
     }
 

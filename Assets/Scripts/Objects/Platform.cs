@@ -22,10 +22,20 @@ public class Platform : MonoBehaviour
     
     [SerializeField] public bool endlessRun;
 
+    [SerializeField] private GameObject ghostBlock;
+
     private bool _autoDestructionStarted;
+
+    public bool inCollisionWithGhostBlock;
     
     private void Start()
     {
+        if (platformType != PlatformType.CircularMoving)
+        {
+            var ghostBlockObject = Instantiate(ghostBlock, transform.position, Quaternion.identity);
+            ghostBlockObject.GetComponent<GhostBlock>().originPlatform = this;
+        }   
+        
         _spriteRenderer = GetComponent<SpriteRenderer>();
         
         if (endlessRun) 
@@ -122,19 +132,18 @@ public class Platform : MonoBehaviour
 
         while (true)
         {
-            while (transform.position != targetPos)
+            while (transform.position != targetPos && !inCollisionWithGhostBlock)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime);
-
                 yield return null;
             }
 
             while (transform.position != startPos)
             {
                 transform.position = Vector3.MoveTowards(transform.position, startPos, Time.deltaTime);
-
                 yield return null;
             }
+            yield return null;
         }
     }
 
