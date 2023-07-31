@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class InGameMenu : MonoBehaviour
 {
-    [SerializeField] private int currentLevel;
-    
     public void GoToMenu() =>
         SceneManager.LoadScene("StartMenu");
 

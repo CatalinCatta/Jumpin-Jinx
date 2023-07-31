@@ -27,10 +27,14 @@ public class SettingsManager: MonoBehaviour
 
     private void Awake()
     {
-        resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
-        fullscreen = Screen.fullScreen;
+        var resolutionAsTuple = Screen.currentResolution;
+        resolution = Utils.ResolutionTupleToIndex(resolutionAsTuple);
+        fullscreen = true;
         vsync = QualitySettings.vSyncCount > 0;
 
+        Screen.SetResolution(resolutionAsTuple.width, resolutionAsTuple.height, true);
+
+        
         if (Instance != null)
         {
             Destroy(gameObject);
