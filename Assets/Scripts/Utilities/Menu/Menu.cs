@@ -1,9 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;  
 using TMPro;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private Transform menu;
+    [SerializeField] private Transform settingsCategories;
+    
     private void Start()
     {
         Time.timeScale = 1f;
@@ -14,7 +16,6 @@ public class Menu : MonoBehaviour
     {
         var language = SettingsManager.Instance.language;
   
-        var menu = transform.GetChild(1);
         menu.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text =
             language == Language.English ? "Play" : "Joaca";
         menu.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text =
@@ -24,16 +25,15 @@ public class Menu : MonoBehaviour
         menu.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text =
             language == Language.English ? "Quit" : "Iesi";
         
-        var settings = transform.GetChild(3).GetChild(0);
-        settings.GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+        settingsCategories.GetChild(0).GetComponent<TextMeshProUGUI>().text = 
             language == Language.English ? "Settings" : "Setari";
-        settings.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+        settingsCategories.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
             language == Language.English ? "Sounds" : "Sunete";
-        settings.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+        settingsCategories.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
             language == Language.English ? "Controls" : "Comenzi";
-        settings.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+        settingsCategories.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
             language == Language.English ? "Display" : "Afisaj";
-        settings.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+        settingsCategories.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
             language == Language.English ? "Back" : "Inapoi";
     }
 
