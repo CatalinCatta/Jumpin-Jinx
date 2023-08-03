@@ -5069,7 +5069,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 275912048}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &275912048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10587,7 +10599,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 492792519}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &492792519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11125,7 +11149,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 502717563}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: BuyBuff
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &504370173
 GameObject:
   m_ObjectHideFlags: 0
@@ -14303,7 +14339,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 624359176}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: BuyBuff
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &629064662
 GameObject:
   m_ObjectHideFlags: 0
@@ -19486,7 +19534,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 851237043}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &853370176
 GameObject:
   m_ObjectHideFlags: 0
@@ -21400,7 +21460,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 918878930}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &918878930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22830,7 +22902,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.3
+  m_fontSize: 55.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -23499,7 +23571,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 990709973}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &992150144
 GameObject:
   m_ObjectHideFlags: 0
@@ -26729,7 +26813,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1089874458}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1089874458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30119,7 +30215,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1236940554}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: BuyBuff
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1240278178
 GameObject:
   m_ObjectHideFlags: 0
@@ -30722,7 +30830,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1256064963}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1256064963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31540,6 +31660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1303258618}
   - component: {fileID: 1303258619}
+  - component: {fileID: 1303258620}
   m_Layer: 5
   m_Name: Endless
   m_TagString: Untagged
@@ -31585,6 +31706,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1957692046}
+--- !u!114 &1303258620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303258617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf8c3f6805b4bcc9834609cc875e7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revenue: {fileID: 535653987}
 --- !u!1 &1312990506
 GameObject:
   m_ObjectHideFlags: 0
@@ -35651,7 +35785,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1458649679}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1458649679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36032,7 +36178,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1471339767}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1471339767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38733,7 +38891,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1575802458}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1575802458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39134,6 +39304,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593242731}
   m_CullTransparentMesh: 1
+--- !u!1 &1597516285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1597516287}
+  - component: {fileID: 1597516286}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1597516286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597516285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11dd2b346cb94a029b4478fd4c7cfa73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 10000
+  gems: 50
+  atkLvl: 0
+  msLvl: 0
+  jumpLvl: 0
+  defLvl: 0
+  hpLvl: 0
+  jumpBuffs: 3
+  speedBuffs: 3
+  secondChances: 0
+  atkPrice: 15
+  msPrice: 15
+  jumpPrice: 15
+  defPrice: 15
+  hpPrice: 15
+  jumpBuffsPrice: 200
+  speedBuffsPrice: 200
+  secondChancesPrice: 2000
+--- !u!4 &1597516287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597516285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1605589453
 GameObject:
   m_ObjectHideFlags: 0
@@ -40116,7 +40348,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1620495713}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1620495713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40912,7 +41156,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1645577239}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1645577239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41035,7 +41291,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1646760159}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1646760159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41330,7 +41598,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1649104995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1649104995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44773,7 +45053,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1792263893}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGems
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1792263893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47004,7 +47296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1879353111}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1880281315
 GameObject:
   m_ObjectHideFlags: 0
@@ -48186,7 +48490,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1923091248}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1923091248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48958,7 +49274,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1967208260}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1968717320
 GameObject:
   m_ObjectHideFlags: 0
@@ -49920,7 +50248,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2017496310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &2017496310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52134,7 +52474,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2077889104}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258620}
+        m_TargetAssemblyTypeName: PlayerEndlessStatus, Assembly-CSharp
+        m_MethodName: BuyGold
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &2077889104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53443,7 +53795,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2110697740}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1303258619}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &2121907573
 GameObject:
   m_ObjectHideFlags: 0
