@@ -252,8 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e729a90f63c07442985a48c6f58ad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  jumpPower: 1000
+  movementSpeed: 0
+  jumpPower: 0
   playerAnimations:
   - {fileID: 9100000, guid: 8b793cae8fffcc14590914dae16f6965, type: 2}
   - {fileID: 9100000, guid: be5c1c9a8091caf4eaf7f0618daaade4, type: 2}
@@ -275,7 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 0}
-  endlessRun: 0
   killCounter: 0
   freezeFromDamage: 0
   speedBuffActive: 0

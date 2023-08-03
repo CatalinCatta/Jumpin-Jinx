@@ -21,6 +21,9 @@ public class WorldGenerator : MonoBehaviour
     {
         if (SettingsManager.Instance.darkModeOn)
             FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
+
+        for (int i = 0; i < _platformsLengths.Length; i++)
+            RandomizeGapsAndPlatforms(i);
     }
     
     private void Update()
@@ -35,16 +38,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void GenerateNewChunk()
     {
-
-        _platformsLengths = new []{
-            Utils.RandomPickNumberExcludingZero(25), Utils.RandomPickNumberExcludingZero(20), Utils.RandomPickNumberExcludingZero(15), Utils.RandomPickNumberExcludingZero(10), Utils.RandomPickNumberExcludingZero(5)
-        };
-        
-        _platformsGaps =  new []{
-            Utils.RandomPickNumberExcludingZero(5), Utils.RandomPickNumberExcludingZero(10), Utils.RandomPickNumberExcludingZero(15), Utils.RandomPickNumberExcludingZero(20), Utils.RandomPickNumberExcludingZero(25)
-        };
-        
-        for (var i = (_lastChunk + 1) * 38.4f + 1.28f; i < (_lastChunk + 2) * 38.4f + 1.28f; i += 1.28f)
+        for (var i = (_lastChunk + 1) * 38.4f; i < (_lastChunk + 2) * 38.4f; i += 1.28f)
         {
             Instantiate(watter, new Vector3(i, -1.28f, 1), Quaternion.identity);
             Instantiate(watterBottom, new Vector3(i, -2.56f, 1), Quaternion.identity);
@@ -67,6 +61,12 @@ public class WorldGenerator : MonoBehaviour
             background.transform.position = new Vector3(i, 4.5f , 0f);
         }
     }
+
+    private void RandomizeGapsAndPlatforms(int position)
+    {
+        _platformsLengths[position] = Utils.RandomPickNumberExcludingZero((Math.Abs((position - _platformsLengths.Length - 1) % 5) + 1) * 5);
+        _platformsGaps[position] = Utils.RandomPickNumberExcludingZero((position + 1) * 3);
+    }
     
     private void ClearLastChunk()
     {
@@ -87,36 +87,35 @@ public class WorldGenerator : MonoBehaviour
     {
         for (var i = 0; i < _platformsLengths.Length; i++)
         {
-            if (_platformsGaps[i] == 0)
+            if (_platformsGaps[i] > 0)
             {
-                if (_platformsLengths[i] > 0)
-                {
-                    _platformsLengths[i]--;
-                    var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0), Quaternion.identity);
-                    var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) :
-                        (PlatformType)(Utils.RandomPickNumberBetween(0,
-                            Enum.GetValues(typeof(PlatformType)).Length + 1) % 5);
-                    
-                    var platformComponent = platformObject.GetComponent<Platform>();
-
-                    platformComponent.platformType = platformType;
-                    platformComponent.endlessRun = _platformsLengths[i] != 0;
-                    
-                    if (platformType != PlatformType.Static || i != 0 ||
-                        Utils.RandomPickNumberBetween(0, 2) != 0) continue;
-
-                    Instantiate(emptyPlatform, new Vector3(xPosition, -2.56f, -1), Quaternion.identity);
-                    Instantiate(emptyPlatform, new Vector3(xPosition, -3.84f, -1), Quaternion.identity);
-                    Instantiate(emptyPlatform, new Vector3(xPosition, -5.12f, -1), Quaternion.identity);
-                }
-                else
-                {
-                    _platformsLengths[i] = Utils.RandomPickNumberExcludingZero((Math.Abs((i - _platformsLengths.Length - 1) % 5) + 1) * 5);
-                    _platformsGaps[i] = Utils.RandomPickNumberExcludingZero((i + 1) * 5);
-                }
-            }
-            else
                 _platformsGaps[i]--;
+                continue;
+            }
+
+            if (_platformsLengths[i] == 0)
+            {
+                RandomizeGapsAndPlatforms(i);
+                continue;
+            }
+
+            _platformsLengths[i]--;
+            var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0), Quaternion.identity);
+            var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) :
+                (PlatformType)(Utils.RandomPickNumberBetween(0,
+                    Enum.GetValues(typeof(PlatformType)).Length + 1) % 5);
+            
+            var platformComponent = platformObject.GetComponent<Platform>();
+
+            platformComponent.platformType = platformType;
+            platformComponent.endlessRun = _platformsLengths[i] != 0;
+            
+            if (platformType != PlatformType.Static || i != 0 ||
+                Utils.RandomPickNumberBetween(0, 2) != 0) continue;
+
+            Instantiate(emptyPlatform, new Vector3(xPosition, -2.56f, -1), Quaternion.identity);
+            Instantiate(emptyPlatform, new Vector3(xPosition, -3.84f, -1), Quaternion.identity);
+            Instantiate(emptyPlatform, new Vector3(xPosition, -5.12f, -1), Quaternion.identity);
         }
     }
 

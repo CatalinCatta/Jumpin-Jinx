@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using System.Collections;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
     private bool _movementTestActive;
-    
-    
-    public float movementSpeed = 10f;
-    public float jumpPower = 1000f;
+    private bool _endlessRun;
+
+    public float movementSpeed;
+    public float jumpPower;
 
     private Vector3 _movement;
     private bool _jump;
@@ -38,6 +37,11 @@ public class PlayerControl : MonoBehaviour
     {
         _animator = transform.GetComponent<Animator>();
         _sprite = transform.GetComponent<SpriteRenderer>();
+
+        _endlessRun = LvlManager.Instance.currentLvl == 0;
+
+        movementSpeed = _endlessRun ? 7f * (PlayerManager.Instance.msLvl / 20f + 1f) : 10f;  //   7f =>   24.5f
+        jumpPower = _endlessRun ? 700f * (PlayerManager.Instance.msLvl / 20f + 1f) : 1000f;  // 700f => 2450f
     }
     
     private enum PlayerAnimationsNames
@@ -118,14 +122,13 @@ public class PlayerControl : MonoBehaviour
             rigidBody.velocity =
                 Vector2.SmoothDamp(rigidBody.velocity, Vector2.up * jumpPower / 5f, ref _smoothVelocity, 0.1f);
         else
-            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower)); // Vector2.SmoothDamp (rigidBody.velocity, Vector2.up * jumpPower, ref _smoothVelocity, 0.1f);
+            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower));
       
         _jump = false;
     }
 
     public void ChangeMovementTest() =>
         _movementTestActive = !_movementTestActive;
-    
     
     private void Fire()
     {
@@ -139,7 +142,7 @@ public class PlayerControl : MonoBehaviour
 
     private IEnumerator CreateBullet()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(_endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f);   // 1.1f => 0.1f
         
         var playerTransform = transform;
         
@@ -188,7 +191,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Enemy"))
             return;
-                    
+
+        Debug.Log(collision);
         var colliderSize = (Vector3)Utils.GetColliderSize(collision);
         var position = transform.position;
         var colliderPosition = collision.transform.position;

@@ -39398,6 +39398,10 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4536079718895226526, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6319217564308684351, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
       propertyPath: currentLevel
       value: 1
@@ -39409,6 +39413,10 @@ PrefabInstance:
     - target: {fileID: 7932450579412689140, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
       propertyPath: m_Name
       value: UniversalUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991283425139374920, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8062235223607607919, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

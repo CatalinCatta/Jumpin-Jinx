@@ -90,7 +90,6 @@ public class Platform : MonoBehaviour
         var selfTransform = transform;
         var selfPosition = selfTransform.position;
         
-        
         switch (randomNumber)
         {
             case < 5:               //Enemy

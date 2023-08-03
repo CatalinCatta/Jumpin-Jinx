@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerStatus : MonoBehaviour
 {
     public GameObject display;
-    [SerializeField] private bool endlessRun;
+    private bool _endlessRun;
     
     public int killCounter;
     
@@ -35,11 +35,16 @@ public class PlayerStatus : MonoBehaviour
     
     private void Start()
     {
-        _hp = endlessRun ? 50 : 20;
-        _speedBuffs = endlessRun ? 5 : 2;
-        _jumpBuffs = endlessRun ? 5 : 2;
+        _endlessRun = LvlManager.Instance.currentLvl == 0;
+        
+        _hp = _endlessRun ? (PlayerManager.Instance.hpLvl + 1) * 5 : 20;
+        _speedBuffs = PlayerManager.Instance.speedBuffs;
+        _jumpBuffs = PlayerManager.Instance.jumpBuffs;
         
         ShowLife();
+        if (!_endlessRun)
+            return;
+        
         ShowJumpBuffs();
         ShowSpeedBuffs();
     }
@@ -52,7 +57,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void ConsumeSpeedBuff()
     {
-        if (_speedBuffs == 0)
+        if (_speedBuffs == 0 || !_endlessRun)
             return;
         
         _speedBuffs--;
@@ -62,7 +67,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void ConsumeJumpBuff()
     {
-        if (_jumpBuffs == 0)
+        if (_jumpBuffs == 0 || !_endlessRun)
             return;
 
         _jumpBuffs--;
@@ -72,13 +77,13 @@ public class PlayerStatus : MonoBehaviour
 
     public void Heal()
     {
-        _hp += 10;
+        _hp += 5;
         ShowLife();
     }
 
     public void GetDamage(Vector3 direction, int amount)
     {
-        _hp -= amount;
+        _hp -= _endlessRun? amount * (1 - PlayerManager.Instance.defLvl / 100) : amount;
         ShowLife();
 
         if (_knockBack != null)
@@ -96,7 +101,6 @@ public class PlayerStatus : MonoBehaviour
         
         if (_hp == 0)
             Die();
-
     }
     
     private IEnumerator JumpTimer()
@@ -176,7 +180,7 @@ public class PlayerStatus : MonoBehaviour
 
         var endScreen = display.transform.parent.parent.GetChild(1);
         
-        if (!endlessRun)
+        if (!_endlessRun)
             endScreen.GetChild(1).gameObject.SetActive(true);
         else
         {
@@ -187,6 +191,9 @@ public class PlayerStatus : MonoBehaviour
             insideEndScreenFrame.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
             insideEndScreenFrame.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = killCounter.ToString();
             insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(transform.position.x / 2.55) + "m";
+
+            PlayerManager.Instance.jumpBuffs = _jumpBuffs;
+            PlayerManager.Instance.speedBuffs = _speedBuffs;
         }
         
     }
