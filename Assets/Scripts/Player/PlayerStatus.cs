@@ -36,7 +36,7 @@ public class PlayerStatus : MonoBehaviour
     private void Start()
     {
         _endlessRun = LvlManager.Instance.currentLvl == 0;
-        
+
         _hp = _endlessRun ? (PlayerManager.Instance.hpLvl + 1) * 5 : 20;
         _speedBuffs = PlayerManager.Instance.speedBuffs;
         _jumpBuffs = PlayerManager.Instance.jumpBuffs;
@@ -194,8 +194,8 @@ public class PlayerStatus : MonoBehaviour
 
             PlayerManager.Instance.jumpBuffs = _jumpBuffs;
             PlayerManager.Instance.speedBuffs = _speedBuffs;
+            PlayerManager.Instance.gold += _coins;
         }
-        
     }
     
     public void Win()

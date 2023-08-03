@@ -33,14 +33,14 @@ public class Bullet : MonoBehaviour
     private void Update() =>
         transform.Translate(Vector3.left * _speed * Time.deltaTime);
     
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (col.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
             FindObjectOfType<PlayerStatus>().killCounter++;
         }
-        else if (collision.gameObject.CompareTag("Ground"))
+        else if (col.gameObject.CompareTag("Ground"))
             Destroy(gameObject);
     }
     

@@ -7,7 +7,13 @@ public class GhostBlock : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Ground") && col.TryGetComponent<Platform>(out var platform) && CheckPlatform(platform))
+        if (!col.gameObject.CompareTag("Ground") || !col.TryGetComponent<Platform>(out var platform))
+            return;
+            
+        if (platform == originPlatform)
+            Physics2D.IgnoreCollision(col.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+        if (CheckPlatform(platform))
             platform.inCollisionWithGhostBlock = true;
     }
 
@@ -22,8 +28,8 @@ public class GhostBlock : MonoBehaviour
         var platformPosition = platform.transform.position;
         var selfPosition = transform.position;
         
-        return platform != originPlatform &&
-               ((platform.platformType == PlatformType.HorizontalMoving &&
+        return 
+               (platform.platformType == PlatformType.HorizontalMoving &&
                  platformPosition.x <= selfPosition.x - 0.64f &&
                  platformPosition.y < selfPosition.y + 0.2f &&
                  platformPosition.y > selfPosition.y - 0.2f &&
@@ -32,6 +38,6 @@ public class GhostBlock : MonoBehaviour
                  platformPosition.y <= selfPosition.y - 0.64f &&
                  platformPosition.x < selfPosition.x + 0.2f &&
                  platformPosition.x > selfPosition.x - 0.2f && 
-                 (originPlatform == null || originPlatform.platformType != PlatformType.VerticalMoving || isMoving)));
+                 (originPlatform == null || originPlatform.platformType != PlatformType.VerticalMoving || isMoving));
     }
 }

@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
 {
     private bool _movementTestActive;
     private bool _endlessRun;
+    private bool _isShooting;
 
     public float movementSpeed;
     public float jumpPower;
@@ -14,7 +15,6 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _movement;
     private bool _jump;
     private Vector3 _velocity;
-    private float _fireTimer;
     private bool _isFireActivated;
     private Vector2 _smoothVelocity;
   
@@ -88,19 +88,13 @@ public class PlayerControl : MonoBehaviour
     
         if (Input.GetKeyDown(SettingsManager.Instance.speedBuffKeyCode) && !_playerStatus.speedBuffActive)
             _playerStatus.ConsumeSpeedBuff();
+
+        if (_isFireActivated) return;
     
         if (Input.GetKeyDown(SettingsManager.Instance.fireKeyCode))
-        {
             Fire();
-            _fireTimer = Time.time;
-            _isFireActivated = true;
-        }
-
-        if (!_isFireActivated)
+        else
             PlayAnimation();
-
-        if (Time.time - _fireTimer >= 0.4f)
-            _isFireActivated = false;
     }
 
     private void FixedUpdate()
@@ -132,9 +126,16 @@ public class PlayerControl : MonoBehaviour
     
     private void Fire()
     {
+        if (_isFireActivated) return;
+     
         _animator.enabled = false;
         _sprite.sprite = playerSprites[(int)PlayerSprites.Shot];
-        transform.GetChild(1).gameObject.SetActive(true);
+        
+        var bow = transform.GetChild(1);
+        bow.gameObject.SetActive(true);
+        // bow.GetChild(1).GetComponent<Animator>().SetFloat("speed", _endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f ); // 1.1f => 0.1f
+        bow.GetChild(1).GetComponent<Animator>().speed = _endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f; // 1.1f => 0.1f
+
         _playerAudioControl.PlayShootArrowSound();
 
         StartCoroutine(CreateBullet());
@@ -142,12 +143,16 @@ public class PlayerControl : MonoBehaviour
 
     private IEnumerator CreateBullet()
     {
+        _isFireActivated = true;
+        
         yield return new WaitForSeconds(_endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f);   // 1.1f => 0.1f
         
         var playerTransform = transform;
         
-        Physics2D.IgnoreCollision(Instantiate(bullet,  playerTransform.position + new Vector3(
-            playerTransform.rotation == Quaternion.Euler(0, 0, 0) ? -0.4f : 0.4f, 0.5f) ,playerTransform.rotation).GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        Instantiate(bullet,  playerTransform.position + new Vector3(
+            playerTransform.rotation == Quaternion.Euler(0, 0, 0) ? -0.4f : 0.4f, 0.5f) ,playerTransform.rotation);
+
+        _isFireActivated = false;
     }
 
     private void PlayAnimation()
@@ -186,13 +191,12 @@ public class PlayerControl : MonoBehaviour
         else if (_movement == Vector3.right)
             transform.rotation = Quaternion.Euler(0, 180, 0);
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Enemy"))
             return;
 
-        Debug.Log(collision);
         var colliderSize = (Vector3)Utils.GetColliderSize(collision);
         var position = transform.position;
         var colliderPosition = collision.transform.position;

@@ -101,9 +101,7 @@ public class WorldGenerator : MonoBehaviour
 
             _platformsLengths[i]--;
             var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0), Quaternion.identity);
-            var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) :
-                (PlatformType)(Utils.RandomPickNumberBetween(0,
-                    Enum.GetValues(typeof(PlatformType)).Length + 1) % 5);
+            var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) : ChoosePlatformType();
             
             var platformComponent = platformObject.GetComponent<Platform>();
 
@@ -118,6 +116,15 @@ public class WorldGenerator : MonoBehaviour
             Instantiate(emptyPlatform, new Vector3(xPosition, -5.12f, -1), Quaternion.identity);
         }
     }
+
+    private PlatformType ChoosePlatformType() => Utils.RandomPickNumberExcludingZero(100) switch
+    {
+        <= 15 => PlatformType.Temporary,
+        <= 30 => PlatformType.VerticalMoving,
+        <= 45 => PlatformType.CircularMoving,
+        <= 60 => PlatformType.HorizontalMoving,
+        _ => PlatformType.Static,
+    };
 
     private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position) => 
         position.x >= Mathf.Min(startPoint.x, endPoint.x) && position.x <= Mathf.Max(startPoint.x, endPoint.x) && position.y >= Mathf.Min(startPoint.y, endPoint.y) && position.y <= Mathf.Max(startPoint.y, endPoint.y);

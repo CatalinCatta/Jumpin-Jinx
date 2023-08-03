@@ -47,7 +47,9 @@ public class Platform : MonoBehaviour
         
         movement = movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : movement;
         rotationAngle = rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : rotationAngle;
-        rotationSpeed = rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : rotationSpeed;
+        while (rotationSpeed == 0)
+            rotationSpeed = rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : rotationSpeed;
+        
         
         switch (platformType)
         {
@@ -95,6 +97,7 @@ public class Platform : MonoBehaviour
             case < 5:               //Enemy
                 Instantiate(enemy, selfPosition + Vector3.up + Vector3.back, Quaternion.identity, selfTransform);
                 return;
+            
             case < 10:              //Spike
                 if (platformType != PlatformType.Temporary)
                     Instantiate(spike, selfPosition + Vector3.up * 0.75f + Vector3.back, Quaternion.identity, selfTransform);

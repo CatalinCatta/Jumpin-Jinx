@@ -11,17 +11,26 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, (_direction - 1 ) * -90 , 0);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Death"))
+        if (col.gameObject.CompareTag("Bullet"))
             StartCoroutine(Utils.PlaySoundOnDeath(gameObject));
-        if (collision.gameObject.CompareTag("Consumable") || collision.gameObject.CompareTag("Enemy") )
-            Physics2D.IgnoreCollision(collision.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        if (collision.gameObject.CompareTag("Ground") && collision.transform.position.y < transform.position.y - 1.25f )
-            transform.SetParent(collision.transform);
     }
     
-    private void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Death"))
+            StartCoroutine(Utils.PlaySoundOnDeath(gameObject));
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            if (collision.transform.position.y < transform.position.y - 1.25f )
+                transform.SetParent(collision.transform);
+        }
+        else
+            Physics2D.IgnoreCollision(collision.transform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    }
+    
+    private void LateUpdate()
     {
         var rigidBody = GetComponent<Rigidbody2D>();
         var grounded = false;
@@ -34,13 +43,15 @@ public class Enemy : MonoBehaviour
                 continue;
 
             if (transform.position.y - objectCollider.transform.position.y < 0.5f)
+            {
+                grounded = false;
                 break;
-
+            }
+            
             if (transform.position.y - objectCollider.transform.position.y is <= 0.5f or >= 0.9f || objectCollider.TryGetComponent<PolygonCollider2D>(out _) || objectCollider.transform == transform.parent) continue;
 
             platform = objectCollider.transform;
             grounded = true;
-            break;
         }
 
         if (grounded)
