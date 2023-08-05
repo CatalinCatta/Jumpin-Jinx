@@ -107,10 +107,12 @@ public class PlayerControl : MonoBehaviour
         
         if (_movement.x != 0)
             _playerAudioControl.PlayWalkSound();
-        
-        rigidBody.velocity = 
-            _movementTestActive ? Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f) : new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y); //Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f);
 
+        rigidBody.velocity =
+            _movementTestActive
+                ? Vector2.SmoothDamp(rigidBody.velocity, _movement * movementSpeed, ref _smoothVelocity, 0.1f)
+                : new Vector2(_movement.x * movementSpeed, rigidBody.velocity.y);
+        
         if (!_jump) return;
 
         rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0f);
@@ -136,7 +138,6 @@ public class PlayerControl : MonoBehaviour
         
         var bow = transform.GetChild(1);
         bow.gameObject.SetActive(true);
-        // bow.GetChild(1).GetComponent<Animator>().SetFloat("speed", _endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f ); // 1.1f => 0.1f
         bow.GetChild(1).GetComponent<Animator>().speed = _endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f; // 1.1f => 0.1f
 
         _playerAudioControl.PlayShootArrowSound();

@@ -190,7 +190,7 @@ public class PlayerStatus : MonoBehaviour
 
             insideEndScreenFrame.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
             insideEndScreenFrame.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = killCounter.ToString();
-            insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(transform.position.x / 2.55) + "m";
+            insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(transform.position.x / 2.55, true) + "m";
 
             PlayerManager.Instance.jumpBuffs = _jumpBuffs;
             PlayerManager.Instance.speedBuffs = _speedBuffs;

@@ -13,7 +13,7 @@ public static class Utils
     public static int RandomPickNumberBetween(int min, int max) =>
         Random.Next(min, max);
 
-    public static string DoubleToString(double number) => number switch
+    public static string DoubleToString(double number, bool withDecimals) => number switch
     {
         >= 100_000_000_000_000 => (number / 1_000_000_000_000).ToString("F0") + " t",
 
@@ -41,11 +41,11 @@ public static class Utils
 
         >= 100 => number.ToString("F0") + " ",
 
-        >= 10 => number.ToString("F1") + " ",
+        >= 10 => number.ToString(withDecimals ? "F1" : "F0") + " ",
 
         0 => "0 ",
 
-        _ => number.ToString("F2") + " "
+        _ => number.ToString(withDecimals ? "F2" : "F0") + " "
 
     };
 

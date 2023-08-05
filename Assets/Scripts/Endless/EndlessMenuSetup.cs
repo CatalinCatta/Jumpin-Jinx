@@ -73,6 +73,7 @@ public class EndlessMenuSetup : MonoBehaviour
                 if (PlayerManager.Instance.gold < PlayerManager.Instance.atkPrice)
                     return;
                 PlayerManager.Instance.atkLvl++;
+                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.atkPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
                 PlayerManager.Instance.atkPrice = PriceCalculator(PlayerManager.Instance.atkLvl);
                 break;
@@ -81,6 +82,7 @@ public class EndlessMenuSetup : MonoBehaviour
                 if (PlayerManager.Instance.gold < PlayerManager.Instance.msPrice)
                     return;
                 PlayerManager.Instance.msLvl++;
+                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.msPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
                 PlayerManager.Instance.msPrice = PriceCalculator(PlayerManager.Instance.msLvl);
                 break;
@@ -89,6 +91,7 @@ public class EndlessMenuSetup : MonoBehaviour
                 if (PlayerManager.Instance.gold < PlayerManager.Instance.jumpPrice)
                     return;
                 PlayerManager.Instance.jumpLvl++;
+                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.jumpPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
                 PlayerManager.Instance.jumpPrice = PriceCalculator(PlayerManager.Instance.jumpLvl);
                 break;
@@ -97,6 +100,7 @@ public class EndlessMenuSetup : MonoBehaviour
                 if (PlayerManager.Instance.gold < PlayerManager.Instance.defPrice)
                     return;
                 PlayerManager.Instance.defLvl++;
+                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.defPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
                 PlayerManager.Instance.defPrice = PriceCalculator(PlayerManager.Instance.defLvl);
                 break;
@@ -105,6 +109,7 @@ public class EndlessMenuSetup : MonoBehaviour
                 if (PlayerManager.Instance.gold < PlayerManager.Instance.hpPrice)
                     return;
                 PlayerManager.Instance.hpLvl++;
+                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.hpPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
                 PlayerManager.Instance.hpPrice = PriceCalculator(PlayerManager.Instance.hpLvl);
                 break;
@@ -153,22 +158,22 @@ public class EndlessMenuSetup : MonoBehaviour
     {
         var (lvl, price) = upgradeType switch
         {
-            UpgradeType.Attack => (PlayerManager.Instance.atkLvl, PlayerManager.Instance.atkPrice),
+            UpgradeType.Attack => (PlayerManager.Instance.atkLvl,PlayerManager.Instance.atkPrice),
 
-            UpgradeType.MovementSpeed => (PlayerManager.Instance.msLvl, PlayerManager.Instance.msPrice),
+            UpgradeType.MovementSpeed => (PlayerManager.Instance.msLvl,PlayerManager.Instance.msPrice),
 
-            UpgradeType.JumpPower => (PlayerManager.Instance.jumpLvl, PlayerManager.Instance.jumpPrice),
+            UpgradeType.JumpPower => (PlayerManager.Instance.jumpLvl,PlayerManager.Instance.jumpPrice),
 
-            UpgradeType.Defence => (PlayerManager.Instance.defLvl, PlayerManager.Instance.defPrice),
+            UpgradeType.Defence => (PlayerManager.Instance.defLvl,PlayerManager.Instance.defPrice),
 
-            UpgradeType.MaxHealth => (PlayerManager.Instance.hpLvl, PlayerManager.Instance.hpPrice),
+            UpgradeType.MaxHealth => (PlayerManager.Instance.hpLvl,PlayerManager.Instance.hpPrice),
 
             _ => throw new Exception("This UpgradeType was not expected.")
         };
         var element = transform.GetChild(2).GetChild((int)upgradeType);
-        
-        ColorLevels(element.GetChild(1), lvl);
+
         Buy(element.GetChild(2), lvl, price);
+        ColorLevels(element.GetChild(1), lvl);
     }
 
     private void SetUpShop(ShopItemType shopItemType)
@@ -187,20 +192,17 @@ public class EndlessMenuSetup : MonoBehaviour
         var item = transform.GetChild(3).GetChild((int)shopItemType); 
         
         item.GetChild(2).GetComponent<TextMeshProUGUI>().text = "You have: " + amount;
-        item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(price);
+        item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(price, false);
     }
     
-    private void Buy(Transform label, int lvl, int price)
+    private static void Buy(Transform label, int lvl, int price)
     {
         var labelText = label.GetChild(0);
         var labelTextComponent = labelText.GetComponent<TextMeshProUGUI>();
         var labelTextRectTransform= labelText.GetComponent<RectTransform>();
-
-        if (lvl != 0)
-            _playerEndlessStatus.UpdateGold(-price);
         
         if (lvl < 50)
-            labelTextComponent.text = Utils.DoubleToString(PriceCalculator(lvl));
+            labelTextComponent.text = Utils.DoubleToString(price, false);
         else
         {
             labelTextComponent.text = "MAX";
@@ -221,7 +223,7 @@ public class EndlessMenuSetup : MonoBehaviour
                 calculatedAtk <= 0 ? 0.5f : calculatedAtk is <= 10 or > 40 ? 1f : 0f,
                 calculatedAtk <= 0 ? 0.5f : calculatedAtk <= 30 ? 1f : 0f,
                 calculatedAtk <= 0 ? 0.5f : calculatedAtk is > 20 and <= 40 ? 1f : 0f);
-        }        
+        }
     }
     
     private IEnumerator ActivateMenu()
