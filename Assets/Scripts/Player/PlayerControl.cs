@@ -91,7 +91,7 @@ public class PlayerControl : MonoBehaviour
 
         if (_isFireActivated) return;
     
-        if (Input.GetKeyDown(SettingsManager.Instance.fireKeyCode))
+        if (Input.GetKey(SettingsManager.Instance.fireKeyCode))
             Fire();
         else
             PlayAnimation();
@@ -103,7 +103,6 @@ public class PlayerControl : MonoBehaviour
             return;
 
         var rigidBody = GetComponent<Rigidbody2D>();
-        var jumpMultiplier = 1f;
         
         if (_movement.x != 0)
             _playerAudioControl.PlayWalkSound();
@@ -119,9 +118,9 @@ public class PlayerControl : MonoBehaviour
         
         if (_movementTestActive)
             rigidBody.velocity =
-                Vector2.SmoothDamp(rigidBody.velocity, Vector2.up * jumpPower / 5f * jumpMultiplier, ref _smoothVelocity, 0.1f);
+                Vector2.SmoothDamp(rigidBody.velocity, Vector2.up * jumpPower / 5f, ref _smoothVelocity, 0.1f);
         else
-            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower * jumpMultiplier));
+            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower));
 
         _jump = false;
     }
@@ -138,8 +137,8 @@ public class PlayerControl : MonoBehaviour
         
         var bow = transform.GetChild(1);
         bow.gameObject.SetActive(true);
-        bow.GetChild(1).GetComponent<Animator>().speed = _endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f; // 1.1f => 0.1f
-
+        bow.GetChild(1).GetComponent<Animator>().speed = _endlessRun? 0.2f + PlayerManager.Instance.atkLvl * 0.036f : 1f; // 0.2f => 2f
+        
         _playerAudioControl.PlayShootArrowSound();
 
         StartCoroutine(CreateBullet());
@@ -149,7 +148,7 @@ public class PlayerControl : MonoBehaviour
     {
         _isFireActivated = true;
         
-        yield return new WaitForSeconds(_endlessRun? 1.1f - PlayerManager.Instance.atkLvl / 25f : 0.4f);   // 1.1f => 0.1f
+       yield return new WaitForSeconds(_endlessRun? 1.25f - PlayerManager.Instance.atkLvl * 0.0225f : 0.25f);   // 1.25f => 0.125f
         
         var playerTransform = transform;
         

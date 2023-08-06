@@ -4,7 +4,8 @@ using UnityEngine;
 public class Consumable : MonoBehaviour
 {
     private PlayerStatus _playerStatus;
-
+    private bool _isDestroying;
+    
     [SerializeField] private ConsumableType consumableType;
     
     private void Start() =>
@@ -12,9 +13,10 @@ public class Consumable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.gameObject.CompareTag("Player"))
+        if (!col.gameObject.CompareTag("Player") || _isDestroying)
             return;
 
+        _isDestroying = true;
         switch (consumableType)
         {
             case ConsumableType.Coin:

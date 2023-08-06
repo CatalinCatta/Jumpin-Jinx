@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        _speed = LvlManager.Instance.currentLvl == 0? 8f - PlayerManager.Instance.atkLvl * 0.15f : 5f;  // 8f => 0.5f
+        _speed = LvlManager.Instance.currentLvl == 0? 1f + PlayerManager.Instance.atkLvl * 0.18f : 5f;  // 1f => 10f
         StartCoroutine(DestroyAfterDelay());
     }
     
