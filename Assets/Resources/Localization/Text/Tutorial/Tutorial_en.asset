@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tutorial_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: ec3134c00722ec34d8bb8f2c8848e878, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 2527062697924624410
+  m_TableData:
+  - m_Id: 883525156864
+    m_Localized: <- Press [{0}] to move left <-
+    m_Metadata:
+      m_Items:
+      - rid: 2527062697924624410
+  - m_Id: 4843430477824
+    m_Localized: -> Press [{0}] to move right ->
+    m_Metadata:
+      m_Items:
+      - rid: 2527062697924624410
+  - m_Id: 5078760292352
+    m_Localized: ^ Press [{0}] to jump ^
+    m_Metadata:
+      m_Items:
+      - rid: 2527062697924624410
+  - m_Id: 5771961303040
+    m_Localized: Be Careful
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5923753164800
+    m_Localized: '!!! Don''t touch the spikes !!!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6116745674752
+    m_Localized: '! DANGER !'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6237055090688
+    m_Localized: '!!! Don''t fall in watter !!!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6482589646848
+    m_Localized: Press [{0}] to shoot
+    m_Metadata:
+      m_Items:
+      - rid: 2527062697924624410
+  - m_Id: 6662399459328
+    m_Localized: '!!! Avoid touching enemies !!!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7050745872384
+    m_Localized: Some platforms will move around
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7303146504192
+    m_Localized: Some platforms will disappear after touching
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7483614822400
+    m_Localized: Pick up hearts on your way to regenerate your hp
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2527062697924624410
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 000034b6cd0000000000f4b2670400000000b47d9e04000000007458e5050000

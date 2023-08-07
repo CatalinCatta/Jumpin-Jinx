@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Upgrade_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: d96dd325df8e89c4b882bb07bcf78355, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 109227278336
+    m_Localized: Atk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1173456420864
+    m_Localized: Ms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1234621956096
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1341052420096
+    m_Localized: Def
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1657432965120
+    m_Localized: Hp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1737628057600
+    m_Localized: Jump Buff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1910466936832
+    m_Localized: Speed Buff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2024946270208
+    m_Localized: Second Chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2563884974080
+    m_Localized: 'You Have: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2806068281344
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

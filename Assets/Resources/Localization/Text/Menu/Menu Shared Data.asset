@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Menu Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Menu
+  m_TableCollectionNameGuidString: ae9a143c3cabbcc4c9aede1ae6035ec2
+  m_Entries:
+  - m_Id: 87223959552
+    m_Key: Campaign
+    m_Metadata:
+      m_Items: []
+  - m_Id: 441953026048
+    m_Key: Endless
+    m_Metadata:
+      m_Items: []
+  - m_Id: 510303404032
+    m_Key: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 614787710976
+    m_Key: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698480852992
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 754680332288
+    m_Key: Sounds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 817653612544
+    m_Key: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 877992869888
+    m_Key: Display
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929205321728
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2737319444480
+    m_Key: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2984670134272
+    m_Key: Upgrades
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3152677175296
+    m_Key: Skins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3380432076800
+    m_Key: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6274707357696
+    m_Key: Store
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2527062697924624420
+  references:
+    version: 2
+    RefIds:
+    - rid: 2527062697924624420
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1691329867039

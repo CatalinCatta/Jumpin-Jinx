@@ -14,4 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/Grass Lvl Design.unity
     guid: 634a2aa964fb116428c14351b07de983
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 302eacb2ddc448041861ff6beea72e36, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 52187389935fccf4d858c97234d4f039, type: 2}

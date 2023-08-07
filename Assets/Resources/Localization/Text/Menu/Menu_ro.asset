@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Menu_ro
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ro
+  m_SharedData: {fileID: 11400000, guid: ae9a143c3cabbcc4c9aede1ae6035ec2, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 87223959552
+    m_Localized: Campanie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 441953026048
+    m_Localized: Nesfarsit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 510303404032
+    m_Localized: Setari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 614787710976
+    m_Localized: Iesi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698480852992
+    m_Localized: Setari
+    m_Metadata:
+      m_Items: []
+  - m_Id: 754680332288
+    m_Localized: Sunete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 817653612544
+    m_Localized: Comenzi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 877992869888
+    m_Localized: Afisaj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929205321728
+    m_Localized: Inapoi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2737319444480
+    m_Localized: Joaca
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2984670134272
+    m_Localized: "Upgrade-uri\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3152677175296
+    m_Localized: Skin-uri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3380432076800
+    m_Localized: Cumparaturi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6274707357696
+    m_Localized: Magazin
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

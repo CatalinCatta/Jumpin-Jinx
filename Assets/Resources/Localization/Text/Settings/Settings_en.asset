@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Settings_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 4384a5b86536e8648923fc9d4d672e7d, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 39694106624
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 248171986944
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 354195603456
+    m_Localized: Move Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 630583459840
+    m_Localized: Move Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 891456585728
+    m_Localized: Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 955394555904
+    m_Localized: Speed Buff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1017260539904
+    m_Localized: Jump Buff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1140438859776
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1181773725696
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1244885417984
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1285549195264
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1556044054528
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57828978196480
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

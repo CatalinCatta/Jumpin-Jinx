@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Tutorial Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Tutorial
+  m_TableCollectionNameGuidString: ec3134c00722ec34d8bb8f2c8848e878
+  m_Entries:
+  - m_Id: 883525156864
+    m_Key: Left Movement Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4843430477824
+    m_Key: Right Movement Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5078760292352
+    m_Key: Jump Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5771961303040
+    m_Key: Careful
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5923753164800
+    m_Key: Spike Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6116745674752
+    m_Key: Danger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6237055090688
+    m_Key: Watter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6482589646848
+    m_Key: Shoot Tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6662399459328
+    m_Key: Enemies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7050745872384
+    m_Key: Moving Platforms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7303146504192
+    m_Key: Temporary Platforms
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7483614822400
+    m_Key: Heal
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2527062697924624408
+  references:
+    version: 2
+    RefIds:
+    - rid: 2527062697924624408
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1691327669571
