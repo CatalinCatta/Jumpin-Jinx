@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class EndlessMenuSetup : MonoBehaviour
@@ -40,10 +41,10 @@ public class EndlessMenuSetup : MonoBehaviour
 
     public void ShowShop()
     {
+        StartCoroutine(AnimateCard(transform.GetChild(3), true));
+      
         foreach (ShopItemType shopItemType in Enum.GetValues(typeof(ShopItemType)))
             SetUpShop(shopItemType);
-            
-        StartCoroutine(AnimateCard(transform.GetChild(3), true));
     }
     public void HideShop() =>
         StartCoroutine(AnimateCard(transform.GetChild(3), false));
@@ -189,9 +190,9 @@ public class EndlessMenuSetup : MonoBehaviour
             _ => throw new Exception("This ShopItemType was not expected.")
         };
         
-        var item = transform.GetChild(3).GetChild((int)shopItemType); 
+        var item = transform.GetChild(3).GetChild((int)shopItemType);
         
-        item.GetChild(2).GetComponent<TextMeshProUGUI>().text = "You have: " + amount;
+        item.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]{amount});
         item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(price, false);
     }
     

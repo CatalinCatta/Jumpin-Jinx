@@ -74,6 +74,10 @@ MonoBehaviour:
     m_Localized: Magazin
     m_Metadata:
       m_Items: []
+  - m_Id: 1097923101741056
+    m_Localized: Personalizat
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

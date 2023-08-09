@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Key: Store
     m_Metadata:
       m_Items: []
+  - m_Id: 1097923101741056
+    m_Key: Custom
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

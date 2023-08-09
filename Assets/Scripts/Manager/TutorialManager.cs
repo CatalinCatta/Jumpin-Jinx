@@ -48,28 +48,24 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    private static string ReformatKeyCodeAsString(KeyCode keyCode) =>
+        Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!,
+            @"(\p{Lu})", " $1").Trim();
+    
     public void SetUpMovement()
     {
         gameObject.SetActive(true);
         questionMarks.SetActive(true);
         movement.gameObject.SetActive(true);
 
-        var leftMovement = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.moveLeftKeyCode)!,
-            @"(\p{Lu})", " $1").Trim();
-        var rightMovement = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.moveRightKeyCode)!,
-            @"(\p{Lu})", " $1").Trim();
-        var jump = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.jumpKeyCode)!,
-            @"(\p{Lu})", " $1").Trim();
+        movement.GetChild(0).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
+            { ReformatKeyCodeAsString(SettingsManager.Instance.moveLeftKeyCode) });
 
-        movement.GetChild(0).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? $"<- Press [{leftMovement}] to move left <-"
-            : $"<- Apasa [{leftMovement}] pentru a te misca la stanga <-";
-        movement.GetChild(1).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? $"-> Press [{rightMovement}] to move right ->"
-            : $"-> Apasa [{rightMovement}] pentru a te misca la dreapta ->";
-        movement.GetChild(2).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? $"^ Press [{jump}] to jump ^"
-            : $"^ Apasa [{jump}] pentru a sari ^";
+        movement.GetChild(1).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
+            { ReformatKeyCodeAsString(SettingsManager.Instance.moveRightKeyCode) });
+
+        movement.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
+            { ReformatKeyCodeAsString(SettingsManager.Instance.jumpKeyCode) });
     }
 
     public void SetUpSpike()
@@ -77,12 +73,6 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(true);
         exclamationMarks.SetActive(true);
         spike.gameObject.SetActive(true);
-
-        spike.GetChild(0).GetComponent<TextMeshPro>().text =
-            SettingsManager.Instance.language == Language.English ? "Be Careful" : "Atentie";
-        spike.GetChild(1).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? "!!! Don't touch the spikes !!!"
-            : "!!! Nu atinge tepii !!!";
     }
 
     public void SetUpWatter()
@@ -90,12 +80,6 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(true);
         exclamationMarks.SetActive(true);
         watter.gameObject.SetActive(true);
-
-        watter.GetChild(0).GetComponent<TextMeshPro>().text =
-            SettingsManager.Instance.language == Language.English ? "! DANGER !" : "! PERICOL !";
-        watter.GetChild(1).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? "!!! Don't fall in watter !!!"
-            : "!!! Nu cadea în apa !!!";
     }
     
     public void SetUpEnemy()
@@ -104,15 +88,8 @@ public class TutorialManager : MonoBehaviour
         mergedMarks.SetActive(true);
         enemy.gameObject.SetActive(true);
         
-        var shoot = Regex.Replace(Enum.GetName(typeof(KeyCode), SettingsManager.Instance.fireKeyCode)!,
-            @"(\p{Lu})", " $1").Trim();
-
-        enemy.GetChild(0).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? $"Press [{shoot}] to shoot"
-            : $"Apasa [{shoot}] pentru a trage";
-        enemy.GetChild(1).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? "!!! Avoid touching enemies !!!"
-            : "!!! Evita sa atingi inamicii !!!";
+        enemy.GetChild(0).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
+            { ReformatKeyCodeAsString(SettingsManager.Instance.fireKeyCode) });
     }
     
     public void SetUpPlatform()
@@ -120,10 +97,6 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(true);
         questionMarks.SetActive(true);
         platforms.gameObject.SetActive(true);
-
-        platforms.GetChild(0).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? "Some platforms Will move around"
-            : "Unele platforme se vor misca";
     }
     
     public void SetUpTemporaryPlatform()
@@ -131,11 +104,6 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(true);
         questionMarks.SetActive(true);
         temporaryPlatform.gameObject.SetActive(true);
-
-        temporaryPlatform.GetChild(0).GetComponent<TextMeshPro>().text =
-            SettingsManager.Instance.language == Language.English
-                ? "Some platforms will disappear after touching"
-                : "Unele platforme vor disparea dupa ce le atingi";
     }
     
     public void SetUpHeal()
@@ -143,10 +111,6 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(true);
         questionMarks.SetActive(true);
         heal.gameObject.SetActive(true);
-
-        heal.GetChild(0).GetComponent<TextMeshPro>().text = SettingsManager.Instance.language == Language.English
-            ? "Pick up hearts on your way to regenerate your hp"
-            : "Aduna inimioare in drumul tau pentru a-ti regenera viata";
     }
     
 }

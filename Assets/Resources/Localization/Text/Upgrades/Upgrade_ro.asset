@@ -51,7 +51,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2563884974080
-    m_Localized: 'Detii: 0'
+    m_Localized: 'Detii: {0}'
     m_Metadata:
       m_Items: []
   - m_Id: 2806068281344

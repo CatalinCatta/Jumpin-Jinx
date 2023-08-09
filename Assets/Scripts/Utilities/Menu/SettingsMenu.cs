@@ -454,7 +454,6 @@ public class SettingsMenu : MonoBehaviour
     
     private IEnumerator SetLanguage(int languageID)
     {
-        Debug.Log(LocalizationSettings.AvailableLocales.Locales.Count);
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[languageID];
     }
