@@ -78,6 +78,18 @@ MonoBehaviour:
     m_Localized: Personalizat
     m_Metadata:
       m_Items: []
+  - m_Id: 1120925851582464
+    m_Localized: Online
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1121313162002432
+    m_Localized: Local
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1478748787703808
+    m_Localized: Creeaza
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -5,7 +5,6 @@ using UnityEngine.Localization;
 public class ParameterizedLocalizedString : MonoBehaviour
 {
     [SerializeField] private LocalizedString localizedString;
-    // [SerializeField] private TextMeshProUGUI textMeshProUGUI;
     [SerializeField] private TMP_Text textMeshPro;
     
     private object[] _objects;
@@ -19,15 +18,8 @@ public class ParameterizedLocalizedString : MonoBehaviour
     private void OnDisable() =>
         localizedString.StringChanged -= UpdateText;
 
-    private void UpdateText(string text) 
-    {
-        // if (textMeshProUGUI == null)
+    private void UpdateText(string text) =>
         textMeshPro.text = text;
-        // else
-        //     textMeshProUGUI.text = text;
-        //
-        // GetComponent<TMP_Text>().text = "1";
-    }
 
     public void SetObject(object[] obj)
     {

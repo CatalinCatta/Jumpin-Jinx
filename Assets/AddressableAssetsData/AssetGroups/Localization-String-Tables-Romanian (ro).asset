@@ -40,6 +40,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-ro
     - Preload
+  - m_GUID: 5bffcb5ace4a30040bf73917072de808
+    m_Address: MapBuilder_ro
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ro
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 6eb7fad5f80b9fe4a959275d5ecf6d56, type: 2}
   m_SchemaSet:
