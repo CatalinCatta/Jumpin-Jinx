@@ -3,7 +3,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class EndlessMenuSetup : MonoBehaviour
@@ -15,13 +14,6 @@ public class EndlessMenuSetup : MonoBehaviour
     private void Awake() =>
         _playerEndlessStatus = GetComponent<PlayerEndlessStatus>();
 
-    private enum Direction
-    {
-        Left = -1500,
-        Right = 1500,
-        Random = 2000
-    }
-    
     public void Enable() =>
         StartCoroutine(ActivateMenu());
 
@@ -229,7 +221,7 @@ public class EndlessMenuSetup : MonoBehaviour
     
     private IEnumerator ActivateMenu()
     {
-        var direction = (Random.Range(0, 2) * 2 - 1) * (int)Direction.Random;
+        var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
         foreach (Transform child in menu)
         {
             StartCoroutine(AnimateOneMenu(child, false, direction));
@@ -242,16 +234,16 @@ public class EndlessMenuSetup : MonoBehaviour
         
         for (var i = childCount - 1; i >= 0; i--)
         {
-            StartCoroutine(AnimateOneMenu(buttons.GetChild(i), true, (int)Direction.Right));
+            StartCoroutine(AnimateOneMenu(buttons.GetChild(i), true, (int)MenuDirection.Right));
             yield return new WaitForSeconds(0.2f);
         }
 
-        StartCoroutine(AnimateOneMenu(transform.GetChild(0), true, (int)Direction.Left));
+        StartCoroutine(AnimateOneMenu(transform.GetChild(0), true, (int)MenuDirection.Left));
     }
     
     private IEnumerator CloseMenu()
     {
-        StartCoroutine(AnimateOneMenu(transform.GetChild(0), false, (int)Direction.Left));
+        StartCoroutine(AnimateOneMenu(transform.GetChild(0), false, (int)MenuDirection.Left));
 
         var buttons = transform.GetChild(1);
         var childCount = buttons.childCount; 
@@ -259,10 +251,10 @@ public class EndlessMenuSetup : MonoBehaviour
         for (var i = childCount - 1; i >= 0; i--)
         {
             yield return new WaitForSeconds(0.2f);
-            StartCoroutine(AnimateOneMenu(buttons.GetChild(i), false, (int)Direction.Right));
+            StartCoroutine(AnimateOneMenu(buttons.GetChild(i), false, (int)MenuDirection.Right));
         }
 
-        var direction = (Random.Range(0, 2) * 2 - 1) * (int)Direction.Random;
+        var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
         foreach (Transform child in menu)
         {
             yield return new WaitForSeconds(0.2f);
