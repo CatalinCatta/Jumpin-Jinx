@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq;
 
 public class LvlManager : MonoBehaviour
 {
@@ -26,11 +25,12 @@ public class LvlManager : MonoBehaviour
     public void StartLevel(int lvl)
     {
         currentLvl = lvl;
+        SettingsManager.Instance.Save();
 
         StartCoroutine(LoadAsync(lvl == 0 ? "EndlessRun" : "Grass Lvl Design", lvl==13));
     }
 
-    private IEnumerator LoadAsync(string scene, bool delay)
+    private static IEnumerator LoadAsync(string scene, bool delay)
     {
         var loadingScreen = GameObject.Find("Loading Screen").transform;
         var progressbar = loadingScreen.GetChild(1); 

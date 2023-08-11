@@ -5,8 +5,11 @@ public class Menu : MonoBehaviour
     private void Start() =>
         Time.timeScale = 1f;
 
-    public void StartEndlessRun() =>
+    public void StartEndlessRun()
+    {
+        PlayerManager.Instance.Save();
         LvlManager.Instance.StartLevel(0);
+    }
 
     public void Quit() =>
         Application.Quit();

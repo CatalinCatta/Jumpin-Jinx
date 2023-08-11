@@ -27,13 +27,7 @@ public class SettingsManager: MonoBehaviour
 
     private void Awake()
     {
-        var resolutionAsTuple = Screen.currentResolution;
-        resolution = Utils.ResolutionTupleToIndex(resolutionAsTuple);
-        fullscreen = true;
-        vsync = QualitySettings.vSyncCount > 0;
-
-        Screen.SetResolution(resolutionAsTuple.width, resolutionAsTuple.height, true);
-
+        Load();
         
         if (Instance != null)
         {
@@ -49,4 +43,40 @@ public class SettingsManager: MonoBehaviour
         camera.GetComponent<AudioSource>().volume =
             Instance.musicVolume * Instance.generalVolume / 2;
 
+    private void Load()
+    {
+        var settings = SaveAndLoadSystem.LoadSettings();
+
+        if (settings == null)
+        {
+            resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
+            fullscreen = true;
+            vsync = QualitySettings.vSyncCount > 0;
+        }
+        else
+        {
+            generalVolume = settings.generalVolume;
+            musicVolume = settings.musicVolume;
+            soundEffectVolume = settings.soundEffectVolume;
+            
+            jumpKeyCode = (KeyCode)settings.jumpKeyCode;
+            moveLeftKeyCode = (KeyCode)settings.moveLeftKeyCode;
+            moveRightKeyCode = (KeyCode)settings.moveRightKeyCode;
+            fireKeyCode = (KeyCode)settings.fireKeyCode;
+            speedBuffKeyCode = (KeyCode)settings.speedBuffKeyCode;
+            jumpBuffKeyCode = (KeyCode)settings.jumpBuffKeyCode;
+            pauseKeyCode = (KeyCode)settings.pauseKeyCode;
+            
+            resolution = settings.resolution;
+            fullscreen = settings.fullscreen;
+            vsync = settings.vsync;
+            language = (Language)settings.language;
+        }
+        
+        var resolutionAsTuple = Utils.ResolutionIndexToTuple(resolution);
+        Screen.SetResolution(resolutionAsTuple.Item1, resolutionAsTuple.Item2, fullscreen);
+    }
+
+    public void Save() =>
+        SaveAndLoadSystem.SaveSettings(this);
 }

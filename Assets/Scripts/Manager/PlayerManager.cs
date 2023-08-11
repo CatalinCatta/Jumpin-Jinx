@@ -28,6 +28,8 @@ public class PlayerManager : MonoBehaviour
     
     private void Awake()
     {
+        Load();
+        
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -38,4 +40,27 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Load()
+    {
+        var player = SaveAndLoadSystem.LoadPlayer();
+
+        if (player == null)
+            return;
+        
+        gold = player.gold;
+        gems = player.gems;
+        
+        atkLvl = player.atkLvl;
+        msLvl = player.msLvl;
+        jumpLvl = player.jumpLvl;
+        defLvl = player.defLvl;
+        hpLvl = player.hpLvl;
+        
+        jumpBuffs = player.jumpBuffs;
+        speedBuffs = player.speedBuffs;
+        secondChances = player.secondChances;
+    }
+
+    public void Save() =>
+        SaveAndLoadSystem.SavePlayer(this);
 }

@@ -195,6 +195,8 @@ public class PlayerStatus : MonoBehaviour
             PlayerManager.Instance.jumpBuffs = _jumpBuffs;
             PlayerManager.Instance.speedBuffs = _speedBuffs;
             PlayerManager.Instance.gold += _coins;
+
+            PlayerManager.Instance.Save();
         }
     }
     
