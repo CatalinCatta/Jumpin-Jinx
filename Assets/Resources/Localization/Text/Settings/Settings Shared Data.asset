@@ -67,6 +67,10 @@ MonoBehaviour:
     m_Key: General
     m_Metadata:
       m_Items: []
+  - m_Id: 1857684977475584
+    m_Key: Delete Save
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

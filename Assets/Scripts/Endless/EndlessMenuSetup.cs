@@ -222,9 +222,15 @@ public class EndlessMenuSetup : MonoBehaviour
     private IEnumerator ActivateMenu()
     {
         var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-        foreach (Transform child in menu)
+        var menuChildNr = menu.childCount;
+        
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 2), false, (int)MenuDirection.Left));
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 1), false, (int)MenuDirection.Right));
+        yield return new WaitForSeconds(0.2f);
+ 
+        for (var i = 0; i < menuChildNr - 2; i++)
         {
-            StartCoroutine(AnimateOneMenu(child, false, direction));
+            StartCoroutine(AnimateOneMenu(menu.GetChild(i), false, direction));
             yield return new WaitForSeconds(0.2f);
             direction *= -1;
         }
@@ -255,12 +261,18 @@ public class EndlessMenuSetup : MonoBehaviour
         }
 
         var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-        foreach (Transform child in menu)
+        var menuChildNr = menu.childCount;
+        
+        for (var i = 0; i < menuChildNr - 2; i++)
         {
             yield return new WaitForSeconds(0.2f);
-            StartCoroutine(AnimateOneMenu(child, true, direction));
+            StartCoroutine(AnimateOneMenu(menu.GetChild(i), true, direction));
             direction *= -1;
         }
+
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 2), true, (int)MenuDirection.Left));
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 1), true, (int)MenuDirection.Right));
     }
 
     private static IEnumerator AnimateOneMenu(Component component, bool isAppearing, int direction)

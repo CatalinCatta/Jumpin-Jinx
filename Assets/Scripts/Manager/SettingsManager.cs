@@ -8,22 +8,22 @@ public class SettingsManager: MonoBehaviour
     
     public bool darkModeOn;
     
-    public float generalVolume = 1f;
-    public float musicVolume = 0.5f;
-    public float soundEffectVolume = 1f;
+    public float generalVolume;
+    public float musicVolume;
+    public float soundEffectVolume;
     
-    public KeyCode jumpKeyCode = KeyCode.W;
-    public KeyCode moveLeftKeyCode = KeyCode.A;
-    public KeyCode moveRightKeyCode = KeyCode.D;
-    public KeyCode fireKeyCode = KeyCode.Space;
-    public KeyCode speedBuffKeyCode = KeyCode.LeftAlt;
-    public KeyCode jumpBuffKeyCode = KeyCode.LeftControl;
-    public KeyCode pauseKeyCode = KeyCode.Escape;
+    public KeyCode jumpKeyCode;
+    public KeyCode moveLeftKeyCode;
+    public KeyCode moveRightKeyCode;
+    public KeyCode fireKeyCode;
+    public KeyCode speedBuffKeyCode;
+    public KeyCode jumpBuffKeyCode;
+    public KeyCode pauseKeyCode;
     
     public int resolution;
-    public bool fullscreen = true;
-    public bool vsync = true;
-    public Language language = Language.English;
+    public bool fullscreen;
+    public bool vsync;
+    public Language language;
 
     private void Awake()
     {
@@ -48,13 +48,11 @@ public class SettingsManager: MonoBehaviour
         var settings = SaveAndLoadSystem.LoadSettings();
 
         if (settings == null)
-        {
-            resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
-            fullscreen = true;
-            vsync = QualitySettings.vSyncCount > 0;
-        }
+            Initialize();
         else
         {
+            darkModeOn = settings.darkModeOn;
+                
             generalVolume = settings.generalVolume;
             musicVolume = settings.musicVolume;
             soundEffectVolume = settings.soundEffectVolume;
@@ -79,4 +77,39 @@ public class SettingsManager: MonoBehaviour
 
     public void Save() =>
         SaveAndLoadSystem.SaveSettings(this);
+    
+    public void ResetSettings() 
+    {
+        SaveAndLoadSystem.DeleteSettingsSave();
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        darkModeOn = false;
+        generalVolume = 1f;
+        musicVolume = 0.5f;
+        soundEffectVolume = 1f;
+            
+        jumpKeyCode = KeyCode.W;
+        moveLeftKeyCode = KeyCode.A;
+        moveRightKeyCode = KeyCode.D;
+        fireKeyCode = KeyCode.Space;
+        speedBuffKeyCode = KeyCode.LeftAlt;
+        jumpBuffKeyCode = KeyCode.LeftControl;
+        pauseKeyCode = KeyCode.Escape;
+        
+        resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
+        fullscreen = true;
+        vsync = QualitySettings.vSyncCount > 0;
+        language = Language.English;
+    }
+    
+    public static void ChangeBackground(Transform background)
+    {
+        if (!Instance.darkModeOn) return;
+      
+        foreach (Transform backgroundImg in background)
+            backgroundImg.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.5f);
+    }
 }

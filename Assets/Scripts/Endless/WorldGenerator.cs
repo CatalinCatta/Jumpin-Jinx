@@ -14,15 +14,15 @@ public class WorldGenerator : MonoBehaviour
 
     private int _lastChunk = -2;
     private List<float> _lastHeights;
-    private int[] _platformsLengths = new int[5];
-    private int[] _platformsGaps = new int[5];
+    private readonly int[] _platformsLengths = new int[5];
+    private readonly int[] _platformsGaps = new int[5];
 
     private void Start()
     {
         if (SettingsManager.Instance.darkModeOn)
             FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
 
-        for (int i = 0; i < _platformsLengths.Length; i++)
+        for (var i = 0; i < _platformsLengths.Length; i++)
             RandomizeGapsAndPlatforms(i);
     }
     
@@ -117,7 +117,7 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    private PlatformType ChoosePlatformType() => Utils.RandomPickNumberExcludingZero(100) switch
+    private static PlatformType ChoosePlatformType() => Utils.RandomPickNumberExcludingZero(100) switch
     {
         <= 15 => PlatformType.Temporary,
         <= 30 => PlatformType.VerticalMoving,

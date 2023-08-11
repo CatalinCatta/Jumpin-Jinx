@@ -70,6 +70,10 @@ MonoBehaviour:
     m_Localized: General
     m_Metadata:
       m_Items: []
+  - m_Id: 1857684977475584
+    m_Localized: Delete Save
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

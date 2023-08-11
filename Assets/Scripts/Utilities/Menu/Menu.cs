@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Menu : MonoBehaviour
         LvlManager.Instance.StartLevel(0);
     }
 
+    public void Restart() =>
+        SceneManager.LoadScene("StartMenu");
+    
     public void Quit() =>
         Application.Quit();
 

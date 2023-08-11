@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CustomLevelMenu : MonoBehaviour
@@ -22,8 +21,13 @@ public class CustomLevelMenu : MonoBehaviour
     private IEnumerator ActivateMenu()
     {
         var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-
-        for (var i = 1; i < menu.childCount; i++)
+        var menuChildNr = menu.childCount;
+        
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 2), false, (int)MenuDirection.Left));
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 1), false, (int)MenuDirection.Right));
+        yield return new WaitForSeconds(0.2f);
+        
+        for (var i = 1; i < menuChildNr - 2; i++)
         {
             StartCoroutine(AnimateOneMenu(menu.GetChild(i), false, direction));
             yield return new WaitForSeconds(0.2f);
@@ -46,7 +50,8 @@ public class CustomLevelMenu : MonoBehaviour
         var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
         var currentTransform = transform;
         var childCount = currentTransform.childCount - 1; 
-        
+        var menuChildNr = menu.childCount;
+   
         for (var i = 1; i < childCount; i++)
         {
             StartCoroutine(AnimateOneMenu(currentTransform.GetChild(i), false, direction));
@@ -54,12 +59,15 @@ public class CustomLevelMenu : MonoBehaviour
             direction *= -1;
         }
 
-        for (var i = 1; i < menu.childCount; i++)
+        for (var i = 1; i < menuChildNr - 2; i++)
         {
             StartCoroutine(AnimateOneMenu(menu.GetChild(i), true, direction));
             yield return new WaitForSeconds(0.2f);
             direction *= -1;
         }
+
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 2), true, (int)MenuDirection.Left));
+        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 1), true, (int)MenuDirection.Right));
     }
     
     private IEnumerator DisappearMenu()

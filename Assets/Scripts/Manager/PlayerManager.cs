@@ -3,8 +3,8 @@
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
-    public int gold = 10_000;
-    public int gems = 50;
+    public int gold;
+    public int gems;
 
     public int atkLvl;
     public int msLvl;
@@ -12,15 +12,15 @@ public class PlayerManager : MonoBehaviour
     public int defLvl;
     public int hpLvl;
 
-    public int jumpBuffs = 3;
-    public int speedBuffs = 3;
+    public int jumpBuffs;
+    public int speedBuffs;
     public int secondChances;
 
-    public int atkPrice = 15;
-    public int msPrice = 15;
-    public int jumpPrice = 15;
-    public int defPrice = 15;
-    public int hpPrice = 15;
+    public int atkPrice;
+    public int msPrice;
+    public int jumpPrice;
+    public int defPrice;
+    public int hpPrice;
 
     public int jumpBuffsPrice = 200;
     public int speedBuffsPrice = 200;
@@ -45,8 +45,11 @@ public class PlayerManager : MonoBehaviour
         var player = SaveAndLoadSystem.LoadPlayer();
 
         if (player == null)
+        {
+            Initialize();
             return;
-        
+        }
+
         gold = player.gold;
         gems = player.gems;
         
@@ -59,8 +62,45 @@ public class PlayerManager : MonoBehaviour
         jumpBuffs = player.jumpBuffs;
         speedBuffs = player.speedBuffs;
         secondChances = player.secondChances;
+  
+        SetUpPrice();
     }
 
     public void Save() =>
         SaveAndLoadSystem.SavePlayer(this);
+
+    public void ResetPlayer()
+    {
+        SaveAndLoadSystem.DeletePlayerSave();
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        gold = 5_000;
+        gems = 50;
+        
+        atkLvl = 0;
+        msLvl = 0;
+        jumpLvl = 0;
+        defLvl = 0;
+        hpLvl = 0;
+        
+        jumpBuffs = 3;
+        speedBuffs = 3;
+        secondChances = 1;
+        
+        SetUpPrice();
+    }
+
+    private void SetUpPrice()
+    {
+        atkPrice = PriceCalculator(atkLvl);
+        msPrice = PriceCalculator(msLvl);
+        jumpPrice = PriceCalculator(jumpLvl);
+        defPrice = PriceCalculator(defLvl);
+        hpPrice = PriceCalculator(hpLvl);
+    }
+    
+    private static int PriceCalculator(int lvl) => (lvl + 1) * 15;
 }

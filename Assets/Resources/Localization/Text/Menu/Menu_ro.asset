@@ -94,6 +94,24 @@ MonoBehaviour:
     m_Localized: Salveaza
     m_Metadata:
       m_Items: []
+  - m_Id: 1852305091088384
+    m_Localized: Sigur doriti sa stergeti salvarea?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1852544971722752
+    m_Localized: Sunteti sigur ca doriti sa resetati progresul in joc? Aceasta actiune
+      va readuce jocul la stadiul sau incipient, stergand toate achizitiile, upgrade-urile
+      si deblocarile din joc. Progresul actual va fi pierdut.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853164151656448
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853286658887680
+    m_Localized: Anulare
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

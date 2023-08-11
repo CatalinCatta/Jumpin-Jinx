@@ -31,14 +31,7 @@ public class LvlGenerator : MonoBehaviour
     
     private void Start()
     {
-        if (SettingsManager.Instance.darkModeOn)
-        {
-            foreach (Transform backgroundImg in background)
-            {
-                backgroundImg.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.5f);
-                FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
-            }
-        }
+        SettingsManager.ChangeBackground(background);
         
         try
         {

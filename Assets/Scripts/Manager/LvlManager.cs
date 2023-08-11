@@ -27,7 +27,7 @@ public class LvlManager : MonoBehaviour
         currentLvl = lvl;
         SettingsManager.Instance.Save();
 
-        StartCoroutine(LoadAsync(lvl == 0 ? "EndlessRun" : "Grass Lvl Design", lvl==13));
+        StartCoroutine(LoadAsync(lvl == 0 ? "EndlessRun" : "Grass Lvl", lvl==13));
     }
 
     private static IEnumerator LoadAsync(string scene, bool delay)
