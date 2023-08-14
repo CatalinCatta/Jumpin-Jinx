@@ -34,10 +34,6 @@ MonoBehaviour:
     m_Localized: Quit
     m_Metadata:
       m_Items: []
-  - m_Id: 698480852992
-    m_Localized: Settings
-    m_Metadata:
-      m_Items: []
   - m_Id: 754680332288
     m_Localized: Sounds
     m_Metadata:
@@ -92,24 +88,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1801300622200832
     m_Localized: Save
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1852305091088384
-    m_Localized: "\rAre you sure you want to delete the save?"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1852544971722752
-    m_Localized: Are you sure you want to reset your game progress? This action will
-      revert your game to its initial stage, deleting all in-game purchases, upgrades,
-      and unlocks. Your current progress will be lost.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1853164151656448
-    m_Localized: Confirm
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1853286658887680
-    m_Localized: Cancel
     m_Metadata:
       m_Items: []
   references:

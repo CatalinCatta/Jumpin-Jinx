@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Confirmation_ro
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ro
+  m_SharedData: {fileID: 11400000, guid: c114b88f10046cc4d852b7692cd11e84, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 30127181824
+    m_Localized: Sunteti sigur ca doriti sa iesiti fara sa salvati?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 402224861184
+    m_Localized: Sunteti sigur ca doriti sa parasiti creatorul de harti fara a salva
+      progresul? Orice modificari nesalvate vor fi pierdute.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1320680968192
+    m_Localized: Sigur doriti sa stergeti salvarea?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1418341142528
+    m_Localized: Sunteti sigur ca doriti sa resetati progresul in joc? Aceasta actiune
+      va readuce jocul la stadiul sau incipient, stergand toate achizitiile, upgrade-urile
+      si deblocarile din joc. Progresul actual va fi pierdut.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1679277182976
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1815256518656
+    m_Localized: Anulare
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

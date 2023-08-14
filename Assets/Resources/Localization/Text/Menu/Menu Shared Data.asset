@@ -31,10 +31,6 @@ MonoBehaviour:
     m_Key: Quit
     m_Metadata:
       m_Items: []
-  - m_Id: 698480852992
-    m_Key: New Entry
-    m_Metadata:
-      m_Items: []
   - m_Id: 754680332288
     m_Key: Sounds
     m_Metadata:
@@ -89,22 +85,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1801300622200832
     m_Key: Save
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1852305091088384
-    m_Key: Confirmation Title
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1852544971722752
-    m_Key: Confirmation Message
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1853164151656448
-    m_Key: Confirm
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1853286658887680
-    m_Key: Cancel
     m_Metadata:
       m_Items: []
   m_Metadata:

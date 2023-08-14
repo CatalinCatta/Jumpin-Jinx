@@ -37,6 +37,11 @@ MonoBehaviour:
     m_Address: Assets/Resources/Localization/Text/MapBuilder/MapBuilder Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: c114b88f10046cc4d852b7692cd11e84
+    m_Address: Assets/Resources/Localization/Text/Confirmation/Confirmation Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 6eb7fad5f80b9fe4a959275d5ecf6d56, type: 2}
   m_SchemaSet:

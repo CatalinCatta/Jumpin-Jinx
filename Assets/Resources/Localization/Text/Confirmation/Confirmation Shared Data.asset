@@ -10,35 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: MapBuilder Shared Data
+  m_Name: Confirmation Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: MapBuilder
-  m_TableCollectionNameGuidString: 6613d5d5ecc4b4c4f83ad6b7c5e35d3e
+  m_TableCollectionName: Confirmation
+  m_TableCollectionNameGuidString: c114b88f10046cc4d852b7692cd11e84
   m_Entries:
-  - m_Id: 14100463616
-    m_Key: Edited time
+  - m_Id: 30127181824
+    m_Key: Don't Save Title
     m_Metadata:
       m_Items: []
-  - m_Id: 1355285959802880
-    m_Key: Map Creator
+  - m_Id: 402224861184
+    m_Key: Don't Save Message
     m_Metadata:
       m_Items: []
-  - m_Id: 1388137984294912
-    m_Key: Save And Return
+  - m_Id: 1320680968192
+    m_Key: Delete Save Title
     m_Metadata:
       m_Items: []
-  - m_Id: 1395160150966272
-    m_Key: Return
+  - m_Id: 1418341142528
+    m_Key: Delete Save Message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1679277182976
+    m_Key: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1815256518656
+    m_Key: Cancel
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 2527062767264595990
+    rid: 2527062877604937738
   references:
     version: 2
     RefIds:
-    - rid: 2527062767264595990
+    - rid: 2527062877604937738
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1691682582037
+        m_CustomEpoch: 1692015672844
