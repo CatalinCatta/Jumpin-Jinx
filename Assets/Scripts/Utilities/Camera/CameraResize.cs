@@ -57,7 +57,7 @@ public class CameraResize : MonoBehaviour
             
         }
         
-        GetComponent<Camera>().orthographicSize = size;
-        transform.position = new Vector3(0, yPosition, -15);
+        // GetComponent<Camera>().orthographicSize = size;
+        // transform.position = new Vector3(0, yPosition, -15);
     }
 }

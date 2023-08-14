@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 699579335}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.8988235
+  m_Size: 0.85388225
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -30806,7 +30806,7 @@ RectTransform:
   m_Father: {fileID: 1053540392}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.1011765}
+  m_AnchorMin: {x: 0, y: 0.14611775}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -71320,6 +71320,7 @@ GameObject:
   - component: {fileID: 1610085064}
   - component: {fileID: 1610085066}
   - component: {fileID: 1610085065}
+  - component: {fileID: 1610085067}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -71390,6 +71391,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610085063}
   m_CullTransparentMesh: 1
+--- !u!114 &1610085067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610085063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a265bdb2f34ee8a416e4998832474d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
+  buildingPlacesParent: {fileID: 233973224}
 --- !u!1001 &1611511227
 PrefabInstance:
   m_ObjectHideFlags: 0
