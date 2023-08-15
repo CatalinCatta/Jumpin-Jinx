@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ObjectBuilder : MonoBehaviour
+public class ObjectBuilder : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] public ObjectBuildType objectBuildType;
     
@@ -14,17 +15,24 @@ public class ObjectBuilder : MonoBehaviour
     private void Start() =>
         _image = transform.GetComponent<Image>();
 
-    public void Deselected()
+    public void Deselect()
     {
-        _gameBuilder.selectedObject = this;
+        _gameBuilder.selectedObject = null;
         _image.color = Color.white;
 
         _gameBuilder.buildingPlacesParent.SetActive(false);
     }
 
-    private void OnMouseDown()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        _gameBuilder.selectedObject = null;
+        var wasAlreadyPressed = _gameBuilder.selectedObject == this;
+        
+        _gameBuilder.DeselectCurrentItem();
+
+        if (wasAlreadyPressed)
+            return;
+        
+        _gameBuilder.selectedObject = this;
         _image.color = Color.green;
       
         _gameBuilder.buildingPlacesParent.SetActive(true);
