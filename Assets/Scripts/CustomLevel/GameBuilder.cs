@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameBuilder : MonoBehaviour
 {
@@ -10,9 +12,15 @@ public class GameBuilder : MonoBehaviour
     public int rows = 17;
     public GameObject[,] BuildingPlaces;
 
+    [SerializeField] private Transform currentButton;
+    [SerializeField] private GameObject currentMenu;
+    
     private void Start() =>
         BuildBuildPlaces();
 
+    public void BackToMenu()=>
+        SceneManager.LoadScene("StartMenu");
+    
     private void BuildBuildPlaces()
     {
         BuildingPlaces = new GameObject[rows, columns];
@@ -29,5 +37,33 @@ public class GameBuilder : MonoBehaviour
         if (selectedObject == null) return;
         
         selectedObject.Deselect();
+    }
+
+    public void ActivateButton(Transform button)
+    {
+        if (button == currentButton) return;
+        
+        currentButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
+        currentButton.GetChild(0).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
+    
+        DeselectCurrentItem();
+
+        currentButton = button;
+      
+        button.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+        button.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+    }
+    
+    public void OpenMenu(GameObject menu)
+    {
+        if (menu == currentMenu) return;
+        
+        currentMenu.SetActive(false);
+
+        DeselectCurrentItem();
+
+        currentMenu = menu;
+       
+        menu.SetActive(true);
     }
 }
