@@ -43,8 +43,8 @@ public class LvlGenerator : MonoBehaviour
             _length = map[0].Length;
             
             for (var i = 0; i < _height; i++)
-                for (var j = 0; j < _length; j++)
-                    GenerateObject(map[i][j], i, j);
+            for (var j = 0; j < _length; j++)
+                GenerateObject(map[i][j], i, j);
         }
         catch (IOException ex)
         {
@@ -199,15 +199,5 @@ public class LvlGenerator : MonoBehaviour
                 Instantiate(watterBottom, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity, tilesParent);
                 break;
         }
-    }
-    
-    private class LevelConfigurations
-    {
-        public Level[] Levels { get; set; }
-    }
-
-    private class Level
-    {
-        public string[] Map { get; set; }
     }
 }

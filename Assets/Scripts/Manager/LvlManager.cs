@@ -9,6 +9,8 @@ public class LvlManager : MonoBehaviour
     public static LvlManager Instance;
 
     public int currentLvl;
+
+    public static string LvlTitle;
     
     private void Awake()
     {

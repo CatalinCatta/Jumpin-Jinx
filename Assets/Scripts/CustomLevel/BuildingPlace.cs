@@ -10,9 +10,9 @@ public class BuildingPlace : MonoBehaviour
     private GameBuilder _gameBuilder;
     private SpriteRenderer _spriteRenderer;
 
-    private ObjectBuildType _block;
-    private ObjectBuildType _environment;
-    private ObjectBuildType _object;
+    public ObjectBuildType block;
+    public ObjectBuildType environment;
+    public ObjectBuildType @object;
 
     private void Awake() => 
         _gameBuilder = FindObjectOfType<GameBuilder>();
@@ -58,18 +58,18 @@ public class BuildingPlace : MonoBehaviour
     {
         _localTransform.GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
 
-        if (_block != ObjectBuildType.Null || _environment != ObjectBuildType.Null || _object != ObjectBuildType.Null)
+        if (block != ObjectBuildType.Null || environment != ObjectBuildType.Null || @object != ObjectBuildType.Null)
             _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
         
         if (isDestroying)
         {
-            if (_block != ObjectBuildType.Null && _buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+            if (block != ObjectBuildType.Null && _buildingPlaceUp != null && _buildingPlaceUp.environment != ObjectBuildType.Null)
                 ClearItems(_buildingPlaceUp.transform.GetChild(0), _buildingPlaceUp);
             ClearItems(transform.GetChild(0), this);
         }
         else
         {
-            if (_block != ObjectBuildType.Null && _buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+            if (block != ObjectBuildType.Null && _buildingPlaceUp != null && _buildingPlaceUp.environment != ObjectBuildType.Null)
                 ShowItems(_buildingPlaceUp.transform.GetChild(0), false);
             ShowItems(transform.GetChild(0), false);
             _localTransform.GetChild(1).gameObject.SetActive(true);
@@ -106,7 +106,7 @@ public class BuildingPlace : MonoBehaviour
 
                     ClearItems(finalItemTransform, this);
                     _spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
-                    _block = selectedObject.objectBuildType;
+                    block = selectedObject.objectBuildType;
                     finalBlockItemSpriteRender.sprite = selectedObjectSprite;
                 }
                 else
@@ -114,8 +114,8 @@ public class BuildingPlace : MonoBehaviour
                     temporaryItemTransform.gameObject.SetActive(true);
                     ShowItems(finalItemTransform, false);
 
-                    if (_block != ObjectBuildType.Null || _environment != ObjectBuildType.Null ||
-                        _object != ObjectBuildType.Null)
+                    if (block != ObjectBuildType.Null || environment != ObjectBuildType.Null ||
+                        @object != ObjectBuildType.Null)
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     
                     temporaryItemRenderer.sprite = selectedObjectSprite;
@@ -130,11 +130,11 @@ public class BuildingPlace : MonoBehaviour
 
                     ClearItems(finalItemTransform, this);
                     _spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
-                    _block = selectedObject.objectBuildType;
+                    block = selectedObject.objectBuildType;
                     finalBlockItemSpriteRender.sprite = selectedObjectSprite;
 
-                    if (_buildingPlaceUp != null && (_buildingPlaceUp._environment != ObjectBuildType.Null ||
-                                                    _buildingPlaceUp._object != ObjectBuildType.Null))
+                    if (_buildingPlaceUp != null && (_buildingPlaceUp.environment != ObjectBuildType.Null ||
+                                                    _buildingPlaceUp.@object != ObjectBuildType.Null))
                         ClearItems(_buildingPlaceUp.transform, _buildingPlaceUp);
                 }
                 else
@@ -142,14 +142,14 @@ public class BuildingPlace : MonoBehaviour
                     temporaryItemTransform.gameObject.SetActive(true);
                     ShowItems(finalItemTransform, false);
                     
-                    if (_buildingPlaceUp != null && (_buildingPlaceUp._environment != ObjectBuildType.Null ||
-                                                    _buildingPlaceUp._object != ObjectBuildType.Null))
+                    if (_buildingPlaceUp != null && (_buildingPlaceUp.environment != ObjectBuildType.Null ||
+                                                    _buildingPlaceUp.@object != ObjectBuildType.Null))
                     {
                         ShowItems(_buildingPlaceUp.transform, false);
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     }
-                    else if (_block != ObjectBuildType.Null || _environment != ObjectBuildType.Null ||
-                        _object != ObjectBuildType.Null)
+                    else if (block != ObjectBuildType.Null || environment != ObjectBuildType.Null ||
+                        @object != ObjectBuildType.Null)
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     
                     temporaryItemRenderer.sprite = selectedObjectSprite;
@@ -157,7 +157,7 @@ public class BuildingPlace : MonoBehaviour
                 break;
                 
             case < ObjectBuildType.Player:
-                if(_buildingPlaceDown == null || _buildingPlaceDown._block  is >= ObjectBuildType.HalfSlopeDirt or < ObjectBuildType.Dirt)
+                if(_buildingPlaceDown == null || _buildingPlaceDown.block  is >= ObjectBuildType.HalfSlopeDirt or < ObjectBuildType.Dirt)
                 {
                     _spriteRenderer.color = new Color(1f, 0f, 0f, 0.5f);
                     return;
@@ -170,14 +170,14 @@ public class BuildingPlace : MonoBehaviour
                     finalBlockItemSpriteRender.sprite = null;
                     finalEnvironmentItemSpriteRender.sprite = selectedObjectSprite;
                     
-                    _environment = selectedObject.objectBuildType;
-                    _block = ObjectBuildType.Null;
+                    environment = selectedObject.objectBuildType;
+                    block = ObjectBuildType.Null;
                     
                     _spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
 
-                    if (_buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+                    if (_buildingPlaceUp != null && _buildingPlaceUp.environment != ObjectBuildType.Null)
                     {
-                        _buildingPlaceUp._environment = ObjectBuildType.Null;
+                        _buildingPlaceUp.environment = ObjectBuildType.Null;
                         _buildingPlaceUp.transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
                     }
                 }
@@ -187,12 +187,12 @@ public class BuildingPlace : MonoBehaviour
                     ShowItems(finalItemTransform, false);
                     finalItemTransform.GetChild(2).gameObject.SetActive(true);
                     
-                    if (_buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+                    if (_buildingPlaceUp != null && _buildingPlaceUp.environment != ObjectBuildType.Null)
                     {
                         _buildingPlaceUp.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     }
-                    else if (_block != ObjectBuildType.Null || _environment != ObjectBuildType.Null)
+                    else if (block != ObjectBuildType.Null || environment != ObjectBuildType.Null)
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     
                     temporaryItemRenderer.sprite = selectedObjectSprite;
@@ -200,7 +200,7 @@ public class BuildingPlace : MonoBehaviour
                 break;
                 
             default:
-                if(_buildingPlaceDown == null || _buildingPlaceDown._block  is >= ObjectBuildType.HalfSlopeDirt or < ObjectBuildType.Dirt)
+                if(_buildingPlaceDown == null || _buildingPlaceDown.block  is >= ObjectBuildType.HalfSlopeDirt or < ObjectBuildType.Dirt)
                 {
                     _spriteRenderer.color = new Color(1f, 0f, 0f, 0.5f);
                     return;
@@ -213,14 +213,14 @@ public class BuildingPlace : MonoBehaviour
                     finalBlockItemSpriteRender.sprite = null;
                     finalObjectItemSpriteRender.sprite = selectedObjectSprite;
                     
-                    _object = selectedObject.objectBuildType;
-                    _block = ObjectBuildType.Null;
+                    @object = selectedObject.objectBuildType;
+                    block = ObjectBuildType.Null;
                     
                     _spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
 
-                    if (_buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+                    if (_buildingPlaceUp != null && _buildingPlaceUp.environment != ObjectBuildType.Null)
                     {
-                        _buildingPlaceUp._environment = ObjectBuildType.Null;
+                        _buildingPlaceUp.environment = ObjectBuildType.Null;
                         _buildingPlaceUp.transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
                     }
                 }
@@ -230,13 +230,13 @@ public class BuildingPlace : MonoBehaviour
                     ShowItems(finalItemTransform, false);
                     finalItemTransform.GetChild(1).gameObject.SetActive(true);
                     
-                    if (_buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+                    if (_buildingPlaceUp != null && _buildingPlaceUp.environment != ObjectBuildType.Null)
                     {
                         
                         _buildingPlaceUp.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     }
-                    else if (_block != ObjectBuildType.Null || _object != ObjectBuildType.Null)
+                    else if (block != ObjectBuildType.Null || @object != ObjectBuildType.Null)
                         _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
                     
                     temporaryItemRenderer.sprite = selectedObjectSprite;
@@ -253,9 +253,9 @@ public class BuildingPlace : MonoBehaviour
     
     private static void ClearItems(Transform buildPlaceTransform, BuildingPlace buildingPlace)
     {
-        buildingPlace._block = ObjectBuildType.Null;
-        buildingPlace._environment = ObjectBuildType.Null;
-        buildingPlace._object = ObjectBuildType.Null;
+        buildingPlace.block = ObjectBuildType.Null;
+        buildingPlace.environment = ObjectBuildType.Null;
+        buildingPlace.@object = ObjectBuildType.Null;
         
         foreach (Transform child in buildPlaceTransform)
             child.GetComponent<SpriteRenderer>().sprite = null;
