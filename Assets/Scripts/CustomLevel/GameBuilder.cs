@@ -6,7 +6,7 @@ public class GameBuilder : MonoBehaviour
 {
     public GameObject buildPlacePrefab;
     public ObjectBuilder selectedObject;
-    [SerializeField] public GameObject buildingPlacesParent;
+    [SerializeField] private GameObject buildingPlacesParent;
 
     public int columns = 29;
     public int rows = 17;
@@ -14,6 +14,8 @@ public class GameBuilder : MonoBehaviour
 
     [SerializeField] private Transform currentButton;
     [SerializeField] private GameObject currentMenu;
+
+    public bool deleteMode;
     
     private void Start() =>
         BuildBuildPlaces();
@@ -31,12 +33,21 @@ public class GameBuilder : MonoBehaviour
                 new Vector3((j - (columns - 1) / 2) * 1.28f, (i - (rows - 1) / 2) * 1.28f, -10), Quaternion.identity,
                 buildingPlacesParent.transform);
     }
+
+    public void DeleteModeSwitch()
+    {
+        deleteMode = !deleteMode;
+        ShowBuildPlaces(deleteMode);
+    }
     
     public void DeselectCurrentItem()
     {
+        deleteMode = false;
+        ShowBuildPlaces(false);
+
         if (selectedObject == null) return;
-        
-        selectedObject.Deselect();
+        selectedObject.transform.GetComponent<Image>().color = Color.white;
+        selectedObject = null;
     }
 
     public void ActivateButton(Transform button)
@@ -60,10 +71,15 @@ public class GameBuilder : MonoBehaviour
         
         currentMenu.SetActive(false);
 
-        DeselectCurrentItem();
-
         currentMenu = menu;
-       
+        
         menu.SetActive(true);
+    }
+
+    public void ShowBuildPlaces(bool show)
+    {
+        for (var i = 0; i < rows; i++)
+        for (var j = 0; j < columns; j++)
+            BuildingPlaces[i, j].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, show ? 0.5f : 0f);
     }
 }

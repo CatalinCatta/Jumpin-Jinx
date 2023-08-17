@@ -15,14 +15,6 @@ public class ObjectBuilder : MonoBehaviour, IPointerDownHandler
     private void Start() =>
         _image = transform.GetComponent<Image>();
 
-    public void Deselect()
-    {
-        _gameBuilder.selectedObject = null;
-        _image.color = Color.white;
-
-        _gameBuilder.buildingPlacesParent.SetActive(false);
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         var wasAlreadyPressed = _gameBuilder.selectedObject == this;
@@ -35,6 +27,6 @@ public class ObjectBuilder : MonoBehaviour, IPointerDownHandler
         _gameBuilder.selectedObject = this;
         _image.color = Color.green;
       
-        _gameBuilder.buildingPlacesParent.SetActive(true);
+        _gameBuilder.ShowBuildPlaces(true);
     }
 }

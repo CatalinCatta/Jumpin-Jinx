@@ -37,11 +37,47 @@ public class BuildingPlace : MonoBehaviour
         if (buildingPlaceDownTransform != null)
             buildingPlaceDownTransform.TryGetComponent(out _buildingPlaceDown);
     }
-    
+
     private void OnMouseOver()
     {
-        var isConstructing = Input.GetMouseButton(0);
+        if (_gameBuilder.selectedObject == null && !_gameBuilder.deleteMode) return;
         
+        var isMousePressed = Input.GetMouseButton(0);
+
+        if (_gameBuilder.deleteMode)
+            Delete(isMousePressed);
+        else
+        {
+            if (_gameBuilder.selectedObject == null) return;
+            Build(isMousePressed);
+        }
+        
+    }
+
+    private void Delete(bool isDestroying)
+    {
+        _localTransform.GetChild(1).GetComponent<SpriteRenderer>().sprite = null;
+
+        if (_block != ObjectBuildType.Null || _environment != ObjectBuildType.Null || _object != ObjectBuildType.Null)
+            _spriteRenderer.color = new Color(1f, 0.5f, 0f, 0.5f);    
+        
+        if (isDestroying)
+        {
+            if (_block != ObjectBuildType.Null && _buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+                ClearItems(_buildingPlaceUp.transform.GetChild(0), _buildingPlaceUp);
+            ClearItems(transform.GetChild(0), this);
+        }
+        else
+        {
+            if (_block != ObjectBuildType.Null && _buildingPlaceUp != null && _buildingPlaceUp._environment != ObjectBuildType.Null)
+                ShowItems(_buildingPlaceUp.transform.GetChild(0), false);
+            ShowItems(transform.GetChild(0), false);
+            _localTransform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
+    
+    private void Build(bool isConstructing)
+    {
         var finalItemTransform = _localTransform.GetChild(0);
         var finalBlockItemTransform = finalItemTransform.GetChild(0);
         var finalEnvironmentItemTransform = finalItemTransform.GetChild(1);
@@ -238,6 +274,8 @@ public class BuildingPlace : MonoBehaviour
     }
     private void OnMouseExit()
     {
+        if (_gameBuilder.selectedObject == null && !_gameBuilder.deleteMode) return;
+
         _spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
         ShowItems(_localTransform.GetChild(0), true);
         
