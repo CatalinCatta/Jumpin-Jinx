@@ -5,6 +5,14 @@ using Object = UnityEngine.Object;
 
 public static class Utils
 {
+    public static readonly (int x, int y)[] DirectionsModifier =
+    {
+        ( 0,  1),          // Up
+        ( 0, -1),          // Down
+        (-1,  0),          // Left
+        ( 1,  0)           // Right
+    };
+    
     private static readonly System.Random Random = new();
 
     public static int RandomPickNumberExcludingZero(int max) =>
