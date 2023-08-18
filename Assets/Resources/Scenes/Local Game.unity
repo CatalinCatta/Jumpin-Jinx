@@ -36128,6 +36128,14 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 40.75
       objectReference: {fileID: 0}
+    - target: {fileID: 5637094106037948879, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 402224861184
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637094106037948879, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:c114b88f10046cc4d852b7692cd11e84
+      objectReference: {fileID: 0}
     - target: {fileID: 5637094106285357360, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -36175,6 +36183,14 @@ PrefabInstance:
     - target: {fileID: 5637094106648833703, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
       propertyPath: m_fontSize
       value: 60.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637094106882311523, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 1815256518656
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637094106882311523, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:c114b88f10046cc4d852b7692cd11e84
       objectReference: {fileID: 0}
     - target: {fileID: 5637094107682229526, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
       propertyPath: m_Pivot.x
@@ -36267,6 +36283,14 @@ PrefabInstance:
     - target: {fileID: 5637094107682229527, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637094107791773506, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 1679277182976
+      objectReference: {fileID: 0}
+    - target: {fileID: 5637094107791773506, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:c114b88f10046cc4d852b7692cd11e84
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b5122f78654184ca0b3bd81e20290e, type: 3}

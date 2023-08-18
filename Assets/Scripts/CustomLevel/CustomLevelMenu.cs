@@ -1,11 +1,43 @@
+using System.IO;
+using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using TMPro;
 
 public class CustomLevelMenu : MonoBehaviour
 {
+    [SerializeField] private Transform contentPlace;
     [SerializeField] private Transform menu;
     [SerializeField] private Transform revenue;
+    [SerializeField] private GameObject saveModel;
 
+    private List<string> _savesNames;
+
+    private void Start()
+    {
+        var path = Path.GetFullPath(@"CustomLevels");
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+            return;
+        }
+        
+        _savesNames = Directory.GetFiles(path, "*.json").ToList();
+        foreach (var saveName in _savesNames)
+        {
+            var save = Instantiate(saveModel, contentPlace);
+            save.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(saveName);
+        }
+    }
+
+    public void StartMapBuilder()
+    {
+        LvlManager.LvlTitle = "";
+        LvlManager.Instance.StartLevel(-1);
+    }
+    
     public void Enable() =>
         StartCoroutine(ActivateMenu());
 
@@ -97,7 +129,7 @@ public class CustomLevelMenu : MonoBehaviour
         var currentTransform = transform;
         var childCount = currentTransform.childCount - 1; 
         
-        StartCoroutine(AnimateOneMenu(revenue, false, (int)MenuDirection.Left));
+        StartCoroutine(AnimateOneMenu(revenue, true, (int)MenuDirection.Right));
 
         for (var i = 1; i < childCount; i++)
         {

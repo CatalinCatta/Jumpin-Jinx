@@ -29,7 +29,12 @@ public class LvlManager : MonoBehaviour
         currentLvl = lvl;
         SettingsManager.Instance.Save();
 
-        StartCoroutine(LoadAsync(lvl == 0 ? "EndlessRun" : "Grass Lvl", lvl==13));
+        StartCoroutine(LoadAsync(lvl switch
+        {
+            -1 => "Local Game",
+            0 => "EndlessRun",
+            _ => "Grass Lvl"
+        }, lvl == 13));
     }
 
     private static IEnumerator LoadAsync(string scene, bool delay)
@@ -48,7 +53,6 @@ public class LvlManager : MonoBehaviour
         var operation = SceneManager.LoadSceneAsync(scene);
         var slider = progressbar.GetChild(0).GetComponent<Slider>();
         var percentage = progressbar.GetChild(2).GetComponent<TextMeshProUGUI>();
-        
         
         while (!operation.isDone)
         {
