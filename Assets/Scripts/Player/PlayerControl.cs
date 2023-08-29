@@ -26,6 +26,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private List<RuntimeAnimatorController> playerAnimations;
     [SerializeField] private List<Sprite> playerSprites;
     [SerializeField] private GameObject bullet;
+    private static readonly int JumpPressed = Animator.StringToHash("JumpPressed");
+    private static readonly int Walk = Animator.StringToHash("Walk");
+    private static readonly int GroundTouched = Animator.StringToHash("GroundTouched");
+    private static readonly int InAir = Animator.StringToHash("InAir");
 
     private void Awake()
     {
@@ -68,21 +72,26 @@ public class PlayerControl : MonoBehaviour
 
         if (_playerStatus.freezeFromDamage || Time.timeScale == 0f)
             return;
-        
-        if (!IsGrounded())
-            transform.SetParent(null);
-            
+
         _movement = Input.GetKey(SettingsManager.Instance.moveLeftKeyCode) ? Vector3.left :
             Input.GetKey(SettingsManager.Instance.moveRightKeyCode) ? Vector3.right : Vector3.zero;
 
-        if (IsGrounded() && Input.GetKeyDown(SettingsManager.Instance.jumpKeyCode))
-        {
-            _playerAudioControl.PlayJumpSound();
-            _jump = true;
-        }
+        var grounded = IsGrounded();
+
+        _animator.SetBool(InAir, grounded);
+
         
-        FlipCharacter();
-    
+        if (grounded)
+        {
+            if (Input.GetKeyDown(SettingsManager.Instance.jumpKeyCode))
+            {
+                _playerAudioControl.PlayJumpSound();
+                _jump = true;
+            }
+        }
+        else
+            transform.SetParent(null);
+        
         if (Input.GetKeyDown(SettingsManager.Instance.jumpBuffKeyCode) && !_playerStatus.jumpBuffActive)
             _playerStatus.ConsumeJumpBuff();
     
@@ -93,8 +102,8 @@ public class PlayerControl : MonoBehaviour
     
         if (Input.GetKey(SettingsManager.Instance.fireKeyCode))
             Fire();
-        else
-            PlayAnimation();
+        //else
+            //PlayAnimation();
     }
 
     private void FixedUpdate()
@@ -105,7 +114,12 @@ public class PlayerControl : MonoBehaviour
         var rigidBody = GetComponent<Rigidbody2D>();
         
         if (_movement.x != 0)
+        {
+            FlipCharacter();
             _playerAudioControl.PlayWalkSound();
+        }
+        
+        _animator.SetBool(Walk, _movement.x != 0);
 
         rigidBody.velocity =
             _movementTestActive
@@ -132,7 +146,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (_isFireActivated) return;
      
-        _animator.enabled = false;
+        //_animator.enabled = false;
         _sprite.sprite = playerSprites[(int)PlayerSprites.Shot];
         
         var bow = transform.GetChild(1);
@@ -187,13 +201,8 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    private void FlipCharacter()
-    {
-        if (_movement == Vector3.left)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        else if (_movement == Vector3.right)
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-    }
+    private void FlipCharacter() =>
+        transform.rotation = Quaternion.Euler(0, _movement == Vector3.right? 0 : 180, 0);
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

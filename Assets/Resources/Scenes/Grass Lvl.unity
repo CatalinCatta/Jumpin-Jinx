@@ -14524,7 +14524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf5bcab509d4a889946f1c6f1e16787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5960479789122573671, guid: d853fc7bc6161994b8db04647d519cc4, type: 3}
+  player: {fileID: 4007437618575838899, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
   block: {fileID: 720811117464374823, guid: f65a3382b0022134cbadfaf124f19836, type: 3}
   coin: {fileID: 5658132860675772406, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
   halfSlopeBlock: {fileID: 720811117464374823, guid: 674d08340dfea42438e8e3cf2d346b88, type: 3}

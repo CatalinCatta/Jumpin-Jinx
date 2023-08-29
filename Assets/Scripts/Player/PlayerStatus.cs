@@ -86,16 +86,16 @@ public class PlayerStatus : MonoBehaviour
         _hp -= _endlessRun? amount * (1 - PlayerManager.Instance.defLvl / 100) : amount;
         ShowLife();
 
-        if (_knockBack != null)
-            StopCoroutine(_knockBack);
+        //if (_knockBack != null)
+        //    StopCoroutine(_knockBack);
         
         freezeFromDamage = true;
         
         GetComponent<Rigidbody2D>().velocity = 
             new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);
 
-        _knockBack = MoveToDirection();
-        StartCoroutine(_knockBack);
+        //_knockBack = MoveToDirection();
+        //StartCoroutine(_knockBack);
         
         _playerAudioControl.PlayGetHitSound();
         
