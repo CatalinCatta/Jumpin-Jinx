@@ -144,7 +144,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c0967db3fe716a74fa0767d218f1deb6, type: 3}
   enemy: {fileID: 5944313260030266398, guid: d4b23b3238d29b34bb70be284998de08, type: 3}
   spike: {fileID: 1490436315133301635, guid: 9a6cc03bf0ddb9a4eb9dc7b71ea2a319, type: 3}
-  coin: {fileID: 5658132860675772406, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
+  coin: {fileID: 5979417547880510089, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
   heal: {fileID: 5658132860675772406, guid: 8bf972a5a7907994387e93355f396c8b, type: 3}
   dirt: {fileID: 21300000, guid: 5b417972b4ee6e64488d28b5f7a8e576, type: 3}
   endlessRun: 0

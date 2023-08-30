@@ -37,15 +37,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 72c4a81aa04d63e4899f6bb1697921cb, type: 3}
     - target: {fileID: 720811117464374821, guid: 04dc8cadbb923c845a12eb11e17ab77b, type: 3}
       propertyPath: m_Color.b
-      value: 0.93725497
+      value: 0.08235294
       objectReference: {fileID: 0}
     - target: {fileID: 720811117464374821, guid: 04dc8cadbb923c845a12eb11e17ab77b, type: 3}
       propertyPath: m_Color.g
-      value: 0.75294125
+      value: 0.854902
       objectReference: {fileID: 0}
     - target: {fileID: 720811117464374821, guid: 04dc8cadbb923c845a12eb11e17ab77b, type: 3}
       propertyPath: m_Color.r
-      value: 0.23529413
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720811117464374822, guid: 04dc8cadbb923c845a12eb11e17ab77b, type: 3}
       propertyPath: m_RootOrder
@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720811117464374823, guid: 04dc8cadbb923c845a12eb11e17ab77b, type: 3}
       propertyPath: m_Name
-      value: WatterButtom
+      value: WatterBottom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04dc8cadbb923c845a12eb11e17ab77b, type: 3}
