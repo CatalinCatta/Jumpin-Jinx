@@ -1,7 +1,7 @@
 ﻿public enum ObjectBuildType
 {
     Null,
-    
+
     Dirt,
     StaticGrass,
     VerticalMovingGrass,
@@ -12,12 +12,12 @@
     HalfSlopeDirtRotated,
     SlopeDirt,
     SlopeDirtRotated,
-    
+
     Spike,
     SpikeUpsideDown,
     SpikeLeft,
     SpikeRight,
-    
+
     Tree1,
     Tree2,
     Bush,
@@ -30,11 +30,10 @@
     Rock2,
     Rock3,
     Rock4,
-    
+
     Player,
     EndLvl,
     Coin,
     Health,
     Enemy
-
 }

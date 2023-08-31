@@ -1,85 +1,108 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameBuilder : MonoBehaviour
 {
-    public GameObject buildPlacePrefab;
-    public ObjectBuilder selectedObject;
-    [SerializeField] private GameObject buildingPlacesParent;
+    [Header("Size")] [NonSerialized] public int Columns, Rows;
+    [Header("Editors")] [NonSerialized] public bool DeleteMode, MoveMode;
 
-    public int columns = 29;
-    public int rows = 17;
-    public GameObject[,] BuildingPlaces;
+    [Header("Object Builder")] [NonSerialized]
+    public ObjectBuilder SelectedObject;
+    private Transform _currentButton;
 
-    [SerializeField] private Transform currentButton;
+    [Header("Building Place")] [SerializeField]
+    private GameObject
+        buildPlacePrefab,
+        buildingPlacesParent;
+
+    [Header("Utilities")]
     [SerializeField] private GameObject currentMenu;
+    [NonSerialized] public GameObject[,] BuildingPlaces;
 
-    public bool deleteMode;
-    
-    private void Start() =>
-        BuildBuildPlaces();
+    private void Start() => BuildBuildPlaces();
 
-    public void BackToMenu()=>
-        SceneManager.LoadScene("StartMenu");
-    
+    /// <summary>
+    /// Returns to the main menu scene.
+    /// </summary>
+    public void BackToMenu() => SceneManager.LoadScene("StartMenu");
+
     private void BuildBuildPlaces()
     {
-        BuildingPlaces = new GameObject[rows, columns];
+        Columns = 29;
+        Rows = 17;
         
-        for (var i = 0; i < rows; i++)
-        for (var j = 0; j < columns; j++)
+        BuildingPlaces = new GameObject[Rows, Columns];
+
+        for (var i = 0; i < Rows; i++)
+        for (var j = 0; j < Columns; j++)
             BuildingPlaces[i, j] = Instantiate(buildPlacePrefab,
-                new Vector3((j - (columns - 1) / 2) * 1.28f, (i - (rows - 1) / 2) * 1.28f, -10), Quaternion.identity,
+                new Vector3((j - (Columns - 1) / 2) * 1.28f, (i - (Rows - 1) / 2) * 1.28f, -10), Quaternion.identity,
                 buildingPlacesParent.transform);
     }
 
+    /// <summary>
+    /// Toggles the delete mode for clearing placed objects.
+    /// </summary>
     public void DeleteModeSwitch()
     {
-        deleteMode = !deleteMode;
-        ShowBuildPlaces(deleteMode);
+        DeleteMode = !DeleteMode;
+        ShowBuildPlaces(DeleteMode);
     }
-    
+
+    /// <summary>
+    /// Deselects the currently selected object and hides building places.
+    /// </summary>
     public void DeselectCurrentItem()
     {
-        deleteMode = false;
+        DeleteMode = false;
         ShowBuildPlaces(false);
 
-        if (selectedObject == null) return;
-        selectedObject.transform.GetComponent<Image>().color = Color.white;
-        selectedObject = null;
+        if (SelectedObject == null) return;
+        SelectedObject.transform.GetComponent<Image>().color = Color.white;
+        SelectedObject = null;
     }
 
+    /// <summary>
+    /// Activates the specified button and deactivates the previously active one.
+    /// </summary>
     public void ActivateButton(Transform button)
     {
-        if (button == currentButton) return;
-        
-        currentButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
-        currentButton.GetChild(0).GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
-    
+        if (button == _currentButton) return;
+
+        _currentButton.GetComponent<Image>().color = new Color(.5f, .5f, .5f, 1f);
+        _currentButton.GetChild(0).GetComponent<Image>().color = new Color(.5f, .5f, .5f, 1f);
+
         DeselectCurrentItem();
 
-        currentButton = button;
-      
+        _currentButton = button;
+
         button.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         button.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
     }
-    
+
+    /// <summary>
+    /// Opens the specified menu and closes the previously open one.
+    /// </summary>
     public void OpenMenu(GameObject menu)
     {
         if (menu == currentMenu) return;
-        
+
         currentMenu.SetActive(false);
 
         currentMenu = menu;
-        
+
         menu.SetActive(true);
     }
 
+    /// <summary>
+    /// Shows or hides building places on the grid.
+    /// </summary>
     public void ShowBuildPlaces(bool show)
     {
-        for (var i = 0; i < rows; i++)
-        for (var j = 0; j < columns; j++)
-            BuildingPlaces[i, j].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, show ? 0.5f : 0f);
+        for (var i = 0; i < Rows; i++)
+        for (var j = 0; j < Columns; j++)
+            BuildingPlaces[i, j].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, show ? .5f : 0f);
     }
 }

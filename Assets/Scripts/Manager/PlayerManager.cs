@@ -1,35 +1,47 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+/// <summary>
+/// Manages player-related data and upgrades.
+/// </summary>
 public class PlayerManager : MonoBehaviour
 {
+    [Header("Singleton Instance")] [NonSerialized]
     public static PlayerManager Instance;
-    public int gold;
-    public int gems;
 
-    public int atkLvl;
-    public int msLvl;
-    public int jumpLvl;
-    public int defLvl;
-    public int hpLvl;
+    [Header("Stats And Levels")] [NonSerialized]
+    public int
+        Gold,
+        Gems,
+        AtkLvl,
+        MSLvl,
+        JumpLvl,
+        DefLvl,
+        HpLvl;
 
-    public int jumpBuffs;
-    public int speedBuffs;
-    public int secondChances;
+    [Header("Power Ups")] [NonSerialized] public int 
+        JumpBuffs, 
+        SpeedBuffs, 
+        SecondChances;
 
-    public int atkPrice;
-    public int msPrice;
-    public int jumpPrice;
-    public int defPrice;
-    public int hpPrice;
+    [Header("Upgrade Prices")] [NonSerialized]
+    public int
+        AtkPrice,
+        MsPrice,
+        JumpPrice,
+        DefPrice,
+        HpPrice;
 
-    public int jumpBuffsPrice = 200;
-    public int speedBuffsPrice = 200;
-    public int secondChancesPrice = 2_000;
-    
+    [Header("Power Ups Prices")] [NonSerialized]
+    public int
+        JumpBuffsPrice,
+        SpeedBuffsPrice,
+        SecondChancesPrice;
+
     private void Awake()
     {
         Load();
-        
+
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -43,26 +55,30 @@ public class PlayerManager : MonoBehaviour
     private void Load()
     {
         var player = SaveAndLoadSystem.LoadPlayer();
-
+        
+        JumpBuffsPrice = 200;
+        SpeedBuffsPrice = 200;
+        SecondChancesPrice = 2_000;
+        
         if (player == null)
         {
             Initialize();
             return;
         }
 
-        gold = player.gold;
-        gems = player.gems;
-        
-        atkLvl = player.atkLvl;
-        msLvl = player.msLvl;
-        jumpLvl = player.jumpLvl;
-        defLvl = player.defLvl;
-        hpLvl = player.hpLvl;
-        
-        jumpBuffs = player.jumpBuffs;
-        speedBuffs = player.speedBuffs;
-        secondChances = player.secondChances;
-  
+        Gold = player.gold;
+        Gems = player.gems;
+
+        AtkLvl = player.atkLvl;
+        MSLvl = player.msLvl;
+        JumpLvl = player.jumpLvl;
+        DefLvl = player.defLvl;
+        HpLvl = player.hpLvl;
+
+        JumpBuffs = player.jumpBuffs;
+        SpeedBuffs = player.speedBuffs;
+        SecondChances = player.secondChances;
+
         SetUpPrice();
     }
 
@@ -77,30 +93,30 @@ public class PlayerManager : MonoBehaviour
 
     private void Initialize()
     {
-        gold = 5_000;
-        gems = 50;
-        
-        atkLvl = 0;
-        msLvl = 0;
-        jumpLvl = 0;
-        defLvl = 0;
-        hpLvl = 0;
-        
-        jumpBuffs = 3;
-        speedBuffs = 3;
-        secondChances = 1;
-        
+        Gold = 5_000;
+        Gems = 50;
+
+        AtkLvl = 0;
+        MSLvl = 0;
+        JumpLvl = 0;
+        DefLvl = 0;
+        HpLvl = 0;
+
+        JumpBuffs = 3;
+        SpeedBuffs = 3;
+        SecondChances = 1;
+
         SetUpPrice();
     }
 
     private void SetUpPrice()
     {
-        atkPrice = PriceCalculator(atkLvl);
-        msPrice = PriceCalculator(msLvl);
-        jumpPrice = PriceCalculator(jumpLvl);
-        defPrice = PriceCalculator(defLvl);
-        hpPrice = PriceCalculator(hpLvl);
+        AtkPrice = PriceCalculator(AtkLvl);
+        MsPrice = PriceCalculator(MSLvl);
+        JumpPrice = PriceCalculator(JumpLvl);
+        DefPrice = PriceCalculator(DefLvl);
+        HpPrice = PriceCalculator(HpLvl);
     }
-    
+
     private static int PriceCalculator(int lvl) => (lvl + 1) * 15;
 }

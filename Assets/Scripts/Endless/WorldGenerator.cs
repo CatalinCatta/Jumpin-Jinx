@@ -1,36 +1,43 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Generates the game world, including platforms and background.
+/// </summary>
 public class WorldGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject platform;
-    [SerializeField] private GameObject emptyPlatform;
-    [SerializeField] private GameObject watter;
-    [SerializeField] private GameObject watterBottom;
-    [SerializeField] private Transform player;
+    [Header("Prefabs And Sprites")] [SerializeField] private GameObject 
+        platform,
+        emptyPlatform,
+        watter,
+        watterBottom;
     [SerializeField] private Sprite spriteBackground;
 
-    private int _lastChunk = -2;
-    private List<float> _lastHeights;
-    private readonly int[] _platformsLengths = new int[5];
-    private readonly int[] _platformsGaps = new int[5];
+    [Header("Platforms Locations Variables")]
+    private readonly int[] _platformsGaps, _platformsLengths = new int[5];
+
+    [Header("Player Locator")]
+    private int _lastChunk;
+    [SerializeField] private Transform player;
 
     private void Start()
     {
-        if (SettingsManager.Instance.darkModeOn)
+        _lastChunk = -2;
+        
+        if (SettingsManager.Instance.DarkModeOn)
             FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
 
         for (var i = 0; i < _platformsLengths.Length; i++)
             RandomizeGapsAndPlatforms(i);
     }
-    
+
     private void Update()
     {
-        if (player.position.x < (_lastChunk + 1) * 38.4f) 
+        if (player.position.x < (_lastChunk + 1) * 38.4f)
             return;
-        
+
         _lastChunk++;
         GenerateNewChunk();
         ClearLastChunk();
@@ -55,28 +62,30 @@ public class WorldGenerator : MonoBehaviour
             spriteRenderer.sprite = spriteBackground;
             spriteRenderer.sortingOrder = -1;
 
-            if (SettingsManager.Instance.darkModeOn)
+            if (SettingsManager.Instance.DarkModeOn)
                 spriteRenderer.color = new Color(0, 0, 0.49f);
 
-            background.transform.position = new Vector3(i, 4.5f , 0f);
+            background.transform.position = new Vector3(i, 4.5f, 0f);
         }
     }
 
     private void RandomizeGapsAndPlatforms(int position)
     {
-        _platformsLengths[position] = Utils.RandomPickNumberExcludingZero((Math.Abs((position - _platformsLengths.Length - 1) % 5) + 1) * 5);
+        _platformsLengths[position] =
+            Utils.RandomPickNumberExcludingZero((Math.Abs((position - _platformsLengths.Length - 1) % 5) + 1) * 5);
         _platformsGaps[position] = Utils.RandomPickNumberExcludingZero((position + 1) * 3);
     }
-    
+
     private void ClearLastChunk()
     {
         var startPoint = new Vector2((_lastChunk - 2) * 38.4f - 10, -10);
         var endPoint = new Vector2((_lastChunk - 1) * 38.4f - 1.28f, 30);
-        
+
         foreach (var objectCollider in Physics2D.OverlapAreaAll(startPoint, endPoint))
             Destroy(objectCollider.gameObject);
 
-        foreach (var obj in FindObjectsOfType<GameObject>().Where(obj => obj.name == "Background" && IsWithinPoints(startPoint, endPoint, obj.transform.position)))
+        foreach (var obj in FindObjectsOfType<GameObject>().Where(obj =>
+                     obj.name == "Background" && IsWithinPoints(startPoint, endPoint, obj.transform.position)))
             Destroy(obj);
 
         var wall = Instantiate(emptyPlatform, new Vector2((_lastChunk - 1) * 38.4f - 20, 8), Quaternion.identity);
@@ -100,14 +109,15 @@ public class WorldGenerator : MonoBehaviour
             }
 
             _platformsLengths[i]--;
-            var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0), Quaternion.identity);
+            var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0),
+                Quaternion.identity);
             var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) : ChoosePlatformType();
-            
+
             var platformComponent = platformObject.GetComponent<Platform>();
 
             platformComponent.platformType = platformType;
             platformComponent.endlessRun = _platformsLengths[i] != 0;
-            
+
             if (platformType != PlatformType.Static || i != 0 ||
                 Utils.RandomPickNumberBetween(0, 2) != 0) continue;
 
@@ -117,15 +127,17 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    private static PlatformType ChoosePlatformType() => Utils.RandomPickNumberExcludingZero(100) switch
-    {
-        <= 15 => PlatformType.Temporary,
-        <= 30 => PlatformType.VerticalMoving,
-        <= 45 => PlatformType.CircularMoving,
-        <= 60 => PlatformType.HorizontalMoving,
-        _ => PlatformType.Static,
-    };
+    private static PlatformType ChoosePlatformType() =>
+        Utils.RandomPickNumberExcludingZero(100) switch
+        {
+            <= 15 => PlatformType.Temporary,
+            <= 30 => PlatformType.VerticalMoving,
+            <= 45 => PlatformType.CircularMoving,
+            <= 60 => PlatformType.HorizontalMoving,
+            _ => PlatformType.Static
+        };
 
-    private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position) => 
-        position.x >= Mathf.Min(startPoint.x, endPoint.x) && position.x <= Mathf.Max(startPoint.x, endPoint.x) && position.y >= Mathf.Min(startPoint.y, endPoint.y) && position.y <= Mathf.Max(startPoint.y, endPoint.y);
+    private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position) =>
+        position.x >= Mathf.Min(startPoint.x, endPoint.x) && position.x <= Mathf.Max(startPoint.x, endPoint.x) &&
+        position.y >= Mathf.Min(startPoint.y, endPoint.y) && position.y <= Mathf.Max(startPoint.y, endPoint.y);
 }

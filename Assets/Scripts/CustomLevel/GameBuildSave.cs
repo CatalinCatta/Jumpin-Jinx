@@ -4,24 +4,32 @@ using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 
+/// <summary>
+/// Manages the saving of custom game maps and configurations.
+/// </summary>
+[RequireComponent(typeof(GameBuilder))]
 public class GameBuildSave : MonoBehaviour
 {
-    private GameBuilder _gameBuilder;
     private string _fileName;
-    
-    private void Awake() =>
-        _gameBuilder = GetComponent<GameBuilder>();
+    private GameBuilder _gameBuilder;
 
-    public void ChangeFileName(string newFileName) =>
-        _fileName = newFileName;
-    
+    private void Awake() => _gameBuilder = GetComponent<GameBuilder>();
+
+    /// <summary>
+    /// Changes the filename used for saving.
+    /// </summary>
+    public void ChangeFileName(string newFileName) => _fileName = newFileName;
+
+    /// <summary>
+    /// Saves the current map configuration to a JSON file.
+    /// </summary>
     public void SaveMap()
     {
         try
         {
             var path = Path.GetFullPath(@"CustomLevels");
             var finalPath = path + $"/{LvlManager.LvlTitle}.json";
-            
+
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             else if (File.Exists(finalPath))
@@ -30,7 +38,7 @@ public class GameBuildSave : MonoBehaviour
                 LvlManager.LvlTitle = _fileName;
                 finalPath = path + $"/{LvlManager.LvlTitle}.json";
             }
-            
+
             File.WriteAllText(finalPath, JsonConvert.SerializeObject(new LevelConfigurations
             {
                 Levels = new[] { MapObjects() }
@@ -45,18 +53,18 @@ public class GameBuildSave : MonoBehaviour
             Debug.Log("Error serializing JSON: " + ex.Message);
         }
     }
-    
+
     private Level MapObjects()
     {
         var lvl = new Level();
-        var line = new List<string>();        
-        
-        for (var i = 0; i < _gameBuilder.rows; i++)
+        var line = new List<string>();
+
+        for (var i = 0; i < _gameBuilder.Rows; i++)
         {
             var str = new StringBuilder();
-            for (var j = 0; j < _gameBuilder.columns; j++)
+            for (var j = 0; j < _gameBuilder.Columns; j++)
             {
-                switch (_gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().block)
+                switch (_gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Block)
                 {
                     case ObjectBuildType.Null:
                         break;
@@ -79,7 +87,8 @@ public class GameBuildSave : MonoBehaviour
                         str.Append('<');
                         continue;
                 }
-                switch (_gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().@object)
+
+                switch (_gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Object)
                 {
                     case ObjectBuildType.Null:
                         break;
@@ -102,16 +111,12 @@ public class GameBuildSave : MonoBehaviour
 
                 str.Append(' ');
             }
+
             line.Add(str.ToString());
         }
 
         lvl.Map = line.ToArray();
 
         return lvl;
-    }
-    
-    private string MapEnveiroments()
-    {
-        return "";
     }
 }

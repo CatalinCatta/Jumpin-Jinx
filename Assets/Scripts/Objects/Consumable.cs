@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Represents a consumable item that can be collected by the player.
+/// </summary>
 public class Consumable : MonoBehaviour
 {
-    private PlayerStatus _playerStatus;
-    private bool _isDestroying;
-    
     [SerializeField] private ConsumableType consumableType;
-    
+    private bool _isDestroying;
+    private PlayerStatus _playerStatus;
+
     private void Start() =>
         _playerStatus = FindObjectOfType<PlayerStatus>();
 
@@ -22,7 +24,7 @@ public class Consumable : MonoBehaviour
             case ConsumableType.Coin:
                 _playerStatus.AddCoin();
                 break;
-            case ConsumableType.Heal:        
+            case ConsumableType.Heal:
                 _playerStatus.Heal();
                 break;
             default:

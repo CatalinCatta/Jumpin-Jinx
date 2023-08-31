@@ -1,5 +1,5 @@
 ﻿public enum ConsumableType
 {
-    Coin, 
+    Coin,
     Heal
 }

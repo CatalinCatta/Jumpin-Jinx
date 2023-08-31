@@ -1,18 +1,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manage menu in game paths.
+/// </summary>
 public class InGameMenu : MonoBehaviour
 {
-    public void GoToMenu() =>
-        SceneManager.LoadScene("StartMenu");
+    /// <summary>
+    /// Return to main menu.
+    /// </summary>
+    public void GoToMenu() => SceneManager.LoadScene("StartMenu");
 
-    public void RestartLevel() =>
-        LvlManager.Instance.StartLevel(LvlManager.Instance.currentLvl);  
+    /// <summary>
+    /// Restart current level.
+    /// </summary>
+    public void RestartLevel() => LvlManager.Instance.StartLevel(LvlManager.Instance.CurrentLvl);
 
-    public void NextLevel() =>
-        LvlManager.Instance.StartLevel(LvlManager.Instance.currentLvl + 1);  
+    /// <summary>
+    /// Start next level.
+    /// </summary>
+    public void NextLevel() => LvlManager.Instance.StartLevel(LvlManager.Instance.CurrentLvl + 1);
 
-    public void PauseGame(bool pause) =>        
-        Time.timeScale = pause? 0f : 1f;
-
+    /// <summary>
+    /// Stop/Resume current level by modifying the time scale.
+    /// </summary>
+    /// <param name="pause">Whether to pause or resume game.</param>
+    public void PauseGame(bool pause) => Time.timeScale = pause ? 0f : 1f;
 }

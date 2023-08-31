@@ -1,34 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SettingsManager: MonoBehaviour
+/// <summary>
+/// Manages game settings and options.
+/// </summary>
+public class SettingsManager : MonoBehaviour
 {
+    [Header("Singleton Instance")] [NonSerialized]
     public static SettingsManager Instance;
-    
-    public SettingsFrames currentCategoryTab = SettingsFrames.Sounds;
-    
-    public bool darkModeOn;
-    
-    public float generalVolume;
-    public float musicVolume;
-    public float soundEffectVolume;
-    
-    public KeyCode jumpKeyCode;
-    public KeyCode moveLeftKeyCode;
-    public KeyCode moveRightKeyCode;
-    public KeyCode fireKeyCode;
-    public KeyCode speedBuffKeyCode;
-    public KeyCode jumpBuffKeyCode;
-    public KeyCode pauseKeyCode;
-    
-    public int resolution;
-    public bool fullscreen;
-    public bool vsync;
-    public Language language;
+
+    [Header("Volume")] [NonSerialized] public float 
+        GeneralVolume, 
+        MusicVolume,
+        SoundEffectVolume;
+
+    [Header("KeyBindings")] [NonSerialized]
+    public KeyCode
+        JumpKeyCode,
+        MoveLeftKeyCode,
+        MoveRightKeyCode,
+        FireKeyCode,
+        SpeedBuffKeyCode,
+        JumpBuffKeyCode,
+        PauseKeyCode;
+
+    [Header("Display")] 
+    [NonSerialized] public int Resolution;
+    [NonSerialized] public bool Fullscreen, Vsync;
+    [NonSerialized] public Language Language;
+
+    [Header("Other Settings")]
+    [NonSerialized] public SettingsFrames CurrentCategoryTab;
+    [NonSerialized] public bool DarkModeOn;
 
     private void Awake()
     {
         Load();
-        
+
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -39,9 +47,13 @@ public class SettingsManager: MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
+    /// <summary>
+    /// Sets up sound volume for the specified camera.
+    /// </summary>
+    /// <param name="camera">The camera to adjust the sound volume for.</param>
     public static void SetUpSound(Transform camera) =>
         camera.GetComponent<AudioSource>().volume =
-            Instance.musicVolume * Instance.generalVolume / 2;
+            Instance.MusicVolume * Instance.GeneralVolume / 2;
 
     private void Load()
     {
@@ -51,34 +63,34 @@ public class SettingsManager: MonoBehaviour
             Initialize();
         else
         {
-            darkModeOn = settings.darkModeOn;
-                
-            generalVolume = settings.generalVolume;
-            musicVolume = settings.musicVolume;
-            soundEffectVolume = settings.soundEffectVolume;
-            
-            jumpKeyCode = (KeyCode)settings.jumpKeyCode;
-            moveLeftKeyCode = (KeyCode)settings.moveLeftKeyCode;
-            moveRightKeyCode = (KeyCode)settings.moveRightKeyCode;
-            fireKeyCode = (KeyCode)settings.fireKeyCode;
-            speedBuffKeyCode = (KeyCode)settings.speedBuffKeyCode;
-            jumpBuffKeyCode = (KeyCode)settings.jumpBuffKeyCode;
-            pauseKeyCode = (KeyCode)settings.pauseKeyCode;
-            
-            resolution = settings.resolution;
-            fullscreen = settings.fullscreen;
-            vsync = settings.vsync;
-            language = (Language)settings.language;
+            DarkModeOn = settings.darkModeOn;
+
+            GeneralVolume = settings.generalVolume;
+            MusicVolume = settings.musicVolume;
+            SoundEffectVolume = settings.soundEffectVolume;
+
+            JumpKeyCode = (KeyCode)settings.jumpKeyCode;
+            MoveLeftKeyCode = (KeyCode)settings.moveLeftKeyCode;
+            MoveRightKeyCode = (KeyCode)settings.moveRightKeyCode;
+            FireKeyCode = (KeyCode)settings.fireKeyCode;
+            SpeedBuffKeyCode = (KeyCode)settings.speedBuffKeyCode;
+            JumpBuffKeyCode = (KeyCode)settings.jumpBuffKeyCode;
+            PauseKeyCode = (KeyCode)settings.pauseKeyCode;
+
+            Resolution = settings.resolution;
+            Fullscreen = settings.fullscreen;
+            Vsync = settings.vsync;
+            Language = (Language)settings.language;
         }
-        
-        var resolutionAsTuple = Utils.ResolutionIndexToTuple(resolution);
-        Screen.SetResolution(resolutionAsTuple.Item1, resolutionAsTuple.Item2, fullscreen);
+
+        var resolutionAsTuple = Utils.ResolutionIndexToTuple(Resolution);
+        Screen.SetResolution(resolutionAsTuple.Item1, resolutionAsTuple.Item2, Fullscreen);
     }
 
     public void Save() =>
         SaveAndLoadSystem.SaveSettings(this);
-    
-    public void ResetSettings() 
+
+    public void ResetSettings()
     {
         SaveAndLoadSystem.DeleteSettingsSave();
         Initialize();
@@ -86,30 +98,30 @@ public class SettingsManager: MonoBehaviour
 
     private void Initialize()
     {
-        darkModeOn = false;
-        generalVolume = 1f;
-        musicVolume = 0.5f;
-        soundEffectVolume = 1f;
-            
-        jumpKeyCode = KeyCode.W;
-        moveLeftKeyCode = KeyCode.A;
-        moveRightKeyCode = KeyCode.D;
-        fireKeyCode = KeyCode.Space;
-        speedBuffKeyCode = KeyCode.LeftAlt;
-        jumpBuffKeyCode = KeyCode.LeftControl;
-        pauseKeyCode = KeyCode.Escape;
-        
-        resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
-        fullscreen = true;
-        vsync = QualitySettings.vSyncCount > 0;
-        language = Language.English;
+        CurrentCategoryTab = SettingsFrames.Sounds;
+        DarkModeOn = false;
+
+        GeneralVolume = 1f;
+        MusicVolume = 0.5f;
+        SoundEffectVolume = 1f;
+
+        JumpKeyCode = KeyCode.W;
+        MoveLeftKeyCode = KeyCode.A;
+        MoveRightKeyCode = KeyCode.D;
+        FireKeyCode = KeyCode.Space;
+        SpeedBuffKeyCode = KeyCode.LeftAlt;
+        JumpBuffKeyCode = KeyCode.LeftControl;
+        PauseKeyCode = KeyCode.Escape;
+
+        Resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
+        Fullscreen = true;
+        Vsync = QualitySettings.vSyncCount > 0;
+        Language = Language.English;
     }
-    
-    public static void ChangeBackground(Transform background)
+
+    public static void ChangeBackground(Transform background)  // *** TO DO *** : uncomment when added dark background.
     {
-        if (!Instance.darkModeOn) return;
-      
-        foreach (Transform backgroundImg in background)
-            backgroundImg.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0.5f);
+        // background.GetChild(0).gameObject.SetActive(!Instance.DarkModeOn);
+        // background.GetChild(1).gameObject.SetActive(!Instance.DarkModeOn);
     }
 }
