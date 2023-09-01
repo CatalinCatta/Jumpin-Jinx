@@ -52,7 +52,7 @@ public class LvlGenerator : MonoBehaviour
             for (var j = 0; j < _length; j++)
                 GenerateObject(map[i][j], i, j);
         }
-        catch (IOException ex)
+        catch (IOException ex) 
         {
             Debug.Log("Error reading the file: " + ex.Message);
         }
@@ -88,18 +88,16 @@ public class LvlGenerator : MonoBehaviour
                 break;
             case 18:
                 FindObjectOfType<InGameMenu>().transform.GetChild(0).GetChild(0).GetChild(4).GetChild(2).gameObject
-                    .SetActive(false);
+                    .SetActive(false);  // Hide Next Level Button
                 break;
         }
     }
 
-    private void GenerateObject(char character, int row, int column)
+    private void GenerateObject(char character, int row, int column)    //*** TO DO *** : Update after refactoring Platform
     {
         if (row == _height - 1)
-            for (var i = 1; i < 11; i++)
-                Instantiate(character == 'W' ? watterBottom : emptyBlock,
-                    new Vector2((column - _length / 2) * 1.28f, -(row + i - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent);
+            CreateBottomGround(character, row, column);
+        
         Platform platform;
 
         switch (character)
@@ -121,53 +119,30 @@ public class LvlGenerator : MonoBehaviour
                 Instantiate(block, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, tilesParent).GetComponent<Platform>().platformType = PlatformType.Temporary;
                 break;
-            case 'V':
+            case '^':
+            case 'v':
                 platform = Instantiate(block,
                     new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
                     tilesParent).GetComponent<Platform>();
                 platform.platformType = PlatformType.VerticalMoving;
-                platform.movement = 20;
+                platform.movement = character == '^' ? 20 : -20;
                 break;
-            case 'U':
-                platform = Instantiate(block,
-                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent).GetComponent<Platform>();
-                platform.platformType = PlatformType.VerticalMoving;
-                platform.movement = 20;
-                Instantiate(watter, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
-                    Quaternion.identity, watterParent);
-                break;
-            case '-':
+            case 'R':
+            case 'L':
                 platform = Instantiate(block,
                     new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
                     tilesParent).GetComponent<Platform>();
                 platform.platformType = PlatformType.HorizontalMoving;
-                platform.movement = 20;
-                break;
-            case '_':
-                platform = Instantiate(block,
-                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent).GetComponent<Platform>();
-                platform.platformType = PlatformType.HorizontalMoving;
-                platform.movement = 20;
-                Instantiate(watter, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
-                    Quaternion.identity, watterParent);
+                platform.movement = character == 'R' ? 20 : -20;
                 break;
             case 'o':
-                platform = Instantiate(block,
-                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent).GetComponent<Platform>();
-                platform.platformType = PlatformType.CircularMoving;
-                platform.rotationAngle = 3;
-                platform.rotationSpeed = 1;
-                break;
             case 'O':
                 platform = Instantiate(block,
                     new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
                     tilesParent).GetComponent<Platform>();
                 platform.platformType = PlatformType.CircularMoving;
                 platform.rotationAngle = 3;
-                platform.rotationSpeed = -1;
+                platform.rotationSpeed = character == 'o' ? 1 : -1;
                 break;
             case '{':
                 Instantiate(halfSlopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
@@ -231,5 +206,13 @@ public class LvlGenerator : MonoBehaviour
                     Quaternion.identity, tilesParent);
                 break;
         }
+    }
+
+    private void CreateBottomGround(char character, int row, int column)
+    {
+        for (var i = 1; i < 11; i++)
+            Instantiate(character == 'W' ? watterBottom : emptyBlock,
+                new Vector2((column - _length / 2) * 1.28f, -(row + i - _height / 2) * 1.28f), Quaternion.identity,
+                tilesParent);
     }
 }

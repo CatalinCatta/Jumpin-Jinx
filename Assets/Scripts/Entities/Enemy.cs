@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _direction = Utils.RandomPickNumberExcludingZero(2) == 1 ? -1f : 1f;
+        _direction = Utility.GetRandomNumberExcludingZero(2) == 1 ? -1f : 1f;
         transform.rotation = Quaternion.Euler(0, (_direction - 1) * -90, 0);
     }
 
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Death"))
         {
-            StartCoroutine(Utils.PlaySoundOnDeath(gameObject));
+            StartCoroutine(Utility.PlayDeathSoundAndCleanup(gameObject));
         }
         else if (collision.gameObject.CompareTag("Ground"))
         {
@@ -73,6 +73,6 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Bullet"))
-            StartCoroutine(Utils.PlaySoundOnDeath(gameObject));
+            StartCoroutine(Utility.PlayDeathSoundAndCleanup(gameObject));
     }
 }

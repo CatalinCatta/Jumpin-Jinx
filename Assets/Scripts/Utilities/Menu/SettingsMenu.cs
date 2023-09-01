@@ -455,7 +455,7 @@ public class SettingsMenu : MonoBehaviour
         var isFullScreen = SettingsManager.Instance.Fullscreen;
         var resolutionBeforeTransformation =
             transform.GetChild(3).GetChild(0).GetChild(1).GetComponent<TMP_Dropdown>().value;
-        var resolution = Utils.ResolutionIndexToTuple(resolutionBeforeTransformation);
+        var resolution = Utility.ConvertResolutionIndexToTuple(resolutionBeforeTransformation);
 
         SettingsManager.Instance.Resolution = resolutionBeforeTransformation;
         Screen.SetResolution(resolution.Item1, resolution.Item2, isFullScreen);
@@ -467,7 +467,7 @@ public class SettingsMenu : MonoBehaviour
     public void SaveFullscreen()
     {
         var isFullScreen = transform.GetChild(3).GetChild(1).GetChild(1).GetChild(0).gameObject.activeSelf;
-        var resolution = Utils.ResolutionIndexToTuple(SettingsManager.Instance.Resolution);
+        var resolution = Utility.ConvertResolutionIndexToTuple(SettingsManager.Instance.Resolution);
 
         SettingsManager.Instance.Fullscreen = isFullScreen;
         Screen.SetResolution(resolution.Item1, resolution.Item2, isFullScreen);

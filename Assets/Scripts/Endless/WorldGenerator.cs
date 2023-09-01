@@ -72,8 +72,8 @@ public class WorldGenerator : MonoBehaviour
     private void RandomizeGapsAndPlatforms(int position)
     {
         _platformsLengths[position] =
-            Utils.RandomPickNumberExcludingZero((Math.Abs((position - _platformsLengths.Length - 1) % 5) + 1) * 5);
-        _platformsGaps[position] = Utils.RandomPickNumberExcludingZero((position + 1) * 3);
+            Utility.GetRandomNumberExcludingZero((Math.Abs((position - _platformsLengths.Length - 1) % 5) + 1) * 5);
+        _platformsGaps[position] = Utility.GetRandomNumberExcludingZero((position + 1) * 3);
     }
 
     private void ClearLastChunk()
@@ -111,7 +111,7 @@ public class WorldGenerator : MonoBehaviour
             _platformsLengths[i]--;
             var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0),
                 Quaternion.identity);
-            var platformType = i == 0 ? (PlatformType)(Utils.RandomPickNumberBetween(0, 3) % 2) : ChoosePlatformType();
+            var platformType = i == 0 ? (PlatformType)(Utility.GetRandomNumberBetween(0, 3) % 2) : ChoosePlatformType();
 
             var platformComponent = platformObject.GetComponent<Platform>();
 
@@ -119,7 +119,7 @@ public class WorldGenerator : MonoBehaviour
             platformComponent.endlessRun = _platformsLengths[i] != 0;
 
             if (platformType != PlatformType.Static || i != 0 ||
-                Utils.RandomPickNumberBetween(0, 2) != 0) continue;
+                Utility.GetRandomNumberBetween(0, 2) != 0) continue;
 
             Instantiate(emptyPlatform, new Vector3(xPosition, -2.56f, -1), Quaternion.identity);
             Instantiate(emptyPlatform, new Vector3(xPosition, -3.84f, -1), Quaternion.identity);
@@ -128,7 +128,7 @@ public class WorldGenerator : MonoBehaviour
     }
 
     private static PlatformType ChoosePlatformType() =>
-        Utils.RandomPickNumberExcludingZero(100) switch
+        Utility.GetRandomNumberExcludingZero(100) switch
         {
             <= 15 => PlatformType.Temporary,
             <= 30 => PlatformType.VerticalMoving,

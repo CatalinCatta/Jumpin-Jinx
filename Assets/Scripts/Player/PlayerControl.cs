@@ -128,7 +128,7 @@ public class PlayerControl : MonoBehaviour
         if (!collision.gameObject.CompareTag("Enemy"))
             return;
 
-        var colliderSize = (Vector3)Utils.GetColliderSize(collision);
+        var colliderSize = (Vector3)Utility.RetrieveColliderSize(collision);
         var position = transform.position;
         var colliderPosition = collision.transform.position;
         _playerStatus.GetDamage(

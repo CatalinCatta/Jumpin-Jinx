@@ -31,7 +31,7 @@ public class TutorialManager : MonoBehaviour
         var currentTransform = transform;
         var position = currentTransform.position;
         var (x, y) = (position.x, position.y);
-        var speedX = Utils.RandomPickNumberBetween(0, 2) == 0 ? -1f : 1f;
+        var speedX = Utility.GetRandomNumberBetween(0, 2) == 0 ? -1f : 1f;
         var targetY = Random.Range(3f, 5f);
 
         while (true)

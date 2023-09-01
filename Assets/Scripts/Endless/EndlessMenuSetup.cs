@@ -225,7 +225,7 @@ public class EndlessMenuSetup : MonoBehaviour
         var item = transform.GetChild(3).GetChild((int)shopItemType);
 
         item.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[] { amount });
-        item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = Utils.DoubleToString(price, false);
+        item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = Utility.FormatDoubleWithUnits(price, false);
     }
 
     private static void Buy(Transform label, int lvl, int price)
@@ -235,7 +235,7 @@ public class EndlessMenuSetup : MonoBehaviour
         var labelTextRectTransform = labelText.GetComponent<RectTransform>();
 
         if (lvl < 50)
-            labelTextComponent.text = Utils.DoubleToString(price, false);
+            labelTextComponent.text = Utility.FormatDoubleWithUnits(price, false);
         else
         {
             labelTextComponent.text = "MAX";

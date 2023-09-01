@@ -83,7 +83,7 @@ public class SettingsManager : MonoBehaviour
             Language = (Language)settings.language;
         }
 
-        var resolutionAsTuple = Utils.ResolutionIndexToTuple(Resolution);
+        var resolutionAsTuple = Utility.ConvertResolutionIndexToTuple(Resolution);
         Screen.SetResolution(resolutionAsTuple.Item1, resolutionAsTuple.Item2, Fullscreen);
     }
 
@@ -113,7 +113,7 @@ public class SettingsManager : MonoBehaviour
         JumpBuffKeyCode = KeyCode.LeftControl;
         PauseKeyCode = KeyCode.Escape;
 
-        Resolution = Utils.ResolutionTupleToIndex(Screen.currentResolution);
+        Resolution = Utility.ConvertResolutionTupleToIndex(Screen.currentResolution);
         Fullscreen = true;
         Vsync = QualitySettings.vSyncCount > 0;
         Language = Language.English;

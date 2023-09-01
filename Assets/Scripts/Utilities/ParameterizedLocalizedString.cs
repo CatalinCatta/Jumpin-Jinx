@@ -7,10 +7,9 @@ using UnityEngine.Localization;
 /// </summary>
 public class ParameterizedLocalizedString : MonoBehaviour
 {
-    private object[] _objects;
-    
     [SerializeField] private LocalizedString localizedString;
     [SerializeField] private TMP_Text textMeshPro;
+    private object[] _objects;
     
     private void OnEnable()
     {

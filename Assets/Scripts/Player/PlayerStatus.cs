@@ -245,7 +245,7 @@ public class PlayerStatus : MonoBehaviour
             insideEndScreenFrame.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
             insideEndScreenFrame.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = KillCounter.ToString();
             insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                Utils.DoubleToString(transform.position.x / 2.55, true) + "m";
+                Utility.FormatDoubleWithUnits(transform.position.x / 2.55, true) + "m";
 
             PlayerManager.Instance.JumpBuffs = _jumpBuffs;
             PlayerManager.Instance.SpeedBuffs = _speedBuffs;

@@ -295,7 +295,7 @@ public class BuildingPlace : MonoBehaviour
     private GameObject GetBuildingPlaceFromDirection(Directions directions)
     {
         var currentPosition = transform.position;
-        var multiplier = Utils.DirectionsModifier[(int)directions];
+        var multiplier = Utility.DirectionModifiers[(int)directions];
 
         return _gameBuilder.BuildingPlaces[
             Mathf.RoundToInt(currentPosition.y / 1.28f) + Mathf.RoundToInt((_gameBuilder.Rows - 1f) / 2f) +

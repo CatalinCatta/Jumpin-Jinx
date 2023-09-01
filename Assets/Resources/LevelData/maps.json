@@ -349,7 +349,7 @@
         "                   DDDDDDDDDD",
         "                   DDDDDDDDDD",
         " P                     C  DDD",
-        "GGGGGGGGGGUUUUUUUUUGGGGGGGDDD"
+        "GGGGGGGGGG^^^^^^^^^GGGGGGGDDD"
       ]
     },
     {
@@ -359,19 +359,19 @@
         "                             ",
         "                             ",
         "00 C                SC      0",
-        "  GG--              GGG>     ",
+        "  GGbb              GGG>     ",
         "                    DDD}     ",
         "                             ",
         "                             ",
         "           E  SSS   EE       ",
         "         <GGGGGGGGGGGG>      ",
-        "    00  <{DDDDDDDDDDDD}     V",
-        "VVGG    s    [D]      s    E ",
+        "    00  <{DDDDDDDDDDDD}     ^",
+        "^^GG    s    [D]      s    E ",
         "             [D]         TGGG",
         "             [D]             ",
         "             [D]             ",
         " P        C E[D]  E         X",
-        "GGGGUUWWGGGGGGDGGGGGGGWWWWGGG"
+        "GGGG^^WWGGGGGGDGGGGGGGWWWWGGG"
       ]
     },
     {
@@ -393,7 +393,7 @@
         "                         <GGG",
         "                             ",
         " P                           ",
-        "GGGGG___WWWWWWWWWWWWWWGGGWWWW"
+        "GGGGGbbbWWWWWWWWWWWWWWGGGWWWW"
       ]
     }
   ]

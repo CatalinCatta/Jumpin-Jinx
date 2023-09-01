@@ -53,10 +53,10 @@ public class Platform : MonoBehaviour    // *** TO DO *** : Broke into multiple 
         if (endlessRun)
             PlantEnvironment();
 
-        movement = movement == 0 ? Utils.RandomPickNumberBetween(5, 10) : movement;
-        rotationAngle = rotationAngle == 0 ? Utils.RandomPickNumberBetween(2, 6) : rotationAngle;
+        movement = movement == 0 ? Utility.GetRandomNumberBetween(5, 10) : movement;
+        rotationAngle = rotationAngle == 0 ? Utility.GetRandomNumberBetween(2, 6) : rotationAngle;
         while (rotationSpeed == 0)
-            rotationSpeed = rotationSpeed == 0 ? Utils.RandomPickNumberBetween(-3, 3) : rotationSpeed;
+            rotationSpeed = rotationSpeed == 0 ? Utility.GetRandomNumberBetween(-3, 3) : rotationSpeed;
 
 
         switch (platformType)
@@ -133,7 +133,7 @@ public class Platform : MonoBehaviour    // *** TO DO *** : Broke into multiple 
     private void CreatePlant()
     {
         var random = new Random();
-        var randomPlant = Utils.RandomPickNumberBetween(0, plants.Count);
+        var randomPlant = Utility.GetRandomNumberBetween(0, plants.Count);
         var plant = new GameObject("Plant");
 
         plant.transform.SetParent(transform);
