@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Change camera size and position at the beginning of scene based on player's screen resolution.
 /// </summary>
+[RequireComponent(typeof(Camera))]
 public class CameraResize : MonoBehaviour
 {
     private void Start()
