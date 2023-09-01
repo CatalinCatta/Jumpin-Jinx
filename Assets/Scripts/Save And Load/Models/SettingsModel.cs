@@ -6,15 +6,15 @@
 [Serializable]
 public class SettingsModel
 {
-    // Boolean flag indicating if dark mode is enabled
     public bool darkModeOn;
 
-    // Volume settings
+    #region Volume
     public float generalVolume;
     public float musicVolume;
     public float soundEffectVolume;
+    #endregion
 
-    // Key codes for controls
+    #region KeyCode
     public int jumpKeyCode;
     public int moveLeftKeyCode;
     public int moveRightKeyCode;
@@ -22,12 +22,14 @@ public class SettingsModel
     public int speedBuffKeyCode;
     public int jumpBuffKeyCode;
     public int pauseKeyCode;
+    #endregion
 
-    // Display settings
+    #region Display
     public int resolution;
     public bool fullscreen;
     public bool vsync;
     public int language;
+    #endregion
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsModel"/> class.

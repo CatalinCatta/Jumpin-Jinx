@@ -6,21 +6,24 @@
 [Serializable]
 public class PlayerModel
 {
-    // Player revenues
+    #region Revenue
     public int gold;
     public int gems;
+    #endregion
 
-    // Player upgrade levels
+    #region Update Levels
     public int atkLvl;
     public int msLvl;
     public int jumpLvl;
     public int defLvl;
     public int hpLvl;
+    #endregion
 
-    // Player buffs
+    #region PowerUps
     public int jumpBuffs;
     public int speedBuffs;
     public int secondChances;
+    #endregion
 
     /// <summary>
     /// Initializes a new instance of the PlayerModel class.
