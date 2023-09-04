@@ -6,13 +6,15 @@ using UnityEngine;
 /// <summary>
 /// This class manages the status of the player, including health, buffs, coins, and display.
 /// </summary>
-[RequireComponent(typeof(Rigidbody2D), typeof(PlayerControl), typeof(PlayerControl))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerControl), typeof(PlayerAudioControl))]
 public class PlayerStatus : MonoBehaviour
 {
     [Header("Components")]
     public GameObject display;
-    private PlayerAudioControl _playerAudioControl;
     private PlayerControl _playerControl;
+    private Rigidbody2D _rigidbody;
+    private PlayerAudioControl _playerAudioControl;
+    private PlayerManager _playerManager;
 
     [Header("Movement Control Bool")] [NonSerialized]
     public bool
@@ -29,41 +31,48 @@ public class PlayerStatus : MonoBehaviour
     
     [Header("Utilities")]
     private bool _endlessRun;
-    private IEnumerator _knockBack;
+
+    /// <summary>
+    /// Array of special Powers status (multiplier, duration, order in game editor).
+    /// Each entrance correspond with <see cref="SpecialPower"/>.
+    /// </summary>
+    private readonly (float, float, int)[] _specialPowersStatus =
+    {
+        (2f, 3f, 2),
+        (1.5f, 5f, 3)
+    };
+    
+    private enum SpecialPower
+    {
+        SpeedBuff,
+        JumpBuff
+    }
 
     private void Awake()
     {
-        // Find the display object if it is not assigned
         if (display == null)
             display = GameObject.FindWithTag("Status");
 
-        // Get the required components
+        _rigidbody = GetComponent<Rigidbody2D>();
         _playerControl = GetComponent<PlayerControl>();
         _playerAudioControl = GetComponent<PlayerAudioControl>();
-        
-        // Set the time scale to 1 to be sure that the game is playing
+
         Time.timeScale = 1f;
     }
 
     private void Start()
     {
-        // Check if it is an endless run level
+        _playerManager = PlayerManager.Instance;
         _endlessRun = LvlManager.Instance.CurrentLvl == 0;
+        _hp = _endlessRun ? (_playerManager.HpLvl + 1) * 5 : 20;
+        _speedBuffs = _playerManager.SpeedBuffs;
+        _jumpBuffs = _playerManager.JumpBuffs;
 
-        // Set the initial health based on the level and player's health level
-        _hp = _endlessRun ? (PlayerManager.Instance.HpLvl + 1) * 5 : 20;
-        
-        // Set the initial speed and jump buffs based on the player's buffs
-        _speedBuffs = PlayerManager.Instance.SpeedBuffs;
-        _jumpBuffs = PlayerManager.Instance.JumpBuffs;
-
-        // Show the initial health
         ShowLife();
 
         if (!_endlessRun)
             return;
 
-        // Show the initial jump and speed buffs
         ShowJumpBuffs();
         ShowSpeedBuffs();
     }
@@ -87,7 +96,7 @@ public class PlayerStatus : MonoBehaviour
 
         _speedBuffs--;
         ShowSpeedBuffs();
-        StartCoroutine(SpeedTimer());
+        StartCoroutine(PowerUpTimer(SpecialPower.SpeedBuff));
     }
 
     /// <summary>
@@ -100,9 +109,9 @@ public class PlayerStatus : MonoBehaviour
 
         _jumpBuffs--;
         ShowJumpBuffs();
-        StartCoroutine(JumpTimer());
+        StartCoroutine(PowerUpTimer(SpecialPower.JumpBuff));
     }
-
+    
     /// <summary>
     /// Increase player Health.
     /// </summary>
@@ -117,22 +126,13 @@ public class PlayerStatus : MonoBehaviour
     /// </summary>
     /// <param name="direction">The direction of the knock-back.</param>
     /// <param name="amount">The amount of damage to apply.</param>
-    public void GetDamage(Vector3 direction, int amount)    // *** TO DO *** : improve knock back animation
+    public void GetDamage(Vector3 direction, int amount)
     {
-        _hp -= _endlessRun ? amount * (1 - PlayerManager.Instance.DefLvl / 100) : amount;
+        _hp -= _endlessRun ? amount * (1 - _playerManager.DefLvl / 100) : amount;
         ShowLife();
 
-        //if (_knockBack != null)
-        //    StopCoroutine(_knockBack);
-
         FreezeFromDamage = true;
-
-        GetComponent<Rigidbody2D>().velocity =
-            new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);
-
-        //_knockBack = MoveToDirection();
-        //StartCoroutine(_knockBack);
-
+        _rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // *** TO DO *** : improve knock back animation
         _playerAudioControl.PlayGetHitSound();
 
         if (_hp == 0)
@@ -140,83 +140,48 @@ public class PlayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// Coroutine that activates a jump buff for a certain duration.
+    /// Coroutine that activates the power up timer for a certain duration.
     /// </summary>
-    private IEnumerator JumpTimer()
+    private IEnumerator PowerUpTimer(SpecialPower specialPower)
     {
-        JumpBuffActive = true;
-        _playerControl.JumpPower *= 1.5f;
+        SwitchPowerActive(true);
+        _playerControl.JumpPower *= _specialPowersStatus[(int)specialPower].Item1;
 
-        var timer = display.transform.GetChild(3).GetChild(0).GetChild(0).gameObject;
+        var timer = display.transform.GetChild(_specialPowersStatus[(int)specialPower].Item3).GetChild(0).GetChild(0).gameObject;
         var rectTransform = timer.GetComponent<RectTransform>();
-
+        var timerParentHeight = timer.transform.parent.GetComponent<RectTransform>().rect.height;
         var elapsedTime = 0f;
         var initialPosition = rectTransform.localPosition;
 
         timer.SetActive(true);
 
-        while (elapsedTime < 5f)
+        while (elapsedTime < _specialPowersStatus[(int)specialPower].Item2)
         {
             elapsedTime += Time.deltaTime;
             rectTransform.localPosition = Vector3.Lerp(initialPosition,
-                initialPosition + new Vector3(0f, timer.transform.parent.GetComponent<RectTransform>().rect.height, 0f),
-                Mathf.Clamp01(elapsedTime / 5f));
+                initialPosition + new Vector3(0f, timerParentHeight, 0f),
+                Mathf.Clamp01(elapsedTime / _specialPowersStatus[(int)specialPower].Item2));
             yield return null;
         }
 
         rectTransform.localPosition = initialPosition;
         timer.SetActive(false);
 
-        JumpBuffActive = false;
-        _playerControl.JumpPower /= 1.5f;
-    }
+        SwitchPowerActive(false);
+        _playerControl.JumpPower /= _specialPowersStatus[(int)specialPower].Item1;
 
-    /// <summary>
-    /// Coroutine that activates a speed buff for a certain duration.
-    /// </summary>
-    private IEnumerator SpeedTimer()
-    {
-        SpeedBuffActive = true;
-        _playerControl.MovementSpeed *= 2;
-
-        var timer = display.transform.GetChild(2).GetChild(0).GetChild(0).gameObject;
-        var rectTransform = timer.GetComponent<RectTransform>();
-
-        var elapsedTime = 0f;
-        var initialPosition = rectTransform.localPosition;
-
-        timer.SetActive(true);
-
-        while (elapsedTime < 3f)
+        void SwitchPowerActive(bool active)
         {
-            elapsedTime += Time.deltaTime;
-            rectTransform.localPosition = Vector3.Lerp(initialPosition,
-                initialPosition + new Vector3(0f, timer.transform.parent.GetComponent<RectTransform>().rect.height, 0f),
-                Mathf.Clamp01(elapsedTime / 5f));
-            yield return null;
+            switch (specialPower)
+            {
+                case SpecialPower.SpeedBuff:
+                    SpeedBuffActive = active;
+                    break;
+                case SpecialPower.JumpBuff:
+                    JumpBuffActive = active;
+                    break;
+            }
         }
-
-        rectTransform.localPosition = initialPosition;
-        timer.SetActive(false);
-
-        SpeedBuffActive = false;
-        _playerControl.MovementSpeed /= 2;
-    }
-
-    /// <summary>
-    /// Coroutine that changes the player's sprite color to red for a short duration.
-    /// </summary>
-    private IEnumerator MoveToDirection()
-    {
-        var spriteRenderer = GetComponent<SpriteRenderer>();
-
-        spriteRenderer.color = Color.red;
-
-        yield return new WaitForSeconds(.3f);
-
-        spriteRenderer.color = Color.white;
-
-        FreezeFromDamage = false;
     }
 
     /// <summary>
@@ -233,25 +198,23 @@ public class PlayerStatus : MonoBehaviour
         var endScreen = display.transform.parent.parent.GetChild(1);
 
         if (!_endlessRun)
-        {
             endScreen.GetChild(1).gameObject.SetActive(true);
-        }
         else
         {
             endScreen.gameObject.SetActive(true);
 
-            var insideEndScreenFrame = endScreen.GetChild(0);
+            ChangeText(1, _coins.ToString());
+            ChangeText(2, KillCounter.ToString());
+            ChangeText(3, Utility.FormatDoubleWithUnits(transform.position.x / 2.55, true) + "m");
 
-            insideEndScreenFrame.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
-            insideEndScreenFrame.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = KillCounter.ToString();
-            insideEndScreenFrame.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                Utility.FormatDoubleWithUnits(transform.position.x / 2.55, true) + "m";
+            _playerManager.JumpBuffs = _jumpBuffs;
+            _playerManager.SpeedBuffs = _speedBuffs;
+            _playerManager.Gold += _coins;
 
-            PlayerManager.Instance.JumpBuffs = _jumpBuffs;
-            PlayerManager.Instance.SpeedBuffs = _speedBuffs;
-            PlayerManager.Instance.Gold += _coins;
+            _playerManager.Save();
 
-            PlayerManager.Instance.Save();
+            void ChangeText(int childId, string text) =>
+                endScreen.GetChild(0).GetChild(childId).GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
         }
     }
 
@@ -280,24 +243,23 @@ public class PlayerStatus : MonoBehaviour
     /// <summary>
     /// Method to update the displayed life count.
     /// </summary>
-    private void ShowLife() =>
-        display.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = _hp.ToString();
+    private void ShowLife() => ChangeUiText(GetUiTransform(0).GetChild(0), _hp.ToString());
 
     /// <summary>
     /// Method to update the displayed coin count.
     /// </summary>
-    private void ShowCoins() =>
-        display.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = _coins.ToString();
+    private void ShowCoins() => ChangeUiText(GetUiTransform(1), _coins.ToString());
 
     /// <summary>
     /// Method to update the displayed speed buffs count.
     /// </summary>
-    private void ShowSpeedBuffs() =>
-        display.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().text = _speedBuffs.ToString();
+    private void ShowSpeedBuffs() => ChangeUiText(GetUiTransform(2), _speedBuffs.ToString());
 
     /// <summary>
     /// Method to update the displayed jump buffs count.
     /// </summary>
-    private void ShowJumpBuffs() =>
-        display.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = _jumpBuffs.ToString();
+    private void ShowJumpBuffs() => ChangeUiText(GetUiTransform(3), _jumpBuffs.ToString());
+
+    private static void ChangeUiText(Component element, string text) => element.GetComponent<TextMeshProUGUI>().text = text;
+    private Transform GetUiTransform(int childId) => display.transform.GetChild(childId).GetChild(1);
 }
