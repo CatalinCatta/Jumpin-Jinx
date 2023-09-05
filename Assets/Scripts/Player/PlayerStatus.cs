@@ -144,7 +144,9 @@ public class PlayerStatus : MonoBehaviour
     /// </summary>
     private IEnumerator PowerUpTimer(SpecialPower specialPower)
     {
-        SwitchPowerActive(true);
+        var multiplier = _specialPowersStatus[(int)specialPower].Item1;
+
+        SwitchPowerStatus(true);
         _playerControl.JumpPower *= _specialPowersStatus[(int)specialPower].Item1;
 
         var timer = display.transform.GetChild(_specialPowersStatus[(int)specialPower].Item3).GetChild(0).GetChild(0).gameObject;
@@ -166,19 +168,19 @@ public class PlayerStatus : MonoBehaviour
 
         rectTransform.localPosition = initialPosition;
         timer.SetActive(false);
+        SwitchPowerStatus(false);
 
-        SwitchPowerActive(false);
-        _playerControl.JumpPower /= _specialPowersStatus[(int)specialPower].Item1;
-
-        void SwitchPowerActive(bool active)
+        void SwitchPowerStatus(bool active)
         {
             switch (specialPower)
             {
                 case SpecialPower.SpeedBuff:
                     SpeedBuffActive = active;
+                    _playerControl.MovementSpeed *= active ? multiplier : 1 / multiplier;
                     break;
                 case SpecialPower.JumpBuff:
                     JumpBuffActive = active;
+                    _playerControl.JumpPower *= active ? multiplier : 1 / multiplier;
                     break;
             }
         }
