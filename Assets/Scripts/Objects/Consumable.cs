@@ -10,13 +10,11 @@ public class Consumable : MonoBehaviour
     private bool _isDestroying;
     private PlayerStatus _playerStatus;
 
-    private void Start() =>
-        _playerStatus = FindObjectOfType<PlayerStatus>();
+    private void Start() => _playerStatus = FindObjectOfType<PlayerStatus>();
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.gameObject.CompareTag("Player") || _isDestroying)
-            return;
+        if (!col.gameObject.CompareTag("Player") || _isDestroying) return;
 
         _isDestroying = true;
         switch (consumableType)

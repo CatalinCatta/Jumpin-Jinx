@@ -8,24 +8,24 @@ public class EndLvl : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.gameObject.CompareTag("Player"))
-            return;
+        if (!col.gameObject.CompareTag("Player")) return;
 
-        var playerStatus = col.transform.GetComponent<PlayerStatus>();
-        var playerRb = col.transform.GetComponent<Rigidbody2D>();
+        var colliderTransform = col.transform;
+        var playerStatus = colliderTransform.GetComponent<PlayerStatus>();
+        var playerRb = colliderTransform.GetComponent<Rigidbody2D>();
 
         playerRb.isKinematic = true;
         playerRb.velocity = Vector2.zero;
         playerRb.angularVelocity = 0f;
 
         playerStatus.FreezeFromDamage = true;
-        transform.GetComponent<Animator>().enabled = true;
+        GetComponent<Animator>().enabled = true;
         StartCoroutine(AnimationFinished(playerStatus));
     }
 
     private IEnumerator AnimationFinished(PlayerStatus player)
     {
-        transform.GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().Play();
 
         yield return new WaitForSeconds(0.6f);
 
