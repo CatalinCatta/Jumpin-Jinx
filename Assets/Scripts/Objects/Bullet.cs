@@ -4,18 +4,20 @@ using UnityEngine;
 /// <summary>
 /// Represents a bullet shot by the player.
 /// </summary>
+[RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
     private float _speed;
+    private Rigidbody2D _rigidbody;
 
     private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody2D>();
         _speed = LvlManager.Instance.CurrentLvl == 0 ? 1f + PlayerManager.Instance.AtkLvl * 0.18f : 5f; // 1f => 10f
         StartCoroutine(DestroyAfterDelay());
     }
 
-    private void Update() =>
-        transform.Translate(Vector3.left * _speed * Time.deltaTime);
+    private void Update() => _rigidbody.velocity = Vector2.right * _speed;
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -24,15 +26,14 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             FindObjectOfType<PlayerStatus>().KillCounter++;
         }
-        else if (col.gameObject.CompareTag("Ground"))
-            Destroy(gameObject);
+        else if (col.gameObject.CompareTag("Ground")) Destroy(gameObject);
     }
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(9f);
+        yield return new WaitForSeconds(10f);
 
-        var spriteRenderer = transform.GetComponent<SpriteRenderer>();
+        var spriteRenderer = GetComponent<SpriteRenderer>();
         var elapsedTime = 0f;
         var originalColor = spriteRenderer.color;
 

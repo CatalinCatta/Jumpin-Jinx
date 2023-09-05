@@ -150,10 +150,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (_isFireActivated) return;
 
-        var bow = _localTransform.GetChild(1);
-        bow.gameObject.SetActive(true);
-        bow.GetChild(1).GetComponent<Animator>().speed = _endlessRun ? .2f + PlayerManager.Instance.AtkLvl * .036f : 1f; // .2f => 2f
-
+        // ***TO DO*** Add animation
+        
         _playerAudioControl.PlayShootArrowSound();
 
         StartCoroutine(CreateBullet());
