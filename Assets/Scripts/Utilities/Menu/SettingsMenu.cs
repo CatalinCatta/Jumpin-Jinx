@@ -158,7 +158,7 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    private void OnEnable() // *** TO DO *** Remove coroutines when create animation in unity
+    private void OnEnable() // TODO: Remove coroutines when create animation in unity.
     {
         StartCoroutine(MoveObject(SettingsFrames.Categories, true, false));
 
@@ -202,7 +202,7 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     /// <param name="keyCode">KeyCode to check.</param>
     /// <returns>Bool representing if key was already used.</returns>
-    private bool KeyAlreadyInUse(KeyCode keyCode)  // *** TO DO *** Create unity animation to show wrong decision.
+    private bool KeyAlreadyInUse(KeyCode keyCode)  // TODO: Create unity animation to show wrong decision.
     {
         var allKeyCodes = new List<KeyCode>
         {
@@ -234,7 +234,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     #region Animations
-    private IEnumerator MoveObject(SettingsFrames settingsFrames, bool isAppearing, bool verticalRotation) // ***TO DO*** : remove this and create proper animation
+    private IEnumerator MoveObject(SettingsFrames settingsFrames, bool isAppearing, bool verticalRotation) // TODO: Remove this and create proper animation.
     {
         var currentTime = 0f;
         var objectToMove = _localTransform.GetChild((int)settingsFrames).GetComponent<RectTransform>();
@@ -276,7 +276,7 @@ public class SettingsMenu : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    private IEnumerator ChangeCategoryAnimation(SettingsFrames settingsFrames)  // ***TO DO*** : remove this and create proper animation
+    private IEnumerator ChangeCategoryAnimation(SettingsFrames settingsFrames)  // TODO: Remove this and create proper animation.
     {
         StartCoroutine(MoveObject(_settingsManager.CurrentCategoryTab, false, true));
 

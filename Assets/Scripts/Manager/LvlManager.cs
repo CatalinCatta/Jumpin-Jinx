@@ -16,7 +16,8 @@ public class LvlManager : MonoBehaviour
     [Header("Current Level")] [NonSerialized]
     public static string LvlTitle;
     [NonSerialized] public int CurrentLvl;
-
+    [SerializeField] public GameMode gameMode;
+    
     private void Awake()
     {
         if (Instance != null)
@@ -54,7 +55,7 @@ public class LvlManager : MonoBehaviour
         loadingScreen.GetChild(0).gameObject.SetActive(true);
         progressbar.gameObject.SetActive(true);
 
-        // *** TO DO *** : add more inspirational quote in different language.
+        // TODO: Add more inspirational quote in different language.
         progressbar.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Some inspirational quote";
 
         if (delay)

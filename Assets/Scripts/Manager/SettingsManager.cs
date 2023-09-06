@@ -119,7 +119,7 @@ public class SettingsManager : MonoBehaviour
         Language = Language.English;
     }
 
-    public static void ChangeBackground(Transform background)  // *** TO DO *** : uncomment when added dark background.
+    public static void ChangeBackground(Transform background)  // TODO: Uncomment when added dark background.
     {
         // background.GetChild(0).gameObject.SetActive(!Instance.DarkModeOn);
         // background.GetChild(1).gameObject.SetActive(!Instance.DarkModeOn);

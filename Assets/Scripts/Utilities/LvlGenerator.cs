@@ -7,21 +7,6 @@ using UnityEngine;
 /// </summary>
 public class LvlGenerator : MonoBehaviour
 {
-    [Header("Prefabs")] [SerializeField] private GameObject
-        player,
-        block,
-        coin,
-        halfSlopeBlock,
-        emptyBlock,
-        endLvl,
-        enemy,
-        heal,
-        ghostBlock,
-        slopeBlock,
-        spike,
-        watter,
-        watterBottom;
-
     [Header("Parents")] [SerializeField] private Transform
         tilesParent,
         watterParent,
@@ -31,12 +16,14 @@ public class LvlGenerator : MonoBehaviour
     [SerializeField] private Transform background;
     [SerializeField] private TutorialManager tutorialManager;
 
+    private PrefabManager _prefabManager;
     private int 
         _height,
         _length;
 
     private void Start()
     {
+        _prefabManager = PrefabManager.Instance;
         SettingsManager.ChangeBackground(background);
 
         try
@@ -93,116 +80,125 @@ public class LvlGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateObject(char character, int row, int column)    //*** TO DO *** : Update after refactoring Platform
+    private void GenerateObject(char character, int row, int column)    //TODO: Update after refactoring Platform.
     {
-        if (row == _height - 1)
-            CreateBottomGround(character, row, column);
+        if (row == _height - 1) CreateBottomGround(character, row, column);
         
-        Platform platform;
-
         switch (character)
         {
             case 'P':
-                Instantiate(player,
+                Instantiate(_prefabManager.player,
                     new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -5f),
                     Quaternion.identity);
                 break;
             case 'C':
-                Instantiate(coin, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.coin,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity);
                 break;
             case 'G':
-                Instantiate(block, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.grass,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, tilesParent);
                 break;
             case 'T':
-                Instantiate(block, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
-                    Quaternion.identity, tilesParent).GetComponent<Platform>().platformType = PlatformType.Temporary;
+                Instantiate(_prefabManager.temporaryPlatform,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                    Quaternion.identity, tilesParent);
                 break;
             case '^':
             case 'v':
-                platform = Instantiate(block,
-                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent).GetComponent<Platform>();
-                platform.platformType = PlatformType.VerticalMoving;
-                platform.movement = character == '^' ? 20 : -20;
-                break;
             case 'R':
             case 'L':
-                platform = Instantiate(block,
+                var vertical = character is '^' or 'v';
+                var sidewaysMovingPlatform = Instantiate(
+                    vertical ? _prefabManager.verticalMovingPlatform : _prefabManager.horizontalMovingPlatform,
                     new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent).GetComponent<Platform>();
-                platform.platformType = PlatformType.HorizontalMoving;
-                platform.movement = character == 'R' ? 20 : -20;
+                    tilesParent).GetComponent<SidewaysMoving>();
+                sidewaysMovingPlatform.movement = character is '^' or 'R' ? 20 : -20;
+                sidewaysMovingPlatform.direction = vertical ? SidewaysMoving.Direction.Vertical : SidewaysMoving.Direction.Horizontal;
                 break;
             case 'o':
             case 'O':
-                platform = Instantiate(block,
+                var circularMovingPlatform = Instantiate(_prefabManager.circularMovingPlatform,
                     new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f), Quaternion.identity,
-                    tilesParent).GetComponent<Platform>();
-                platform.platformType = PlatformType.CircularMoving;
-                platform.rotationAngle = 3;
-                platform.rotationSpeed = character == 'o' ? 1 : -1;
+                    tilesParent).GetComponent<CircularMovingPlatform>();
+                circularMovingPlatform.rotationAngle = 3f;
+                circularMovingPlatform.rotationSpeed = character == 'o' ? 1f : -1f;
                 break;
             case '{':
-                Instantiate(halfSlopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.halfSlopeGrass,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, tilesParent);
                 break;
             case '}':
-                Instantiate(halfSlopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.halfSlopeGrass,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.Euler(0, 180, 0), tilesParent);
                 break;
             case 'D':
-                Instantiate(emptyBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.dirt,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, tilesParent);
                 break;
             case 'X':
-                Instantiate(endLvl,
+                Instantiate(_prefabManager.endLvl,
                     new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -1),
                     Quaternion.identity);
                 break;
             case 'E':
-                Instantiate(enemy, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -1),
+                Instantiate(_prefabManager.enemy,
+                    new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -1),
                     Quaternion.identity);
                 break;
             case '0':
-                Instantiate(ghostBlock, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f, -1),
+                Instantiate(_prefabManager.ghostBlock,
+                    new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f, -1),
                     Quaternion.identity);
                 break;
             case 'H':
-                Instantiate(heal, new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -1),
+                Instantiate(_prefabManager.heal,
+                    new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -1),
                     Quaternion.identity);
                 break;
             case '<':
-                Instantiate(slopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.slopeGrass,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.Euler(0, 180, 0), tilesParent);
                 break;
             case '>':
-                Instantiate(slopeBlock, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.slopeGrass,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, tilesParent);
                 break;
             case 'S':
-                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f - .5f),
+                Instantiate(_prefabManager.spike,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f - .5f),
                     Quaternion.identity);
                 break;
             case 's':
-                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .5f),
+                Instantiate(_prefabManager.spike,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .5f),
                     Quaternion.Euler(0, 0, 180));
                 break;
             case '[':
-                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f + .5f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.spike,
+                    new Vector2((column - _length / 2) * 1.28f + .5f, -(row - _height / 2) * 1.28f),
                     Quaternion.Euler(0, 0, 90));
                 break;
             case ']':
-                Instantiate(spike, new Vector2((column - _length / 2) * 1.28f - .5f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.spike,
+                    new Vector2((column - _length / 2) * 1.28f - .5f, -(row - _height / 2) * 1.28f),
                     Quaternion.Euler(0, 0, -90));
                 break;
             case 'W':
-                Instantiate(watter, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.watter,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, watterParent);
                 break;
             case 'M':
-                Instantiate(watterBottom, new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
+                Instantiate(_prefabManager.watterBottom,
+                    new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity, tilesParent);
                 break;
         }
@@ -211,7 +207,7 @@ public class LvlGenerator : MonoBehaviour
     private void CreateBottomGround(char character, int row, int column)
     {
         for (var i = 1; i < 11; i++)
-            Instantiate(character == 'W' ? watterBottom : emptyBlock,
+            Instantiate(character == 'W' ? _prefabManager.watterBottom : _prefabManager.dirt,
                 new Vector2((column - _length / 2) * 1.28f, -(row + i - _height / 2) * 1.28f), Quaternion.identity,
                 tilesParent);
     }

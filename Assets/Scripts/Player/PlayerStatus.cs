@@ -132,7 +132,7 @@ public class PlayerStatus : MonoBehaviour
         ShowLife();
 
         FreezeFromDamage = true;
-        _rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // *** TO DO *** : improve knock back animation
+        _rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // TODO: Improve knock back animation.
         _playerAudioControl.PlayGetHitSound();
 
         if (_hp == 0)

@@ -150,7 +150,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (_isFireActivated) return;
 
-        // ***TO DO*** Add animation
+        // TODO: Add animation.
         
         _playerAudioControl.PlayShootArrowSound();
 
@@ -191,11 +191,6 @@ public class PlayerControl : MonoBehaviour
             if (!objectCollider.CompareTag("Ground")) continue;
 
             _localTransform.SetParent(objectCollider.transform);
-
-            if (objectCollider.gameObject.TryGetComponent<Platform>(out var platform) &&
-                platform.platformType == PlatformType.Temporary)
-                StartCoroutine(platform.DestroyTemporaryPlatform());
-
             return true;
         }
 
