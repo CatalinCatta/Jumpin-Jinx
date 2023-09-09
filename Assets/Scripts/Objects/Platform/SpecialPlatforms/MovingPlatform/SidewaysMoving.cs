@@ -20,13 +20,13 @@ public class SidewaysMoving : MovingObject    // TODO: Add it to editor.
 
     protected override void SetUp()
     {
-        if (LvlManager.Instance.gameMode == GameMode.Endless)
+        if (Endless)
         {
             direction = (Direction)Utility.GetRandomNumberBetween(0, 2);
             while (movement == 0) movement = Utility.GetRandomNumberBetween(-10, 10);
         }
-        _distance = direction == Direction.Horizontal ? new Vector3(movement, 0f, 0f) : new Vector3(0f, movement, 0f);
 
+        _distance = direction == Direction.Horizontal ? new Vector3(movement, 0f, 0f) : new Vector3(0f, movement, 0f);
     }
 
     protected override IEnumerator Move()

@@ -22,11 +22,14 @@ public class WorldGenerator : MonoBehaviour
     private int _lastChunk;
     [SerializeField] private Transform player;
 
+    private SettingsManager _settingsManager;
+    
     private void Start()
     {
         _lastChunk = -2;
+        _settingsManager = (SettingsManager)IndestructibleManager.Instance;
         
-        if (SettingsManager.Instance.DarkModeOn)
+        if (_settingsManager.DarkModeOn)
             FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
 
         for (var i = 0; i < _platformsLengths.Length; i++)
@@ -62,7 +65,7 @@ public class WorldGenerator : MonoBehaviour
             spriteRenderer.sprite = spriteBackground;
             spriteRenderer.sortingOrder = -1;
 
-            if (SettingsManager.Instance.DarkModeOn)
+            if (_settingsManager.DarkModeOn)
                 spriteRenderer.color = new Color(0, 0, 0.49f);
 
             background.transform.position = new Vector3(i, 4.5f, 0f);

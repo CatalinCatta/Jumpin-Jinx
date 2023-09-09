@@ -4,11 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Manages player-related data and upgrades.
 /// </summary>
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : IndestructibleManager
 {
-    [Header("Singleton Instance")] [NonSerialized]
-    public static PlayerManager Instance;
-
     [Header("Stats And Levels")] [NonSerialized]
     public int
         Gold,
@@ -38,19 +35,7 @@ public class PlayerManager : MonoBehaviour
         SpeedBuffsPrice,
         SecondChancesPrice;
 
-    private void Awake()
-    {
-        Load();
-
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    protected override void DoSomethingAtAwakeBeginning() => Load();
 
     private void Load()
     {
@@ -82,8 +67,7 @@ public class PlayerManager : MonoBehaviour
         SetUpPrice();
     }
 
-    public void Save() =>
-        SaveAndLoadSystem.SavePlayer(this);
+    public void Save() => SaveAndLoadSystem.SavePlayer(this);
 
     public void ResetPlayer()
     {

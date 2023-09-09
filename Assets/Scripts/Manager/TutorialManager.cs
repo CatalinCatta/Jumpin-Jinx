@@ -23,8 +23,7 @@ public class TutorialManager : MonoBehaviour
         exclamationMarks,
         mergedMarks;
 
-    private void OnEnable() =>
-        StartCoroutine(MovementAnimation());
+    private void OnEnable() => StartCoroutine(MovementAnimation());
 
     private IEnumerator MovementAnimation()
     {
@@ -52,23 +51,21 @@ public class TutorialManager : MonoBehaviour
     }
 
     private static string ReformatKeyCodeAsString(KeyCode keyCode) =>
-        Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!,
-            @"(\p{Lu})", " $1").Trim();
+        Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
 
     public void SetUpMovement()
     {
         gameObject.SetActive(true);
         questionMarks.SetActive(true);
         movement.gameObject.SetActive(true);
+        var settingsManager = (SettingsManager)IndestructibleManager.Instance;
 
-        movement.GetChild(0).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
-            { ReformatKeyCodeAsString(SettingsManager.Instance.MoveLeftKeyCode) });
+        SetUpKeyCode(0, settingsManager.MoveLeftKeyCode);
+        SetUpKeyCode(1, settingsManager.MoveRightKeyCode);
+        SetUpKeyCode(2, settingsManager.JumpKeyCode);
 
-        movement.GetChild(1).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
-            { ReformatKeyCodeAsString(SettingsManager.Instance.MoveRightKeyCode) });
-
-        movement.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
-            { ReformatKeyCodeAsString(SettingsManager.Instance.JumpKeyCode) });
+        void SetUpKeyCode(int child, KeyCode keyCode) => movement.GetChild(child)
+            .GetComponent<ParameterizedLocalizedString>().SetObject(new object[] { ReformatKeyCodeAsString(keyCode) });
     }
 
     public void SetUpSpike()
@@ -92,7 +89,7 @@ public class TutorialManager : MonoBehaviour
         enemy.gameObject.SetActive(true);
 
         enemy.GetChild(0).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
-            { ReformatKeyCodeAsString(SettingsManager.Instance.FireKeyCode) });
+            { ReformatKeyCodeAsString(((SettingsManager)IndestructibleManager.Instance).FireKeyCode) });
     }
 
     public void SetUpPlatform()

@@ -6,10 +6,12 @@ public abstract class MovingObject : MonoBehaviour
     [SerializeField] private bool collideWhitGhostBlock = true;
     protected Transform Transform;
     protected bool InCollisionWithGhostBlock;
-
+    protected bool Endless;
+    
     private void Start()
     {
         Transform = transform;
+        Endless = ((LvlManager)IndestructibleManager.Instance).CurrentScene == Scene.Endless;
         SetUp();
         StartCoroutine(Move());
     }

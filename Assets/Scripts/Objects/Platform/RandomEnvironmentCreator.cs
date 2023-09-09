@@ -9,11 +9,11 @@ public class RandomEnvironmentCreator : MonoBehaviour   // TODO: Add it to edito
     
     private void Start()
     {
-        if (LvlManager.Instance.gameMode != GameMode.Endless) return;
+        if (((LvlManager)IndestructibleManager.Instance).CurrentLvl != (int)Scene.Endless) return;
 
         _random = new Random();
         _transform = transform;
-        _prefabManager = PrefabManager.Instance;
+        _prefabManager = IndestructibleManager.Instance as PrefabManager;
         CreateEnvironment();
     }
 

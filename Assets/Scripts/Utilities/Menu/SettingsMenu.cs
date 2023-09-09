@@ -77,7 +77,7 @@ public class SettingsMenu : MonoBehaviour
         _vSyncTransform = GetDisplayChild(2);
         _language = GetDisplayChild(3).GetComponent<TMP_Dropdown>();
         
-        _settingsManager = SettingsManager.Instance;
+        _settingsManager = (SettingsManager)IndestructibleManager.Instance;
         
         var resolution = Screen.currentResolution;
         Screen.SetResolution(resolution.width, resolution.height, _settingsManager.Fullscreen);

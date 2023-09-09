@@ -4,13 +4,10 @@ using UnityEngine;
 /// <summary>
 /// Manages game settings and options.
 /// </summary>
-public class SettingsManager : MonoBehaviour
+public class SettingsManager : IndestructibleManager
 {
-    [Header("Singleton Instance")] [NonSerialized]
-    public static SettingsManager Instance;
-
-    [Header("Volume")] [NonSerialized] public float 
-        GeneralVolume, 
+    [Header("Volume")] [NonSerialized] public float
+        GeneralVolume,
         MusicVolume,
         SoundEffectVolume;
 
@@ -33,28 +30,16 @@ public class SettingsManager : MonoBehaviour
     [NonSerialized] public SettingsFrames CurrentCategoryTab;
     [NonSerialized] public bool DarkModeOn;
 
-    private void Awake()
-    {
-        Load();
-
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-    
     /// <summary>
-    /// Sets up sound volume for the specified camera.
+    /// Sets up sound volume for the specified cameraTransform.
     /// </summary>
-    /// <param name="camera">The camera to adjust the sound volume for.</param>
-    public static void SetUpSound(Transform camera) =>
-        camera.GetComponent<AudioSource>().volume =
-            Instance.MusicVolume * Instance.GeneralVolume / 2;
+    /// <param name="cameraTransform">The cameraTransform to adjust the sound volume for.</param>
+    public static void SetUpSound(Transform cameraTransform) =>
+        cameraTransform.GetComponent<AudioSource>().volume = ((SettingsManager)Instance).MusicVolume *
+            ((SettingsManager)Instance).GeneralVolume / 2;
 
+    protected override void DoSomethingAtAwakeBeginning() => Load();
+    
     private void Load()
     {
         var settings = SaveAndLoadSystem.LoadSettings();
@@ -87,8 +72,7 @@ public class SettingsManager : MonoBehaviour
         Screen.SetResolution(resolutionAsTuple.Item1, resolutionAsTuple.Item2, Fullscreen);
     }
 
-    public void Save() =>
-        SaveAndLoadSystem.SaveSettings(this);
+    public void Save() => SaveAndLoadSystem.SaveSettings(this);
 
     public void ResetSettings()
     {

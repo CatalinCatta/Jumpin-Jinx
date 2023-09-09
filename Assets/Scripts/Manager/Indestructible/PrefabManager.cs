@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabManager : MonoBehaviour  // TODO: Add this to unity.
+public class PrefabManager : IndestructibleManager  // TODO: Add this to unity.
 {
-    public static PrefabManager Instance;
-
     [Header("Blocks")] [SerializeField] public GameObject
         ghostBlock,
         grass,
@@ -27,16 +25,4 @@ public class PrefabManager : MonoBehaviour  // TODO: Add this to unity.
         spike;
     
     public List<Sprite> plantSprites;
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
 }

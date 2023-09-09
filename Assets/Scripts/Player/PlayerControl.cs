@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static IndestructibleManager;
 
 /// <summary>
 /// This class controls the player character in the game.
@@ -32,6 +33,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Utilities")]
     [SerializeField] private GameObject bullet;
     private PlayerManager _playerManager;
+    private SettingsManager _settingsManager;
     private bool _endlessRun;
     
     private void Awake()
@@ -45,22 +47,23 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
-        _endlessRun = LvlManager.Instance.CurrentLvl == 0;
-        _playerManager = PlayerManager.Instance;
+        _endlessRun = ((LvlManager)Instance).CurrentLvl == 0;
+        _playerManager = Instance as PlayerManager;
+        _settingsManager = Instance as SettingsManager;
         
         // Calculate movement speed and jump power based on game level
-        MovementSpeed = _endlessRun ? 7f * (_playerManager.MSLvl / 20f + 1f) : 10f; //   7f =>   24.5f
-        JumpPower = _endlessRun ? 700f * (_playerManager.MSLvl / 20f + 1f) : 1000f; // 700f => 2450f
+        MovementSpeed = _endlessRun ? 7f * (_playerManager!.MSLvl / 20f + 1f) : 10f; //   7f =>   24.5f
+        JumpPower = _endlessRun ? 700f * (_playerManager!.MSLvl / 20f + 1f) : 1000f; // 700f => 2450f
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(SettingsManager.Instance.PauseKeyCode)) Pause();
+        if (Input.GetKeyDown(_settingsManager.PauseKeyCode)) Pause();
 
         if (_playerStatus.FreezeFromDamage || Time.timeScale == 0f) return;
 
-        _movement = Input.GetKey(SettingsManager.Instance.MoveLeftKeyCode) ? Vector3.left :
-            Input.GetKey(SettingsManager.Instance.MoveRightKeyCode) ? Vector3.right : Vector3.zero;
+        _movement = Input.GetKey(_settingsManager.MoveLeftKeyCode) ? Vector3.left :
+            Input.GetKey(_settingsManager.MoveRightKeyCode) ? Vector3.right : Vector3.zero;
 
         var grounded = IsGrounded();
 
@@ -68,7 +71,7 @@ public class PlayerControl : MonoBehaviour
 
         if (grounded)
         {
-            if (Input.GetKeyDown(SettingsManager.Instance.JumpKeyCode))
+            if (Input.GetKeyDown(_settingsManager.JumpKeyCode))
             {
                 _playerAudioControl.PlayJumpSound();
                 _jump = true;
@@ -76,13 +79,13 @@ public class PlayerControl : MonoBehaviour
         }
         else transform.SetParent(null);
 
-        if (Input.GetKeyDown(SettingsManager.Instance.JumpBuffKeyCode) && !_playerStatus.JumpBuffActive)
+        if (Input.GetKeyDown(_settingsManager.JumpBuffKeyCode) && !_playerStatus.JumpBuffActive)
             _playerStatus.ConsumeJumpBuff();
 
-        if (Input.GetKeyDown(SettingsManager.Instance.SpeedBuffKeyCode) && !_playerStatus.SpeedBuffActive)
+        if (Input.GetKeyDown(_settingsManager.SpeedBuffKeyCode) && !_playerStatus.SpeedBuffActive)
             _playerStatus.ConsumeSpeedBuff();
 
-        if (!_isFireActivated && Input.GetKey(SettingsManager.Instance.FireKeyCode)) Fire();
+        if (!_isFireActivated && Input.GetKey(_settingsManager.FireKeyCode)) Fire();
     }
 
     /// <summary>
@@ -161,7 +164,9 @@ public class PlayerControl : MonoBehaviour
     {
         _isFireActivated = true;
 
-        yield return new WaitForSeconds(_endlessRun ? 1.25f - PlayerManager.Instance.AtkLvl * .0225f : .25f); // 1.25f => .125f
+        yield return new WaitForSeconds(_endlessRun
+            ? 1.25f - ((PlayerManager)Instance).AtkLvl * .0225f
+            : .25f); // 1.25f => .125f
 
         Instantiate(bullet,
             _localTransform.position +

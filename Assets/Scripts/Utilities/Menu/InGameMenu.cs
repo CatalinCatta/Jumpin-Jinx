@@ -14,12 +14,16 @@ public class InGameMenu : MonoBehaviour
     /// <summary>
     /// Restart current level.
     /// </summary>
-    public void RestartLevel() => LvlManager.Instance.StartLevel(LvlManager.Instance.CurrentLvl);
+    public void RestartLevel() =>
+        ((LvlManager)IndestructibleManager.Instance).StartScene(((LvlManager)IndestructibleManager.Instance)
+            .CurrentLvl);
 
     /// <summary>
     /// Start next level.
     /// </summary>
-    public void NextLevel() => LvlManager.Instance.StartLevel(LvlManager.Instance.CurrentLvl + 1);
+    public void NextLevel() =>
+        ((LvlManager)IndestructibleManager.Instance).StartScene(
+            ((LvlManager)IndestructibleManager.Instance).CurrentLvl + 1);
 
     /// <summary>
     /// Stop/Resume current level by modifying the time scale.

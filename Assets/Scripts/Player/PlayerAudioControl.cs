@@ -20,8 +20,12 @@ public class PlayerAudioControl : MonoBehaviour
         _audioSourceShootArrow,
         _audioSourceWalk;
 
+    private SettingsManager _settingsManager;
+    
     private void Start()
     {
+        _settingsManager = (SettingsManager)IndestructibleManager.Instance;    
+        
         _audioSourceWalk = gameObject.AddComponent<AudioSource>();
         _audioSourceWalk.clip = walk;
 
@@ -43,8 +47,7 @@ public class PlayerAudioControl : MonoBehaviour
     /// </summary>
     public void PlayWalkSound()
     {
-        _audioSourceWalk.volume =
-            SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+        _audioSourceWalk.volume = _settingsManager.SoundEffectVolume * _settingsManager.GeneralVolume;
         _audioSourceWalk.Play();
     }
 
@@ -53,8 +56,7 @@ public class PlayerAudioControl : MonoBehaviour
     /// </summary>
     public void PlayJumpSound()
     {
-        _audioSourceJump.volume =
-            SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+        _audioSourceJump.volume = _settingsManager.SoundEffectVolume * _settingsManager.GeneralVolume;
         _audioSourceJump.Play();
     }
 
@@ -63,8 +65,7 @@ public class PlayerAudioControl : MonoBehaviour
     /// </summary>
     public void PlayGetHitSound()
     {
-        _audioSourceGetHit.volume =
-            SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+        _audioSourceGetHit.volume = _settingsManager.SoundEffectVolume * _settingsManager.GeneralVolume;
         _audioSourceGetHit.Play();
     }
 
@@ -73,8 +74,7 @@ public class PlayerAudioControl : MonoBehaviour
     /// </summary>
     public void PlayDieSound()
     {
-        _audioSourceDie.volume =
-            SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+        _audioSourceDie.volume = _settingsManager.SoundEffectVolume * _settingsManager.GeneralVolume;
         _audioSourceDie.Play();
     }
 
@@ -83,8 +83,7 @@ public class PlayerAudioControl : MonoBehaviour
     /// </summary>
     public void PlayShootArrowSound()
     {
-        _audioSourceShootArrow.volume =
-            SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+        _audioSourceShootArrow.volume = _settingsManager.SoundEffectVolume * _settingsManager.GeneralVolume;
         _audioSourceShootArrow.Play();
     }
 }

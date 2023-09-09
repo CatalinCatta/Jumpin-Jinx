@@ -25,24 +25,23 @@ public class GameBuildSave : MonoBehaviour
     /// </summary>
     public void SaveMap()
     {
+        var lvlManager = (LvlManager)IndestructibleManager.Instance;
+        
         try
         {
             var path = Path.GetFullPath(@"CustomLevels");
-            var finalPath = path + $"/{LvlManager.LvlTitle}.json";
+            var finalPath = path + $"/{lvlManager.LvlTitle}.json";
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             else if (File.Exists(finalPath))
             {
                 File.Delete(finalPath);
-                LvlManager.LvlTitle = _fileName;
-                finalPath = path + $"/{LvlManager.LvlTitle}.json";
+                lvlManager.LvlTitle = _fileName;
+                finalPath = path + $"/{lvlManager.LvlTitle}.json";
             }
 
-            File.WriteAllText(finalPath, JsonConvert.SerializeObject(new LevelConfigurations
-            {
-                Levels = new[] { MapObjects() }
-            }));
+            File.WriteAllText(finalPath, JsonConvert.SerializeObject(new[] { MapObjects() }));
         }
         catch (IOException ex)
         {

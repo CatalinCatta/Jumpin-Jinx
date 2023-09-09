@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static IndestructibleManager;
 
 /// <summary>
 /// Represents a bullet shot by the player.
@@ -13,7 +14,7 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _speed = LvlManager.Instance.CurrentLvl == 0 ? 1f + PlayerManager.Instance.AtkLvl * 0.18f : 5f; // 1f => 10f
+        _speed = (Instance as LvlManager)!.CurrentLvl == 0 ? 1f + (Instance as PlayerManager)!.AtkLvl * 0.18f : 5f; // 1f => 10f
         StartCoroutine(DestroyAfterDelay());
     }
 

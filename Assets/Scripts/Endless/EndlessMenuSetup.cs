@@ -13,9 +13,13 @@ public class EndlessMenuSetup : MonoBehaviour
 {
     [SerializeField] private Transform menu;
     private PlayerEndlessStatus _playerEndlessStatus;
+    private PlayerManager _playerManager;
 
     private void Awake() =>
         _playerEndlessStatus = GetComponent<PlayerEndlessStatus>();
+
+    private void Start() =>
+        _playerManager = (PlayerManager)IndestructibleManager.Instance;
 
     /// <summary>
     /// Open Endless Menu.
@@ -99,48 +103,48 @@ public class EndlessMenuSetup : MonoBehaviour
         switch ((UpgradeType)upgradeType)
         {
             case UpgradeType.Attack:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.AtkPrice)
+                if (_playerManager.Gold < _playerManager.AtkPrice)
                     return;
-                PlayerManager.Instance.AtkLvl++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.AtkPrice);
+                _playerManager.AtkLvl++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.AtkPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
-                PlayerManager.Instance.AtkPrice = PriceCalculator(PlayerManager.Instance.AtkLvl);
+                _playerManager.AtkPrice = PriceCalculator(_playerManager.AtkLvl);
                 break;
 
             case UpgradeType.MovementSpeed:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.MsPrice)
+                if (_playerManager.Gold < _playerManager.MsPrice)
                     return;
-                PlayerManager.Instance.MSLvl++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.MsPrice);
+                _playerManager.MSLvl++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.MsPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
-                PlayerManager.Instance.MsPrice = PriceCalculator(PlayerManager.Instance.MSLvl);
+                _playerManager.MsPrice = PriceCalculator(_playerManager.MSLvl);
                 break;
 
             case UpgradeType.JumpPower:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.JumpPrice)
+                if (_playerManager.Gold < _playerManager.JumpPrice)
                     return;
-                PlayerManager.Instance.JumpLvl++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.JumpPrice);
+                _playerManager.JumpLvl++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.JumpPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
-                PlayerManager.Instance.JumpPrice = PriceCalculator(PlayerManager.Instance.JumpLvl);
+                _playerManager.JumpPrice = PriceCalculator(_playerManager.JumpLvl);
                 break;
 
             case UpgradeType.Defence:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.DefPrice)
+                if (_playerManager.Gold < _playerManager.DefPrice)
                     return;
-                PlayerManager.Instance.DefLvl++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.DefPrice);
+                _playerManager.DefLvl++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.DefPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
-                PlayerManager.Instance.DefPrice = PriceCalculator(PlayerManager.Instance.DefLvl);
+                _playerManager.DefPrice = PriceCalculator(_playerManager.DefLvl);
                 break;
 
             case UpgradeType.MaxHealth:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.HpPrice)
+                if (_playerManager.Gold < _playerManager.HpPrice)
                     return;
-                PlayerManager.Instance.HpLvl++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.HpPrice);
+                _playerManager.HpLvl++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.HpPrice);
                 SetUpUpgrades((UpgradeType)upgradeType);
-                PlayerManager.Instance.HpPrice = PriceCalculator(PlayerManager.Instance.HpLvl);
+                _playerManager.HpPrice = PriceCalculator(_playerManager.HpLvl);
                 break;
 
             default:
@@ -158,26 +162,26 @@ public class EndlessMenuSetup : MonoBehaviour
         switch ((ShopItemType)buff)
         {
             case ShopItemType.JumpBuff:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.JumpBuffsPrice)
+                if (_playerManager.Gold < _playerManager.JumpBuffsPrice)
                     return;
-                PlayerManager.Instance.JumpBuffs++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.JumpBuffsPrice);
+                _playerManager.JumpBuffs++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.JumpBuffsPrice);
                 SetUpShop((ShopItemType)buff);
                 break;
 
             case ShopItemType.SpeedBuff:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.SpeedBuffsPrice)
+                if (_playerManager.Gold < _playerManager.SpeedBuffsPrice)
                     return;
-                PlayerManager.Instance.SpeedBuffs++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.SpeedBuffsPrice);
+                _playerManager.SpeedBuffs++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.SpeedBuffsPrice);
                 SetUpShop((ShopItemType)buff);
                 break;
 
             case ShopItemType.SecondChance:
-                if (PlayerManager.Instance.Gold < PlayerManager.Instance.SecondChancesPrice)
+                if (_playerManager.Gold < _playerManager.SecondChancesPrice)
                     return;
-                PlayerManager.Instance.SecondChances++;
-                _playerEndlessStatus.UpdateGold(-PlayerManager.Instance.SecondChancesPrice);
+                _playerManager.SecondChances++;
+                _playerEndlessStatus.UpdateGold(-_playerManager.SecondChancesPrice);
                 SetUpShop((ShopItemType)buff);
                 break;
 
@@ -192,15 +196,15 @@ public class EndlessMenuSetup : MonoBehaviour
     {
         var (lvl, price) = upgradeType switch
         {
-            UpgradeType.Attack => (PlayerManager.Instance.AtkLvl, PlayerManager.Instance.AtkPrice),
+            UpgradeType.Attack => (_playerManager.AtkLvl, _playerManager.AtkPrice),
 
-            UpgradeType.MovementSpeed => (PlayerManager.Instance.MSLvl, PlayerManager.Instance.MsPrice),
+            UpgradeType.MovementSpeed => (_playerManager.MSLvl, _playerManager.MsPrice),
 
-            UpgradeType.JumpPower => (PlayerManager.Instance.JumpLvl, PlayerManager.Instance.JumpPrice),
+            UpgradeType.JumpPower => (_playerManager.JumpLvl, _playerManager.JumpPrice),
 
-            UpgradeType.Defence => (PlayerManager.Instance.DefLvl, PlayerManager.Instance.DefPrice),
+            UpgradeType.Defence => (_playerManager.DefLvl, _playerManager.DefPrice),
 
-            UpgradeType.MaxHealth => (PlayerManager.Instance.HpLvl, PlayerManager.Instance.HpPrice),
+            UpgradeType.MaxHealth => (_playerManager.HpLvl, _playerManager.HpPrice),
 
             _ => throw new Exception("This UpgradeType was not expected.")
         };
@@ -214,11 +218,11 @@ public class EndlessMenuSetup : MonoBehaviour
     {
         var (amount, price) = shopItemType switch
         {
-            ShopItemType.JumpBuff => (PlayerManager.Instance.JumpBuffs, PlayerManager.Instance.JumpBuffsPrice),
+            ShopItemType.JumpBuff => (_playerManager.JumpBuffs, _playerManager.JumpBuffsPrice),
 
-            ShopItemType.SpeedBuff => (PlayerManager.Instance.SpeedBuffs, PlayerManager.Instance.SpeedBuffsPrice),
+            ShopItemType.SpeedBuff => (_playerManager.SpeedBuffs, _playerManager.SpeedBuffsPrice),
 
-            ShopItemType.SecondChance => (PlayerManager.Instance.SecondChances, PlayerManager.Instance.SecondChancesPrice),
+            ShopItemType.SecondChance => (_playerManager.SecondChances, _playerManager.SecondChancesPrice),
 
             _ => throw new Exception("This ShopItemType was not expected.")
         };

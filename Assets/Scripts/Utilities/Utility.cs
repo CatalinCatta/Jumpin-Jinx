@@ -88,9 +88,9 @@ public static class Utility
     public static IEnumerator PlayDeathSoundAndCleanup(GameObject actor)
     {
         var audioSource = actor.GetComponent<AudioSource>();
+        var settingsManager = (SettingsManager)IndestructibleManager.Instance;
 
-        audioSource.volume =
-            SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+        audioSource.volume = settingsManager.SoundEffectVolume * settingsManager.GeneralVolume;
         audioSource.Play();
         actor.GetComponent<Collider2D>().isTrigger = true;
         actor.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -17,20 +18,25 @@ public class LvlGenerator : MonoBehaviour
     [SerializeField] private TutorialManager tutorialManager;
 
     private PrefabManager _prefabManager;
+    private LvlManager _lvlManager;
+    
     private int 
         _height,
         _length;
 
     private void Start()
     {
-        _prefabManager = PrefabManager.Instance;
+        var managerInstance = IndestructibleManager.Instance;
+        _prefabManager = (PrefabManager)managerInstance;
+        _lvlManager = (LvlManager)managerInstance;
+        
         SettingsManager.ChangeBackground(background);
 
         try
         {
-            var map = JsonConvert
-                .DeserializeObject<LevelConfigurations>(Resources.Load<TextAsset>("LevelData/maps").text)
-                .Levels[LvlManager.Instance.CurrentLvl - 1].Map;
+            var map =
+                JsonConvert.DeserializeObject<List<Level>>(Resources.Load<TextAsset>("LevelData/maps").text)[
+                    _lvlManager.CurrentLvl - 1].Map;
 
             _height = map.Length;
             _length = map[0].Length;
@@ -53,7 +59,7 @@ public class LvlGenerator : MonoBehaviour
 
     private void StartTutorial()
     {
-        switch (LvlManager.Instance.CurrentLvl)
+        switch (_lvlManager.CurrentLvl)
         {
             case 1:
                 tutorialManager.SetUpMovement();

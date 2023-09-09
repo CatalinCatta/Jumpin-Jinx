@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using static IndestructibleManager;
 
 /// <summary>
 /// This class manages the status of the player, including health, buffs, coins, and display.
@@ -50,8 +51,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void Awake()
     {
-        if (display == null)
-            display = GameObject.FindWithTag("Status");
+        if (display == null) display = GameObject.FindWithTag("Status");
 
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerControl = GetComponent<PlayerControl>();
@@ -62,16 +62,15 @@ public class PlayerStatus : MonoBehaviour
 
     private void Start()
     {
-        _playerManager = PlayerManager.Instance;
-        _endlessRun = LvlManager.Instance.CurrentLvl == 0;
+        _playerManager = (PlayerManager)Instance;
+        _endlessRun = (Instance as LvlManager)!.CurrentScene == Scene.Endless;
         _hp = _endlessRun ? (_playerManager.HpLvl + 1) * 5 : 20;
         _speedBuffs = _playerManager.SpeedBuffs;
         _jumpBuffs = _playerManager.JumpBuffs;
 
         ShowLife();
 
-        if (!_endlessRun)
-            return;
+        if (!_endlessRun) return;
 
         ShowJumpBuffs();
         ShowSpeedBuffs();
@@ -91,8 +90,7 @@ public class PlayerStatus : MonoBehaviour
     /// </summary>
     public void ConsumeSpeedBuff()
     {
-        if (_speedBuffs == 0 || !_endlessRun)
-            return;
+        if (_speedBuffs == 0 || !_endlessRun) return;
 
         _speedBuffs--;
         ShowSpeedBuffs();
@@ -104,8 +102,7 @@ public class PlayerStatus : MonoBehaviour
     /// </summary>
     public void ConsumeJumpBuff()
     {
-        if (_jumpBuffs == 0 || !_endlessRun)
-            return;
+        if (_jumpBuffs == 0 || !_endlessRun) return;
 
         _jumpBuffs--;
         ShowJumpBuffs();
@@ -135,8 +132,7 @@ public class PlayerStatus : MonoBehaviour
         _rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // TODO: Improve knock back animation.
         _playerAudioControl.PlayGetHitSound();
 
-        if (_hp == 0)
-            Die();
+        if (_hp == 0) Die();
     }
 
     /// <summary>
@@ -199,8 +195,7 @@ public class PlayerStatus : MonoBehaviour
 
         var endScreen = display.transform.parent.parent.GetChild(1);
 
-        if (!_endlessRun)
-            endScreen.GetChild(1).gameObject.SetActive(true);
+        if (!_endlessRun) endScreen.GetChild(1).gameObject.SetActive(true);
         else
         {
             endScreen.gameObject.SetActive(true);
@@ -231,12 +226,14 @@ public class PlayerStatus : MonoBehaviour
         var winScreen = display.transform.parent.parent.GetChild(1).GetChild(0);
         winScreen.gameObject.SetActive(true);
 
+        var settingsManager = (SettingsManager)Instance;
+        
         for (var i = 0; i < _coins; i++)
         {
             var endCoin = winScreen.GetChild(0).GetChild(i + 1).GetChild(0);
             endCoin.gameObject.SetActive(true);
             endCoin.GetComponent<AudioSource>().volume =
-                SettingsManager.Instance.SoundEffectVolume * SettingsManager.Instance.GeneralVolume;
+                settingsManager.SoundEffectVolume * settingsManager.GeneralVolume;
         }
 
         Destroy(gameObject);

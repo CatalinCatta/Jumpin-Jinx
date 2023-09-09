@@ -12,7 +12,7 @@ public class CircularMovingPlatform : MovingObject    // TODO: Add it to editor.
 
     protected override void SetUp()
     {
-        if (LvlManager.Instance.gameMode != GameMode.Endless) return;
+        if (Endless) return;
         
         rotationAngle = Utility.GetRandomNumberBetween(2, 6);
         while (rotationSpeed == 0) rotationSpeed = Utility.GetRandomNumberBetween(-3, 3);

@@ -8,58 +8,42 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages level loading and transitions.
 /// </summary>
-public class LvlManager : MonoBehaviour
+public class LvlManager : IndestructibleManager
 {
-    [Header("Singleton Instance")] [NonSerialized]
-    public static LvlManager Instance;
-
     [Header("Current Level")] [NonSerialized]
-    public static string LvlTitle;
+    public string LvlTitle;
     [NonSerialized] public int CurrentLvl;
-    [SerializeField] public GameMode gameMode;
-    
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+    [NonSerialized] public Scene CurrentScene;
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    private static SettingsManager _settings;
+
+    private void Start() => _settings = (SettingsManager)Instance;
 
     /// <summary>
     /// Start loading a level.
     /// </summary>
     /// <param name="lvl">The index of the level to load.</param>
-    public void StartLevel(int lvl)
+    public void StartScene(int lvl)
     {
         CurrentLvl = lvl;
-        SettingsManager.Instance.Save();
+        CurrentScene = lvl >= 1 ? Scene.Champaign : (Scene)lvl;
 
-        StartCoroutine(LoadAsync(lvl switch
-        {
-            -1 => "Local Game",
-            0 => "EndlessRun",
-            _ => "Grass Lvl"
-        }, lvl == 13));
+        _settings.Save();
+        StartCoroutine(LoadAsync(Dictionaries.Scene[CurrentScene], lvl == 13));
     }
 
     private static IEnumerator LoadAsync(string scene, bool delay)
     {
         var loadingScreen = GameObject.Find("Loading Screen").transform;
         var progressbar = loadingScreen.GetChild(1);
-
+        var quote = Dictionaries.Quote[_settings.Language];
+        
         loadingScreen.GetChild(0).gameObject.SetActive(true);
         progressbar.gameObject.SetActive(true);
+        progressbar.GetChild(1).GetComponent<TextMeshProUGUI>().text =
+            quote[Utility.GetRandomNumberExcludingZero(quote.Count)];
 
-        // TODO: Add more inspirational quote in different language.
-        progressbar.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Some inspirational quote";
-
-        if (delay)
-            yield return new WaitForSeconds(10);
+        if (delay) yield return new WaitForSeconds(10);
 
         var operation = SceneManager.LoadSceneAsync(scene);
         var slider = progressbar.GetChild(0).GetComponent<Slider>();

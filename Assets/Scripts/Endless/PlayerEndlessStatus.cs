@@ -7,9 +7,13 @@ using UnityEngine;
 public class PlayerEndlessStatus : MonoBehaviour
 {
     [SerializeField] private Transform revenue;
-
-    private void Start() =>
+    private PlayerManager _playerManager;
+    
+    private void Start()
+    {
+        _playerManager = (PlayerManager)IndestructibleManager.Instance;
         DisplayRevenue();
+    }
 
     private void DisplayRevenue()
     {
@@ -18,20 +22,20 @@ public class PlayerEndlessStatus : MonoBehaviour
     }
 
     private void DisplayGold() =>
-        revenue.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{PlayerManager.Instance.Gold:n0}";
+        revenue.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{_playerManager.Gold:n0}";
 
     private void DisplayGems() =>
-        revenue.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{PlayerManager.Instance.Gems:n0}";
+        revenue.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{_playerManager.Gems:n0}";
 
     public void UpdateGold(int amount)
     {
-        PlayerManager.Instance.Gold += amount;
+        _playerManager.Gold += amount;
         DisplayGold();
     }
 
     public void UpdateGems(int amount)
     {
-        PlayerManager.Instance.Gems += amount;
+        _playerManager.Gems += amount;
         DisplayGems();
     }
 
@@ -40,7 +44,7 @@ public class PlayerEndlessStatus : MonoBehaviour
         switch (deal)
         {
             default:
-                if (PlayerManager.Instance.Gems < 10) return;
+                if (_playerManager.Gems < 10) return;
                 UpdateGold(1_000);
                 UpdateGems(-10);
                 break;

@@ -16,7 +16,7 @@ public class TemporaryObject : MonoBehaviour    // TODO: Add it to editor.
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        if (TryGetComponent<GhostBlockSummon>(out var ghostComponent)) _ghost = ghostComponent.ghost;
+        if (TryGetComponent<GhostBlockSummon>(out var ghostComponent)) _ghost = ghostComponent.Ghost;
     }
 
     /// <summary>
