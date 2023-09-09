@@ -87,13 +87,15 @@ public static class Utility
     /// <returns>An IEnumerator for coroutine handling.</returns>
     public static IEnumerator PlayDeathSoundAndCleanup(GameObject actor)
     {
-        var audioSource = actor.GetComponent<AudioSource>();
         var settingsManager = (SettingsManager)IndestructibleManager.Instance;
 
-        audioSource.volume = settingsManager.SoundEffectVolume * settingsManager.GeneralVolume;
-        audioSource.Play();
-        actor.GetComponent<Collider2D>().isTrigger = true;
-        actor.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        if (actor.TryGetComponent<AudioSource>(out var audioSource))
+        {
+            audioSource.volume = settingsManager.SoundEffectVolume * settingsManager.GeneralVolume;
+            audioSource.Play();   
+        }
+        if (actor.TryGetComponent<Collider2D>(out var collider)) collider.isTrigger = true;
+        if (actor.TryGetComponent<SpriteRenderer>(out var sprite)) sprite.color = new Color(0, 0, 0, 0);
 
         yield return new WaitForSeconds(1f);
 
