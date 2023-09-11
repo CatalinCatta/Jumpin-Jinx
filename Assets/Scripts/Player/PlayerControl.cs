@@ -52,8 +52,12 @@ public class PlayerControl : MonoBehaviour
         _settingsManager = Instance as SettingsManager;
         
         // Calculate movement speed and jump power based on game level
-        MovementSpeed = _endlessRun ? 7f * (_playerManager!.MSLvl / 20f + 1f) : 10f; //   7f =>   24.5f
-        JumpPower = _endlessRun ? 700f * (_playerManager!.MSLvl / 20f + 1f) : 1000f; // 700f => 2450f
+        MovementSpeed = _endlessRun
+            ? 7f * (_playerManager!.Upgrades[(int)UpgradeType.MovementSpeed].Quantity / 20f + 1f)
+            : 10f; //   7f =>   24.5f
+        JumpPower = _endlessRun
+            ? 700f * (_playerManager!.Upgrades[(int)UpgradeType.JumpPower].Quantity / 20f + 1f)
+            : 1000f; // 700f => 2450f
     }
 
     private void Update()
@@ -165,7 +169,7 @@ public class PlayerControl : MonoBehaviour
         _isFireActivated = true;
 
         yield return new WaitForSeconds(_endlessRun
-            ? 1.25f - ((PlayerManager)Instance).AtkLvl * .0225f
+            ? 1.25f - ((PlayerManager)Instance).Upgrades[(int)UpgradeType.Attack].Quantity * .0225f
             : .25f); // 1.25f => .125f
 
         Instantiate(bullet,

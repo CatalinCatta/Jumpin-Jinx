@@ -51,15 +51,13 @@ public static class SaveAndLoadSystem
     /// Loads the settings data from <see cref="SettingsPath"/>.
     /// </summary>
     /// <returns>The loaded settings data.</returns>
-    public static SettingsModel LoadSettings() =>
-        Load(SettingsPath) as SettingsModel;
+    public static SettingsModel LoadSettings() => Load(SettingsPath) as SettingsModel;
 
     /// <summary>
     /// Loads the player data from <see cref="PlayerPath"/>.
     /// </summary>
     /// <returns>The loaded player data.</returns>
-    public static PlayerModel LoadPlayer() =>
-        Load(PlayerPath) as PlayerModel;
+    public static PlayerModel LoadPlayer() => Load(PlayerPath) as PlayerModel;
 
     private static object Load(string path)
     {

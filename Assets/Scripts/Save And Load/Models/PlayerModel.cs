@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Represents the model for a player in a game.
@@ -6,24 +7,8 @@
 [Serializable]
 public class PlayerModel
 {
-    #region Revenue
-    public int gold;
-    public int gems;
-    #endregion
-
-    #region Update Levels
-    public int atkLvl;
-    public int msLvl;
-    public int jumpLvl;
-    public int defLvl;
-    public int hpLvl;
-    #endregion
-
-    #region PowerUps
-    public int jumpBuffs;
-    public int speedBuffs;
-    public int secondChances;
-    #endregion
+    public int gold, gems;
+    public Enhancement[] Upgrades, Buffs;
 
     /// <summary>
     /// Initializes a new instance of the PlayerModel class.
@@ -34,14 +19,7 @@ public class PlayerModel
         gold = playerManager.Gold;
         gems = playerManager.Gems;
 
-        atkLvl = playerManager.AtkLvl;
-        msLvl = playerManager.MSLvl;
-        jumpLvl = playerManager.JumpLvl;
-        defLvl = playerManager.DefLvl;
-        hpLvl = playerManager.HpLvl;
-
-        jumpBuffs = playerManager.JumpBuffs;
-        speedBuffs = playerManager.SpeedBuffs;
-        secondChances = playerManager.SecondChances;
+        Upgrades = playerManager.Upgrades;
+        Buffs = playerManager.Buffs;
     }
 }

@@ -14,7 +14,9 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _speed = (Instance as LvlManager)!.CurrentLvl == 0 ? 1f + (Instance as PlayerManager)!.AtkLvl * 0.18f : 5f; // 1f => 10f
+        _speed = (Instance as LvlManager)!.CurrentLvl == 0
+            ? 1f + (Instance as PlayerManager)!.Upgrades[(int)UpgradeType.Attack].Quantity * 0.18f
+            : 5f; // 1f => 10f
         StartCoroutine(DestroyAfterDelay());
     }
 

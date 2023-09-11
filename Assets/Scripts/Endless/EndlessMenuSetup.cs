@@ -8,89 +8,86 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// Manages the setup, interactions, and animations for the endless game mode menu.
 /// </summary>
-[RequireComponent(typeof(PlayerEndlessStatus))]
+[RequireComponent(typeof(RevenueHandler))]
 public class EndlessMenuSetup : MonoBehaviour
 {
     [SerializeField] private Transform menu;
-    private PlayerEndlessStatus _playerEndlessStatus;
+    private Transform _transform, _upgrade, _shop, _store;
+    private RevenueHandler _revenueHandler;
     private PlayerManager _playerManager;
 
-    private void Awake() =>
-        _playerEndlessStatus = GetComponent<PlayerEndlessStatus>();
+    private void Awake() => _revenueHandler = GetComponent<RevenueHandler>();
 
-    private void Start() =>
+    private void Start()
+    {
+        _transform = transform;
+        _upgrade = _transform.GetChild(2);
+        _shop = _transform.GetChild(3);
+        _store = _transform.GetChild(4);
         _playerManager = (PlayerManager)IndestructibleManager.Instance;
+    }
 
     /// <summary>
     /// Open Endless Menu.
     /// </summary>
-    public void Enable() =>
-        StartCoroutine(ActivateMenu());
+    public void Enable() => StartCoroutine(ActivateMenu());
 
     /// <summary>
     /// Close Endless Menu.
     /// </summary>
-    public void Disable() =>
-        StartCoroutine(CloseMenu());
-
+    public void Disable() => StartCoroutine(CloseMenu());
+    
     /// <summary>
     /// Open Upgrades Menu.
     /// </summary>
-    public void ShowUpgrades()
+    public void ShowUpgrades() // TODO: Add visual aspect to buy button to represent if can or cannot be bought.
     {
-        foreach (UpgradeType upgradeType in Enum.GetValues(typeof(UpgradeType)))
-            SetUpUpgrades(upgradeType);
+        foreach (UpgradeType upgradeType in Enum.GetValues(typeof(UpgradeType))) SetUpUpgrades(upgradeType);
 
-        StartCoroutine(AnimateCard(transform.GetChild(2), true));
+        StartCoroutine(AnimateCard(_upgrade, true));
     }
 
     /// <summary>
     /// Close Upgrades Menu.
     /// </summary>
-    public void HideUpgrades() =>
-        StartCoroutine(AnimateCard(transform.GetChild(2), false));
+    public void HideUpgrades() => StartCoroutine(AnimateCard(_upgrade, false));
 
     /// <summary>
     /// Open Shop Menu.
     /// </summary>
-    public void ShowShop()
+    public void ShowShop() // TODO: Add visual aspect to buy button to represent if can or cannot be bought.
     {
-        StartCoroutine(AnimateCard(transform.GetChild(3), true));
+        StartCoroutine(AnimateCard(_shop, true));
 
-        foreach (ShopItemType shopItemType in Enum.GetValues(typeof(ShopItemType)))
-            SetUpShop(shopItemType);
+        foreach (BuffType buffType in Enum.GetValues(typeof(BuffType))) SetUpShop(buffType);
     }
 
     /// <summary>
     /// Close Shop Menu.
     /// </summary>
-    public void HideShop() =>
-        StartCoroutine(AnimateCard(transform.GetChild(3), false));
+    public void HideShop() => StartCoroutine(AnimateCard(_shop, false));
 
     /// <summary>
     /// Open Store Menu.
     /// </summary>
-    public void ShowStore()
+    public void ShowStore() // TODO: Add visual aspect to buy button to represent if can or cannot be bought.
     {
-        var store = transform.GetChild(4);
-        store.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
-        StartCoroutine(AnimateCard(store, true));
+        _store.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+        StartCoroutine(AnimateCard(_store, true));
     }
 
     /// <summary>
     /// Close Store Menu.
     /// </summary>
-    public void HideStore() =>
-        StartCoroutine(AnimateCard(transform.GetChild(4), false));
+    public void HideStore() => StartCoroutine(AnimateCard(_store, false));
 
     /// <summary>
     /// Open Global Store Menu.
     /// </summary>
     public void ShowStoreEverywhere()
     {
-        var store = transform.GetChild(4);
-        store.GetComponent<RectTransform>().localScale = new Vector3(1.3f, 1.3f, 1f);
-        StartCoroutine(AnimateCard(store, true, -300));
+        _store.GetComponent<RectTransform>().localScale = new Vector3(1.3f, 1.3f, 1f);
+        StartCoroutine(AnimateCard(_store, true, -300));
     }
 
     /// <summary>
@@ -100,148 +97,56 @@ public class EndlessMenuSetup : MonoBehaviour
     /// <exception cref="Exception">Throw when <paramref name="upgradeType"/> exceed <see cref="UpgradeType"/> length.</exception>
     public void Upgrade(int upgradeType)
     {
-        switch ((UpgradeType)upgradeType)
-        {
-            case UpgradeType.Attack:
-                if (_playerManager.Gold < _playerManager.AtkPrice)
-                    return;
-                _playerManager.AtkLvl++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.AtkPrice);
-                SetUpUpgrades((UpgradeType)upgradeType);
-                _playerManager.AtkPrice = PriceCalculator(_playerManager.AtkLvl);
-                break;
+        if (!_revenueHandler.CanConsumeGold(_playerManager.Buffs[upgradeType].Price)) return;
 
-            case UpgradeType.MovementSpeed:
-                if (_playerManager.Gold < _playerManager.MsPrice)
-                    return;
-                _playerManager.MSLvl++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.MsPrice);
-                SetUpUpgrades((UpgradeType)upgradeType);
-                _playerManager.MsPrice = PriceCalculator(_playerManager.MSLvl);
-                break;
-
-            case UpgradeType.JumpPower:
-                if (_playerManager.Gold < _playerManager.JumpPrice)
-                    return;
-                _playerManager.JumpLvl++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.JumpPrice);
-                SetUpUpgrades((UpgradeType)upgradeType);
-                _playerManager.JumpPrice = PriceCalculator(_playerManager.JumpLvl);
-                break;
-
-            case UpgradeType.Defence:
-                if (_playerManager.Gold < _playerManager.DefPrice)
-                    return;
-                _playerManager.DefLvl++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.DefPrice);
-                SetUpUpgrades((UpgradeType)upgradeType);
-                _playerManager.DefPrice = PriceCalculator(_playerManager.DefLvl);
-                break;
-
-            case UpgradeType.MaxHealth:
-                if (_playerManager.Gold < _playerManager.HpPrice)
-                    return;
-                _playerManager.HpLvl++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.HpPrice);
-                SetUpUpgrades((UpgradeType)upgradeType);
-                _playerManager.HpPrice = PriceCalculator(_playerManager.HpLvl);
-                break;
-
-            default:
-                throw new Exception("This UpgradeType was not expected.");
-        }
+        _playerManager.Buffs[upgradeType].Price = PriceCalculator(_playerManager.Buffs[upgradeType].Quantity++); 
+        SetUpUpgrades((UpgradeType)upgradeType);
     }
 
     /// <summary>
     /// Buy Power Ups.
     /// </summary>
-    /// <param name="buff">Int representing an <see cref="ShopItemType"/>.</param>
-    /// <exception cref="Exception">Throw when <paramref name="buff"/> exceed <see cref="ShopItemType"/> length.</exception>
+    /// <param name="buff">Int representing an <see cref="BuffType"/>.</param>
+    /// <exception cref="Exception">Throw when <paramref name="buff"/> exceed <see cref="BuffType"/> length.</exception>
     public void BuyBuff(int buff)
     {
-        switch ((ShopItemType)buff)
-        {
-            case ShopItemType.JumpBuff:
-                if (_playerManager.Gold < _playerManager.JumpBuffsPrice)
-                    return;
-                _playerManager.JumpBuffs++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.JumpBuffsPrice);
-                SetUpShop((ShopItemType)buff);
-                break;
-
-            case ShopItemType.SpeedBuff:
-                if (_playerManager.Gold < _playerManager.SpeedBuffsPrice)
-                    return;
-                _playerManager.SpeedBuffs++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.SpeedBuffsPrice);
-                SetUpShop((ShopItemType)buff);
-                break;
-
-            case ShopItemType.SecondChance:
-                if (_playerManager.Gold < _playerManager.SecondChancesPrice)
-                    return;
-                _playerManager.SecondChances++;
-                _playerEndlessStatus.UpdateGold(-_playerManager.SecondChancesPrice);
-                SetUpShop((ShopItemType)buff);
-                break;
-
-            default:
-                throw new Exception("This ShopItemType was not expected.");
-        }
+        if (!_revenueHandler.CanConsumeGold(_playerManager.Buffs[buff].Price)) return;
+        _playerManager.Buffs[buff].Quantity++;
+        SetUpShop((BuffType)buff);
     }
 
     private static int PriceCalculator(int lvl) => (lvl + 1) * 15;
 
     private void SetUpUpgrades(UpgradeType upgradeType)
     {
-        var (lvl, price) = upgradeType switch
-        {
-            UpgradeType.Attack => (_playerManager.AtkLvl, _playerManager.AtkPrice),
-
-            UpgradeType.MovementSpeed => (_playerManager.MSLvl, _playerManager.MsPrice),
-
-            UpgradeType.JumpPower => (_playerManager.JumpLvl, _playerManager.JumpPrice),
-
-            UpgradeType.Defence => (_playerManager.DefLvl, _playerManager.DefPrice),
-
-            UpgradeType.MaxHealth => (_playerManager.HpLvl, _playerManager.HpPrice),
-
-            _ => throw new Exception("This UpgradeType was not expected.")
-        };
+        var upgradeDetail = _playerManager.Buffs[(int)upgradeType];
         var element = transform.GetChild(2).GetChild((int)upgradeType);
 
-        Buy(element.GetChild(2), lvl, price);
-        ColorLevels(element.GetChild(1), lvl);
+        Buy(element.GetChild(2), upgradeDetail.Quantity, upgradeDetail.Price);
+        ColorLevels(element.GetChild(1), upgradeDetail.Quantity);
     }
 
-    private void SetUpShop(ShopItemType shopItemType)
+    private void SetUpShop(BuffType buffType)
     {
-        var (amount, price) = shopItemType switch
-        {
-            ShopItemType.JumpBuff => (_playerManager.JumpBuffs, _playerManager.JumpBuffsPrice),
+        var buffDetail = _playerManager.Buffs[(int)buffType];
+        var item = transform.GetChild(3).GetChild((int)buffType);
 
-            ShopItemType.SpeedBuff => (_playerManager.SpeedBuffs, _playerManager.SpeedBuffsPrice),
-
-            ShopItemType.SecondChance => (_playerManager.SecondChances, _playerManager.SecondChancesPrice),
-
-            _ => throw new Exception("This ShopItemType was not expected.")
-        };
-        var item = transform.GetChild(3).GetChild((int)shopItemType);
-
-        item.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[] { amount });
-        item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = Utility.FormatDoubleWithUnits(price, false);
+        item.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[] { buffDetail.Quantity });
+        item.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text =
+            Utility.FormatDoubleWithUnits(buffDetail.Price, false);
     }
 
     private static void Buy(Transform label, int lvl, int price)
     {
         var labelText = label.GetChild(0);
         var labelTextComponent = labelText.GetComponent<TextMeshProUGUI>();
-        var labelTextRectTransform = labelText.GetComponent<RectTransform>();
 
         if (lvl < 50)
             labelTextComponent.text = Utility.FormatDoubleWithUnits(price, false);
         else
         {
+            var labelTextRectTransform = labelText.GetComponent<RectTransform>();
+
             labelTextComponent.text = "MAX";
             labelTextComponent.alignment = TextAlignmentOptions.Center;
             labelTextRectTransform.anchorMax = new Vector2(1f, labelTextRectTransform.anchorMax.y);
@@ -321,8 +226,7 @@ public class EndlessMenuSetup : MonoBehaviour
 
     private static IEnumerator AnimateOneMenu(Component component, bool isAppearing, int direction)
     {
-        if (isAppearing)
-            component.gameObject.SetActive(true);
+        if (isAppearing) component.gameObject.SetActive(true);
 
         var currentTime = 0f;
         var objectToMove = component.GetComponent<RectTransform>();
@@ -338,16 +242,14 @@ public class EndlessMenuSetup : MonoBehaviour
             yield return null;
         }
 
-        if (!isAppearing)
-            component.gameObject.SetActive(false);
+        if (!isAppearing) component.gameObject.SetActive(false);
 
         objectToMove.anchoredPosition = new Vector2(0f, 0f);
     }
 
     private static IEnumerator AnimateCard(Component card, bool isAppearing, float? finalXPosition = 0f)
     {
-        if (isAppearing)
-            card.gameObject.SetActive(true);
+        if (isAppearing) card.gameObject.SetActive(true);
 
         var currentTime = 0f;
         var objectToMove = card.GetComponent<RectTransform>();
@@ -356,23 +258,20 @@ public class EndlessMenuSetup : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
-            objectToMove.anchoredPosition =
-                new Vector2(
-                    Mathf.Lerp(isAppearing ? 1500f : (float)finalXPosition, isAppearing ? (float)finalXPosition : 1500f,
-                        currentTime / .5f),
-                    Mathf.Lerp(isAppearing ? 1500f : 0f, isAppearing ? 0f : -1500f, currentTime / .5f));
+            objectToMove.anchoredPosition = new Vector2(
+                Mathf.Lerp(isAppearing ? 1500f : (float)finalXPosition!, isAppearing ? (float)finalXPosition! : 1500f,
+                    currentTime / .5f),
+                Mathf.Lerp(isAppearing ? 1500f : 0f, isAppearing ? 0f : -1500f, currentTime / .5f));
 
-            objectToMove.rotation =
-                Quaternion.Euler(0f, 0f,
-                    Mathf.Lerp(isAppearing ? -720f : 0f, isAppearing ? 0f : -720f, currentTime / .5f));
+            objectToMove.rotation = Quaternion.Euler(0f, 0f,
+                Mathf.Lerp(isAppearing ? -720f : 0f, isAppearing ? 0f : -720f, currentTime / .5f));
 
             yield return null;
         }
 
-        if (!isAppearing)
-            card.gameObject.SetActive(false);
+        if (!isAppearing) card.gameObject.SetActive(false);
 
-        objectToMove.anchoredPosition = new Vector2((float)finalXPosition, 0f);
+        objectToMove.anchoredPosition = new Vector2((float)finalXPosition!, 0f);
         objectToMove.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

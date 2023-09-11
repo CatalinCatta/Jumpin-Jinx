@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using static IndestructibleManager;
@@ -32,23 +33,9 @@ public class PlayerStatus : MonoBehaviour
     
     [Header("Utilities")]
     private bool _endlessRun;
-
-    /// <summary>
-    /// Array of special Powers status (multiplier, duration, order in game editor).
-    /// Each entrance correspond with <see cref="SpecialPower"/>.
-    /// </summary>
-    private readonly (float, float, int)[] _specialPowersStatus =
-    {
-        (2f, 3f, 2),
-        (1.5f, 5f, 3)
-    };
+    private readonly Dictionary<BuffType, int> _buffPosition = new()
+        { { BuffType.JumpBuff, 2 }, { BuffType.SpeedBuff, 3 } };
     
-    private enum SpecialPower
-    {
-        SpeedBuff,
-        JumpBuff
-    }
-
     private void Awake()
     {
         if (display == null) display = GameObject.FindWithTag("Status");
@@ -64,9 +51,9 @@ public class PlayerStatus : MonoBehaviour
     {
         _playerManager = (PlayerManager)Instance;
         _endlessRun = (Instance as LvlManager)!.CurrentScene == Scene.Endless;
-        _hp = _endlessRun ? (_playerManager.HpLvl + 1) * 5 : 20;
-        _speedBuffs = _playerManager.SpeedBuffs;
-        _jumpBuffs = _playerManager.JumpBuffs;
+        _hp = _endlessRun ? (_playerManager.Upgrades[(int)UpgradeType.MaxHealth].Quantity + 1) * 5 : 20;
+        _speedBuffs = _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity;
+        _jumpBuffs = _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity;
 
         ShowLife();
 
@@ -94,7 +81,7 @@ public class PlayerStatus : MonoBehaviour
 
         _speedBuffs--;
         ShowSpeedBuffs();
-        StartCoroutine(PowerUpTimer(SpecialPower.SpeedBuff));
+        StartCoroutine(PowerUpTimer(BuffType.SpeedBuff));
     }
 
     /// <summary>
@@ -106,7 +93,7 @@ public class PlayerStatus : MonoBehaviour
 
         _jumpBuffs--;
         ShowJumpBuffs();
-        StartCoroutine(PowerUpTimer(SpecialPower.JumpBuff));
+        StartCoroutine(PowerUpTimer(BuffType.JumpBuff));
     }
     
     /// <summary>
@@ -125,7 +112,7 @@ public class PlayerStatus : MonoBehaviour
     /// <param name="amount">The amount of damage to apply.</param>
     public void GetDamage(Vector3 direction, int amount)
     {
-        _hp -= _endlessRun ? amount * (1 - _playerManager.DefLvl / 100) : amount;
+        _hp -= _endlessRun ? amount * (1 - _playerManager.Upgrades[(int)UpgradeType.Defence].Quantity / 100) : amount;
         ShowLife();
 
         FreezeFromDamage = true;
@@ -138,14 +125,14 @@ public class PlayerStatus : MonoBehaviour
     /// <summary>
     /// Coroutine that activates the power up timer for a certain duration.
     /// </summary>
-    private IEnumerator PowerUpTimer(SpecialPower specialPower)
+    private IEnumerator PowerUpTimer(BuffType buffType)
     {
-        var multiplier = _specialPowersStatus[(int)specialPower].Item1;
+        var buffDetail = Dictionaries.BuffDetails[buffType];
+        if (!buffDetail.activatable) yield break;
 
         SwitchPowerStatus(true);
-        _playerControl.JumpPower *= _specialPowersStatus[(int)specialPower].Item1;
 
-        var timer = display.transform.GetChild(_specialPowersStatus[(int)specialPower].Item3).GetChild(0).GetChild(0).gameObject;
+        var timer = display.transform.GetChild(_buffPosition[buffType]).GetChild(0).GetChild(0).gameObject;
         var rectTransform = timer.GetComponent<RectTransform>();
         var timerParentHeight = timer.transform.parent.GetComponent<RectTransform>().rect.height;
         var elapsedTime = 0f;
@@ -153,12 +140,12 @@ public class PlayerStatus : MonoBehaviour
 
         timer.SetActive(true);
 
-        while (elapsedTime < _specialPowersStatus[(int)specialPower].Item2)
+        while (elapsedTime < buffDetail.duration)
         {
             elapsedTime += Time.deltaTime;
             rectTransform.localPosition = Vector3.Lerp(initialPosition,
                 initialPosition + new Vector3(0f, timerParentHeight, 0f),
-                Mathf.Clamp01(elapsedTime / _specialPowersStatus[(int)specialPower].Item2));
+                Mathf.Clamp01(elapsedTime / buffDetail.duration));
             yield return null;
         }
 
@@ -168,15 +155,16 @@ public class PlayerStatus : MonoBehaviour
 
         void SwitchPowerStatus(bool active)
         {
-            switch (specialPower)
+            var ammount = active ? buffDetail.multiplicator : 1 / buffDetail.multiplicator;
+            switch (buffType)
             {
-                case SpecialPower.SpeedBuff:
+                case BuffType.SpeedBuff:
                     SpeedBuffActive = active;
-                    _playerControl.MovementSpeed *= active ? multiplier : 1 / multiplier;
+                    _playerControl.MovementSpeed *= ammount;
                     break;
-                case SpecialPower.JumpBuff:
+                case BuffType.JumpBuff:
                     JumpBuffActive = active;
-                    _playerControl.JumpPower *= active ? multiplier : 1 / multiplier;
+                    _playerControl.JumpPower *= ammount;
                     break;
             }
         }
@@ -204,8 +192,8 @@ public class PlayerStatus : MonoBehaviour
             ChangeText(2, KillCounter.ToString());
             ChangeText(3, Utility.FormatDoubleWithUnits(transform.position.x / 2.55, true) + "m");
 
-            _playerManager.JumpBuffs = _jumpBuffs;
-            _playerManager.SpeedBuffs = _speedBuffs;
+            _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity = _jumpBuffs;
+            _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity = _speedBuffs;
             _playerManager.Gold += _coins;
 
             _playerManager.Save();
