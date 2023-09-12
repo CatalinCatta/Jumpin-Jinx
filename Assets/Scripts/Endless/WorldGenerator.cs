@@ -1,146 +1,222 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Generates the game world, including platforms and background.
+/// Generates the endless game chunk by chunk, including platforms, background and an wall that prevent player from going back.
+/// Keeping always 3 chunks actives, (last, current, next).
+/// Delete any gameObject existent in last chunk.
 /// </summary>
 public class WorldGenerator : MonoBehaviour
 {
-    [Header("Prefabs And Sprites")] [SerializeField] private GameObject 
-        platform,
-        emptyPlatform,
-        watter,
-        watterBottom;
-    [SerializeField] private Sprite spriteBackground;
+    [Header("Settings")] [SerializeField] private int
+        chunkHeight = 16,
+        chunkLength = 30,
+        maxNrOfBlocksInRow = 5,
+        verticalMinSpaceBetweenBlocks = 3,
+        verticalMaxJumpGap = 4,
+        horizontalMaxJumpGap = 3;
+    [SerializeField] private float unitSize = 1.28f;
+    [SerializeField] private Vector2 startingPosition;
 
-    [Header("Platforms Locations Variables")]
-    private readonly int[] _platformsGaps, _platformsLengths = new int[5];
-
-    [Header("Player Locator")]
-    private int _lastChunk;
+    [Header("PreloadedObjects")]
     [SerializeField] private Transform player;
-
-    private SettingsManager _settingsManager;
+    [SerializeField] private GameObject wall;
+    [SerializeField] private GameObject[] backgrounds;
+    
+    [Header("Utils")]
+    private GameObject[][,] _maps;
+    private int _currentChunk;
+    private PrefabManager _prefabManager;
     
     private void Start()
     {
-        _lastChunk = -2;
-        _settingsManager = (SettingsManager)IndestructibleManager.Instance;
-        
-        if (_settingsManager.DarkModeOn)
-            FindObjectOfType<Camera>().backgroundColor = new Color(0, 0, 0.5f);
-
-        for (var i = 0; i < _platformsLengths.Length; i++)
-            RandomizeGapsAndPlatforms(i);
+        _maps = new GameObject[,][3];
+        for (var i = 0; i < 3; i++) _maps[i] = new GameObject[chunkHeight, chunkLength];
+        _prefabManager = (PrefabManager)IndestructibleManager.Instance;
+        if (player == null) player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        // TODO: Change verticalMaxJumpGap and horizontalMaxJumpGap based on player jump and ms.
     }
-
+    
     private void Update()
     {
-        if (player.position.x < (_lastChunk + 1) * 38.4f)
-            return;
-
-        _lastChunk++;
-        GenerateNewChunk();
+        if (player.position.x < _currentChunk * chunkLength * unitSize) return;
+        
+        _currentChunk++;
         ClearLastChunk();
+        GenerateNewChunk();
     }
 
-    private void GenerateNewChunk()
-    {
-        for (var i = (_lastChunk + 1) * 38.4f; i < (_lastChunk + 2) * 38.4f; i += 1.28f)
-        {
-            Instantiate(watter, new Vector3(i, -1.28f, 1), Quaternion.identity);
-            Instantiate(watterBottom, new Vector3(i, -2.56f, 1), Quaternion.identity);
-            Instantiate(watterBottom, new Vector3(i, -3.84f, 1), Quaternion.identity);
-            Instantiate(watterBottom, new Vector3(i, -5.12f, 1), Quaternion.identity);
-            InstantiatePlatform(i);
-        }
-
-        for (var i = (_lastChunk + 1) * 38.4f + 1.28f; i < (_lastChunk + 2) * 38.4f + 1.28f; i += 19)
-        {
-            var background = new GameObject("Background");
-            var spriteRenderer = background.AddComponent<SpriteRenderer>();
-
-            spriteRenderer.sprite = spriteBackground;
-            spriteRenderer.sortingOrder = -1;
-
-            if (_settingsManager.DarkModeOn)
-                spriteRenderer.color = new Color(0, 0, 0.49f);
-
-            background.transform.position = new Vector3(i, 4.5f, 0f);
-        }
-    }
-
-    private void RandomizeGapsAndPlatforms(int position)
-    {
-        _platformsLengths[position] =
-            Utility.GetRandomNumberExcludingZero((Math.Abs((position - _platformsLengths.Length - 1) % 5) + 1) * 5);
-        _platformsGaps[position] = Utility.GetRandomNumberExcludingZero((position + 1) * 3);
-    }
-
+    #region ClearChunk
+    
     private void ClearLastChunk()
     {
-        var startPoint = new Vector2((_lastChunk - 2) * 38.4f - 10, -10);
-        var endPoint = new Vector2((_lastChunk - 1) * 38.4f - 1.28f, 30);
+        // Destroy wall.
+        Destroy(wall);
 
-        foreach (var objectCollider in Physics2D.OverlapAreaAll(startPoint, endPoint))
-            Destroy(objectCollider.gameObject);
+        // Destroy backgrounds.
+        foreach (var background in backgrounds) Destroy(background);
 
-        foreach (var obj in FindObjectsOfType<GameObject>().Where(obj =>
-                     obj.name == "Background" && IsWithinPoints(startPoint, endPoint, obj.transform.position)))
-            Destroy(obj);
-
-        var wall = Instantiate(emptyPlatform, new Vector2((_lastChunk - 1) * 38.4f - 20, 8), Quaternion.identity);
-        wall.transform.localScale *= 10;
+        // Destroy objects.
+        for (var i = 0; i < chunkHeight; i++)
+        for (var j = 0; j < chunkLength; j++)
+            Destroy(_maps[0][i, j]);
+        
+        // Shift maps stored.
+        _maps[0] = _maps[1];
+        _maps[1] = _maps[2];
+        _maps[3] = new GameObject[chunkHeight, chunkLength];
     }
 
-    private void InstantiatePlatform(float xPosition)
+    #endregion
+
+    #region GenerateChunk
+    
+    private void GenerateNewChunk()
     {
-        for (var i = 0; i < _platformsLengths.Length; i++)
+        // New wall.
+        var wallPrefab = _prefabManager.endlessModeWall;
+        var wallScale = wallPrefab.transform.GetComponent<Collider>().bounds.size;
+        wall = Instantiate(wallPrefab,
+            new Vector2((_currentChunk - 2) * chunkLength - wallScale.x / 2, wallScale.y / 2), Quaternion.identity);
+        
+        // New backgrounds.
+        // TODO: Add background when ready.
+        
+        // New platforms.
+        if (_currentChunk == 1)
+            GenerateMap((int)(startingPosition.x / unitSize), (int)(startingPosition.y / unitSize), true);
+        else
+            for (var i = chunkHeight - 1; i < -1; i--)
+            for (var j = chunkLength - horizontalMaxJumpGap - 1; j < chunkLength; j++)
+                if (_maps[1][i, j] != null)
+                    GenerateMap(i, j, false);
+    }
+
+    private void GenerateMap(int x, int y, bool continueWithoutGap)
+    {
+        if (y >= chunkLength - verticalMaxJumpGap) return;
+
+        if (continueWithoutGap) GeneratePlatforms(x, y);
+        else
         {
-            if (_platformsGaps[i] > 0)
-            {
-                _platformsGaps[i]--;
-                continue;
-            }
+            var widthGap = Utility.GetRandomNumberExcludingZero(horizontalMaxJumpGap + 1);
 
-            if (_platformsLengths[i] == 0)
-            {
-                RandomizeGapsAndPlatforms(i);
-                continue;
-            }
+            for (var i = 0; i < (verticalMaxJumpGap * 2 + 1) / (verticalMinSpaceBetweenBlocks + 1) + 1; i++)
+                GeneratePlatformRandomPositioned(widthGap);
+        }
 
-            _platformsLengths[i]--;
-            var platformObject = Instantiate(platform, new Vector3(xPosition, (3 * i - 1) * 1.28f, 0),
-                Quaternion.identity);
-            var platformType = i == 0 ? (PlatformType)(Utility.GetRandomNumberBetween(0, 3) % 2) : ChoosePlatformType();
+        void GeneratePlatformRandomPositioned(int widthGap)
+        {
+            var possibleContinuations = new List<int>();
+            for (var i = -verticalMaxJumpGap; i < verticalMaxJumpGap + 1; i++)
+                if (x-i < chunkHeight && x-i >= 0 && CanBuildPlatform(x - i, y + widthGap))
+                    possibleContinuations.Add(x - i);
+            GeneratePlatforms(possibleContinuations[Utility.GetRandomNumberExcludingZero(possibleContinuations.Count)],
+                y + widthGap);
 
-            var platformComponent = platformObject.GetComponent<Platform>();
-
-            platformComponent.platformType = platformType;
-            platformComponent.endlessRun = _platformsLengths[i] != 0;
-
-            if (platformType != PlatformType.Static || i != 0 ||
-                Utility.GetRandomNumberBetween(0, 2) != 0) continue;
-
-            Instantiate(emptyPlatform, new Vector3(xPosition, -2.56f, -1), Quaternion.identity);
-            Instantiate(emptyPlatform, new Vector3(xPosition, -3.84f, -1), Quaternion.identity);
-            Instantiate(emptyPlatform, new Vector3(xPosition, -5.12f, -1), Quaternion.identity);
         }
     }
 
-    private static PlatformType ChoosePlatformType() =>
-        Utility.GetRandomNumberExcludingZero(100) switch
+    private void GeneratePlatforms(int x, int y)
+    {
+        // 50% chance for normal platform.
+        var platformType = Utility.GetRandomNumberExcludingZero(3) == 1
+            ? PlatformType.Static
+            : (PlatformType)Utility.GetRandomNumberExcludingZero(Enum.GetValues(typeof(UpgradeType)).Length);
+        (int, int) finalPosition;
+        
+        switch (platformType)
         {
-            <= 15 => PlatformType.Temporary,
-            <= 30 => PlatformType.VerticalMoving,
-            <= 45 => PlatformType.CircularMoving,
-            <= 60 => PlatformType.HorizontalMoving,
-            _ => PlatformType.Static
-        };
+            case PlatformType.VerticalMoving:
+                var height = Utility.GetRandomNumberExcludingZero(chunkHeight/2 + 1) - 1;
+                finalPosition = (x - height, height);
+                for (var i = 0; i < height + 1; i++)
+                {
+                    if (x - i < 0 || _maps[2][x - i, y] != null)
+                    {
+                        finalPosition = (x - i + 1, height);
+                        break;
+                    }
+                    CreateObject((x - i, y), _prefabManager.ghostBlock);
+                }
+                CreateVerticalPlatform(finalPosition.Item1, finalPosition.Item2);
+                break;
+            
+            case PlatformType.HorizontalMoving:
+                var length = Utility.GetRandomNumberExcludingZero(chunkLength / 3 + 1) - 1;
+                finalPosition = (y+ length, length);
+                for (var i = 0; i < length + 1; i++)
+                {
+                    if (y + i >= chunkLength || _maps[2][x, y + i] != null)
+                    {
+                        finalPosition = (y + i - 1, length);
+                        break;
+                    }   
+                    CreateObject((x, y + i), _prefabManager.ghostBlock);
+                }
+                CreateHorizontalPlatform(finalPosition.Item1, finalPosition.Item2);
+                break;
+            
+            default:
+                var len = Utility.GetRandomNumberExcludingZero(maxNrOfBlocksInRow);
+                finalPosition = (x, y + len - 1);
+                for (var i = y; i < y + len; i++)
+                {
+                    if (i < chunkLength && CanBuildPlatform(x, i))
+                        CreateObject((x, i),
+                            platformType == PlatformType.Temporary
+                                ? _prefabManager.temporaryPlatform
+                                : _prefabManager.grass);
+                    else
+                    {
+                        finalPosition = (x, i - 1);
+                        break;
+                    }
+                }
+                GenerateMap(finalPosition.Item1, finalPosition.Item2, platformType == PlatformType.Temporary);
+                break;
+        }
 
-    private static bool IsWithinPoints(Vector3 startPoint, Vector3 endPoint, Vector3 position) =>
-        position.x >= Mathf.Min(startPoint.x, endPoint.x) && position.x <= Mathf.Max(startPoint.x, endPoint.x) &&
-        position.y >= Mathf.Min(startPoint.y, endPoint.y) && position.y <= Mathf.Max(startPoint.y, endPoint.y);
+        void CreateVerticalPlatform(int xPosition, float movement)
+        {
+            var platform = CreateObject((xPosition, y), _prefabManager.verticalMovingPlatform)
+                .GetComponent<SidewaysMoving>();
+            platform.direction = SidewaysMoving.Direction.Vertical;
+            platform.movement = movement * unitSize;
+            GenerateMap(xPosition, y, true);
+        }
+        
+        void CreateHorizontalPlatform(int yPosition, float movement)
+        {
+            var platform = CreateObject((x, yPosition), _prefabManager.horizontalMovingPlatform)
+                .GetComponent<SidewaysMoving>();
+            platform.direction = SidewaysMoving.Direction.Horizontal;
+            platform.movement = movement * unitSize;
+            GenerateMap(x, yPosition, true);
+        }
+        
+        GameObject CreateObject((int x, int y) position, GameObject prefab) => _maps[2][position.x, position.y] =
+            Instantiate(prefab, new Vector2(position.y, chunkHeight - position.x) * _currentChunk * unitSize,
+                Quaternion.identity);
+    }
+
+    private bool CanBuildPlatform(int x, int y)
+    {
+        if (x < chunkHeight - verticalMinSpaceBetweenBlocks) return CheckUnderBlock(verticalMinSpaceBetweenBlocks);
+        for (var i = 1; i < verticalMinSpaceBetweenBlocks + 1; i++)
+            if (x == chunkHeight - i)
+                return CheckUnderBlock(i);
+        return false;
+        
+        bool CheckUnderBlock(int unities)
+        {
+            for (var i = 1; i < unities; i++)
+                if (_maps[2][x + i, y] != null)
+                    return false;
+            return true;
+        }
+    }
+
+    #endregion
 }

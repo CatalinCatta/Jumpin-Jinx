@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class PrefabManager : IndestructibleManager  // TODO: Add this to unity.
 {
+    [Header("Walls")] [SerializeField] public GameObject
+        endlessModeWall;
+
+    [Header("Backgrounds")] [SerializeField]
+    public Sprite
+        lightLvlBackground,
+        darkLvlBackground,
+        lightEndlessBackgorund,
+        darkEndlessBackground;
+
     [Header("Blocks")] [SerializeField] public GameObject
         ghostBlock,
         grass,

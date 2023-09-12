@@ -86,7 +86,7 @@ public class LvlGenerator : MonoBehaviour
         }
     }
 
-    private void GenerateObject(char character, int row, int column)    //TODO: Update after refactoring Platform.
+    private void GenerateObject(char character, int row, int column)
     {
         if (row == _height - 1) CreateBottomGround(character, row, column);
         
