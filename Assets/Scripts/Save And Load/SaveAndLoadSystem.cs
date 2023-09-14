@@ -23,6 +23,7 @@ public static class SaveAndLoadSystem
     #endregion
 
     #region Save
+
     /// <summary>
     /// Saves the settings data to <see cref="SettingsPath"/>.
     /// </summary>
@@ -34,8 +35,7 @@ public static class SaveAndLoadSystem
     /// Saves the player data to <see cref="PlayerPath"/>.
     /// </summary>
     /// <param name="playerManager">The player manager containing the player data.</param>
-    public static void SavePlayer(PlayerManager playerManager) =>
-        Save(new PlayerModel(playerManager), PlayerPath);
+    public static void SavePlayer(PlayerManager playerManager) => Save(new PlayerModel(playerManager), PlayerPath);
 
     private static void Save(object obj, string path)
     {
@@ -65,7 +65,6 @@ public static class SaveAndLoadSystem
 
         var stream = new FileStream(path, FileMode.Open);
         var data = Formatter.Deserialize(stream);
-
         stream.Close();
         return data;
     }

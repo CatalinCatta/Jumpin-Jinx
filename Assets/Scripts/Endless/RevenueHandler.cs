@@ -11,7 +11,7 @@ public class RevenueHandler : MonoBehaviour
     
     private void Start()
     {
-        _playerManager = (PlayerManager)IndestructibleManager.Instance;
+        _playerManager = PlayerManager.Instance;
         DisplayRevenue();
     }
 

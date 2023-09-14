@@ -12,7 +12,7 @@ public class GhostBlockSummon : MonoBehaviour   // TODO: Add it to editor.
     
     private void Start()
     {
-        var ghostBlockPrefab = ((PrefabManager)IndestructibleManager.Instance).ghostBlock;
+        var ghostBlockPrefab = PrefabManager.Instance.ghostBlock;
         var localTransform = transform;
         var position = localTransform.position;
         

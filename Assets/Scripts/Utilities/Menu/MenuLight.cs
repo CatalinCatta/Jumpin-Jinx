@@ -17,7 +17,7 @@ public class MenuLight : MonoBehaviour
     private void Start()
     {
         _transform = transform;
-        _settingsManager = (SettingsManager)IndestructibleManager.Instance; 
+        _settingsManager = SettingsManager.Instance; 
         _darkMode = _settingsManager.DarkModeOn;
         SetUpTheme();
     }

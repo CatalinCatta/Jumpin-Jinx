@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabManager : IndestructibleManager  // TODO: Add this to unity.
+public class PrefabManager : IndestructibleManager<PrefabManager>
 {
     [Header("Walls")] [SerializeField] public GameObject
         endlessModeWall;

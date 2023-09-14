@@ -53,7 +53,7 @@ public class SettingsMenu : MonoBehaviour
         _vSyncTransform;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         _localTransform = transform;
         
@@ -76,17 +76,21 @@ public class SettingsMenu : MonoBehaviour
         _fullScreenTransform = GetDisplayChild(1);
         _vSyncTransform = GetDisplayChild(2);
         _language = GetDisplayChild(3).GetComponent<TMP_Dropdown>();
-        
-        _settingsManager = (SettingsManager)IndestructibleManager.Instance;
-        
-        var resolution = Screen.currentResolution;
-        Screen.SetResolution(resolution.width, resolution.height, _settingsManager.Fullscreen);
 
+        
         TextMeshProUGUI GetTextComponentForKey(int keyId) =>
             keys.GetChild(keyId).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         
         Transform GetDisplayChild(int childId) =>
             display.GetChild(childId).GetChild(1);
+    }
+
+    private void Start()
+    {
+        _settingsManager = SettingsManager.Instance;
+        
+        var resolution = Screen.currentResolution;
+        Screen.SetResolution(resolution.width, resolution.height, _settingsManager.Fullscreen);
     }
 
     private void Update()
@@ -384,6 +388,7 @@ public class SettingsMenu : MonoBehaviour
 
     private void SaveSound(Transform soundTransform)
     {
+        if (soundTransform == null) return;
         var value = soundTransform.GetChild(1).GetComponent<Slider>().value;
         _settingsManager.SoundEffectVolume = value;
         SetUpSoundText(soundTransform, value);

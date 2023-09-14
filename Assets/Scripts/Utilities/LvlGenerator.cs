@@ -26,9 +26,8 @@ public class LvlGenerator : MonoBehaviour
 
     private void Start()
     {
-        var managerInstance = IndestructibleManager.Instance;
-        _prefabManager = (PrefabManager)managerInstance;
-        _lvlManager = (LvlManager)managerInstance;
+        _prefabManager = PrefabManager.Instance;
+        _lvlManager = LvlManager.Instance;
         
         SettingsManager.ChangeBackground(background);
 

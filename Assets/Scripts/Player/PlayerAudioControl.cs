@@ -24,7 +24,7 @@ public class PlayerAudioControl : MonoBehaviour
     
     private void Start()
     {
-        _settingsManager = (SettingsManager)IndestructibleManager.Instance;    
+        _settingsManager = SettingsManager.Instance;    
         
         _audioSourceWalk = gameObject.AddComponent<AudioSource>();
         _audioSourceWalk.clip = walk;

@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Consumable
   - Status
+  - GhostBlock
   layers:
   - Default
   - TransparentFX

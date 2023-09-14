@@ -1,26 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class IndestructibleManager : MonoBehaviour
+public abstract class IndestructibleManager<T> : MonoBehaviour where T : IndestructibleManager<T>
 {
     [Header("Singleton Instance")] [NonSerialized]
-    public static IndestructibleManager Instance;
+    public static T Instance;
     
-    private void Awake()
+    protected virtual void Awake()
     {
-        DoSomethingAtAwakeBeginning();
         if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        Instance = this as T;
+        DontDestroyOnLoad(Instance!.gameObject);
     }
-    
-    /// <summary>
-    /// Override it if u need to call something at the beginning of <see cref="Awake"/>. 
-    /// </summary>
-    protected virtual void DoSomethingAtAwakeBeginning(){}
 }

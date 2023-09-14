@@ -25,7 +25,7 @@ public class GameBuildSave : MonoBehaviour
     /// </summary>
     public void SaveMap()
     {
-        var lvlManager = (LvlManager)IndestructibleManager.Instance;
+        var lvlManager = LvlManager.Instance;
         
         try
         {

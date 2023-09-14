@@ -31,7 +31,7 @@ public class CustomLevelMenu : MonoBehaviour
     
     public void StartMapBuilder()
     {
-        var lvlManager = (LvlManager)IndestructibleManager.Instance;
+        var lvlManager = LvlManager.Instance;
         
         lvlManager.LvlTitle = "";
         lvlManager.StartScene(-1);

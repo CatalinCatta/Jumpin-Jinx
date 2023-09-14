@@ -87,7 +87,7 @@ public static class Utility
     /// <returns>An IEnumerator for coroutine handling.</returns>
     public static IEnumerator PlayDeathSoundAndCleanup(GameObject actor)
     {
-        var settingsManager = (SettingsManager)IndestructibleManager.Instance;
+        var settingsManager = SettingsManager.Instance;
 
         if (actor.TryGetComponent<AudioSource>(out var audioSource))
         {

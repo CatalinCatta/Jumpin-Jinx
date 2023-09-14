@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using static IndestructibleManager;
 
 /// <summary>
 /// This class controls the player character in the game.
@@ -47,9 +46,9 @@ public class PlayerControl : MonoBehaviour
 
     private void Start()
     {
-        _endlessRun = ((LvlManager)Instance).CurrentLvl == 0;
-        _playerManager = Instance as PlayerManager;
-        _settingsManager = Instance as SettingsManager;
+        _endlessRun = LvlManager.Instance.CurrentLvl == 0;
+        _playerManager = PlayerManager.Instance;
+        _settingsManager = SettingsManager.Instance;
         
         // Calculate movement speed and jump power based on game level
         MovementSpeed = _endlessRun
@@ -169,7 +168,7 @@ public class PlayerControl : MonoBehaviour
         _isFireActivated = true;
 
         yield return new WaitForSeconds(_endlessRun
-            ? 1.25f - ((PlayerManager)Instance).Upgrades[(int)UpgradeType.Attack].Quantity * .0225f
+            ? 1.25f - PlayerManager.Instance.Upgrades[(int)UpgradeType.Attack].Quantity * .0225f
             : .25f); // 1.25f => .125f
 
         Instantiate(bullet,

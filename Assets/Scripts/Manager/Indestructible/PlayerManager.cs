@@ -1,20 +1,22 @@
 ﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Manages player-related data and upgrades.
 /// </summary>
-public class PlayerManager : IndestructibleManager
+public class PlayerManager : IndestructibleManager<PlayerManager>
 {
     [NonSerialized] public Enhancement[] Upgrades, Buffs;
     [NonSerialized] public int Gold, Gems;
 
-    protected override void DoSomethingAtAwakeBeginning() => Load();
-
+    protected override void Awake()
+    {
+        base.Awake();
+        Load();
+    }
+    
     private void Load()
     {
-        Upgrades = new Enhancement[Enum.GetValues(typeof(UpgradeType)).Length];
-        Buffs = new Enhancement[Enum.GetValues(typeof(BuffType)).Length];
-        
         var player = SaveAndLoadSystem.LoadPlayer();
 
         if (player == null)
@@ -22,12 +24,15 @@ public class PlayerManager : IndestructibleManager
             Initialize();
             return;
         }
-        
+
         Gold = player.gold;
         Gems = player.gems;
 
-        Upgrades = player.Upgrades;
-        Buffs = player.Buffs;
+        if (player.Upgrades == null) SetUpUpgrades();
+        else Upgrades = player.Upgrades;
+
+        if (player.Buffs == null) SetUpBuffs();
+        else Buffs = player.Buffs;
 
         SetUpEnhancement();
     }
@@ -42,6 +47,9 @@ public class PlayerManager : IndestructibleManager
 
     private void Initialize()
     {
+        SetUpUpgrades();
+        SetUpBuffs();
+        
         Gold = 5_000;
         Gems = 50;
 
@@ -55,5 +63,17 @@ public class PlayerManager : IndestructibleManager
             Buffs[i].Price = Dictionaries.BuffDetails[(BuffType)i].price;
     }
 
+    private void SetUpUpgrades()
+    {
+        Upgrades = new Enhancement[Enum.GetValues(typeof(UpgradeType)).Length];
+        for (var i = 0; i < Enum.GetValues(typeof(UpgradeType)).Length; i++) Upgrades[i] = new Enhancement();
+    }
+
+    private void SetUpBuffs()
+    {
+        Buffs = new Enhancement[Enum.GetValues(typeof(BuffType)).Length];
+        for (var i = 0; i < Enum.GetValues(typeof(BuffType)).Length; i++) Buffs[i] = new Enhancement();
+    }
+    
     private static int PriceCalculator(int lvl) => (lvl + 1) * 15;
 }

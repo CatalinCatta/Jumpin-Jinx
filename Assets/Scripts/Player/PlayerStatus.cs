@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static IndestructibleManager;
 
 /// <summary>
 /// This class manages the status of the player, including health, buffs, coins, and display.
@@ -49,8 +48,8 @@ public class PlayerStatus : MonoBehaviour
 
     private void Start()
     {
-        _playerManager = (PlayerManager)Instance;
-        _endlessRun = (Instance as LvlManager)!.CurrentScene == Scene.Endless;
+        _playerManager = PlayerManager.Instance;
+        _endlessRun = LvlManager.Instance.CurrentScene == Scene.Endless;
         _hp = _endlessRun ? (_playerManager.Upgrades[(int)UpgradeType.MaxHealth].Quantity + 1) * 5 : 20;
         _speedBuffs = _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity;
         _jumpBuffs = _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity;
@@ -214,7 +213,7 @@ public class PlayerStatus : MonoBehaviour
         var winScreen = display.transform.parent.parent.GetChild(1).GetChild(0);
         winScreen.gameObject.SetActive(true);
 
-        var settingsManager = (SettingsManager)Instance;
+        var settingsManager = SettingsManager.Instance;
         
         for (var i = 0; i < _coins; i++)
         {

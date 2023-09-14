@@ -58,7 +58,7 @@ public class TutorialManager : MonoBehaviour
         gameObject.SetActive(true);
         questionMarks.SetActive(true);
         movement.gameObject.SetActive(true);
-        var settingsManager = (SettingsManager)IndestructibleManager.Instance;
+        var settingsManager = SettingsManager.Instance;
 
         SetUpKeyCode(0, settingsManager.MoveLeftKeyCode);
         SetUpKeyCode(1, settingsManager.MoveRightKeyCode);
@@ -89,7 +89,7 @@ public class TutorialManager : MonoBehaviour
         enemy.gameObject.SetActive(true);
 
         enemy.GetChild(0).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
-            { ReformatKeyCodeAsString(((SettingsManager)IndestructibleManager.Instance).FireKeyCode) });
+            { ReformatKeyCodeAsString(SettingsManager.Instance.FireKeyCode) });
     }
 
     public void SetUpPlatform()

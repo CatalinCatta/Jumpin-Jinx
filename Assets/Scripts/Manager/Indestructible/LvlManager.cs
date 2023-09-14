@@ -8,16 +8,15 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages level loading and transitions.
 /// </summary>
-public class LvlManager : IndestructibleManager
+public class LvlManager : IndestructibleManager<LvlManager>
 {
-    [Header("Current Level")] [NonSerialized]
-    public string LvlTitle;
+    [NonSerialized] public string LvlTitle;
     [NonSerialized] public int CurrentLvl;
     [NonSerialized] public Scene CurrentScene;
 
     private static SettingsManager _settings;
 
-    private void Start() => _settings = (SettingsManager)Instance;
+    private void Start() => _settings = SettingsManager.Instance;
 
     /// <summary>
     /// Start loading a level.

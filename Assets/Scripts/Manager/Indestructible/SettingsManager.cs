@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Manages game settings and options.
 /// </summary>
-public class SettingsManager : IndestructibleManager
+public class SettingsManager : IndestructibleManager<SettingsManager>
 {
     [Header("Volume")] [NonSerialized] public float
         GeneralVolume,
@@ -29,17 +29,20 @@ public class SettingsManager : IndestructibleManager
     [Header("Other Settings")]
     [NonSerialized] public SettingsFrames CurrentCategoryTab;
     [NonSerialized] public bool DarkModeOn;
+    
+    protected override void Awake()
+    {
+        Load();
+        base.Awake();
+    }
 
     /// <summary>
     /// Sets up sound volume for the specified cameraTransform.
     /// </summary>
     /// <param name="cameraTransform">The cameraTransform to adjust the sound volume for.</param>
-    public static void SetUpSound(Transform cameraTransform) =>
-        cameraTransform.GetComponent<AudioSource>().volume = ((SettingsManager)Instance).MusicVolume *
-            ((SettingsManager)Instance).GeneralVolume / 2;
+    public static void SetUpSound(Transform cameraTransform) => cameraTransform.GetComponent<AudioSource>().volume =
+        Instance.MusicVolume * Instance.GeneralVolume / 2;
 
-    protected override void DoSomethingAtAwakeBeginning() => Load();
-    
     private void Load()
     {
         var settings = SaveAndLoadSystem.LoadSettings();

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 720811117464374822}
   - component: {fileID: 720811117464374821}
   - component: {fileID: 720811117464374820}
-  - component: {fileID: -1930933142953375341}
   - component: {fileID: -3154686754065493479}
+  - component: {fileID: 3276046315466832067}
+  - component: {fileID: 5123859179354496692}
   m_Layer: 0
-  m_Name: Block
+  m_Name: StaticPlatform
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,43 +114,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-1930933142953375341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720811117464374823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3b8121a1e049443a766fe9f001f2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformType: 0
-  movement: 0
-  rotationAngle: 0
-  rotationSpeed: 0
-  plants:
-  - {fileID: 21300000, guid: 3afdd869ddc947440a69ffc9ed1819dd, type: 3}
-  - {fileID: 21300000, guid: 362ffd440e40a10488d1e62f9ce65444, type: 3}
-  - {fileID: 21300000, guid: 3067d59ec56470449adc96cfafdabc04, type: 3}
-  - {fileID: 21300000, guid: 748557b8dbecec641818c746fb730e52, type: 3}
-  - {fileID: 21300000, guid: a09def66ddbd2154d8527411fec4cf32, type: 3}
-  - {fileID: 21300000, guid: 00ecf519adc921544825f55ab2f28177, type: 3}
-  - {fileID: 21300000, guid: d671be13068d76d478c36766419a35b0, type: 3}
-  - {fileID: 21300000, guid: 1843a3e9b91c82b42b9ffb55ddedc4bd, type: 3}
-  - {fileID: 21300000, guid: c4aa5ecb3a25b864a8ce984a6b56cec8, type: 3}
-  - {fileID: 21300000, guid: 04d3492151cf07447969d611aebd70a3, type: 3}
-  - {fileID: 21300000, guid: a48f3a17787d5f64aaa159674a5bd0bc, type: 3}
-  - {fileID: 21300000, guid: c0967db3fe716a74fa0767d218f1deb6, type: 3}
-  enemy: {fileID: 5944313260030266398, guid: d4b23b3238d29b34bb70be284998de08, type: 3}
-  spike: {fileID: 1490436315133301635, guid: 9a6cc03bf0ddb9a4eb9dc7b71ea2a319, type: 3}
-  coin: {fileID: 5979417547880510089, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
-  heal: {fileID: 5658132860675772406, guid: 8bf972a5a7907994387e93355f396c8b, type: 3}
-  dirt: {fileID: 21300000, guid: 5b417972b4ee6e64488d28b5f7a8e576, type: 3}
-  endlessRun: 0
-  ghostBlock: {fileID: 720811117464374823, guid: 926c945c8a1557247bc60d3a1423dbed, type: 3}
-  inCollisionWithGhostBlock: 0
 --- !u!50 &-3154686754065493479
 Rigidbody2D:
   serializedVersion: 4
@@ -171,3 +135,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3276046315466832067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720811117464374823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f8ffce990a4c06aeea7fb6ac90b031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staticGhostBlock: 0
+  followerGhostBlock: 1
+--- !u!114 &5123859179354496692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720811117464374823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7038bf4522c747eeb275d2a3f8900b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowDamageObject: 1
+  allowConsumableObject: 1
+  allowPlants: 1

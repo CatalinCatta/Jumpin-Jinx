@@ -10148,6 +10148,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc72bd6d80e30404b932ace9f0d0cb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &448202862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448202863}
+  - component: {fileID: 448202864}
+  m_Layer: 0
+  m_Name: PrefabManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448202863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448202862}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 459.39017, y: 263.6156, z: 4.087066}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448202864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448202862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cab98fe38434809ad68f64450132031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endlessModeWall: {fileID: 6239542000749498690, guid: 183ad9a324825f94a9180814305218bc, type: 3}
+  lightLvlBackground: {fileID: 0}
+  darkLvlBackground: {fileID: 0}
+  lightEndlessBackgorund: {fileID: 0}
+  darkEndlessBackground: {fileID: 0}
+  ghostBlock: {fileID: 720811117464374823, guid: 926c945c8a1557247bc60d3a1423dbed, type: 3}
+  grass: {fileID: 720811117464374823, guid: f65a3382b0022134cbadfaf124f19836, type: 3}
+  dirt: {fileID: 720811117464374823, guid: 4d0320bd53aa4cb4c9dc33a596202f9b, type: 3}
+  slopeGrass: {fileID: 720811117464374823, guid: b302fa421916d2445b4f235e546acff8, type: 3}
+  halfSlopeGrass: {fileID: 720811117464374823, guid: 674d08340dfea42438e8e3cf2d346b88, type: 3}
+  temporaryPlatform: {fileID: 720811117464374823, guid: 712a194559049464ab36c7c7d997ddfb, type: 3}
+  horizontalMovingPlatform: {fileID: 720811117464374823, guid: f736dd98113ea7e42a3430bf5a88f301, type: 3}
+  verticalMovingPlatform: {fileID: 720811117464374823, guid: f736dd98113ea7e42a3430bf5a88f301, type: 3}
+  circularMovingPlatform: {fileID: 720811117464374823, guid: 0dc01ea6769e80d44ab3f2d4b1ff41ed, type: 3}
+  watter: {fileID: 789576858403303306, guid: bd239bd05da2868438ad1261a6f96e51, type: 3}
+  watterBottom: {fileID: 789576858403303306, guid: 4844a7d92825936469c0c9e4d844a83c, type: 3}
+  player: {fileID: 4007437618575838899, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
+  coin: {fileID: 5979417547880510089, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
+  endLvl: {fileID: 3596055728887203824, guid: 45c67227859cb804aac8760d2f023025, type: 3}
+  enemy: {fileID: 5944313260030266398, guid: d4b23b3238d29b34bb70be284998de08, type: 3}
+  heal: {fileID: 5658132860675772406, guid: 8bf972a5a7907994387e93355f396c8b, type: 3}
+  spike: {fileID: 1490436315133301635, guid: 9a6cc03bf0ddb9a4eb9dc7b71ea2a319, type: 3}
+  plantSprites: []
 --- !u!1 &450311615
 GameObject:
   m_ObjectHideFlags: 0
@@ -21919,8 +21986,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858909910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.66975, y: 7.8506002, z: 1.1157751}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.669739, y: 7.850601, z: 1.1157751}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21939,7 +22006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316b85e96891432eb4cc99ba1eca6ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLvl: 0
 --- !u!1 &867377803
 GameObject:
   m_ObjectHideFlags: 0
@@ -31303,22 +31369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c31b66c73b14225af516ca98e144dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCategoryTab: 1
-  darkModeOn: 0
-  generalVolume: 1
-  musicVolume: 0.5
-  soundEffectVolume: 1
-  jumpKeyCode: 119
-  moveLeftKeyCode: 97
-  moveRightKeyCode: 100
-  fireKeyCode: 32
-  speedBuffKeyCode: 308
-  jumpBuffKeyCode: 306
-  pauseKeyCode: 27
-  resolution: 0
-  fullscreen: 1
-  vsync: 1
-  language: 0
 --- !u!4 &1157114449
 Transform:
   m_ObjectHideFlags: 0
@@ -31326,8 +31376,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157114447}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.242656, y: 9.102517, z: -4.832906}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.2426453, y: 9.102524, z: -4.8329053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43635,24 +43685,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11dd2b346cb94a029b4478fd4c7cfa73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 10000
-  gems: 50
-  atkLvl: 0
-  msLvl: 0
-  jumpLvl: 0
-  defLvl: 0
-  hpLvl: 0
-  jumpBuffs: 3
-  speedBuffs: 3
-  secondChances: 0
-  atkPrice: 15
-  msPrice: 15
-  jumpPrice: 15
-  defPrice: 15
-  hpPrice: 15
-  jumpBuffsPrice: 200
-  speedBuffsPrice: 200
-  secondChancesPrice: 2000
 --- !u!4 &1597516287
 Transform:
   m_ObjectHideFlags: 0
@@ -43660,7 +43692,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597516285}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 960, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48025,7 +48057,7 @@ MonoBehaviour:
   contentPlace: {fileID: 200240286}
   menu: {fileID: 1957692046}
   revenue: {fileID: 535653987}
-  saveModel: {fileID: 4662240135341684988, guid: f0a3a1dd97ddd5a469276dcdba765e64, type: 3}
+  saveModel: {fileID: 4662240135341684979, guid: f0a3a1dd97ddd5a469276dcdba765e64, type: 3}
 --- !u!1 &1714779746
 GameObject:
   m_ObjectHideFlags: 0

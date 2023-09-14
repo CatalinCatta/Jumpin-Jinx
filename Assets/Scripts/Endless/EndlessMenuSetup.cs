@@ -24,7 +24,7 @@ public class EndlessMenuSetup : MonoBehaviour
         _upgrade = _transform.GetChild(2);
         _shop = _transform.GetChild(3);
         _store = _transform.GetChild(4);
-        _playerManager = (PlayerManager)IndestructibleManager.Instance;
+        _playerManager = PlayerManager.Instance;
     }
 
     /// <summary>

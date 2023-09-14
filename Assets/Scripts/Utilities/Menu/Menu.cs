@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manage main menu paths. 
@@ -13,14 +12,14 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void StartEndlessRun()
     {
-        ((PlayerManager)IndestructibleManager.Instance).Save();
-        ((LvlManager)IndestructibleManager.Instance).StartScene((int)Scene.Endless);
+        PlayerManager.Instance.Save();
+        LvlManager.Instance.StartScene((int)Scene.Endless);
     }
 
     /// <summary>
     /// Reopen main menu.
     /// </summary>
-    public void Restart() => ((LvlManager)IndestructibleManager.Instance).StartScene((int)Scene.Menu);
+    public void Restart() => LvlManager.Instance.StartScene((int)Scene.Menu);
 
     /// <summary>
     /// Close app. 
@@ -32,5 +31,5 @@ public class Menu : MonoBehaviour
     /// </summary>
     /// <param name="lvl">Level to run.</param>
     /// <remarks>Levels starts form 1.</remarks>
-    public void StartLevel(int lvl) => ((LvlManager)IndestructibleManager.Instance).StartScene(lvl);
+    public void StartLevel(int lvl) => LvlManager.Instance.StartScene(lvl);
 }

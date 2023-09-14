@@ -1,17 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour
 {
-    [SerializeField] private bool collideWhitGhostBlock = true;
+    [SerializeField] public bool collideWhitGhostBlock = true;
     protected Transform Transform;
-    protected bool InCollisionWithGhostBlock;
-    protected bool Endless;
+    protected bool InCollisionWithGhostBlock, Endless;
+    [NonSerialized] public List<GameObject> IgnoredObjects;
     
     private void Start()
     {
         Transform = transform;
-        Endless = ((LvlManager)IndestructibleManager.Instance).CurrentScene == Scene.Endless;
+        Endless = LvlManager.Instance.CurrentScene == Scene.Endless;
+        IgnoredObjects = new List<GameObject>();
         SetUp();
         StartCoroutine(Move());
     }
@@ -21,13 +24,15 @@ public abstract class MovingObject : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collideWhitGhostBlock && collision.gameObject.CompareTag("GhostBlock"))
-            InCollisionWithGhostBlock = true; // TODO: Add GhostBlock tag in editor.
+        var colliderObject = collision.gameObject;
+        if (collideWhitGhostBlock && colliderObject.CompareTag("GhostBlock") &&
+            !IgnoredObjects.Contains(colliderObject)) InCollisionWithGhostBlock = true;
     }
     
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collideWhitGhostBlock && collision.gameObject.CompareTag("GhostBlock"))
-            InCollisionWithGhostBlock = false; // TODO: Add GhostBlock tag in editor.
+        var colliderObject = collision.gameObject;
+        if (collideWhitGhostBlock && colliderObject.CompareTag("GhostBlock") &&
+            !IgnoredObjects.Contains(colliderObject)) InCollisionWithGhostBlock = false;
     }
 }
