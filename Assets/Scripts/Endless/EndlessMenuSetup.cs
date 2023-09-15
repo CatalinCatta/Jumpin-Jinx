@@ -97,9 +97,10 @@ public class EndlessMenuSetup : MonoBehaviour
     /// <exception cref="Exception">Throw when <paramref name="upgradeType"/> exceed <see cref="UpgradeType"/> length.</exception>
     public void Upgrade(int upgradeType)
     {
-        if (!_revenueHandler.CanConsumeGold(_playerManager.Buffs[upgradeType].Price)) return;
+        if (!_revenueHandler.CanConsumeGold(_playerManager.Upgrades[upgradeType].Price)) return;
 
-        _playerManager.Buffs[upgradeType].Price = PriceCalculator(_playerManager.Buffs[upgradeType].Quantity++); 
+        _playerManager.Upgrades[upgradeType].Quantity++;
+        _playerManager.Upgrades[upgradeType].Price = PriceCalculator(_playerManager.Upgrades[upgradeType].Quantity); 
         SetUpUpgrades((UpgradeType)upgradeType);
     }
 
@@ -119,8 +120,9 @@ public class EndlessMenuSetup : MonoBehaviour
 
     private void SetUpUpgrades(UpgradeType upgradeType)
     {
-        var upgradeDetail = _playerManager.Buffs[(int)upgradeType];
+        var upgradeDetail = _playerManager.Upgrades[(int)upgradeType];
         var element = transform.GetChild(2).GetChild((int)upgradeType);
+        Debug.Log((_playerManager.Upgrades[(int)upgradeType].Price, _playerManager.Upgrades[(int)upgradeType].Quantity, PriceCalculator(_playerManager.Upgrades[(int)upgradeType].Quantity)));
 
         Buy(element.GetChild(2), upgradeDetail.Quantity, upgradeDetail.Price);
         ColorLevels(element.GetChild(1), upgradeDetail.Quantity);

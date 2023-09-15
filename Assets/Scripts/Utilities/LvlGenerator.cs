@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -34,9 +33,9 @@ public class LvlGenerator : MonoBehaviour
         try
         {
             var map =
-                JsonConvert.DeserializeObject<List<Level>>(Resources.Load<TextAsset>("LevelData/maps").text)[
-                    _lvlManager.CurrentLvl - 1].Map;
-
+                JsonConvert.DeserializeObject<Level[]>(Resources.Load<TextAsset>("LevelData/maps").text)[
+                    _lvlManager.CurrentLvl - 1].Maps;
+            
             _height = map.Length;
             _length = map[0].Length;
 

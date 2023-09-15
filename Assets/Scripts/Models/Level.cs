@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 
-[Serializable]
 public class Level
 {
     public string Name { get; set; }
-    public string[] Map { get; set; }
+    
+    [JsonProperty("map")]
+    public string[] Maps { get; set; }
 }

@@ -77,7 +77,8 @@ public class SettingsMenu : MonoBehaviour
         _vSyncTransform = GetDisplayChild(2);
         _language = GetDisplayChild(3).GetComponent<TMP_Dropdown>();
 
-        
+        _settingsManager = SettingsManager.Instance;
+
         TextMeshProUGUI GetTextComponentForKey(int keyId) =>
             keys.GetChild(keyId).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         
@@ -86,9 +87,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     private void Start()
-    {
-        _settingsManager = SettingsManager.Instance;
-        
+    {        
         var resolution = Screen.currentResolution;
         Screen.SetResolution(resolution.width, resolution.height, _settingsManager.Fullscreen);
     }
@@ -166,6 +165,7 @@ public class SettingsMenu : MonoBehaviour
     {
         StartCoroutine(MoveObject(SettingsFrames.Categories, true, false));
 
+        Debug.Log(_settingsManager.CurrentCategoryTab);
         switch (_settingsManager.CurrentCategoryTab)
         {
             case SettingsFrames.Sounds:
@@ -244,7 +244,6 @@ public class SettingsMenu : MonoBehaviour
         var objectToMove = _localTransform.GetChild((int)settingsFrames).GetComponent<RectTransform>();
 
         objectToMove.gameObject.SetActive(true);
-
         while (currentTime < 0.5f)
         {
             currentTime += Time.deltaTime;
@@ -302,8 +301,7 @@ public class SettingsMenu : MonoBehaviour
     /// <param name="settingsFrames">New Category id to open it.</param>
     public void ChangeCategory(int settingsFrames)
     {
-        if (settingsFrames == 2)
-            DeactivateAllChecking();
+        if (settingsFrames == (int)SettingsFrames.Controls) DeactivateAllChecking();
 
         StartCoroutine(ChangeCategoryAnimation((SettingsFrames)settingsFrames));
     }

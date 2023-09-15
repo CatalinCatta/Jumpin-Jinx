@@ -173,7 +173,7 @@ public class PlayerControl : MonoBehaviour
 
         Instantiate(bullet,
             _localTransform.position +
-            new Vector3(_localTransform.rotation == Quaternion.Euler(0, 0, 0) ? -.4f : .4f, .5f),
+            new Vector3(_localTransform.rotation == Quaternion.Euler(0, 0, 0) ? -.4f : .4f, 1.5f),
             _localTransform.rotation);
 
         _isFireActivated = false;

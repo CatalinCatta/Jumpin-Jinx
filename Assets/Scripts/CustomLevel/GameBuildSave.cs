@@ -32,8 +32,7 @@ public class GameBuildSave : MonoBehaviour
             var path = Path.GetFullPath(@"CustomLevels");
             var finalPath = path + $"/{lvlManager.LvlTitle}.json";
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             else if (File.Exists(finalPath))
             {
                 File.Delete(finalPath);
@@ -114,7 +113,7 @@ public class GameBuildSave : MonoBehaviour
             line.Add(str.ToString());
         }
 
-        lvl.Map = line.ToArray();
+        lvl.Maps = line.ToArray();
 
         return lvl;
     }

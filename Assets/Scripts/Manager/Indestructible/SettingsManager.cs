@@ -45,6 +45,7 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
 
     private void Load()
     {
+        CurrentCategoryTab = SettingsFrames.Sounds;
         var settings = SaveAndLoadSystem.LoadSettings();
 
         if (settings == null)
@@ -85,7 +86,6 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
 
     private void Initialize()
     {
-        CurrentCategoryTab = SettingsFrames.Sounds;
         DarkModeOn = false;
 
         GeneralVolume = 1f;

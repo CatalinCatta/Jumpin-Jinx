@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(1);
         _rigidbody = GetComponent<Rigidbody2D>();
         _speed = LvlManager.Instance.CurrentLvl == 0
             ? 1f + PlayerManager.Instance.Upgrades[(int)UpgradeType.Attack].Quantity * 0.18f
