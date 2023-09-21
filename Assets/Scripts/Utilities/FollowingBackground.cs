@@ -7,8 +7,6 @@ public class FollowingBackground : MonoBehaviour
     private Transform _transform;
     private Camera _camera;
 
-    public bool test;
-    
     public float speed = 10f;
     
     private void Start()
@@ -19,15 +17,12 @@ public class FollowingBackground : MonoBehaviour
         _repeatWidth = _transform.GetChild(0).GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-
     private void Update()
     {
-        _transform.position = new Vector3(_startPos.x-_camera.transform.position.x/speed, _startPos.y, _startPos.z);
-        if (test)
-            Debug.Log((_transform.position.x, _startPos.x, _camera.transform.position.x, _repeatWidth));
+        _transform.position = new Vector3(_startPos.x - _camera.transform.position.x / speed, _startPos.y, _startPos.z);
+
         if (_transform.position.x < _camera.transform.position.x - _repeatWidth)
-            _startPos += Vector3.right*_repeatWidth;
-        if (_transform.position.x > _camera.transform.position.x)
-            _startPos -= Vector3.right*_repeatWidth;
+            _startPos += Vector3.right * _repeatWidth;
+        if (_transform.position.x > _camera.transform.position.x) _startPos -= Vector3.right * _repeatWidth;
     }
 }

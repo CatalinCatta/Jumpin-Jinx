@@ -19,7 +19,7 @@ public class MenuLight : MonoBehaviour
         _transform = transform;
         _settingsManager = SettingsManager.Instance; 
         _darkMode = _settingsManager.DarkModeOn;
-        SetUpTheme();
+        //SetUpTheme();
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class MenuLight : MonoBehaviour
         _darkMode = !_darkMode;
         _settingsManager.DarkModeOn = _darkMode;
 
-        SetUpTheme();
+        //SetUpTheme();
     }
 
     private void SetUpTheme()
