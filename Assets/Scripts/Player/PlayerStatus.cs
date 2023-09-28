@@ -114,8 +114,8 @@ public class PlayerStatus : MonoBehaviour
         _hp -= _endlessRun ? amount * (1 - _playerManager.Upgrades[(int)UpgradeType.Defence].Quantity / 100) : amount;
         ShowLife();
 
-        FreezeFromDamage = true;
-        _rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // TODO: Improve knock back animation.
+        //FreezeFromDamage = true;
+        //_rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // TODO: Improve knock back animation.
         _playerAudioControl.PlayGetHitSound();
 
         if (_hp == 0) Die();

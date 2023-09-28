@@ -47,6 +47,7 @@ public class CustomParticles : MonoBehaviour
         {
             var image = _particles[position].AddComponent<Image>();
             image.sprite = particleImage;
+            image.raycastTarget = false;
             if (colors.Count > 0) image.color = GetParticleColor();
         }
         else
