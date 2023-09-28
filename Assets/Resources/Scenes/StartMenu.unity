@@ -30961,6 +30961,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113727832}
   m_CullTransparentMesh: 1
+--- !u!1 &1118152101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118152102}
+  - component: {fileID: 1118152103}
+  m_Layer: 5
+  m_Name: Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1118152102
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118152101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1817900854}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 35, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1118152103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118152101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fb6634433348b59fd4b75f54d26beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleImage: {fileID: 21300000, guid: 919e80a44e969f549958ec8a629f79c3, type: 3}
+  uiElement: 1
+  scaleByLength: 1
+  stop: 0
+  spawnWithCombinationOfSelectedColor: 0
+  quantity: 30
+  particleZPosition: 0
+  particleMaxSideMovementPerFrame: 200
+  minAndMaxParticleSizes: {x: 100, y: 300}
+  spawnSize: {x: 500, y: 100}
+  fallSize: {x: 500, y: 600}
+  minAndMaxSpeed: {x: 0.2, y: 0.6}
+  colorChangeMinAndMaxSpeed: {x: 0, y: 0}
+  maxRotationAngleSpawn: {x: 360, y: 360, z: 360}
+  particleMaxRotationPerFrame: {x: 100, y: 100, z: 100}
+  fadeParticleOnLastPercent: 10
+  colors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0.3, g: 0.3, b: 0.3, a: 1}
 --- !u!1 &1125222458
 GameObject:
   m_ObjectHideFlags: 0
@@ -36718,7 +36787,7 @@ RectTransform:
   m_Children:
   - {fileID: 227238148}
   m_Father: {fileID: 1817900854}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -51295,7 +51364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 27.656067, y: -310.82315}
+  m_AnchoredPosition: {x: 27.656006, y: -310.82312}
   m_SizeDelta: {x: -211.039, y: -429.085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1776279095
@@ -52143,6 +52212,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1118152102}
   - {fileID: 1346137140}
   m_Father: {fileID: 1978060802}
   m_RootOrder: 2

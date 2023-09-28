@@ -436,7 +436,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Saves last pressed key for speed buff.
+    /// Saves last pressed key for minAndMaxSpeed buff.
     /// </summary>
     public void SaveSpeedBuffValue()
     {

@@ -212,10 +212,10 @@ public static class Utility
     };
 
     /// <summary>
-    /// Retrieves the size of the collider from a collision.
+    /// Retrieves the minAndMaxParticleSizes of the collider from a collision.
     /// </summary>
     /// <param name="collision">The collision information.</param>
-    /// <returns>The collider size as a Vector2.</returns>
+    /// <returns>The collider minAndMaxParticleSizes as a Vector2.</returns>
     /// <exception cref="NotSupportedException">Thrown when the collider type is not supported.</exception>
     public static Vector2 RetrieveColliderSize(Collision2D collision)
     {

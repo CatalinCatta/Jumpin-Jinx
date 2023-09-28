@@ -50,7 +50,7 @@ public class PlayerControl : MonoBehaviour
         _playerManager = PlayerManager.Instance;
         _settingsManager = SettingsManager.Instance;
         
-        // Calculate movement speed and jump power based on game level
+        // Calculate movement minAndMaxSpeed and jump power based on game level
         MovementSpeed = _endlessRun
             ? 7f * (_playerManager!.Upgrades[(int)UpgradeType.MovementSpeed].Quantity / 20f + 1f)
             : 10f; //   7f =>   24.5f

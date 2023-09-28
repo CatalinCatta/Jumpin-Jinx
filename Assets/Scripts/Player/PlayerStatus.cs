@@ -72,7 +72,7 @@ public class PlayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// Consume a speed buff and activate the speed buff effect.
+    /// Consume a minAndMaxSpeed buff and activate the minAndMaxSpeed buff effect.
     /// </summary>
     public void ConsumeSpeedBuff()
     {
@@ -237,7 +237,7 @@ public class PlayerStatus : MonoBehaviour
     private void ShowCoins() => ChangeUiText(GetUiTransform(1), _coins.ToString());
 
     /// <summary>
-    /// Method to update the displayed speed buffs count.
+    /// Method to update the displayed minAndMaxSpeed buffs count.
     /// </summary>
     private void ShowSpeedBuffs() => ChangeUiText(GetUiTransform(2), _speedBuffs.ToString());
 
