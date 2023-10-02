@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Random = System.Random;
 
-public class RandomEnvironmentCreator : MonoBehaviour   // TODO: Add it to editor.
+public class RandomEnvironmentCreator : MonoBehaviour 
 {
     private Random _random;
     private Transform _transform;

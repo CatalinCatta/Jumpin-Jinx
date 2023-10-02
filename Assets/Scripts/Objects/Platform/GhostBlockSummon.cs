@@ -5,7 +5,7 @@ using UnityEngine;
 /// Create a ghost block that keep original position and a follower one.
 /// Keep the follower block saved for essayer destroy. 
 /// </summary>
-public class GhostBlockSummon : MonoBehaviour   // TODO: Add it to editor.
+public class GhostBlockSummon : MonoBehaviour
 {
     [SerializeField] private bool staticGhostBlock = true, followerGhostBlock;
     [NonSerialized] public GameObject Ghost;

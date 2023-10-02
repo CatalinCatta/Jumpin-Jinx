@@ -91,9 +91,6 @@ public class WorldGenerator : MonoBehaviour
         var wallScale = wallPrefab.transform.GetComponent<Collider2D>().bounds.size;
         Instantiate(wallPrefab, new Vector2((_currentChunk - 2) * chunkLength - wallScale.x / 2, wallScale.y / 2),
             Quaternion.identity, _chunksParents[0].transform);
-        
-        // New backgrounds.
-        // TODO: Add background when ready.
 
         // New watter
         for (var i = 0; i < chunkLength; i++)

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Move GameObject horizontal or vertical with specified values. If its endless game mode will randomly auto select.
 /// </summary>
-public class SidewaysMoving : MovingObject    // TODO: Add it to editor.
+public class SidewaysMoving : MovingObject
 {
     public enum Direction
     {

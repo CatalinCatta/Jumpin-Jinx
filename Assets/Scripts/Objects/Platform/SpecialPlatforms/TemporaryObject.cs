@@ -6,7 +6,7 @@ using UnityEngine;
 /// If gameObject with tag player touch this, destroy it after <see cref="timer"/>(default 2s).
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
-public class TemporaryObject : MonoBehaviour    // TODO: Add it to editor.
+public class TemporaryObject : MonoBehaviour
 {
     private bool _autoDestructionStarted;
     private SpriteRenderer _spriteRenderer;

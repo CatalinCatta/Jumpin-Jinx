@@ -5,7 +5,7 @@ using UnityEngine;
 /// Rotate an object at a specific minAndMaxSpeed and angle. If minAndMaxSpeed goes negative will rotate object backwards.
 /// On Endless Game Mode will get random rotation minAndMaxSpeed and angle and will pass true ghost blocks. 
 /// </summary>
-public class CircularMovingPlatform : MovingObject    // TODO: Add it to editor.
+public class CircularMovingPlatform : MovingObject
 {
     [Range(-5f, 5f)] [SerializeField] public float rotationSpeed;
     [Range(0f, 10f)] [SerializeField] public float rotationAngle = 4f;
