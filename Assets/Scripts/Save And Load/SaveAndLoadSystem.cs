@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -7,19 +8,26 @@ using UnityEngine;
 /// </summary>
 public static class SaveAndLoadSystem
 {
-    #region Paths
     private static readonly BinaryFormatter Formatter = new();
+    
+    #region Paths
     private static readonly string Path = Application.persistentDataPath;
+    private const string Format = "thc";
+
+    /// <summary>
+    /// <see cref="Application.persistentDataPath"/>/settings.<see cref="Format"/>
+    /// </summary>
+    private static readonly string SettingsPath = $"{Path}/settings.{Format}";
     
     /// <summary>
-    /// <see cref="Application.persistentDataPath"/>/settings.thc
+    /// <see cref="Application.persistentDataPath"/>/player.<see cref="Format"/>
     /// </summary>
-    private static readonly string SettingsPath = Path + "/settings.thc";
+    private static readonly string PlayerPath = $"{Path}/player.{Format}";
     
     /// <summary>
-    /// <see cref="Application.persistentDataPath"/>/player.thc
+    /// <see cref="Application.persistentDataPath"/>/campaign.<see cref="Format"/>
     /// </summary>
-    private static readonly string PlayerPath = Path + "/player.thc";
+    private static readonly string CampaignStatusPath = $"{Path}/campaign.{Format}";
     #endregion
 
     #region Save
@@ -36,6 +44,14 @@ public static class SaveAndLoadSystem
     /// </summary>
     /// <param name="playerManager">The player manager containing the player data.</param>
     public static void SavePlayer(PlayerManager playerManager) => Save(new PlayerModel(playerManager), PlayerPath);
+
+
+    /// <summary>
+    /// Saves the campaign data to <see cref="CampaignStatusPath"/>.
+    /// </summary>
+    /// <param name="campaignStatus">A list of <see cref="CampaignStatusModel"/> containing all levels</param>
+    public static void SaveCampaign(List<CampaignStatusModel> campaignStatus) =>
+        Save(campaignStatus, CampaignStatusPath);
 
     private static void Save(object obj, string path)
     {
@@ -58,6 +74,12 @@ public static class SaveAndLoadSystem
     /// </summary>
     /// <returns>The loaded player data.</returns>
     public static PlayerModel LoadPlayer() => Load(PlayerPath) as PlayerModel;
+    
+    /// <summary>
+    /// Loads the Campaign data from <see cref="CampaignStatusPath"/>.
+    /// </summary>
+    /// <returns>The loaded Campaign data as a list of <see cref="CampaignStatusModel"/>.</returns>
+    public static List<CampaignStatusModel> LoadCampaign() => Load(CampaignStatusPath) as List<CampaignStatusModel>;
 
     private static object Load(string path)
     {
@@ -71,22 +93,25 @@ public static class SaveAndLoadSystem
     #endregion
 
     #region Reset
+
     /// <summary>
     /// Deletes the saved settings data.
     /// </summary>
-    public static void DeleteSettingsSave() =>
-        Reset(PlayerPath);
+    public static void DeleteSettingsSave() => Reset(SettingsPath);
 
     /// <summary>
     /// Deletes the saved player data.
     /// </summary>
-    public static void DeletePlayerSave() =>
-        Reset(PlayerPath);
+    public static void DeletePlayerSave() => Reset(PlayerPath);
+    
+    /// <summary>
+    /// Deletes the saved campaign data.
+    /// </summary>
+    public static void DeleteCampaignSave() => Reset(CampaignStatusPath);
 
     private static void Reset(string path)
     {
-        if (File.Exists(path))
-            File.Delete(path);
+        if (File.Exists(path)) File.Delete(path);
     }
     #endregion
 }

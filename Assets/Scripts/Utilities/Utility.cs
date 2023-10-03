@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = System.Random;
@@ -243,5 +244,29 @@ public static class Utility
         }
 
         throw new NotSupportedException("This Collider is not supported yet!");
+    }
+
+    public static string TimeToString(float time) => time switch
+    {
+        > 360 =>
+            $"{Mathf.FloorToInt(time / 3600):00}:{Mathf.FloorToInt(time % 3600 / 60):00}:{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 1000 % 1000):000}",
+
+        > 60 =>
+            $"{Mathf.FloorToInt(time % 3600 / 60):00}:{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 1000 % 1000):000}",
+
+        _ => 
+            $"{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 1000 % 1000):000}"
+    };
+    
+    public static float StringToTime(string formattedTime)
+    {
+        var timeParts = formattedTime.Split(':').Select(int.Parse).ToArray();
+        
+        return timeParts.Length switch
+        {
+            4 => timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2] + timeParts[3] / 1000.0f,
+            3 => timeParts[0] * 60 + timeParts[1] + timeParts[2] / 1000.0f,
+            _ => timeParts[0] + timeParts[1] / 1000.0f
+        };
     }
 }

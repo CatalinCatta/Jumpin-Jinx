@@ -16,6 +16,10 @@ public class PlayerStatus : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private PlayerAudioControl _playerAudioControl;
     private PlayerManager _playerManager;
+    private LvlManager _lvlManager;
+    private float _timer;
+
+    private TextMeshProUGUI _timerDisplay;
 
     [Header("Movement Control Bool")] [NonSerialized]
     public bool
@@ -39,6 +43,8 @@ public class PlayerStatus : MonoBehaviour
     {
         if (display == null) display = GameObject.FindWithTag("Status");
 
+        _timerDisplay = GameObject.Find("TimerCounter").transform.GetComponent<TextMeshProUGUI>();
+        
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerControl = GetComponent<PlayerControl>();
         _playerAudioControl = GetComponent<PlayerAudioControl>();
@@ -48,20 +54,33 @@ public class PlayerStatus : MonoBehaviour
 
     private void Start()
     {
+        _lvlManager = LvlManager.Instance;
         _playerManager = PlayerManager.Instance;
-        _endlessRun = LvlManager.Instance.CurrentScene == Scene.Endless;
+        _endlessRun = _lvlManager.CurrentScene == Scene.Endless;
         _hp = _endlessRun ? (_playerManager.Upgrades[(int)UpgradeType.MaxHealth].Quantity + 1) * 5 : 20;
         _speedBuffs = _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity;
         _jumpBuffs = _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity;
 
         ShowLife();
 
-        if (!_endlessRun) return;
-
-        ShowJumpBuffs();
-        ShowSpeedBuffs();
+        if (_endlessRun)
+        {
+            ShowJumpBuffs();
+            ShowSpeedBuffs();
+        }
+        else StartCoroutine(UpdateTimer());
     }
 
+    private IEnumerator UpdateTimer()
+    {
+        while (true)
+        {
+            _timer += Time.deltaTime;
+            _timerDisplay.text = Utility.TimeToString(_timer);
+            yield return null;
+        }
+    }
+    
     /// <summary>
     /// Add a coin to the player's inventory.
     /// </summary>
@@ -154,16 +173,16 @@ public class PlayerStatus : MonoBehaviour
 
         void SwitchPowerStatus(bool active)
         {
-            var ammount = active ? buffDetail.multiplicator : 1 / buffDetail.multiplicator;
+            var amount = active ? buffDetail.multiplicator : 1 / buffDetail.multiplicator;
             switch (buffType)
             {
                 case BuffType.SpeedBuff:
                     SpeedBuffActive = active;
-                    _playerControl.MovementSpeed *= ammount;
+                    _playerControl.MovementSpeed *= amount;
                     break;
                 case BuffType.JumpBuff:
                     JumpBuffActive = active;
-                    _playerControl.JumpPower *= ammount;
+                    _playerControl.JumpPower *= amount;
                     break;
             }
         }
@@ -207,6 +226,7 @@ public class PlayerStatus : MonoBehaviour
     /// </summary>
     public void Win()
     {
+        StopCoroutine(UpdateTimer());
         Time.timeScale = 0f;
         display.SetActive(false);
 
@@ -214,7 +234,8 @@ public class PlayerStatus : MonoBehaviour
         winScreen.gameObject.SetActive(true);
 
         var settingsManager = SettingsManager.Instance;
-        
+
+        _coins = _coins > 3 ? 3 : _coins;
         for (var i = 0; i < _coins; i++)
         {
             var endCoin = winScreen.GetChild(0).GetChild(i + 1).GetChild(0);
@@ -223,7 +244,40 @@ public class PlayerStatus : MonoBehaviour
                 settingsManager.SoundEffectVolume * settingsManager.GeneralVolume;
         }
 
+        SaveNewCampaignHighScore();
         Destroy(gameObject);
+    }
+
+    private void SaveNewCampaignHighScore()
+    {
+        var data = SaveAndLoadSystem.LoadCampaign();
+        if (_lvlManager.CurrentLvl != 1)
+        {
+            if (data == null)
+                throw new Exception(
+                    $"Player is playing on lvl {_lvlManager.CurrentLvl} while campaign file is missing or empty");
+            if (data!.Count < _lvlManager.CurrentLvl - 2)
+                throw new Exception(
+                    $"Player is playing on lvl {_lvlManager.CurrentLvl} while campaign file have only {data!.Count + 1} entries");
+        }
+        else
+        {
+            SaveAndLoadSystem.SaveCampaign(new List<CampaignStatusModel> {new(true, _coins, _timer)});
+            return;
+        }
+        
+        if (data.Count < _lvlManager.CurrentLvl - 2 || !data[_lvlManager.CurrentLvl - 1].completed)
+            data.Add(new CampaignStatusModel(true, _coins, _timer));
+        else
+        {
+            if (data[_lvlManager.CurrentLvl - 1].maxStarNrObtained < _coins)
+                data[_lvlManager.CurrentLvl - 1].maxStarNrObtained = _coins;
+            
+            if (data[_lvlManager.CurrentLvl - 1].bestTime > _timer)
+                data[_lvlManager.CurrentLvl - 1].bestTime = _timer;
+        }
+        
+        SaveAndLoadSystem.SaveCampaign(data);
     }
 
     /// <summary>
