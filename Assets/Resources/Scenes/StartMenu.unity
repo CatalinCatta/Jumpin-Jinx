@@ -5827,6 +5827,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &115076971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12858,6 +12870,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &292657858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13394,7 +13418,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -13402,6 +13426,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1597516286}
         m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
         m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14586,6 +14622,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1597516286}
         m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
         m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17209,7 +17257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20687,7 +20735,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -22828,6 +22876,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 985256754}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
       - m_Target: {fileID: 1953753496}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
         m_MethodName: Play
@@ -42182,6 +42242,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &869901582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51376,7 +51448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $10
+  m_text: FREE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -51798,6 +51870,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: OpenUpgrades
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowUpgrades
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &1057496728
@@ -61348,6 +61432,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1245401372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63078,6 +63174,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1283747671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64317,7 +64425,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1k
+  m_text: -10k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b73f0b63b5a40542b5aea99aaaf41ca, type: 2}
   m_sharedMaterial: {fileID: -2626528344682328713, guid: 3b73f0b63b5a40542b5aea99aaaf41ca, type: 2}
@@ -64326,8 +64434,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -74341,7 +74449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1k
+  m_text: -1k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b73f0b63b5a40542b5aea99aaaf41ca, type: 2}
   m_sharedMaterial: {fileID: -2626528344682328713, guid: 3b73f0b63b5a40542b5aea99aaaf41ca, type: 2}
@@ -74351,7 +74459,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -74584,7 +74692,6 @@ GameObject:
   - component: {fileID: 1538475174}
   - component: {fileID: 1538475173}
   - component: {fileID: 1538475172}
-  - component: {fileID: 1538475175}
   m_Layer: 5
   m_Name: Upgrade
   m_TagString: Untagged
@@ -74721,21 +74828,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
---- !u!114 &1538475175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538475170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 1, b: 0.037703037, a: 1}
-  m_EffectDistance: {x: 0, y: 0}
-  m_UseGraphicAlpha: 1
 --- !u!1 &1538973459
 GameObject:
   m_ObjectHideFlags: 0
@@ -77689,10 +77781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11dd2b346cb94a029b4478fd4c7cfa73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Upgrades: []
-  Buffs: []
-  Gold: 0
-  Gems: 0
 --- !u!4 &1597516287
 Transform:
   m_ObjectHideFlags: 0
@@ -79796,6 +79884,18 @@ MonoBehaviour:
       - m_Target: {fileID: 372606877}
         m_TargetAssemblyTypeName: StorePage, Assembly-CSharp
         m_MethodName: SelectGold
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -84440,6 +84540,18 @@ MonoBehaviour:
           m_StringArgument: OpenStoreSmall
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1714817548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85422,6 +85534,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1597516286}
         m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
         m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowStore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -92457,6 +92581,18 @@ MonoBehaviour:
           m_StringArgument: OpenShop
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1953753497}
+        m_TargetAssemblyTypeName: EndlessMenuSetup, Assembly-CSharp
+        m_MethodName: ShowShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1866991267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93237,6 +93373,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 985256754}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
       - m_Target: {fileID: 1953753496}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
         m_MethodName: Play
@@ -95894,6 +96042,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgrade: {fileID: 1785303}
   shop: {fileID: 2024395497}
+  store: {fileID: 985256755}
+  enableButtonIcon: {fileID: 506055522, guid: cb9328c4268f9f3439a757a84f4304d1, type: 3}
+  disableButtonIcon: {fileID: -1482668597, guid: cb9328c4268f9f3439a757a84f4304d1, type: 3}
 --- !u!114 &1953753498
 MonoBehaviour:
   m_ObjectHideFlags: 0

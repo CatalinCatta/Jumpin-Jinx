@@ -72,6 +72,10 @@ public class RevenueHandler : MonoBehaviour
     {
         switch (deal)
         {
+            case 7:
+                UpdateGold(_playerManager.Gold > 10_000 ? -10_000 : -_playerManager.Gold);
+                break;
+
             default:
                 if (!TryToConsumeGems(10)) return;
                 UpdateGold(1_000);
@@ -83,9 +87,15 @@ public class RevenueHandler : MonoBehaviour
     {
         switch (deal)
         {
+            case 7:
+                UpdateGems(_playerManager.Gems > 1_000 ? -1_000 : -_playerManager.Gems);
+                break;
+            
             default:
                 UpdateGems(1_000);
                 break;
         }
     }
+    
+    
 }

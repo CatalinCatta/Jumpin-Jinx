@@ -5,8 +5,8 @@
 /// </summary>
 public class PlayerManager : IndestructibleManager<PlayerManager>
 {
-    public Enhancement[] Upgrades, Buffs;
-    public int Gold, Gems;
+    [NonSerialized] public Enhancement[] Upgrades, Buffs;
+    [NonSerialized] public int Gold, Gems;
 
     protected override void Awake()
     {
