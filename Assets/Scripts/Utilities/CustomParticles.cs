@@ -10,7 +10,7 @@ public class CustomParticles : MonoBehaviour
     [SerializeField] public bool uiElement = true, scaleByLength = true, stop, spawnWithCombinationOfSelectedColor = true;
     [SerializeField] public int quantity;
     [SerializeField] public float particleZPosition, particleMaxSideMovementPerFrame;
-    [SerializeField] public Vector2 minAndMaxParticleSizes, spawnSize, fallSize, minAndMaxSpeed, colorChangeMinAndMaxSpeed;
+    [SerializeField] public Vector2 minAndMaxParticleSizes, spawnSize, fallSize, minAndMaxSpeed;
     [SerializeField] public Vector3 maxRotationAngleSpawn, particleMaxRotationPerFrame;
     [Range(0f, 100f)] [SerializeField] public float fadeParticleOnLastPercent;
     [SerializeField] public List<Color> colors;
@@ -26,15 +26,33 @@ public class CustomParticles : MonoBehaviour
         _position = _transform.position;
         _random = new System.Random();
         _particles = new GameObject[quantity];
-        for (var i = 0; i < quantity; i++) CreateParticle(i, true);
+        if (stop) return;
+        for (var i = 0; i < quantity; i++) CreateParticle(i, true, false);
     }
 
-    private void CreateParticle(int position, bool start)
+    private void LateUpdate()
+    {
+        for (var i = 0; i < quantity; i++)
+            if (!stop && _particles[i] == null)
+                CreateParticle(i, false, false);
+    }
+
+    public void ReleaseParticles()
+    {
+        for (var i = 0; i < quantity; i++) CreateParticle(i, false, true);
+    }
+    
+    
+    private void CreateParticle(int position, bool start, bool temporaryParticle)
     {
         var newScale =
             (float)(_random.NextDouble() * (minAndMaxParticleSizes.y - minAndMaxParticleSizes.x) +
                     minAndMaxParticleSizes.x) / (scaleByLength ? particleImage.rect.size.x : particleImage.rect.size.y);
-        var particleTransform = (_particles[position] = new GameObject("Particle")).transform;
+
+        var particleObject = temporaryParticle
+            ? _particles[position] = new GameObject("Particle")
+            : new GameObject("Particle");
+        var particleTransform = particleObject.transform;
         particleTransform.parent = _transform;
         particleTransform.localScale = new Vector3(newScale, newScale, 1);
         particleTransform.localPosition = new Vector3((float)(_random.NextDouble() * spawnSize.x / 2),
@@ -45,22 +63,22 @@ public class CustomParticles : MonoBehaviour
 
         if (uiElement)
         {
-            var image = _particles[position].AddComponent<Image>();
+            var image = particleObject.AddComponent<Image>();
             image.sprite = particleImage;
             image.raycastTarget = false;
             if (colors.Count > 0) image.color = GetParticleColor();
         }
         else
         {
-            var spriteRenderer = _particles[position].AddComponent<SpriteRenderer>();
+            var spriteRenderer = particleObject.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = particleImage;
             if (colors.Count > 0) spriteRenderer.color = GetParticleColor();
         }
-        
-        var component = _particles[position].AddComponent<IndividualParticle>();
+
+        var component = particleObject.AddComponent<IndividualParticle>();
         component.speed = (float)(_random.NextDouble() * (minAndMaxSpeed.y - minAndMaxSpeed.x) + minAndMaxSpeed.x);
         component.minAndMaxXPosition = new Vector2(-1, 1) * fallSize.x / 2;
-        component.height = fallSize.y - (_position.y - _particles[position].transform.position.y);
+        component.height = fallSize.y - (_position.y - particleObject.transform.position.y);
         component.fadePercent = fadeParticleOnLastPercent;
         component.z = particleZPosition;
         component.sideMaxMovementPerFrame = particleMaxSideMovementPerFrame;
@@ -81,19 +99,6 @@ public class CustomParticles : MonoBehaviour
             Mathf.Min(firstColor.g, secondColor.g), Mathf.Max(firstColor.g, secondColor.g),
             Mathf.Min(firstColor.b, secondColor.b), Mathf.Max(firstColor.b, secondColor.b));
     }
-
-    private void LateUpdate()
-    {
-        if (stop) return;
-        
-        for (var i = 0; i < quantity; i++)
-        {
-            if (_particles[i].transform.localPosition.y > -fallSize.y) continue;
-
-            Destroy(_particles[i]);
-            CreateParticle(i, false);
-        }
-    }
 }
 
 public class IndividualParticle : MonoBehaviour
@@ -103,48 +108,48 @@ public class IndividualParticle : MonoBehaviour
     [SerializeField] public Vector3 maxRotationPerFrame;
     [Range(0f, 100f)] [SerializeField] public float fadePercent;
 
-    private Vector3 _startPosition;
     private Transform _transform;
     private System.Random _random;
     
     private void Start()
     {
         _transform = transform;
-        _startPosition = _transform.localPosition;
         _random = new System.Random();
     }
     
     private void Update()
     {
-        var currentX = _transform.localPosition.x;
-        var x = (float)(sideMaxMovementPerFrame * (_random.NextDouble() - 0.5) + currentX);
+        var position = _transform.localPosition;
+        var x = (float)(sideMaxMovementPerFrame * (_random.NextDouble() - 0.5) + position.x);
         x = x > minAndMaxXPosition.y ? minAndMaxXPosition.y : x < minAndMaxXPosition.x ? minAndMaxXPosition.x : x;
         var currentRotation = _transform.localRotation;
-        
+
         _transform.localRotation = Quaternion.Lerp(currentRotation,
             Quaternion.Euler((float)(maxRotationPerFrame.x * (_random.NextDouble() - 0.5) + currentRotation.x),
                 (float)(maxRotationPerFrame.y * (_random.NextDouble() - 0.5) + currentRotation.y),
                 (float)(maxRotationPerFrame.z * (_random.NextDouble() - 0.5) + currentRotation.z)),
             speed * Time.deltaTime);
-        _transform.localPosition = Vector3.Lerp(_transform.localPosition, new Vector3(x, _startPosition.y - height, z),
-            speed * Time.deltaTime);
+        position = _transform.localPosition = new Vector3(x, position.y - speed * Time.deltaTime, z);
 
-        if (_transform.localPosition.y > -height + height * fadePercent / 100) return;
-
+        var target = -height + height * fadePercent / 100;
+        if (position.y < -height)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        if (position.y > target) return;
+        
         if (TryGetComponent<Image>(out var image))
         {
             var oldColor = image.color;
-            image.color = new Color(oldColor.r, oldColor.g, oldColor.b,
-                1 - Mathf.InverseLerp(_startPosition.y - height * fadePercent / 100, _startPosition.y - height,
-                    _transform.localPosition.y));
+            image.color = new Color(oldColor.r, oldColor.g, oldColor.b, Mathf.InverseLerp(-height, target, position.y));
         }
         else
         {
             var spriteRenderer = GetComponent<SpriteRenderer>();
             var oldColor = spriteRenderer.color;
             spriteRenderer.color = new Color(oldColor.r, oldColor.g, oldColor.b,
-                1 - Mathf.InverseLerp(_startPosition.y - height * fadePercent / 100, _startPosition.y - height,
-                    _transform.localPosition.y));
+                Mathf.InverseLerp(-height, target, position.y));
         }
     }
 }
