@@ -43,8 +43,6 @@ public class PlayerStatus : MonoBehaviour
     {
         if (display == null) display = GameObject.FindWithTag("Status");
 
-        _timerDisplay = GameObject.Find("TimerCounter").transform.GetComponent<TextMeshProUGUI>();
-        
         _rigidbody = GetComponent<Rigidbody2D>();
         _playerControl = GetComponent<PlayerControl>();
         _playerAudioControl = GetComponent<PlayerAudioControl>();
@@ -60,6 +58,8 @@ public class PlayerStatus : MonoBehaviour
         _hp = _endlessRun ? (_playerManager.Upgrades[(int)UpgradeType.MaxHealth].Quantity + 1) * 5 : 20;
         _speedBuffs = _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity;
         _jumpBuffs = _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity;
+
+        if (!_endlessRun) _timerDisplay = GameObject.Find("TimerCounter").transform.GetComponent<TextMeshProUGUI>();
 
         ShowLife();
 

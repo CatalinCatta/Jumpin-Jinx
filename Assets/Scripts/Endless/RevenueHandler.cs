@@ -35,7 +35,7 @@ public class RevenueHandler : MonoBehaviour
     /// <returns>
     ///   <c>true</c> if the player has enough gold and the gold is successfully consumed; otherwise, <c>false</c>.
     /// </returns>
-    public bool CanConsumeGold(int amount)
+    public bool TryToConsumeGold(int amount)
     {
         if (_playerManager.Gold < amount) return false;
         UpdateGold(-amount);
@@ -55,7 +55,7 @@ public class RevenueHandler : MonoBehaviour
     /// <returns>
     ///   <c>true</c> if the player has enough gems and the gems is successfully consumed; otherwise, <c>false</c>.
     /// </returns>
-    public bool CanConsumeGems(int amount)
+    public bool TryToConsumeGems(int amount)
     {
         if (_playerManager.Gems < amount) return false;
         UpdateGems(-amount);
@@ -73,9 +73,8 @@ public class RevenueHandler : MonoBehaviour
         switch (deal)
         {
             default:
-                if (_playerManager.Gems < 10) return;
+                if (!TryToConsumeGems(10)) return;
                 UpdateGold(1_000);
-                UpdateGems(-10);
                 break;
         }
     }

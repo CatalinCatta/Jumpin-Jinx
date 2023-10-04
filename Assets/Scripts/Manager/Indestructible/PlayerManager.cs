@@ -1,13 +1,12 @@
 ﻿using System;
-using UnityEngine;
 
 /// <summary>
 /// Manages player-related data and upgrades.
 /// </summary>
 public class PlayerManager : IndestructibleManager<PlayerManager>
 {
-    [NonSerialized] public Enhancement[] Upgrades, Buffs;
-    [NonSerialized] public int Gold, Gems;
+    public Enhancement[] Upgrades, Buffs;
+    public int Gold, Gems;
 
     protected override void Awake()
     {

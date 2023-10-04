@@ -27,31 +27,31 @@ public class CustomParticles : MonoBehaviour
         _random = new System.Random();
         _particles = new GameObject[quantity];
         if (stop) return;
-        for (var i = 0; i < quantity; i++) CreateParticle(i, true, false);
+        for (var i = 0; i < quantity; i++) CreateParticle(i, true);
     }
 
     private void LateUpdate()
     {
         for (var i = 0; i < quantity; i++)
             if (!stop && _particles[i] == null)
-                CreateParticle(i, false, false);
+                CreateParticle(i, false);
     }
 
     public void ReleaseParticles()
     {
-        for (var i = 0; i < quantity; i++) CreateParticle(i, false, true);
+        for (var i = 0; i < quantity; i++) CreateParticle(-1, false);
     }
     
     
-    private void CreateParticle(int position, bool start, bool temporaryParticle)
+    private void CreateParticle(int position, bool start)
     {
         var newScale =
             (float)(_random.NextDouble() * (minAndMaxParticleSizes.y - minAndMaxParticleSizes.x) +
                     minAndMaxParticleSizes.x) / (scaleByLength ? particleImage.rect.size.x : particleImage.rect.size.y);
 
-        var particleObject = temporaryParticle
-            ? _particles[position] = new GameObject("Particle")
-            : new GameObject("Particle");
+        var particleObject = position == -1
+            ? new GameObject("Particle")
+            : _particles[position] = new GameObject("Particle");
         var particleTransform = particleObject.transform;
         particleTransform.parent = _transform;
         particleTransform.localScale = new Vector3(newScale, newScale, 1);
