@@ -12,9 +12,9 @@ using UnityEngine.UI;
 /// </summary>
 public class SettingsMenu : MonoBehaviour
 {
-    private Transform _localTransform;
-    private SettingsManager _settingsManager;
-
+    [SerializeField] private Transform sounds, controls, display; 
+    [SerializeField] private SettingsManager settingsManager;
+    
     #region Current Pressed Key
     private bool 
         _isCheckingForJump,
@@ -55,14 +55,10 @@ public class SettingsMenu : MonoBehaviour
 
     private void Awake()
     {
-        _localTransform = transform;
-        
-        var sounds = _localTransform.GetChild(1);
         _generalSoundTransform = sounds.GetChild(0); 
         _musicTransform = sounds.GetChild(1); 
         _sfxTransform = sounds.GetChild(2);
 
-        var keys = _localTransform.GetChild(2);
         _jumpKeyText = GetTextComponentForKey(0);
         _moveLeftKeyText = GetTextComponentForKey(1);
         _moveRightKeyText = GetTextComponentForKey(2);
@@ -71,25 +67,34 @@ public class SettingsMenu : MonoBehaviour
         _jumpBuffKeyText = GetTextComponentForKey(5);
         _pauseKeyText = GetTextComponentForKey(6);
         
-        var display = _localTransform.GetChild(3);
         _resolution = GetDisplayChild(0).GetComponent<TMP_Dropdown>();
         _fullScreenTransform = GetDisplayChild(1);
         _vSyncTransform = GetDisplayChild(2);
         _language = GetDisplayChild(3).GetComponent<TMP_Dropdown>();
 
-        _settingsManager = SettingsManager.Instance;
-
         TextMeshProUGUI GetTextComponentForKey(int keyId) =>
-            keys.GetChild(keyId).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
-        
-        Transform GetDisplayChild(int childId) =>
-            display.GetChild(childId).GetChild(1);
+            controls.GetChild(keyId).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        Transform GetDisplayChild(int childId) => display.GetChild(childId).GetChild(1);
     }
 
     private void Start()
-    {        
+    {
         var resolution = Screen.currentResolution;
-        Screen.SetResolution(resolution.width, resolution.height, _settingsManager.Fullscreen);
+        Screen.SetResolution(resolution.width, resolution.height, settingsManager.Fullscreen);
+
+        switch (settingsManager.CurrentCategoryTab)
+        {
+            case SettingsFrames.Sounds:
+                ShowSounds();
+                break;
+            case SettingsFrames.Controls:
+                ShowControls();
+                break;
+            case SettingsFrames.Display:
+                ShowDisplay();
+                break;
+        }
     }
 
     private void Update()
@@ -106,7 +111,7 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForJump)
             {
                 SetUpKeyCodeText(_jumpKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.JumpKeyCode = keyCode;
+                settingsManager.JumpKeyCode = keyCode;
                 _isCheckingForJump = false;
                 return;
             }
@@ -114,7 +119,7 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForMoveLeft)
             {
                 SetUpKeyCodeText(_moveLeftKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.MoveLeftKeyCode = keyCode;
+                settingsManager.MoveLeftKeyCode = keyCode;
                 _isCheckingForMoveLeft = false;
                 return;
             }
@@ -122,7 +127,7 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForMoveRight)
             {
                 SetUpKeyCodeText(_moveRightKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.MoveRightKeyCode = keyCode;
+                settingsManager.MoveRightKeyCode = keyCode;
                 _isCheckingForMoveRight = false;
                 return;
             }
@@ -130,7 +135,7 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForFire)
             {
                 SetUpKeyCodeText(_fireKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.FireKeyCode = keyCode;
+                settingsManager.FireKeyCode = keyCode;
                 _isCheckingForFire = false;
                 return;
             }
@@ -138,7 +143,7 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForSpeedBuff)
             {
                 SetUpKeyCodeText(_speedBuffKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.SpeedBuffKeyCode = keyCode;
+                settingsManager.SpeedBuffKeyCode = keyCode;
                 _isCheckingForSpeedBuff = false;
                 return;
             }
@@ -146,7 +151,7 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForJumpBuff)
             {
                 SetUpKeyCodeText(_jumpBuffKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.JumpBuffKeyCode = keyCode;
+                settingsManager.JumpBuffKeyCode = keyCode;
                 _isCheckingForJumpBuff = false;
                 return;
             }
@@ -154,35 +159,12 @@ public class SettingsMenu : MonoBehaviour
             if (_isCheckingForPause)
             {
                 SetUpKeyCodeText(_pauseKeyText, KeyCodeInTextFormat(keyCode));
-                _settingsManager.PauseKeyCode = keyCode;
+                settingsManager.PauseKeyCode = keyCode;
                 _isCheckingForPause = false;
                 return;
             }
         }
     }
-
-    private void OnEnable() // TODO: Remove coroutines when create animation in unity.
-    {
-        StartCoroutine(MoveObject(SettingsFrames.Categories, true, false));
-
-        Debug.Log(_settingsManager.CurrentCategoryTab);
-        switch (_settingsManager.CurrentCategoryTab)
-        {
-            case SettingsFrames.Sounds:
-                ShowSounds();
-                break;
-            case SettingsFrames.Controls:
-                ShowControls();
-                break;
-            case SettingsFrames.Display:
-                ShowDisplay();
-                break;
-        }
-
-        StartCoroutine(MoveObject(_settingsManager.CurrentCategoryTab, true, false));
-    }
-
-    private void OnDisable() => DeactivateAllChecking();
     
     private static void SetUpKeyCodeText(TMP_Text keyCodeText, string text) => keyCodeText.text = text;
 
@@ -192,14 +174,6 @@ public class SettingsMenu : MonoBehaviour
     private static void SetUpSoundText(Transform soundTransform, float volume) =>
         soundTransform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(volume * 100) + "%";
 
-    /// <summary>
-    /// Close settings widow and reopen menu. 
-    /// </summary>
-    public void HideSettings()
-    {
-        StartCoroutine(MoveObject(SettingsFrames.Categories, false, false));
-        StartCoroutine(MoveObject(_settingsManager.CurrentCategoryTab, false, false));
-    }
   
     /// <summary>
     /// Checks if a key code is already in use by another setting.
@@ -210,13 +184,13 @@ public class SettingsMenu : MonoBehaviour
     {
         var allKeyCodes = new List<KeyCode>
         {
-            _settingsManager.JumpKeyCode,
-            _settingsManager.MoveLeftKeyCode,
-            _settingsManager.MoveRightKeyCode,
-            _settingsManager.FireKeyCode,
-            _settingsManager.SpeedBuffKeyCode,
-            _settingsManager.JumpBuffKeyCode,
-            _settingsManager.PauseKeyCode
+            settingsManager.JumpKeyCode,
+            settingsManager.MoveLeftKeyCode,
+            settingsManager.MoveRightKeyCode,
+            settingsManager.FireKeyCode,
+            settingsManager.SpeedBuffKeyCode,
+            settingsManager.JumpBuffKeyCode,
+            settingsManager.PauseKeyCode
         };
 
         if (_isCheckingForJump)
@@ -236,75 +210,6 @@ public class SettingsMenu : MonoBehaviour
 
         return allKeyCodes.Contains(keyCode);
     }
-
-    #region Animations
-    private IEnumerator MoveObject(SettingsFrames settingsFrames, bool isAppearing, bool verticalRotation) // TODO: Remove this and create proper animation.
-    {
-        var currentTime = 0f;
-        var objectToMove = _localTransform.GetChild((int)settingsFrames).GetComponent<RectTransform>();
-
-        objectToMove.gameObject.SetActive(true);
-        while (currentTime < 0.5f)
-        {
-            currentTime += Time.deltaTime;
-
-            if (settingsFrames == SettingsFrames.Categories)
-                objectToMove.anchoredPosition =
-                    new Vector2(Mathf.Lerp(isAppearing ? -600f : 0f, isAppearing ? 0f : -600f, currentTime / 0.5f),
-                        objectToMove.anchoredPosition.y);
-            else
-            {
-                if (verticalRotation)
-                    objectToMove.rotation =
-                        Quaternion.Euler(Mathf.Lerp(isAppearing ? 90f : 0f, isAppearing ? 0f : 90f, currentTime / 0.5f),
-                            0f, 0f);
-                else
-                {
-                    objectToMove.rotation =
-                        Quaternion.Euler(0f, 0f,
-                            Mathf.Lerp(isAppearing ? -90f : 0f, isAppearing ? 0f : -90f, currentTime / 0.5f));
-                    objectToMove.anchoredPosition =
-                        new Vector2(Mathf.Lerp(isAppearing ? 600f : 0f, isAppearing ? 0f : 600f, currentTime / 0.5f),
-                            objectToMove.anchoredPosition.y);
-                }
-            }
-
-            yield return null;
-        }
-
-        objectToMove.anchoredPosition = new Vector2(0f, objectToMove.anchoredPosition.y);
-        objectToMove.rotation = Quaternion.Euler(0f, 0f, 0f);
-
-        if (settingsFrames == SettingsFrames.Categories && !isAppearing)
-            gameObject.SetActive(false);
-    }
-
-    private IEnumerator ChangeCategoryAnimation(SettingsFrames settingsFrames)  // TODO: Remove this and create proper animation.
-    {
-        StartCoroutine(MoveObject(_settingsManager.CurrentCategoryTab, false, true));
-
-        yield return new WaitForSeconds(0.5f);
-
-        _localTransform.GetChild((int)_settingsManager.CurrentCategoryTab).gameObject.SetActive(false);
-
-        _localTransform.GetChild((int)settingsFrames).gameObject.SetActive(true);
-
-        _settingsManager.CurrentCategoryTab = settingsFrames;
-
-        StartCoroutine(MoveObject(settingsFrames, true, true));
-    }
-    #endregion
-
-    /// <summary>
-    /// Changes the currently displayed settings category.
-    /// </summary>
-    /// <param name="settingsFrames">New Category id to open it.</param>
-    public void ChangeCategory(int settingsFrames)
-    {
-        if (settingsFrames == (int)SettingsFrames.Controls) DeactivateAllChecking();
-
-        StartCoroutine(ChangeCategoryAnimation((SettingsFrames)settingsFrames));
-    }
     
     #region Show Category
     
@@ -313,9 +218,13 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void ShowSounds()
     {
-        SetUpSound(_generalSoundTransform, _settingsManager.GeneralVolume);
-        SetUpSound(_musicTransform, _settingsManager.MusicVolume);
-        SetUpSound(_sfxTransform, _settingsManager.SoundEffectVolume);
+        sounds.gameObject.SetActive(true);
+        controls.gameObject.SetActive(false);
+        display.gameObject.SetActive(false);
+
+        SetUpSound(_generalSoundTransform, settingsManager.GeneralVolume);
+        SetUpSound(_musicTransform, settingsManager.MusicVolume);
+        SetUpSound(_sfxTransform, settingsManager.SoundEffectVolume);
         
         void SetUpSound(Transform soundTransform, float volume)
         {
@@ -329,13 +238,17 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void ShowControls()
     {
-        SetUpKeyCodeText(_jumpKeyText, KeyCodeInTextFormat(_settingsManager.JumpKeyCode));
-        SetUpKeyCodeText(_moveLeftKeyText, KeyCodeInTextFormat(_settingsManager.MoveLeftKeyCode));
-        SetUpKeyCodeText(_moveRightKeyText, KeyCodeInTextFormat(_settingsManager.MoveRightKeyCode));
-        SetUpKeyCodeText(_fireKeyText, KeyCodeInTextFormat(_settingsManager.FireKeyCode));
-        SetUpKeyCodeText(_speedBuffKeyText, KeyCodeInTextFormat(_settingsManager.SpeedBuffKeyCode));
-        SetUpKeyCodeText(_jumpBuffKeyText, KeyCodeInTextFormat(_settingsManager.JumpBuffKeyCode));
-        SetUpKeyCodeText(_pauseKeyText, KeyCodeInTextFormat(_settingsManager.PauseKeyCode));
+        controls.gameObject.SetActive(true);
+        sounds.gameObject.SetActive(false);
+        display.gameObject.SetActive(false);
+     
+        SetUpKeyCodeText(_jumpKeyText, KeyCodeInTextFormat(settingsManager.JumpKeyCode));
+        SetUpKeyCodeText(_moveLeftKeyText, KeyCodeInTextFormat(settingsManager.MoveLeftKeyCode));
+        SetUpKeyCodeText(_moveRightKeyText, KeyCodeInTextFormat(settingsManager.MoveRightKeyCode));
+        SetUpKeyCodeText(_fireKeyText, KeyCodeInTextFormat(settingsManager.FireKeyCode));
+        SetUpKeyCodeText(_speedBuffKeyText, KeyCodeInTextFormat(settingsManager.SpeedBuffKeyCode));
+        SetUpKeyCodeText(_jumpBuffKeyText, KeyCodeInTextFormat(settingsManager.JumpBuffKeyCode));
+        SetUpKeyCodeText(_pauseKeyText, KeyCodeInTextFormat(settingsManager.PauseKeyCode));
     }
 
     /// <summary>
@@ -343,13 +256,17 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void ShowDisplay()
     {
-        _resolution.value = _settingsManager.Resolution;
+        display.gameObject.SetActive(true);
+        controls.gameObject.SetActive(false);
+        sounds.gameObject.SetActive(false);
 
-        _fullScreenTransform.GetChild(0).gameObject.SetActive(_settingsManager.Fullscreen);
-        _fullScreenTransform.GetChild(1).gameObject.SetActive(!_settingsManager.Fullscreen);
+        _resolution.value = settingsManager.Resolution;
 
-        _vSyncTransform.GetChild(0).gameObject.SetActive(_settingsManager.Vsync);
-        _vSyncTransform.GetChild(1).gameObject.SetActive(!_settingsManager.Vsync);
+        _fullScreenTransform.GetChild(0).gameObject.SetActive(settingsManager.Fullscreen);
+        _fullScreenTransform.GetChild(1).gameObject.SetActive(!settingsManager.Fullscreen);
+
+        _vSyncTransform.GetChild(0).gameObject.SetActive(settingsManager.Vsync);
+        _vSyncTransform.GetChild(1).gameObject.SetActive(!settingsManager.Vsync);
 
         ShowLanguageOptions();
     }
@@ -388,7 +305,7 @@ public class SettingsMenu : MonoBehaviour
     {
         if (soundTransform == null) return;
         var value = soundTransform.GetChild(1).GetComponent<Slider>().value;
-        _settingsManager.SoundEffectVolume = value;
+        settingsManager.SoundEffectVolume = value;
         SetUpSoundText(soundTransform, value);
         SettingsManager.SetUpSound(FindObjectOfType<Camera>().transform);
     }
@@ -472,11 +389,12 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void SaveResolution()
     {
+
         var resolutionBeforeTransformation = _resolution.value;
         var resolution = Utility.ConvertResolutionIndexToTuple(resolutionBeforeTransformation);
 
-        _settingsManager.Resolution = resolutionBeforeTransformation;
-        Screen.SetResolution(resolution.Item1, resolution.Item2, _settingsManager.Fullscreen);
+        settingsManager.Resolution = resolutionBeforeTransformation;
+        Screen.SetResolution(resolution.Item1, resolution.Item2, settingsManager.Fullscreen);
     }
 
     /// <summary>
@@ -485,9 +403,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveFullscreen()
     {
         var isFullScreen = _fullScreenTransform.GetChild(0).gameObject.activeSelf;
-        var resolution = Utility.ConvertResolutionIndexToTuple(_settingsManager.Resolution);
+        var resolution = Utility.ConvertResolutionIndexToTuple(settingsManager.Resolution);
 
-        _settingsManager.Fullscreen = isFullScreen;
+        settingsManager.Fullscreen = isFullScreen;
         Screen.SetResolution(resolution.Item1, resolution.Item2, isFullScreen);
     }
 
@@ -499,7 +417,7 @@ public class SettingsMenu : MonoBehaviour
         var isVSyncEnabled = _vSyncTransform.GetChild(0).gameObject.activeSelf;
 
         QualitySettings.vSyncCount = isVSyncEnabled ? 1 : 0;
-        _settingsManager.Vsync = isVSyncEnabled;
+        settingsManager.Vsync = isVSyncEnabled;
     }
 
     /// <summary>
@@ -508,7 +426,7 @@ public class SettingsMenu : MonoBehaviour
     public void SaveLanguage()
     {
         var languageID = _language.value;
-        _settingsManager.Language =
+        settingsManager.Language =
             (Language)languageID;
         ShowLanguageOptions();
         StartCoroutine(SetLanguage(languageID));
@@ -520,7 +438,7 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     private void ShowLanguageOptions()
     {
-        var language = _settingsManager.Language;
+        var language = settingsManager.Language;
         _language.options[0].text = language == Language.English ? "English" : "Engleza";
         _language.options[1].text = language == Language.English ? "Romanian" : "Romana";
     }
