@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
@@ -12,7 +13,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SettingsMenu : MonoBehaviour
 {
-    [SerializeField] private Transform sounds, controls, display; 
+    [SerializeField] private Transform background, sounds, controls, display; 
     [SerializeField] private SettingsManager settingsManager;
     
     #region Current Pressed Key
@@ -34,14 +35,17 @@ public class SettingsMenu : MonoBehaviour
     #endregion
 
     #region KeyCodes
-    private TextMeshProUGUI
-        _jumpKeyText,
-        _moveLeftKeyText,
-        _moveRightKeyText,
-        _fireKeyText,
-        _speedBuffKeyText,
-        _jumpBuffKeyText,
-        _pauseKeyText;
+
+    private (Transform objTransform, TextMeshProUGUI tmp)
+        _jumpKey,
+        _moveLeftKey,
+        _moveRightKey,
+        _fireKey,
+        _speedBuffKey,
+        _jumpBuffKey,
+        _pauseKey;
+    private Transform _alertTransform;
+    
     #endregion
 
     #region Display
@@ -59,13 +63,14 @@ public class SettingsMenu : MonoBehaviour
         _musicTransform = sounds.GetChild(1); 
         _sfxTransform = sounds.GetChild(2);
 
-        _jumpKeyText = GetTextComponentForKey(0);
-        _moveLeftKeyText = GetTextComponentForKey(1);
-        _moveRightKeyText = GetTextComponentForKey(2);
-        _fireKeyText = GetTextComponentForKey(3);
-        _speedBuffKeyText = GetTextComponentForKey(4);
-        _jumpBuffKeyText = GetTextComponentForKey(5);
-        _pauseKeyText = GetTextComponentForKey(6);
+        _jumpKey = (controls.GetChild(0),GetTextComponentForKey(0));
+        _moveLeftKey = (controls.GetChild(1),GetTextComponentForKey(1));
+        _moveRightKey = (controls.GetChild(2),GetTextComponentForKey(2));
+        _fireKey = (controls.GetChild(3),GetTextComponentForKey(3));
+        _speedBuffKey = (controls.GetChild(4),GetTextComponentForKey(4));
+        _jumpBuffKey = (controls.GetChild(5),GetTextComponentForKey(5));
+        _pauseKey = (controls.GetChild(6),GetTextComponentForKey(6));
+        _alertTransform = controls.GetChild(7);
         
         _resolution = GetDisplayChild(0).GetComponent<TMP_Dropdown>();
         _fullScreenTransform = GetDisplayChild(1);
@@ -97,120 +102,11 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!_isCheckingForJump && !_isCheckingForMoveLeft && !_isCheckingForMoveRight && !_isCheckingForFire &&
-            !_isCheckingForSpeedBuff && !_isCheckingForJumpBuff && !_isCheckingForPause)
-            return;
-
-        foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
-        {
-            if (!Input.GetKeyDown(keyCode) || KeyAlreadyInUse(keyCode))
-                continue;
-
-            if (_isCheckingForJump)
-            {
-                SetUpKeyCodeText(_jumpKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.JumpKeyCode = keyCode;
-                _isCheckingForJump = false;
-                return;
-            }
-
-            if (_isCheckingForMoveLeft)
-            {
-                SetUpKeyCodeText(_moveLeftKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.MoveLeftKeyCode = keyCode;
-                _isCheckingForMoveLeft = false;
-                return;
-            }
-
-            if (_isCheckingForMoveRight)
-            {
-                SetUpKeyCodeText(_moveRightKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.MoveRightKeyCode = keyCode;
-                _isCheckingForMoveRight = false;
-                return;
-            }
-
-            if (_isCheckingForFire)
-            {
-                SetUpKeyCodeText(_fireKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.FireKeyCode = keyCode;
-                _isCheckingForFire = false;
-                return;
-            }
-
-            if (_isCheckingForSpeedBuff)
-            {
-                SetUpKeyCodeText(_speedBuffKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.SpeedBuffKeyCode = keyCode;
-                _isCheckingForSpeedBuff = false;
-                return;
-            }
-
-            if (_isCheckingForJumpBuff)
-            {
-                SetUpKeyCodeText(_jumpBuffKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.JumpBuffKeyCode = keyCode;
-                _isCheckingForJumpBuff = false;
-                return;
-            }
-
-            if (_isCheckingForPause)
-            {
-                SetUpKeyCodeText(_pauseKeyText, KeyCodeInTextFormat(keyCode));
-                settingsManager.PauseKeyCode = keyCode;
-                _isCheckingForPause = false;
-                return;
-            }
-        }
-    }
-    
-    private static void SetUpKeyCodeText(TMP_Text keyCodeText, string text) => keyCodeText.text = text;
-
-    private static string KeyCodeInTextFormat(KeyCode keyCode) =>
-        Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+    private void Update() => ChangeKeyValue();
     
     private static void SetUpSoundText(Transform soundTransform, float volume) =>
         soundTransform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.RoundToInt(volume * 100) + "%";
 
-  
-    /// <summary>
-    /// Checks if a key code is already in use by another setting.
-    /// </summary>
-    /// <param name="keyCode">KeyCode to check.</param>
-    /// <returns>Bool representing if key was already used.</returns>
-    private bool KeyAlreadyInUse(KeyCode keyCode)  // TODO: Create unity animation to show wrong decision.
-    {
-        var allKeyCodes = new List<KeyCode>
-        {
-            settingsManager.JumpKeyCode,
-            settingsManager.MoveLeftKeyCode,
-            settingsManager.MoveRightKeyCode,
-            settingsManager.FireKeyCode,
-            settingsManager.SpeedBuffKeyCode,
-            settingsManager.JumpBuffKeyCode,
-            settingsManager.PauseKeyCode
-        };
-
-        if (_isCheckingForJump)
-            allKeyCodes.RemoveAt(0);
-        if (_isCheckingForMoveLeft)
-            allKeyCodes.RemoveAt(1);
-        if (_isCheckingForMoveRight)
-            allKeyCodes.RemoveAt(2);
-        if (_isCheckingForFire)
-            allKeyCodes.RemoveAt(3);
-        if (_isCheckingForSpeedBuff)
-            allKeyCodes.RemoveAt(4);
-        if (_isCheckingForJumpBuff)
-            allKeyCodes.RemoveAt(5);
-        if (_isCheckingForPause)
-            allKeyCodes.RemoveAt(6);
-
-        return allKeyCodes.Contains(keyCode);
-    }
-    
     #region Show Category
     
     /// <summary>
@@ -218,6 +114,7 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void ShowSounds()
     {
+        DeactivateAllChecking();
         sounds.gameObject.SetActive(true);
         controls.gameObject.SetActive(false);
         display.gameObject.SetActive(false);
@@ -238,17 +135,11 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void ShowControls()
     {
+        DeactivateAllChecking();
         controls.gameObject.SetActive(true);
         sounds.gameObject.SetActive(false);
         display.gameObject.SetActive(false);
-     
-        SetUpKeyCodeText(_jumpKeyText, KeyCodeInTextFormat(settingsManager.JumpKeyCode));
-        SetUpKeyCodeText(_moveLeftKeyText, KeyCodeInTextFormat(settingsManager.MoveLeftKeyCode));
-        SetUpKeyCodeText(_moveRightKeyText, KeyCodeInTextFormat(settingsManager.MoveRightKeyCode));
-        SetUpKeyCodeText(_fireKeyText, KeyCodeInTextFormat(settingsManager.FireKeyCode));
-        SetUpKeyCodeText(_speedBuffKeyText, KeyCodeInTextFormat(settingsManager.SpeedBuffKeyCode));
-        SetUpKeyCodeText(_jumpBuffKeyText, KeyCodeInTextFormat(settingsManager.JumpBuffKeyCode));
-        SetUpKeyCodeText(_pauseKeyText, KeyCodeInTextFormat(settingsManager.PauseKeyCode));
+        SetUpControlsDisplayedValue();
     }
 
     /// <summary>
@@ -256,6 +147,7 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void ShowDisplay()
     {
+        DeactivateAllChecking();
         display.gameObject.SetActive(true);
         controls.gameObject.SetActive(false);
         sounds.gameObject.SetActive(false);
@@ -272,6 +164,117 @@ public class SettingsMenu : MonoBehaviour
     }
     #endregion
 
+    #region Controls Private Settings
+
+    private void ChangeKeyValue()
+    {
+        if (!_isCheckingForJump && !_isCheckingForMoveLeft && !_isCheckingForMoveRight && !_isCheckingForFire &&
+            !_isCheckingForSpeedBuff && !_isCheckingForJumpBuff && !_isCheckingForPause) return;
+
+        foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+        {
+            if (!Input.GetKeyDown(keyCode)) continue;
+            if (KeyAlreadyInUse(keyCode))
+            {
+                StartCoroutine(AlertKeyAlreadyInUse(
+                    keyCode == settingsManager.JumpKeyCode ? _jumpKey.objTransform :
+                    keyCode == settingsManager.MoveLeftKeyCode ? _moveLeftKey.objTransform :
+                    keyCode == settingsManager.MoveRightKeyCode ? _moveRightKey.objTransform :
+                    keyCode == settingsManager.FireKeyCode ? _fireKey.objTransform :
+                    keyCode == settingsManager.SpeedBuffKeyCode ? _speedBuffKey.objTransform :
+                    keyCode == settingsManager.JumpBuffKeyCode ? _jumpBuffKey.objTransform :
+                    keyCode == settingsManager.PauseKeyCode ? _pauseKey.objTransform :
+                    _alertTransform, keyCode == KeyCode.Escape ? "ESC" : ""));
+                return;
+            }
+            if (_isCheckingForJump)
+            {
+                SetUpKeyCodeText(_jumpKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.JumpKeyCode = keyCode;
+                _isCheckingForJump = false;
+                return;
+            }
+
+            if (_isCheckingForMoveLeft)
+            {
+                SetUpKeyCodeText(_moveLeftKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.MoveLeftKeyCode = keyCode;
+                _isCheckingForMoveLeft = false;
+                return;
+            }
+
+            if (_isCheckingForMoveRight)
+            {
+                SetUpKeyCodeText(_moveRightKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.MoveRightKeyCode = keyCode;
+                _isCheckingForMoveRight = false;
+                return;
+            }
+
+            if (_isCheckingForFire)
+            {
+                SetUpKeyCodeText(_fireKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.FireKeyCode = keyCode;
+                _isCheckingForFire = false;
+                return;
+            }
+
+            if (_isCheckingForSpeedBuff)
+            {
+                SetUpKeyCodeText(_speedBuffKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.SpeedBuffKeyCode = keyCode;
+                _isCheckingForSpeedBuff = false;
+                return;
+            }
+
+            if (_isCheckingForJumpBuff)
+            {
+                SetUpKeyCodeText(_jumpBuffKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.JumpBuffKeyCode = keyCode;
+                _isCheckingForJumpBuff = false;
+                return;
+            }
+
+            if (_isCheckingForPause)
+            {
+                SetUpKeyCodeText(_pauseKey.tmp, KeyCodeInTextFormat(keyCode));
+                settingsManager.PauseKeyCode = keyCode;
+                _isCheckingForPause = false;
+                return;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks if a key code is already in use by another setting.
+    /// </summary>
+    /// <param name="keyCode">KeyCode to check.</param>
+    /// <returns>Bool representing if key was already used.</returns>
+    private bool KeyAlreadyInUse(KeyCode keyCode)
+    {
+        var allKeyCodes = new List<KeyCode>
+        {
+            settingsManager.JumpKeyCode,
+            settingsManager.MoveLeftKeyCode,
+            settingsManager.MoveRightKeyCode,
+            settingsManager.FireKeyCode,
+            settingsManager.SpeedBuffKeyCode,
+            settingsManager.JumpBuffKeyCode,
+            settingsManager.PauseKeyCode,
+            KeyCode.Escape
+        };
+
+        if (_isCheckingForJump) allKeyCodes.Remove(settingsManager.JumpKeyCode);
+        else if (_isCheckingForMoveLeft) allKeyCodes.Remove(settingsManager.MoveLeftKeyCode);
+        else if (_isCheckingForMoveRight) allKeyCodes.Remove(settingsManager.MoveRightKeyCode);
+        else if (_isCheckingForFire) allKeyCodes.Remove(settingsManager.FireKeyCode);
+        else if (_isCheckingForSpeedBuff) allKeyCodes.Remove(settingsManager.SpeedBuffKeyCode);
+        else if (_isCheckingForJumpBuff) allKeyCodes.Remove(settingsManager.JumpBuffKeyCode);
+        else if (_isCheckingForPause) allKeyCodes.Remove(settingsManager.PauseKeyCode);
+
+        return allKeyCodes.Contains(keyCode);
+    }
+    
     private void DeactivateAllChecking()
     {
         _isCheckingForJump = false;
@@ -281,9 +284,70 @@ public class SettingsMenu : MonoBehaviour
         _isCheckingForSpeedBuff = false;
         _isCheckingForJumpBuff = false;
         _isCheckingForPause = false;
-
-        ShowControls();
     }
+
+    private void SetUpControlsDisplayedValue()
+    {
+        SetUpKeyCodeText(_jumpKey.tmp, KeyCodeInTextFormat(settingsManager.JumpKeyCode));
+        SetUpKeyCodeText(_moveLeftKey.tmp, KeyCodeInTextFormat(settingsManager.MoveLeftKeyCode));
+        SetUpKeyCodeText(_moveRightKey.tmp, KeyCodeInTextFormat(settingsManager.MoveRightKeyCode));
+        SetUpKeyCodeText(_fireKey.tmp, KeyCodeInTextFormat(settingsManager.FireKeyCode));
+        SetUpKeyCodeText(_speedBuffKey.tmp, KeyCodeInTextFormat(settingsManager.SpeedBuffKeyCode));
+        SetUpKeyCodeText(_jumpBuffKey.tmp, KeyCodeInTextFormat(settingsManager.JumpBuffKeyCode));
+        SetUpKeyCodeText(_pauseKey.tmp, KeyCodeInTextFormat(settingsManager.PauseKeyCode));
+    }
+    
+    public float colorTimeOnRed = 0.5f;
+    public float changeColorBackToNormal = 0.5f;
+
+
+    private IEnumerator AlertKeyAlreadyInUse(Component currentKeyUserFrame, [CanBeNull] string keyUsed = "")
+    {
+        Image currentKeyUserFrameImage = null;
+        var originalColor = new Color();
+
+
+        if (keyUsed != "")
+        {
+            _alertTransform.GetComponent<ParameterizedLocalizedString>().SetObject(new object[] { keyUsed });
+            currentKeyUserFrame.gameObject.SetActive(true);
+        }
+        else
+        {
+            currentKeyUserFrameImage = currentKeyUserFrame.GetComponent<Image>();
+            originalColor = currentKeyUserFrameImage.color;
+            currentKeyUserFrameImage.color = Color.red;
+        }
+
+        background.parent.GetComponent<Animator>().Play("ShakeSettings");
+        yield return new WaitForSeconds(colorTimeOnRed);
+        var startTime = Time.time;
+
+        while (Time.time - startTime < changeColorBackToNormal)
+        {
+            Debug.Log(currentKeyUserFrame);
+            Debug.Log(currentKeyUserFrame.GetComponent<TextMeshProUGUI>());
+            Debug.Log(keyUsed);
+            if (keyUsed != "")
+                currentKeyUserFrame.GetComponent<TextMeshProUGUI>().color = Color.Lerp(new Color(1, 0, 0, 0), Color.red,
+                    (Time.time - startTime) / changeColorBackToNormal);
+            else
+                currentKeyUserFrameImage!.color = Color.Lerp(Color.red, originalColor,
+                    (Time.time - startTime) / changeColorBackToNormal);
+
+            yield return null;
+        }
+
+        if (keyUsed != "") currentKeyUserFrame.gameObject.SetActive(false);
+        else currentKeyUserFrameImage!.color = originalColor;
+    }
+
+    private static void SetUpKeyCodeText(TMP_Text keyCodeText, string text) => keyCodeText.text = text;
+    
+    private static string KeyCodeInTextFormat(KeyCode keyCode) =>
+        Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
+
+    #endregion
 
     #region Save Sound
     /// <summary>
@@ -318,8 +382,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveJumpValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForJump = true;
-        SetUpKeyCodeText(_jumpKeyText, "");
+        SetUpKeyCodeText(_jumpKey.tmp, "");
     }
 
     /// <summary>
@@ -328,8 +393,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveMoveLeftValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForMoveLeft = true;
-        SetUpKeyCodeText(_moveLeftKeyText, "");
+        SetUpKeyCodeText(_moveLeftKey.tmp, "");
     }
 
     /// <summary>
@@ -338,8 +404,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveMoveRightValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForMoveRight = true;
-        SetUpKeyCodeText(_moveRightKeyText, "");
+        SetUpKeyCodeText(_moveRightKey.tmp, "");
     }
 
     /// <summary>
@@ -348,8 +415,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveFireValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForFire = true;
-        SetUpKeyCodeText(_fireKeyText, "");
+        SetUpKeyCodeText(_fireKey.tmp, "");
     }
 
     /// <summary>
@@ -358,8 +426,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveSpeedBuffValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForSpeedBuff = true;
-        SetUpKeyCodeText(_speedBuffKeyText, "");
+        SetUpKeyCodeText(_speedBuffKey.tmp, "");
     }
 
     /// <summary>
@@ -368,8 +437,9 @@ public class SettingsMenu : MonoBehaviour
     public void SaveJumpBuffValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForJumpBuff = true;
-        SetUpKeyCodeText(_jumpBuffKeyText, "");
+        SetUpKeyCodeText(_jumpBuffKey.tmp, "");
     }
 
     /// <summary>
@@ -378,8 +448,9 @@ public class SettingsMenu : MonoBehaviour
     public void SavePauseValue()
     {
         DeactivateAllChecking();
+        SetUpControlsDisplayedValue();
         _isCheckingForPause = true;
-        SetUpKeyCodeText(_pauseKeyText, "");
+        SetUpKeyCodeText(_pauseKey.tmp, "");
     }
     #endregion
 

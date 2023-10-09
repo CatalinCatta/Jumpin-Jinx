@@ -90,6 +90,10 @@ MonoBehaviour:
     m_Localized: Salveaza
     m_Metadata:
       m_Items: []
+  - m_Id: 23242782180376576
+    m_Localized: nu poti folosi {0}
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

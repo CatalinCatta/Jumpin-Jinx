@@ -98,7 +98,7 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         FireKeyCode = KeyCode.Space;
         SpeedBuffKeyCode = KeyCode.LeftAlt;
         JumpBuffKeyCode = KeyCode.LeftControl;
-        PauseKeyCode = KeyCode.Escape;
+        PauseKeyCode = KeyCode.P;
 
         Resolution = Utility.ConvertResolutionTupleToIndex(Screen.currentResolution);
         Fullscreen = true;

@@ -61,7 +61,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(_settingsManager.PauseKeyCode)) Pause();
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(_settingsManager.PauseKeyCode)) Pause();
 
         if (_playerStatus.FreezeFromDamage || Time.timeScale == 0f) return;
 
