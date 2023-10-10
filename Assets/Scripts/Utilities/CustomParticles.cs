@@ -48,7 +48,6 @@ public class CustomParticles : MonoBehaviour
         var newScale =
             (float)(_random.NextDouble() * (minAndMaxParticleSizes.y - minAndMaxParticleSizes.x) +
                     minAndMaxParticleSizes.x) / (scaleByLength ? particleImage.rect.size.x : particleImage.rect.size.y);
-
         var particleObject = position == -1
             ? new GameObject("Particle")
             : _particles[position] = new GameObject("Particle");
@@ -57,10 +56,10 @@ public class CustomParticles : MonoBehaviour
         particleTransform.localScale = new Vector3(newScale, newScale, 1);
         particleTransform.localPosition = new Vector3((float)(_random.NextDouble() * spawnSize.x / 2),
             (float)(-_random.NextDouble() * (start ? fallSize.y : spawnSize.y)), particleZPosition);
-        particleTransform.rotation = Quaternion.Euler((float)(_random.NextDouble() * maxRotationAngleSpawn.x),
-            (float)(_random.NextDouble() * maxRotationAngleSpawn.y),
-            (float)(_random.NextDouble() * maxRotationAngleSpawn.z));
-
+        particleTransform.rotation = Quaternion.Euler(Random.Range(-maxRotationAngleSpawn.x, maxRotationAngleSpawn.x),
+            Random.Range(-maxRotationAngleSpawn.y, maxRotationAngleSpawn.y),
+            Random.Range(-maxRotationAngleSpawn.z, maxRotationAngleSpawn.z));
+        
         if (uiElement)
         {
             var image = particleObject.AddComponent<Image>();
@@ -122,13 +121,13 @@ public class IndividualParticle : MonoBehaviour
         var position = _transform.localPosition;
         var x = (float)(sideMaxMovementPerFrame * (_random.NextDouble() - 0.5) + position.x);
         x = x > minAndMaxXPosition.y ? minAndMaxXPosition.y : x < minAndMaxXPosition.x ? minAndMaxXPosition.x : x;
-        var currentRotation = _transform.localRotation;
-
-        _transform.localRotation = Quaternion.Lerp(currentRotation,
-            Quaternion.Euler((float)(maxRotationPerFrame.x * (_random.NextDouble() - 0.5) + currentRotation.x),
-                (float)(maxRotationPerFrame.y * (_random.NextDouble() - 0.5) + currentRotation.y),
-                (float)(maxRotationPerFrame.z * (_random.NextDouble() - 0.5) + currentRotation.z)),
-            speed * Time.deltaTime);
+        var currentRotation = _transform.rotation.eulerAngles;
+       
+        _transform.rotation = Quaternion.Lerp(Quaternion.Euler(currentRotation),
+            Quaternion.Euler(Random.Range(-maxRotationPerFrame.x, maxRotationPerFrame.x) + currentRotation.x,
+                Random.Range(-maxRotationPerFrame.y, maxRotationPerFrame.y) + currentRotation.y,
+                Random.Range(-maxRotationPerFrame.z, maxRotationPerFrame.z) + currentRotation.z),
+            Mathf.Clamp01(speed * Time.deltaTime));
         position = _transform.localPosition = new Vector3(x, position.y - speed * Time.deltaTime, z);
 
         var target = -height + height * fadePercent / 100;
