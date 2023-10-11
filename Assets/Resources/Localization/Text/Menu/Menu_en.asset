@@ -94,6 +94,16 @@ MonoBehaviour:
     m_Localized: you can't use {0}
     m_Metadata:
       m_Items: []
+  - m_Id: 24045481063108608
+    m_Localized: '< Lvl >
+
+      < Designer >'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24067106538016768
+    m_Localized: < +Build+ >
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
