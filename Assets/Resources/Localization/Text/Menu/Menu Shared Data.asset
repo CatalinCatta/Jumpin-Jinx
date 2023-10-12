@@ -99,6 +99,10 @@ MonoBehaviour:
     m_Key: Build
     m_Metadata:
       m_Items: []
+  - m_Id: 24374238890184704
+    m_Key: Menu Switch
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -5,7 +5,13 @@ using UnityEngine;
 /// </summary>
 public class Menu : MonoBehaviour
 {
-    private void Start() => Time.timeScale = 1f;
+    private Animator _canvasAnimator;
+
+    private void Start()
+    {
+        _canvasAnimator = GetComponent<Animator>();
+        Time.timeScale = 1f;
+    }
 
     /// <summary>
     /// Start endless game mode.
@@ -32,4 +38,28 @@ public class Menu : MonoBehaviour
     /// <param name="lvl">Level to run.</param>
     /// <remarks>Levels starts form 1.</remarks>
     public void StartLevel(int lvl) => LvlManager.Instance.StartScene(lvl);
+
+    public void OpenSettings()
+    {
+        _canvasAnimator.Play("CloseMenu");
+        _canvasAnimator.SetTrigger("Settings");
+    }
+    
+    public void OpenEndless()
+    {
+        _canvasAnimator.Play("CloseMenu");
+        _canvasAnimator.SetTrigger("Endless");
+    }
+    
+    public void OpenCustom()
+    {
+        _canvasAnimator.Play("CloseMenu");
+        _canvasAnimator.SetTrigger("Custom");
+    }
+    
+    public void OpenCampaign()
+    {
+        _canvasAnimator.Play("CloseMenu");
+        _canvasAnimator.SetTrigger("Campaign");
+    }
 }
