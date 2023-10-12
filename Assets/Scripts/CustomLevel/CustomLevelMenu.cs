@@ -1,32 +1,27 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manages the custom level menu and its interaction.
 /// </summary>
 public class CustomLevelMenu : MonoBehaviour
 {
-    [SerializeField] private Transform contentPlace, menu, revenue, saveModel;
-
     private List<string> _savesNames;
 
+    [SerializeField] private Transform pagesParent;
+    [SerializeField] private GameObject pagePrefab, savePrefab, createPrefab;
+    
     private void Start()
     {
         var path = Path.GetFullPath(@"CustomLevels");
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-            return;
-        }
-
-        _savesNames = Directory.GetFiles(path, "*.json").ToList();
-        foreach (var saveName in _savesNames)
-            Instantiate(saveModel, contentPlace).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                Path.GetFileNameWithoutExtension(saveName);
+        
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        else PrepareBook(path);
     }
     
     public void StartMapBuilder()
@@ -37,153 +32,59 @@ public class CustomLevelMenu : MonoBehaviour
         lvlManager.StartScene(-1);
     }
 
-    public void Enable() => StartCoroutine(ActivateMenu());
-
-    public void Disable() => StartCoroutine(CloseMenu());
-
-    public void EnableLocalLevels() => StartCoroutine(DisappearMenu());
-
-    public void DisableLocalLevels() => StartCoroutine(EnableMenu());
-
-    private IEnumerator ActivateMenu()
+    private void PrepareBook(string path)
     {
-        var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-        var menuChildNr = menu.childCount;
+        _savesNames = Directory.GetFiles(path, "*.json").ToList();
 
-        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 2), false, (int)MenuDirection.Left));
-        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 1), false, (int)MenuDirection.Right));
-        yield return new WaitForSeconds(0.2f);
-
-        for (var i = 1; i < menuChildNr - 2; i++)
+        Transform lastPage = null;
+        var maxPage = (int)Math.Ceiling((double)(_savesNames.Count + 1) / 3);
+        
+        for (var i = 0; i < maxPage; i++)
         {
-            StartCoroutine(AnimateOneMenu(menu.GetChild(i), false, direction));
-            yield return new WaitForSeconds(0.2f);
-            direction *= -1;
+            lastPage = SetUpPage(i, maxPage);
+            for (var j = 3 * i; j < _savesNames.Count && j < 3 * (i + 1); j++)
+                SetUpSaves(lastPage.GetChild(j - 3 * i), _savesNames[j]);
         }
 
-        var currentTransform = transform;
-        var childCount = currentTransform.childCount - 1;
-
-        for (var i = 1; i < childCount; i++)
-        {
-            StartCoroutine(AnimateOneMenu(currentTransform.GetChild(i), true, direction));
-            yield return new WaitForSeconds(0.2f);
-            direction *= -1;
-        }
+        pagesParent.GetChild(1).gameObject.SetActive(true);
+        Instantiate(createPrefab, lastPage!.GetChild(_savesNames.Count % 3)).GetComponent<Button>().onClick
+            .AddListener(StartMapBuilder);
     }
 
-    private IEnumerator CloseMenu()
+    private Transform SetUpPage(int currentPage, int maxPage)
     {
-        var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-        var currentTransform = transform;
-        var childCount = currentTransform.childCount - 1;
-        var menuChildNr = menu.childCount;
+        var page = Instantiate(pagePrefab, pagesParent).transform;
+        var handler = page.GetChild(3);
+        var prevButton = handler.GetChild(0).GetComponent<Button>();
+        var nextButton = handler.GetChild(1).GetComponent<Button>();
 
-        for (var i = 1; i < childCount; i++)
-        {
-            StartCoroutine(AnimateOneMenu(currentTransform.GetChild(i), false, direction));
-            yield return new WaitForSeconds(0.2f);
-            direction *= -1;
-        }
+        if (currentPage == 0) prevButton.gameObject.SetActive(false);
+        else
+            prevButton.onClick.AddListener(() =>
+            {
+                Debug.Log(page == pagesParent.GetChild(currentPage));
+                page.gameObject.SetActive(false);
+                pagesParent.GetChild(currentPage).gameObject.SetActive(true);
+            });
 
-        for (var i = 1; i < menuChildNr - 2; i++)
-        {
-            StartCoroutine(AnimateOneMenu(menu.GetChild(i), true, direction));
-            yield return new WaitForSeconds(0.2f);
-            direction *= -1;
-        }
-
-        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 2), true, (int)MenuDirection.Left));
-        StartCoroutine(AnimateOneMenu(menu.GetChild(menuChildNr - 1), true, (int)MenuDirection.Right));
+        if (currentPage + 1 == maxPage) nextButton.gameObject.SetActive(false);
+        else
+            nextButton.onClick.AddListener(() =>
+            {
+                page.gameObject.SetActive(false);
+                pagesParent.GetChild(currentPage + 2).gameObject.SetActive(true);
+            });
+        
+        handler.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{currentPage + 1}/{maxPage}";
+        page.gameObject.SetActive(false);
+        return page;
     }
-
-    private IEnumerator DisappearMenu()
+    
+    private void SetUpSaves(Transform page, string title)
     {
-        var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-        var currentTransform = transform;
-        var childCount = currentTransform.childCount - 1;
-
-        StartCoroutine(AnimateOneMenu(revenue, false, (int)MenuDirection.Right));
-
-        for (var i = 1; i < childCount; i++)
-        {
-            StartCoroutine(AnimateOneMenu(currentTransform.GetChild(i), false, direction));
-            direction *= -1;
-        }
-
-        yield return new WaitForSeconds(0.2f);
-
-        StartCoroutine(AnimateLocalLevels(true));
+        Instantiate(savePrefab, page).transform.GetChild(1)
+            .GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(title);
+        
     }
-
-    private IEnumerator EnableMenu()
-    {
-        StartCoroutine(AnimateLocalLevels(false));
-
-        var direction = (Random.Range(0, 2) * 2 - 1) * (int)MenuDirection.Random;
-        var currentTransform = transform;
-        var childCount = currentTransform.childCount - 1;
-
-        StartCoroutine(AnimateOneMenu(revenue, true, (int)MenuDirection.Right));
-
-        for (var i = 1; i < childCount; i++)
-        {
-            StartCoroutine(AnimateOneMenu(currentTransform.GetChild(i), true, direction));
-            direction *= -1;
-        }
-
-        yield return new WaitForSeconds(0.5f);
-    }
-
-    private static IEnumerator AnimateOneMenu(Component component, bool isAppearing, int direction)
-    {
-        if (isAppearing)
-            component.gameObject.SetActive(true);
-
-        var currentTime = 0f;
-        var objectToMove = component.GetComponent<RectTransform>();
-
-        while (currentTime < 0.3f)
-        {
-            currentTime += Time.deltaTime;
-
-            objectToMove.anchoredPosition =
-                new Vector2(Mathf.Lerp(isAppearing ? direction : 0f, isAppearing ? 0f : direction, currentTime / 0.3f),
-                    0f);
-
-            yield return null;
-        }
-
-        if (!isAppearing)
-            component.gameObject.SetActive(false);
-
-        objectToMove.anchoredPosition = new Vector2(0f, 0f);
-    }
-
-    private IEnumerator AnimateLocalLevels(bool isAppearing)
-    {
-        var component = transform.GetChild(transform.childCount - 1);
-
-        if (isAppearing)
-            component.gameObject.SetActive(true);
-
-        var currentTime = 0f;
-
-        var objectToMove = component.GetComponent<RectTransform>();
-        while (currentTime < 0.5f)
-        {
-            currentTime += Time.deltaTime;
-
-            objectToMove.localScale =
-                new Vector3(Mathf.Lerp(isAppearing ? 0f : 1f, isAppearing ? 1f : 0f, currentTime / 0.3f),
-                    Mathf.Lerp(isAppearing ? 0f : 1f, isAppearing ? 1f : 0f, currentTime / 0.3f), 1f);
-
-            yield return null;
-        }
-
-        if (!isAppearing)
-            component.gameObject.SetActive(false);
-
-        objectToMove.localScale = new Vector3(1f, 1f, 1f);
-    }
+    
 }
