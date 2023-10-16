@@ -17,6 +17,7 @@ public class MenuSwitch : MonoBehaviour
 
         activatedMenu = _toggle.isOn; 
         if (!activatedMenu) canvasAnimator.Play("Afk");
+        canvasAnimator.SetBool("MenuOpened", activatedMenu);
     }
 
     private void Update()
@@ -33,22 +34,6 @@ public class MenuSwitch : MonoBehaviour
         foreach (var backgroundButton in backgroundButtons) backgroundButton.interactable = !activatedMenu;
     }
 
-    public void SwitchMenu()
-    {
-        activatedMenu = !activatedMenu;
-        if (activatedMenu) ShowMenu();
-        else CloseMenu();
-    }
-    
-    private void ShowMenu() => canvasAnimator.SetBool("MenuOpened", true);
-    
-    private void CloseMenu()
-    {
-        if (canvasAnimator.GetCurrentAnimatorStateInfo(0).IsName("OpenMenu"))
-        {
-            canvasAnimator.Play("CloseMenu");
-            canvasAnimator.SetTrigger("Afk");
-        }
-        canvasAnimator.SetBool("MenuOpened", false);
-    }
+    public void SwitchMenu() => canvasAnimator.SetBool("MenuOpened", activatedMenu = !activatedMenu);
+
 }
