@@ -19,20 +19,23 @@ public class PlayerStatus : MonoBehaviour
     private LvlManager _lvlManager;
     private float _timer;
 
-    private TextMeshProUGUI _timerDisplay;
+    [Header("Display")]
+    private TextMeshProUGUI _hpDisplay, _coinDisplay, _timerDisplay, _speedBuffDisplay, _jumpBuffDisplay;
 
     [Header("Movement Control Bool")] [NonSerialized]
     public bool
         FreezeFromDamage,
         SpeedBuffActive,
-        JumpBuffActive;
+        JumpBuffActive,
+        HasCollectedAllCoins;
 
     [Header("Consumables")] [NonSerialized] public int KillCounter;
     private int
         _coins,
         _hp,
         _jumpBuffs,
-        _speedBuffs;
+        _speedBuffs,
+        _coinsInLevel;
     
     [Header("Utilities")]
     private bool _endlessRun;
@@ -58,9 +61,13 @@ public class PlayerStatus : MonoBehaviour
         _hp = _endlessRun ? (_playerManager.Upgrades[(int)UpgradeType.MaxHealth].Quantity + 1) * 5 : 20;
         _speedBuffs = _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity;
         _jumpBuffs = _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity;
-
-        if (!_endlessRun) _timerDisplay = GameObject.Find("TimerCounter").transform.GetComponent<TextMeshProUGUI>();
-
+        
+        _hpDisplay = GetTextMeshProUGUI(0, 0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        _coinDisplay = GetTextMeshProUGUI(0, 1).GetComponent<TextMeshProUGUI>();
+        _timerDisplay = GetTextMeshProUGUI(1, 0).GetComponent<TextMeshProUGUI>();
+        _speedBuffDisplay = GetTextMeshProUGUI(2, 0).GetComponent<TextMeshProUGUI>();
+        _jumpBuffDisplay = GetTextMeshProUGUI(2, 1).GetComponent<TextMeshProUGUI>();
+            
         ShowLife();
 
         if (_endlessRun)
@@ -69,14 +76,19 @@ public class PlayerStatus : MonoBehaviour
             ShowSpeedBuffs();
         }
         else StartCoroutine(UpdateTimer());
+
+        Transform GetTextMeshProUGUI(int child1, int child2) => display.transform.GetChild(child1)
+            .GetChild(child2).GetChild(1).transform;
     }
+
+    private void Update() => HasCollectedAllCoins = _coins == _coinsInLevel;
 
     private IEnumerator UpdateTimer()
     {
         while (true)
         {
             _timer += Time.deltaTime;
-            _timerDisplay.text = Utility.TimeToString(_timer);
+            ShowTimer();
             yield return null;
         }
     }
@@ -260,22 +272,15 @@ public class PlayerStatus : MonoBehaviour
                 throw new Exception(
                     $"Player is playing on lvl {_lvlManager.CurrentLvl} while campaign file have only {data!.Count + 1} entries");
         }
-        else
+        else if (data == null)
         {
             SaveAndLoadSystem.SaveCampaign(new List<CampaignStatusModel> {new(true, _coins, _timer)});
             return;
         }
-        
-        if (data.Count < _lvlManager.CurrentLvl - 2 || !data[_lvlManager.CurrentLvl - 1].completed)
+
+        if (data.Count < _lvlManager.CurrentLvl || !data[_lvlManager.CurrentLvl - 1].completed)
             data.Add(new CampaignStatusModel(true, _coins, _timer));
-        else
-        {
-            if (data[_lvlManager.CurrentLvl - 1].maxStarNrObtained < _coins)
-                data[_lvlManager.CurrentLvl - 1].maxStarNrObtained = _coins;
-            
-            if (data[_lvlManager.CurrentLvl - 1].bestTime > _timer)
-                data[_lvlManager.CurrentLvl - 1].bestTime = _timer;
-        }
+        else if (data[_lvlManager.CurrentLvl - 1].bestTime > _timer) data[_lvlManager.CurrentLvl - 1].bestTime = _timer;
         
         SaveAndLoadSystem.SaveCampaign(data);
     }
@@ -283,23 +288,28 @@ public class PlayerStatus : MonoBehaviour
     /// <summary>
     /// Method to update the displayed life count.
     /// </summary>
-    private void ShowLife() => ChangeUiText(GetUiTransform(0).GetChild(0), _hp.ToString());
+    private void ShowLife() => ChangeUiText(_hpDisplay, _hp.ToString());
 
     /// <summary>
     /// Method to update the displayed coin count.
     /// </summary>
-    private void ShowCoins() => ChangeUiText(GetUiTransform(1), _coins.ToString());
+    private void ShowCoins() => ChangeUiText(_coinDisplay, _coins.ToString());
+
+    /// <summary>
+    /// Method to update the displayed coin count.
+    /// </summary>
+    private void ShowTimer() => ChangeUiText(_timerDisplay, Utility.TimeToString(_timer));
 
     /// <summary>
     /// Method to update the displayed minAndMaxSpeed buffs count.
     /// </summary>
-    private void ShowSpeedBuffs() => ChangeUiText(GetUiTransform(2), _speedBuffs.ToString());
+    private void ShowSpeedBuffs() => ChangeUiText(_speedBuffDisplay, _speedBuffs.ToString());
 
     /// <summary>
     /// Method to update the displayed jump buffs count.
     /// </summary>
-    private void ShowJumpBuffs() => ChangeUiText(GetUiTransform(3), _jumpBuffs.ToString());
+    private void ShowJumpBuffs() => ChangeUiText(_jumpBuffDisplay, _jumpBuffs.ToString());
 
-    private static void ChangeUiText(Component element, string text) => element.GetComponent<TextMeshProUGUI>().text = text;
-    private Transform GetUiTransform(int childId) => display.transform.GetChild(childId).GetChild(1);
+    private static void ChangeUiText(Component element, string text) =>
+        element.GetComponent<TextMeshProUGUI>().text = text;
 }

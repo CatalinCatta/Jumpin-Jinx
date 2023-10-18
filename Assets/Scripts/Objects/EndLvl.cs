@@ -12,6 +12,9 @@ public class EndLvl : MonoBehaviour
 
         var colliderTransform = col.transform;
         var playerStatus = colliderTransform.GetComponent<PlayerStatus>();
+
+        if (!playerStatus.HasCollectedAllCoins) return;
+        
         var playerRb = colliderTransform.GetComponent<Rigidbody2D>();
 
         playerRb.isKinematic = true;
