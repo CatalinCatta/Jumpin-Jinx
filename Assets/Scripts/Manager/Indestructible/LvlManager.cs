@@ -11,8 +11,9 @@ using UnityEngine.UI;
 public class LvlManager : IndestructibleManager<LvlManager>
 {
     [NonSerialized] public string LvlTitle;
-    [NonSerialized] public int CurrentLvl;
+    [NonSerialized] public int CurrentLvl, CoinsInLevel;
     [NonSerialized] public Scene CurrentScene;
+    [NonSerialized] public (int, int, int) TimerLimitForStars;
 
     private static SettingsManager _settings;
 

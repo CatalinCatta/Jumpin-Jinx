@@ -56,7 +56,7 @@ public class CampaignMenu : MonoBehaviour
             element.GetChild(0).gameObject.SetActive(true);
             var elementActive = element.GetChild(0);
             var stars = elementActive.GetChild(1);
-            for (var i = 0; i < (starsCounter > 3 ? 3 : starsCounter); i++)
+            for (var i = 0; i < starsCounter; i++)
                 stars.GetChild(i).GetChild(0).gameObject.SetActive(true);
             elementActive.GetChild(2).GetComponent<TextMeshProUGUI>().text = Utility.TimeToString(timer);
         }

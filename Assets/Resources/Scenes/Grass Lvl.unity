@@ -8795,7 +8795,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2077791434}
   - component: {fileID: 2077791433}
-  - component: {fileID: 2077791432}
   - component: {fileID: 2077791431}
   m_Layer: 0
   m_Name: Tutorial
@@ -8826,27 +8825,6 @@ MonoBehaviour:
   questionMarks: {fileID: 1030755611}
   exclamationMarks: {fileID: 1887095137}
   mergedMarks: {fileID: 1339418673}
---- !u!95 &2077791432
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2077791430}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 67befa2b33320464bbfffd51f0129e43, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &2077791433
 SpriteRenderer:
   m_ObjectHideFlags: 0

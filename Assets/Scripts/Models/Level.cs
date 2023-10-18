@@ -6,4 +6,6 @@ public class Level
     
     [JsonProperty("map")]
     public string[] Maps { get; set; }
+    
+    public int[] TimerLimitForStars;
 }

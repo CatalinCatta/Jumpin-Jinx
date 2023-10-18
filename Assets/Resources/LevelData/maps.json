@@ -19,6 +19,11 @@
       "              C              ",
       " P      C  <GGGGG>          C",
       "GGGGGGGGGGG{DDDDD}GGGGGGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -41,6 +46,11 @@
       "          <{DDDDDDDDDDD   {DD",
       " P       <{DDDDDDDDDDDD    C ",
       "GGGGGGGGG{DDDDDDDDDDDDDGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -63,6 +73,11 @@
       "                             ",
       " P                           ",
       "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -85,6 +100,11 @@
       "                             ",
       " P            C            X ",
       "GGGGGGGWWWWWGGGGGWWWWWGGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -107,6 +127,11 @@
       "             DDD           <G",
       " P        C  DDD             ",
       "GGGGGWWGGGGGGDDDGGGGGGWWWWGWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -129,6 +154,11 @@
       "                             ",
       " P      <GGGGGGG>            ",
       "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -151,6 +181,11 @@
       "                             ",
       " P     SSSSS  C  SSSSS     X ",
       "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -173,6 +208,11 @@
       "             [D]           <G",
       " P        C  [D]             ",
       "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -195,6 +235,11 @@
       "                             ",
       " P      <GGGGGGG>            ",
       "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -217,6 +262,11 @@
       "              C              ",
       " P     SSSSSTTTTTSSSSS     X ",
       "GGGGGGGGGGGGWWWWWGGGGGGGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -239,6 +289,11 @@
       "             [D]           <G",
       " P        C  [D]             ",
       "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -261,6 +316,11 @@
       "                             ",
       " P      <GGTTTGG>            ",
       "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -283,6 +343,11 @@
       "            E C E            ",
       " P     SSSS<GTTTG>SSSS     X ",
       "GGGGGGGGGGG{WWWWW}GGGGGGGGGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -305,6 +370,11 @@
       "             [D]           <G",
       " P        C E[D]  E          ",
       "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -327,6 +397,11 @@
       "            E E              ",
       " P      <GGTTTGG>            ",
       "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -349,6 +424,11 @@
       "                   DDDDDDDDDD",
       " P                     C  DDD",
       "GGGGGGGGGG^^^^^^^^^GGGGGGGDDD"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -371,6 +451,11 @@
       "             [D]             ",
       " P        C E[D]  E         X",
       "GGGG^^WWGGGGGGDGGGGGGGWWWWGGG"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   },
   {
@@ -393,6 +478,11 @@
       "                             ",
       " P                           ",
       "GGGGGbbbWWWWWWWWWWWWWWGGGWWWW"
+    ],
+    "timerLimitForStars": [
+      7,
+      10,
+      20
     ]
   }
 ]

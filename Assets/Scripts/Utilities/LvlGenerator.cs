@@ -21,7 +21,8 @@ public class LvlGenerator : MonoBehaviour
     
     private int 
         _height,
-        _length;
+        _length,
+        _coinsCounter;
 
     private void Start()
     {
@@ -32,9 +33,10 @@ public class LvlGenerator : MonoBehaviour
 
         try
         {
-            var map =
+            var lvl =
                 JsonConvert.DeserializeObject<Level[]>(Resources.Load<TextAsset>("LevelData/maps").text)[
-                    _lvlManager.CurrentLvl - 1].Maps;
+                    _lvlManager.CurrentLvl - 1];
+            var map = lvl.Maps;
             
             _height = map.Length;
             _length = map[0].Length;
@@ -42,6 +44,10 @@ public class LvlGenerator : MonoBehaviour
             for (var i = 0; i < _height; i++)
             for (var j = 0; j < _length; j++)
                 GenerateObject(map[i][j], i, j);
+
+            _lvlManager.CoinsInLevel = _coinsCounter;
+            _lvlManager.TimerLimitForStars = (lvl.TimerLimitForStars[0], lvl.TimerLimitForStars[1],
+                lvl.TimerLimitForStars[2]);
         }
         catch (IOException ex) 
         {
@@ -99,6 +105,7 @@ public class LvlGenerator : MonoBehaviour
                 Instantiate(_prefabManager.coin,
                     new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f),
                     Quaternion.identity);
+                _coinsCounter++;
                 break;
             case 'G':
                 Instantiate(_prefabManager.grass,

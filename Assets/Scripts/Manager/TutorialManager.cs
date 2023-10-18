@@ -23,33 +23,6 @@ public class TutorialManager : MonoBehaviour
         exclamationMarks,
         mergedMarks;
 
-    private void OnEnable() => StartCoroutine(MovementAnimation());
-
-    private IEnumerator MovementAnimation()
-    {
-        var currentTransform = transform;
-        var position = currentTransform.position;
-        var (x, y) = (position.x, position.y);
-        var speedX = Utility.GetRandomNumberBetween(0, 2) == 0 ? -1f : 1f;
-        var targetY = Random.Range(3f, 5f);
-
-        while (true)
-        {
-            x += speedX * Time.deltaTime;
-            y = Mathf.MoveTowards(y, targetY, Time.deltaTime / 2);
-
-            currentTransform.position = new Vector3(x, y, 10f);
-
-            if (Mathf.Approximately(y, targetY))
-                targetY = Random.Range(3f, 5f);
-
-            speedX = x <= -10f ? 1f :
-                x >= 10f ? -1f : speedX;
-
-            yield return null;
-        }
-    }
-
     private static string ReformatKeyCodeAsString(KeyCode keyCode) =>
         Regex.Replace(Enum.GetName(typeof(KeyCode), keyCode)!, @"(\p{Lu})", " $1").Trim();
 

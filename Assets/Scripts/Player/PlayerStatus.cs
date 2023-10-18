@@ -75,7 +75,11 @@ public class PlayerStatus : MonoBehaviour
             ShowJumpBuffs();
             ShowSpeedBuffs();
         }
-        else StartCoroutine(UpdateTimer());
+        else
+        {
+            StartCoroutine(UpdateTimer());
+            _coinsInLevel = _lvlManager.CoinsInLevel;
+        }
 
         Transform GetTextMeshProUGUI(int child1, int child2) => display.transform.GetChild(child1)
             .GetChild(child2).GetChild(1).transform;
@@ -246,8 +250,9 @@ public class PlayerStatus : MonoBehaviour
         winScreen.gameObject.SetActive(true);
 
         var settingsManager = SettingsManager.Instance;
+        var timeLimits = _lvlManager.TimerLimitForStars;
 
-        _coins = _coins > 3 ? 3 : _coins;
+        _coins = _timer <= timeLimits.Item3 ? 3 : _timer <= timeLimits.Item2 ? 2 : _timer <= timeLimits.Item1 ? 1 : 0;
         for (var i = 0; i < _coins; i++)
         {
             var endCoin = winScreen.GetChild(0).GetChild(i + 1).GetChild(0);
@@ -280,8 +285,9 @@ public class PlayerStatus : MonoBehaviour
 
         if (data.Count < _lvlManager.CurrentLvl || !data[_lvlManager.CurrentLvl - 1].completed)
             data.Add(new CampaignStatusModel(true, _coins, _timer));
-        else if (data[_lvlManager.CurrentLvl - 1].bestTime > _timer) data[_lvlManager.CurrentLvl - 1].bestTime = _timer;
-        
+        else if (data[_lvlManager.CurrentLvl - 1].bestTime > _timer)
+            data[_lvlManager.CurrentLvl - 1] = new CampaignStatusModel(true, _coins, _timer);
+
         SaveAndLoadSystem.SaveCampaign(data);
     }
 
