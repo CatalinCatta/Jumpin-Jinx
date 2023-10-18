@@ -3,14 +3,18 @@ using UnityEngine;
 /// <summary>
 /// Manage main menu paths. 
 /// </summary>
+[RequireComponent(typeof(Animator))]
 public class Menu : MonoBehaviour
 {
     private Animator _canvasAnimator;
-
+    private SettingsManager _settingsManager;
+    
     private void Start()
     {
+        _settingsManager = SettingsManager.Instance;
         _canvasAnimator = GetComponent<Animator>();
         Time.timeScale = 1f;
+        if (_settingsManager.LastMenuName != "") _canvasAnimator.Play(_settingsManager.LastMenuName);
     }
 
     /// <summary>
@@ -62,4 +66,9 @@ public class Menu : MonoBehaviour
         _canvasAnimator.Play("CloseMenu");
         _canvasAnimator.SetTrigger("Campaign");
     }
+
+    public void SetCampaignLast() => _settingsManager.LastMenuName = "CampaignAfk";
+    public void SetSettingsLast() => _settingsManager.LastMenuName = "SettingsAfk";
+    public void SetEndlessLast() => _settingsManager.LastMenuName = "EndlessAfk";
+    public void SetCustomLast() => _settingsManager.LastMenuName = "CustomLvlAfk";
 }

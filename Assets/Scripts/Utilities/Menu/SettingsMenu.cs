@@ -17,7 +17,8 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private SettingsManager settingsManager;
     
     #region Current Pressed Key
-    private bool 
+
+    private bool
         _isCheckingForJump,
         _isCheckingForMoveLeft,
         _isCheckingForMoveRight,
@@ -25,13 +26,13 @@ public class SettingsMenu : MonoBehaviour
         _isCheckingForSpeedBuff,
         _isCheckingForJumpBuff,
         _isCheckingForPause;
+    
     #endregion
     
     #region Sounds
-    private Transform
-        _generalSoundTransform,
-        _musicTransform,
-        _sfxTransform;
+
+    private Transform _generalSoundTransform, _musicTransform, _sfxTransform;
+    
     #endregion
 
     #region KeyCodes
@@ -49,12 +50,11 @@ public class SettingsMenu : MonoBehaviour
     #endregion
 
     #region Display
-    private TMP_Dropdown 
-        _resolution,
-        _language;
-    private Transform 
-        _fullScreenTransform,
-        _vSyncTransform;
+
+    private TMP_Dropdown _resolution, _language;
+
+    private Transform _fullScreenTransform, _vSyncTransform;
+
     #endregion
 
     private void Awake()

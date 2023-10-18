@@ -6,7 +6,7 @@
 [Serializable]
 public class SettingsModel
 {
-    public bool darkModeOn;
+    public bool darkModeOn, isMenuOpened;
 
     #region Volume
     public float generalVolume;
@@ -38,6 +38,7 @@ public class SettingsModel
     public SettingsModel(SettingsManager settingsManager)
     {
         darkModeOn = settingsManager.DarkModeOn;
+        isMenuOpened = settingsManager.IsMenuOpened;
 
         generalVolume = settingsManager.GeneralVolume;
         musicVolume = settingsManager.MusicVolume;

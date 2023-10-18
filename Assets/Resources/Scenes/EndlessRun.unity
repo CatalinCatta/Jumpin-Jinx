@@ -1293,7 +1293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1200004, y: 2.4500008, z: -10}
+  m_LocalPosition: {x: -4.12, y: 2.4500008, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2421,7 +2421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82e5c6b19c6ff44c981e9114b81046b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
   speed: 4
 --- !u!1001 &970988607
 PrefabInstance:
@@ -2457,6 +2456,10 @@ PrefabInstance:
     - target: {fileID: 1172649798974226497, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888248547879559715, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7932450579412689140, guid: 1a1de61ce2551784db950c8a3b264ce9, type: 3}
       propertyPath: m_Name
@@ -3016,7 +3019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82e5c6b19c6ff44c981e9114b81046b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 1
   speed: 2
 --- !u!1 &1271234896
 GameObject:
@@ -3111,11 +3113,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 198895092644410557, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8210023
+      value: 0.916035
       objectReference: {fileID: 0}
     - target: {fileID: 198895092644410557, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.570925
+      value: -0.4010985
       objectReference: {fileID: 0}
     - target: {fileID: 1237857534618322988, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3187,11 +3189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3493254645517385695, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97532356
+      value: 0.9961535
       objectReference: {fileID: 0}
     - target: {fileID: 3493254645517385695, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.22078052
+      value: -0.08762597
       objectReference: {fileID: 0}
     - target: {fileID: 3493254646999199549, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: display
@@ -3199,11 +3201,11 @@ PrefabInstance:
       objectReference: {fileID: 1434792986}
     - target: {fileID: 3758390684726020764, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.42754248
+      value: 0.5288197
       objectReference: {fileID: 0}
     - target: {fileID: 3758390684726020764, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9039953
+      value: -0.8487342
       objectReference: {fileID: 0}
     - target: {fileID: 4007437618575838899, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_Name
@@ -3216,6 +3218,14 @@ PrefabInstance:
     - target: {fileID: 4696749603119395104, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.65058905
+      objectReference: {fileID: 0}
+    - target: {fileID: 5555470052253378847, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5555470052253378847, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000022286981
       objectReference: {fileID: 0}
     - target: {fileID: 5954684652105915484, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3356,7 +3366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82e5c6b19c6ff44c981e9114b81046b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
   speed: 10
 --- !u!1 &1434792986 stripped
 GameObject:
@@ -4171,7 +4180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82e5c6b19c6ff44c981e9114b81046b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
   speed: 7
 --- !u!1 &1703026177
 GameObject:

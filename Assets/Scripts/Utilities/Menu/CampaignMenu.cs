@@ -50,6 +50,8 @@ public class CampaignMenu : MonoBehaviour
             if (dataLength < 18) SetUpLvl(lvlButtonsParent.GetChild(dataLength), 0, 0);
         }
 
+        MakeLvlButtonsInteractable();
+        
         void SetUpLvl(Transform element, int starsCounter, float timer)
         {
             element.GetChild(1).gameObject.SetActive(false);

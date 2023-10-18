@@ -1,19 +1,15 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manages game settings and options.
 /// </summary>
 public class SettingsManager : IndestructibleManager<SettingsManager>
 {
-    [Header("Volume")] [NonSerialized] public float
-        GeneralVolume,
-        MusicVolume,
-        SoundEffectVolume;
+    [NonSerialized] public float GeneralVolume, MusicVolume, SoundEffectVolume;
 
-    [Header("KeyBindings")] [NonSerialized]
-    public KeyCode
-        JumpKeyCode,
+    [NonSerialized] public KeyCode JumpKeyCode,
         MoveLeftKeyCode,
         MoveRightKeyCode,
         FireKeyCode,
@@ -21,14 +17,13 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         JumpBuffKeyCode,
         PauseKeyCode;
 
-    [Header("Display")] 
     [NonSerialized] public int Resolution;
     [NonSerialized] public bool Fullscreen, Vsync;
     [NonSerialized] public Language Language;
 
-    [Header("Other Settings")]
+    [NonSerialized] public string LastMenuName;
     [NonSerialized] public SettingsFrames CurrentCategoryTab;
-    [NonSerialized] public bool DarkModeOn;
+    [NonSerialized] public bool DarkModeOn, IsMenuOpened;
     
     protected override void Awake()
     {
@@ -36,6 +31,8 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         base.Awake();
     }
 
+    public void SwitchMenuState(Toggle newState) => IsMenuOpened = newState.isOn;
+    
     /// <summary>
     /// Sets up sound volume for the specified cameraTransform.
     /// </summary>
@@ -53,7 +50,8 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         else
         {
             DarkModeOn = settings.darkModeOn;
-
+            IsMenuOpened = settings.isMenuOpened;
+            
             GeneralVolume = settings.generalVolume;
             MusicVolume = settings.musicVolume;
             SoundEffectVolume = settings.soundEffectVolume;
@@ -87,6 +85,7 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
     private void Initialize()
     {
         DarkModeOn = false;
+        IsMenuOpened = true;
 
         GeneralVolume = 1f;
         MusicVolume = 0.5f;
