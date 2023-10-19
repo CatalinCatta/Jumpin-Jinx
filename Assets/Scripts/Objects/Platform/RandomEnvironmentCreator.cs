@@ -19,6 +19,7 @@ public class RandomEnvironmentCreator : MonoBehaviour
         _transform = transform;
         _prefabManager = PrefabManager.Instance;
         CreateEnvironment();
+
     }
 
     private void CreateEnvironment()
@@ -29,25 +30,28 @@ public class RandomEnvironmentCreator : MonoBehaviour
         {
             case >= 0 and < 5: // Enemy 5%
                 if (allowDamageObject)
-                    Instantiate(_prefabManager.enemy, selfPosition + Vector3.up + Vector3.back, Quaternion.identity,
-                        _transform);
+                    Instantiate(_prefabManager.spider, selfPosition + Vector3.back, Quaternion.identity, _transform);
                 return;
 
             case >= 5 and < 10: // Spike 5%
                 if (allowDamageObject)
-                    Instantiate(_prefabManager.spike, selfPosition + Vector3.up * .75f + Vector3.back,
-                        Quaternion.identity, _transform);
+                    Instantiate(_prefabManager.spike, selfPosition + new Vector3(0, .75f, -1), Quaternion.identity,
+                        _transform);
                 return;
 
             case >= 10 and < 15: // Heal 5%
                 Instantiate(_prefabManager.heal, selfPosition + Vector3.up * 1.5f, Quaternion.identity, _transform);
                 return;
-            
+
             case >= 15 and < 30: // Coin 15%
                 Instantiate(_prefabManager.coin, selfPosition + Vector3.up * 1.5f, Quaternion.identity, _transform);
                 return;
 
-            case >= 30 and < 60: // Plants 30%
+            case >= 30 and < 31: // Gem 1%
+                Instantiate(_prefabManager.gem, selfPosition + Vector3.up * 1.5f, Quaternion.identity, _transform);
+                return;
+            
+            case >= 31 and < 60: // Plants 29%
                 CreatePlant();
                 return;
         }

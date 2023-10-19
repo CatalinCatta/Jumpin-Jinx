@@ -158,7 +158,7 @@ public class LvlGenerator : MonoBehaviour
                     Quaternion.identity);
                 break;
             case 'E':
-                Instantiate(_prefabManager.enemy,
+                Instantiate(_prefabManager.spider,
                     new Vector3((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f + .4f, -1),
                     Quaternion.identity);
                 break;

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Controls the behavior of the enemy character.
+/// Controls the behavior of the spider character.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class Enemy : MonoBehaviour

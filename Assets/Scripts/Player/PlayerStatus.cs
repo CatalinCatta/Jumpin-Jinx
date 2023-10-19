@@ -32,6 +32,7 @@ public class PlayerStatus : MonoBehaviour
     [Header("Consumables")] [NonSerialized] public int KillCounter;
     private int
         _coins,
+        _gems,
         _hp,
         _jumpBuffs,
         _speedBuffs,
@@ -85,8 +86,6 @@ public class PlayerStatus : MonoBehaviour
             .GetChild(child2).GetChild(1).transform;
     }
 
-    private void Update() => HasCollectedAllCoins = _coins == _coinsInLevel;
-
     private IEnumerator UpdateTimer()
     {
         while (true)
@@ -104,7 +103,13 @@ public class PlayerStatus : MonoBehaviour
     {
         _coins++;
         ShowCoins();
+        HasCollectedAllCoins = _coins == _coinsInLevel;
     }
+    
+    /// <summary>
+    /// Add a coin to the player's inventory.
+    /// </summary>
+    public void AddGem() => _gems++;
 
     /// <summary>
     /// Consume a minAndMaxSpeed buff and activate the minAndMaxSpeed buff effect.
@@ -229,6 +234,7 @@ public class PlayerStatus : MonoBehaviour
             _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity = _jumpBuffs;
             _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity = _speedBuffs;
             _playerManager.Gold += _coins;
+            _playerManager.Gems += _gems;
 
             _playerManager.Save();
 

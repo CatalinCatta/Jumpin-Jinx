@@ -29,10 +29,13 @@ public class PrefabManager : IndestructibleManager<PrefabManager>
     [Header("Objects")] [SerializeField] public GameObject
         player,
         coin,
+        gem,
         endLvl,
-        enemy,
         heal,
         spike;
+
+    [Header("Enemy")] [SerializeField] public GameObject
+        spider;
     
     public List<Sprite> plantSprites;
 }

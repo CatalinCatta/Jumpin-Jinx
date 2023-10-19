@@ -22,6 +22,9 @@ public class Consumable : MonoBehaviour
             case ConsumableType.Coin:
                 _playerStatus.AddCoin();
                 break;
+            case ConsumableType.Gem:
+                _playerStatus.AddGem();
+                break;
             case ConsumableType.Heal:
                 _playerStatus.Heal();
                 break;
