@@ -26,76 +26,6 @@ public class Enemy : MonoBehaviour
         _transform.rotation = Quaternion.Euler(0, (_direction - 1) * -90, 0);
     }
 
-    // private void LateUpdate()
-    // {
-    //     if (_isDead) return;
-    //     
-    //     var grounded = false;
-    //     Transform platform = null;
-    //
-    //     foreach (var objectCollider in Physics2D.OverlapAreaAll(_transform.position + Vector3.right * _direction * 1.5f,
-    //                  _transform.position + Vector3.down)) 
-    //     {
-    //         if (!objectCollider.CompareTag("Ground")) continue;
-    //         var objectColliderTransform = objectCollider.transform;
-    //         
-    //         if (_transform.position.y - objectColliderTransform.position.y < -.2f)
-    //         {
-    //             grounded = false;
-    //             break;
-    //         }
-    //
-    //         if (_transform.position.y - objectColliderTransform.position.y is <= -.2f or >= .2f ||
-    //             objectCollider.TryGetComponent<PolygonCollider2D>(out _) ||
-    //             objectColliderTransform == _transform.parent) continue;
-    //
-    //         platform = objectColliderTransform;
-    //         grounded = true;
-    //     }
-    //
-    //     if (grounded)
-    //     {
-    //         _rigidBody.velocity = Vector2.SmoothDamp(_rigidBody.velocity, Vector2.right * _direction * 3,
-    //             ref _smoothVelocity, .1f);
-    //         _transform.SetParent(platform);
-    //     }
-    //     else
-    //     {
-    //         _direction *= -1f;
-    //         _transform.rotation = Quaternion.Euler(0, (_direction - 1) * -90, 0);
-    //     }
-    // }
-    //
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     var colliderGameObject = collision.gameObject;
-    //     var colliderTransform = collision.transform;
-    //     var position = _transform.position;
-    //
-    //     if (colliderGameObject.CompareTag("Death"))
-    //     {
-    //         _isDead = true;
-    //         _animator.Play("Die");
-    //     }
-    //     else if (!colliderGameObject.CompareTag("Ground"))
-    //         Physics2D.IgnoreCollision(colliderTransform.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-    //     else
-    //     {
-    //         var colliderSize = colliderTransform.GetComponent<Collider2D>().bounds.size;
-    //         var colliderPosition = colliderTransform.position;
-    //
-    //         if (position.y > colliderTransform.position.y + colliderSize.y * .45f &&
-    //             position.x > colliderPosition.x - colliderSize.x * .45f &&
-    //             position.x < colliderPosition.x + colliderSize.x * .45f) _transform.SetParent(colliderTransform);
-    //
-    //     }
-    // }
-
-
-
-
-
-
     private void LateUpdate()
     {
         if (_isDead) return;
@@ -145,9 +75,6 @@ public class Enemy : MonoBehaviour
             Physics2D.IgnoreCollision(col, _collider2D);
         else if (position.y > colliderTransform.position.y) _transform.SetParent(colliderTransform);
     }
-    
-    
-    
     
     private void OnTriggerEnter2D(Collider2D col)
     {
