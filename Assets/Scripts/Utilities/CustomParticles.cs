@@ -41,8 +41,7 @@ public class CustomParticles : MonoBehaviour
     {
         for (var i = 0; i < quantity; i++) CreateParticle(-1, false);
     }
-    
-    
+
     private void CreateParticle(int position, bool start)
     {
         var newScale =

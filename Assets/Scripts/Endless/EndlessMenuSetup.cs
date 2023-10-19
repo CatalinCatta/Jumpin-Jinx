@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class EndlessMenuSetup : MonoBehaviour
 {
     [SerializeField] private Transform upgrade, shop, store;
-    [SerializeField] private Sprite enableButtonIcon, disableButtonIcon;
+    [SerializeField] private Sprite enableButtonIcon, disableButtonIcon, goldIcon, gemIcon;
     private RevenueHandler _revenueHandler;
     private PlayerManager _playerManager;
 
@@ -72,7 +72,12 @@ public class EndlessMenuSetup : MonoBehaviour
     /// <exception cref="Exception">Throw when <paramref name="upgradeType"/> exceed <see cref="UpgradeType"/> length.</exception>
     public void Upgrade(int upgradeType)
     {
-        if (!_revenueHandler.TryToConsumeGold(_playerManager.Upgrades[upgradeType].Price)) return;
+        var lvl = _playerManager.Upgrades[upgradeType].Quantity;
+        if (lvl != 0 && lvl % 10 == 0)
+        {
+            if (!_revenueHandler.TryToConsumeGems((int)(lvl * .5))) return;
+        }
+        else if (!_revenueHandler.TryToConsumeGold(_playerManager.Upgrades[upgradeType].Price)) return;
 
         _playerManager.Upgrades[upgradeType].Quantity++;
         _playerManager.Upgrades[upgradeType].Price = PriceCalculator(_playerManager.Upgrades[upgradeType].Quantity); 
@@ -122,11 +127,18 @@ public class EndlessMenuSetup : MonoBehaviour
     {
         var labelText = label.GetChild(0);
         var labelTextComponent = labelText.GetComponent<TextMeshProUGUI>();
-
+        var isRankingUp = lvl != 0 && lvl % 10 == 0;
+        
+        label.GetChild(1).gameObject.SetActive(!isRankingUp);
+        label.GetChild(2).gameObject.SetActive(isRankingUp);
+        label.GetChild(3).GetComponent<CustomParticles>().particleImage = isRankingUp ? gemIcon : goldIcon;
+        
+        price = isRankingUp ? (int)(lvl * .5) : price;
+        
         if (lvl < 50)
         {
             labelTextComponent.text = Utility.FormatDoubleWithUnits(price, false);
-            DisplayMoneyCheck(labelText, price <= _playerManager.Gold);
+            DisplayMoneyCheck(labelText, price <= (isRankingUp ? _playerManager.Gems : _playerManager.Gold));
         }
         else
         {
