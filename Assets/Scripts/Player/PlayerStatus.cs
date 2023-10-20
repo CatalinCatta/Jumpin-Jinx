@@ -12,6 +12,7 @@ public class PlayerStatus : MonoBehaviour
 {
     [Header("Components")]
     public GameObject display;
+    public Transform endScreen;
     private PlayerControl _playerControl;
     private Rigidbody2D _rigidbody;
     private PlayerAudioControl _playerAudioControl;
@@ -40,8 +41,6 @@ public class PlayerStatus : MonoBehaviour
     
     [Header("Utilities")]
     private bool _endlessRun;
-    private readonly Dictionary<BuffType, int> _buffPosition = new()
-        { { BuffType.JumpBuff, 2 }, { BuffType.SpeedBuff, 3 } };
     
     private void Awake()
     {
@@ -120,7 +119,8 @@ public class PlayerStatus : MonoBehaviour
 
         _speedBuffs--;
         ShowSpeedBuffs();
-        StartCoroutine(PowerUpTimer(BuffType.SpeedBuff));
+        StartCoroutine(PowerUpTimer(BuffType.SpeedBuff,
+            _speedBuffDisplay.transform.parent.GetChild(0).GetChild(0).gameObject));
     }
 
     /// <summary>
@@ -132,7 +132,8 @@ public class PlayerStatus : MonoBehaviour
 
         _jumpBuffs--;
         ShowJumpBuffs();
-        StartCoroutine(PowerUpTimer(BuffType.JumpBuff));
+        StartCoroutine(PowerUpTimer(BuffType.JumpBuff,
+            _jumpBuffDisplay.transform.parent.GetChild(0).GetChild(0).gameObject));
     }
     
     /// <summary>
@@ -149,7 +150,8 @@ public class PlayerStatus : MonoBehaviour
     /// </summary>
     /// <param name="direction">The direction of the knock-back.</param>
     /// <param name="amount">The amount of damage to apply.</param>
-    public void GetDamage(Vector3 direction, int amount)
+    /// <param name="damageCause">The object that caused the damage of player</param>
+    public void GetDamage(Vector3 direction, int amount, ObjectBuildType damageCause)
     {
         _hp -= _endlessRun ? amount * (1 - _playerManager.Upgrades[(int)UpgradeType.Defence].Quantity / 100) : amount;
         ShowLife();
@@ -158,26 +160,25 @@ public class PlayerStatus : MonoBehaviour
         //_rigidbody.velocity = new Vector2(direction.x * 3, (direction.y - 1.4f) * -5);  // TODO: Improve knock back animation.
         _playerAudioControl.PlayGetHitSound();
 
-        if (_hp == 0) Die();
+        if (_hp == 0) Die(damageCause);
     }
 
     /// <summary>
     /// Coroutine that activates the power up timer for a certain duration.
     /// </summary>
-    private IEnumerator PowerUpTimer(BuffType buffType)
+    private IEnumerator PowerUpTimer(BuffType buffType, GameObject timerGameObject)
     {
         var buffDetail = Dictionaries.BuffDetails[buffType];
         if (!buffDetail.activatable) yield break;
 
         SwitchPowerStatus(true);
 
-        var timer = display.transform.GetChild(_buffPosition[buffType]).GetChild(0).GetChild(0).gameObject;
-        var rectTransform = timer.GetComponent<RectTransform>();
-        var timerParentHeight = timer.transform.parent.GetComponent<RectTransform>().rect.height;
+        var rectTransform = timerGameObject.GetComponent<RectTransform>();
+        var timerParentHeight = timerGameObject.transform.parent.GetComponent<RectTransform>().rect.height;
         var elapsedTime = 0f;
         var initialPosition = rectTransform.localPosition;
 
-        timer.SetActive(true);
+        timerGameObject.SetActive(true);
 
         while (elapsedTime < buffDetail.duration)
         {
@@ -189,7 +190,7 @@ public class PlayerStatus : MonoBehaviour
         }
 
         rectTransform.localPosition = initialPosition;
-        timer.SetActive(false);
+        timerGameObject.SetActive(false);
         SwitchPowerStatus(false);
 
         void SwitchPowerStatus(bool active)
@@ -212,7 +213,8 @@ public class PlayerStatus : MonoBehaviour
     /// <summary>
     /// Method called when the player dies.
     /// </summary>
-    public void Die()
+    /// <param name="damageCause">The object that caused the death of player</param>
+    public void Die(ObjectBuildType? damageCause = ObjectBuildType.Null)
     {
         _playerAudioControl.PlayDieSound();
         gameObject.SetActive(false);
@@ -220,16 +222,26 @@ public class PlayerStatus : MonoBehaviour
         Time.timeScale = 0f;
         display.SetActive(false);
 
-        var endScreen = display.transform.parent.parent.GetChild(1);
+        endScreen = endScreen == null ? display.transform.parent.parent.GetChild(1) : endScreen;
 
         if (!_endlessRun) endScreen.GetChild(1).gameObject.SetActive(true);
         else
         {
             endScreen.gameObject.SetActive(true);
+            endScreen.GetChild(0).GetChild(damageCause switch
+            {
+                ObjectBuildType.Spike => 1,
+                ObjectBuildType.SpikeUpsideDown => 1,
+                ObjectBuildType.SpikeLeft => 1,
+                ObjectBuildType.SpikeRight => 1,
+                ObjectBuildType.Spider => 2,
+                _ => 0
+            }).gameObject.SetActive(true);
 
-            ChangeText(1, _coins.ToString());
-            ChangeText(2, KillCounter.ToString());
-            ChangeText(3, Utility.FormatDoubleWithUnits(transform.position.x / 2.55, true) + "m");
+            
+            ChangeText(0, _coins.ToString());
+            ChangeText(1, KillCounter.ToString());
+            ChangeText(2, Utility.FormatDoubleWithUnits(transform.position.x / 2.55, true) + "m");
 
             _playerManager.Buffs[(int)BuffType.JumpBuff].Quantity = _jumpBuffs;
             _playerManager.Buffs[(int)BuffType.SpeedBuff].Quantity = _speedBuffs;
@@ -239,7 +251,7 @@ public class PlayerStatus : MonoBehaviour
             _playerManager.Save();
 
             void ChangeText(int childId, string text) =>
-                endScreen.GetChild(0).GetChild(childId).GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
+                endScreen.GetChild(1).GetChild(childId).GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
         }
     }
 

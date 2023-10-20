@@ -133,11 +133,15 @@ public class PlayerControl : MonoBehaviour
         if (!collision.gameObject.CompareTag("Enemy")) return;
 
         var colliderSize = (Vector3)Utility.RetrieveColliderSize(collision);
+        var colliderTransform = collision.transform;
         var position = _localTransform.position;
-        var colliderPosition = collision.transform.position;
+        var colliderPosition = colliderTransform.position;
+        
         _playerStatus.GetDamage(
             position - colliderPosition - new Vector3(colliderSize.x * (position.x < colliderPosition.x ? 1 : -1),
-                colliderSize.y * (position.y < colliderPosition.y ? 1 : -1), 0), 5);
+                colliderSize.y * (position.y < colliderPosition.y ? 1 : -1), 0), 5,
+            colliderTransform.TryGetComponent<Enemy>(out _) ? ObjectBuildType.Spider :
+            colliderTransform.name.Contains("Spike") ? ObjectBuildType.Spike : ObjectBuildType.Null);
     }
 
     private void OnCollisionStay2D(Collision2D collision)

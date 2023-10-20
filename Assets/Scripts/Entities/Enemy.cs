@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     private Vector2 _smoothVelocity;
     private bool _isDead;
     
-    private void Start()
+    private void Awake()
     {
         _direction = Utility.GetRandomNumberExcludingZero(2) == 1 ? -1f : 1f;
         _transform = transform;

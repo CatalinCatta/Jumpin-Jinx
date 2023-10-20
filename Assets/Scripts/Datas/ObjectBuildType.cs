@@ -35,5 +35,6 @@
     EndLvl,
     Coin,
     Health,
+    Spider,
     Enemy
 }
