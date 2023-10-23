@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Random = System.Random;
 
 public class RandomEnvironmentCreator : MonoBehaviour 
@@ -60,15 +61,12 @@ public class RandomEnvironmentCreator : MonoBehaviour
 
     private void CreatePlant()
     {
-        if (_prefabManager.plantSprites.Count == 0) return;
+        var plants = Dictionaries.ObjectBuild.Where(kv => kv.Value.category == ObjectBuildCategory.Plant).ToList();
         
-        var randomPlant = Utility.GetRandomNumberBetween(0, _prefabManager.plantSprites.Count);
-        var plant = new GameObject("Plant");
+        if (plants.Count == 1) return;
 
-        plant.transform.SetParent(_transform);
-        plant.transform.localPosition = new Vector3((float)(_random.NextDouble() - .5f),
-            (float)(_random.NextDouble() / 4) + (randomPlant > 1 ? .45f : 1.5f), -1);
-
-        plant.AddComponent<SpriteRenderer>().sprite = _prefabManager.plantSprites[randomPlant];
+        Instantiate(plants[Utility.GetRandomNumberBetween(0, plants.Count)].Value.prefab,
+            new Vector3((float)(_random.NextDouble() - .5f), (float)(_random.NextDouble() / 4), -1),
+            Quaternion.identity, _transform);
     }
 }

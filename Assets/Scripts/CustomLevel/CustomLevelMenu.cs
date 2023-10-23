@@ -79,12 +79,9 @@ public class CustomLevelMenu : MonoBehaviour
         page.gameObject.SetActive(false);
         return page;
     }
-    
-    private void SetUpSaves(Transform page, string title)
-    {
-        Instantiate(savePrefab, page).transform.GetChild(1)
-            .GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(title);
-        
-    }
-    
+
+    private void SetUpSaves(Transform page, string title) =>
+        Instantiate(savePrefab, page).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
+            Path.GetFileNameWithoutExtension(title);
+
 }

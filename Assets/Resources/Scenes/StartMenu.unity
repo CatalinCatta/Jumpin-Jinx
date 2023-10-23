@@ -21528,8 +21528,8 @@ MonoBehaviour:
   horizontalMovingPlatform: {fileID: 720811117464374823, guid: f736dd98113ea7e42a3430bf5a88f301, type: 3}
   verticalMovingPlatform: {fileID: 720811117464374823, guid: f736dd98113ea7e42a3430bf5a88f301, type: 3}
   circularMovingPlatform: {fileID: 720811117464374823, guid: 0dc01ea6769e80d44ab3f2d4b1ff41ed, type: 3}
-  watter: {fileID: 789576858403303306, guid: bd239bd05da2868438ad1261a6f96e51, type: 3}
-  watterBottom: {fileID: 789576858403303306, guid: 4844a7d92825936469c0c9e4d844a83c, type: 3}
+  acid: {fileID: 789576858403303306, guid: bd239bd05da2868438ad1261a6f96e51, type: 3}
+  acidBottom: {fileID: 789576858403303306, guid: 4844a7d92825936469c0c9e4d844a83c, type: 3}
   player: {fileID: 4007437618575838899, guid: a91fef41c80491c4fab2e3d991a4f022, type: 3}
   coin: {fileID: 5979417547880510089, guid: 3f438384119684344bfbb317f3b86a8d, type: 3}
   gem: {fileID: 5979417547880510089, guid: 2a8a4f1db84fc6f42bcb44e0fe6bda5d, type: 3}
@@ -21537,7 +21537,7 @@ MonoBehaviour:
   heal: {fileID: 5658132860675772406, guid: 8bf972a5a7907994387e93355f396c8b, type: 3}
   spike: {fileID: 1490436315133301635, guid: 9a6cc03bf0ddb9a4eb9dc7b71ea2a319, type: 3}
   spider: {fileID: 4308186781703707936, guid: 10128f4f820fb664596c1a9d401b9c63, type: 3}
-  plantSprites: []
+  plantPlaceHolder: {fileID: 6239542000749498690, guid: 183ad9a324825f94a9180814305218bc, type: 3}
 --- !u!1 &451057178
 GameObject:
   m_ObjectHideFlags: 0
@@ -57935,7 +57935,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.85
+  m_fontSize: 55.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -63991,7 +63991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.3, y: 1}
-  m_AnchoredPosition: {x: -50.008423, y: 0}
+  m_AnchoredPosition: {x: -50.0083, y: 0}
   m_SizeDelta: {x: 100.000015, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1243432486
@@ -68411,7 +68411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.17, y: 0.57}
   m_AnchorMax: {x: 0.25, y: 0.65000004}
-  m_AnchoredPosition: {x: -17.099976, y: 2.4000015}
+  m_AnchoredPosition: {x: -17.099976, y: 2.399994}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1345120086

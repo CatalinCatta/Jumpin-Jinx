@@ -11,7 +11,7 @@ public static partial class Dictionaries
         {
             Language.Romanian,
             new List<string>
-                { "Exista doua tipuri de oameni: cei care pot sa extraga concluzii din date incomplete.", "" }
+                { "Exista doua tipuri de oameni: cei care pot sa traga concluzii din date incomplete.", "" }
         }
     };
     // TODO: Add more inspirational quote in different language.

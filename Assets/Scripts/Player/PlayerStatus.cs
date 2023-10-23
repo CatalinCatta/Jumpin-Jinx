@@ -237,7 +237,6 @@ public class PlayerStatus : MonoBehaviour
                 ObjectBuildType.Spider => 2,
                 _ => 0
             }).gameObject.SetActive(true);
-
             
             ChangeText(0, _coins.ToString());
             ChangeText(1, KillCounter.ToString());
@@ -317,8 +316,9 @@ public class PlayerStatus : MonoBehaviour
     /// <summary>
     /// Method to update the displayed coin count.
     /// </summary>
-    private void ShowCoins() => ChangeUiText(_coinDisplay, _coins.ToString());
-
+    private void ShowCoins() =>
+        ChangeUiText(_coinDisplay, _endlessRun ? _coins.ToString() : $"{_coins} / {_coinsInLevel}");
+    
     /// <summary>
     /// Method to update the displayed coin count.
     /// </summary>

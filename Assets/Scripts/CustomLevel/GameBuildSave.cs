@@ -102,8 +102,8 @@ public class GameBuildSave : MonoBehaviour
                     case ObjectBuildType.Health:
                         str.Append('H');
                         continue;
-                    case ObjectBuildType.Enemy:
-                        str.Append('E');
+                    case ObjectBuildType.Spider:
+                        str.Append('S');
                         continue;
                 }
 

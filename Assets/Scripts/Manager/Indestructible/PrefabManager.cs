@@ -23,8 +23,8 @@ public class PrefabManager : IndestructibleManager<PrefabManager>
         horizontalMovingPlatform,
         verticalMovingPlatform,
         circularMovingPlatform,
-        watter,
-        watterBottom;
+        acid,
+        acidBottom;
 
     [Header("Objects")] [SerializeField] public GameObject
         player,
@@ -36,6 +36,7 @@ public class PrefabManager : IndestructibleManager<PrefabManager>
 
     [Header("Enemy")] [SerializeField] public GameObject
         spider;
-    
-    public List<Sprite> plantSprites;
+
+    [Header("Plants")] [SerializeField] public GameObject
+        plantPlaceHolder;
 }

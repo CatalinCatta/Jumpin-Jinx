@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 789576858403303300}
   - component: {fileID: 3192996902913733095}
   m_Layer: 0
-  m_Name: Water Bottom
+  m_Name: Acid Bottom
   m_TagString: Death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

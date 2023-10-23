@@ -51,7 +51,7 @@ public class WorldGenerator : MonoBehaviour
         SetUpFirstPlatform();
         
         for (var i = 0; i < chunkLength; i++)
-            Instantiate(_prefabManager.watter, new Vector3((i + _currentChunk * chunkLength) * unitSize, 0, 5), Quaternion.identity,
+            Instantiate(_prefabManager.acid, new Vector3((i + _currentChunk * chunkLength) * unitSize, 0, 5), Quaternion.identity,
                 _chunksParents[2].transform);
     }
     
@@ -92,11 +92,11 @@ public class WorldGenerator : MonoBehaviour
         Instantiate(wallPrefab, new Vector2((_currentChunk - 2) * chunkLength - wallScale.x / 2, wallScale.y / 2),
             Quaternion.identity, _chunksParents[0].transform);
 
-        // New watter
+        // New acid
         for (var i = 0; i < chunkLength; i++)
-            Instantiate(_prefabManager.watter, new Vector3((i + _currentChunk * chunkLength) * unitSize, 0, 5),
+            Instantiate(_prefabManager.acid, new Vector3((i + _currentChunk * chunkLength) * unitSize, 0, 5),
                 Quaternion.identity, _chunksParents[2].transform);
-        Instantiate(_prefabManager.watterBottom, new Vector2((_currentChunk + 2) * chunkLength * unitSize / 2, -6.2f),
+        Instantiate(_prefabManager.acidBottom, new Vector2((_currentChunk + 2) * chunkLength * unitSize / 2, -6.2f),
             Quaternion.identity, _chunksParents[2].transform).transform.localScale = new Vector3(20, 5, 1);
         
         // New platforms

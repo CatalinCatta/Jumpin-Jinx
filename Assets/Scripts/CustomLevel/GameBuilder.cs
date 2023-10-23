@@ -13,9 +13,7 @@ public class GameBuilder : MonoBehaviour
     private Transform _currentButton;
 
     [Header("Building Place")] [SerializeField]
-    private GameObject
-        buildPlacePrefab,
-        buildingPlacesParent;
+    private GameObject buildPlacePrefab, buildingPlacesParent;
 
     [Header("Utilities")]
     [SerializeField] private GameObject currentMenu;

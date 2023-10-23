@@ -23,8 +23,7 @@ public class ObjectBuilder : MonoBehaviour, IPointerDownHandler
 
         _gameBuilder.DeselectCurrentItem();
 
-        if (wasAlreadyPressed)
-            return;
+        if (wasAlreadyPressed) return;
 
         _gameBuilder.SelectedObject = this;
         _image.color = Color.green;

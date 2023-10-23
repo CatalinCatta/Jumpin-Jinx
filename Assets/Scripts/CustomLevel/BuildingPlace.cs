@@ -32,11 +32,8 @@ public class BuildingPlace : MonoBehaviour
                 ? null
                 : GetBuildingPlaceFromDirection(Directions.Down);
 
-        if (buildingPlaceUpTransform != null)
-            buildingPlaceUpTransform.TryGetComponent(out _buildingPlaceUp);
-
-        if (buildingPlaceDownTransform != null)
-            buildingPlaceDownTransform.TryGetComponent(out _buildingPlaceDown);
+        if (buildingPlaceUpTransform != null) buildingPlaceUpTransform.TryGetComponent(out _buildingPlaceUp);
+        if (buildingPlaceDownTransform != null) buildingPlaceDownTransform.TryGetComponent(out _buildingPlaceDown);
     }
 
     private void OnMouseExit()
@@ -46,11 +43,8 @@ public class BuildingPlace : MonoBehaviour
         _spriteRenderer.color = new Color(1f, 1f, 1f, .5f);
         ShowItems(_localTransform.GetChild(0), true);
 
-        if (_buildingPlaceUp != null)
-            ShowItems(_buildingPlaceUp.transform.GetChild(0), true);
-
-        if (_buildingPlaceDown != null)
-            ShowItems(_buildingPlaceDown.transform.GetChild(0), true);
+        if (_buildingPlaceUp != null) ShowItems(_buildingPlaceUp.transform.GetChild(0), true);
+        if (_buildingPlaceDown != null) ShowItems(_buildingPlaceDown.transform.GetChild(0), true);
 
         _localTransform.GetChild(1).gameObject.SetActive(false);
     }
@@ -61,8 +55,7 @@ public class BuildingPlace : MonoBehaviour
 
         var isMousePressed = Input.GetMouseButton(0);
 
-        if (_gameBuilder.DeleteMode)
-            Delete(isMousePressed);
+        if (_gameBuilder.DeleteMode) Delete(isMousePressed);
         else
         {
             if (_gameBuilder.SelectedObject == null) return;
@@ -97,13 +90,10 @@ public class BuildingPlace : MonoBehaviour
     private void Build(bool isConstructing)
     {
         var finalItemTransform = _localTransform.GetChild(0);
-        var finalBlockItemTransform = finalItemTransform.GetChild(0);
-        var finalEnvironmentItemTransform = finalItemTransform.GetChild(1);
-        var finalObjectItemTransform = finalItemTransform.GetChild(2);
 
-        var finalBlockItemSpriteRender = finalBlockItemTransform.GetComponent<SpriteRenderer>();
-        var finalEnvironmentItemSpriteRender = finalEnvironmentItemTransform.GetComponent<SpriteRenderer>();
-        var finalObjectItemSpriteRender = finalObjectItemTransform.GetComponent<SpriteRenderer>();
+        var finalBlockItemSpriteRender = finalItemTransform.GetChild(0).GetComponent<SpriteRenderer>();
+        var finalEnvironmentItemSpriteRender = finalItemTransform.GetChild(1).GetComponent<SpriteRenderer>();
+        var finalObjectItemSpriteRender = finalItemTransform.GetChild(2).GetComponent<SpriteRenderer>();
 
         var temporaryItemTransform = _localTransform.GetChild(1);
         var temporaryItemRenderer = temporaryItemTransform.GetComponent<SpriteRenderer>();
