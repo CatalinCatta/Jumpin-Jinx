@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class CustomLevelMenu : MonoBehaviour
 {
-    private List<string> _savesNames;
+    private readonly List<string> _savesNames = new();
 
     [SerializeField] private Transform pagesParent;
     [SerializeField] private GameObject pagePrefab, savePrefab, createPrefab;
@@ -21,21 +21,22 @@ public class CustomLevelMenu : MonoBehaviour
         var path = Path.GetFullPath(@"CustomLevels");
         
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-        else PrepareBook(path);
+        PrepareBook(path);
     }
     
     public void StartMapBuilder()
     {
         var lvlManager = LvlManager.Instance;
-        
-        lvlManager.LvlTitle = "";
+        lvlManager.LvlTitle = Utility.ReturnFirstPossibleName("New map", _savesNames);
         lvlManager.StartScene(-1);
     }
 
     private void PrepareBook(string path)
     {
-        _savesNames = Directory.GetFiles(path, "*.json").ToList();
-
+        foreach (var save in Directory.GetDirectories(path).ToList().Where(save =>
+                     File.Exists(Path.Join(save, Path.GetFileNameWithoutExtension(save) + ".json"))))
+            _savesNames.Add(save);
+        
         Transform lastPage = null;
         var maxPage = (int)Math.Ceiling((double)(_savesNames.Count + 1) / 3);
         
@@ -62,7 +63,6 @@ public class CustomLevelMenu : MonoBehaviour
         else
             prevButton.onClick.AddListener(() =>
             {
-                Debug.Log(page == pagesParent.GetChild(currentPage));
                 page.gameObject.SetActive(false);
                 pagesParent.GetChild(currentPage).gameObject.SetActive(true);
             });
@@ -80,8 +80,21 @@ public class CustomLevelMenu : MonoBehaviour
         return page;
     }
 
-    private void SetUpSaves(Transform page, string title) =>
-        Instantiate(savePrefab, page).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-            Path.GetFileNameWithoutExtension(title);
+    private void SetUpSaves(Transform page, string title)
+    {
+        var save = Instantiate(savePrefab, page).transform;
+        save.GetChild(1).GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(title);
+        if (File.Exists(Path.Join(title, "Screenshot.jpg")))
+        {
+            var texture = new Texture2D(2, 2);
+            texture.LoadImage(File.ReadAllBytes(Path.Join(title, "Screenshot.jpg")));
+            save.GetChild(0).GetComponent<Image>().sprite = Sprite.Create(texture,
+                new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+        }
+
+        var lastTimeEdited = File.GetLastWriteTime(Path.Join(title, Path.GetFileNameWithoutExtension(title) + ".json"));
+        save.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
+            { lastTimeEdited.ToString("HH:mm:ss"), lastTimeEdited.ToString("dd/MM/yyyy") });
+    }
 
 }

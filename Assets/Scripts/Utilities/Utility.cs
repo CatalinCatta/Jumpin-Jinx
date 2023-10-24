@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -257,16 +259,13 @@ public static class Utility
         _ => 
             $"{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 100 % 100):00}"
     };
-    
-    public static float StringToTime(string formattedTime)
+
+    public static string ReturnFirstPossibleName(string desiredName, List<string> currentUsedNames)
     {
-        var timeParts = formattedTime.Split(':').Select(int.Parse).ToArray();
-        
-        return timeParts.Length switch
-        {
-            4 => timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2] + timeParts[3] / 1000.0f,
-            3 => timeParts[0] * 60 + timeParts[1] + timeParts[2] / 1000.0f,
-            _ => timeParts[0] + timeParts[1] / 1000.0f
-        };
+        var (finalName, counter) = (desiredName, 1);
+        while (currentUsedNames.Select(Path.GetFileNameWithoutExtension).ToList().Contains(finalName))
+            finalName = $"{desiredName} ({counter++})";
+
+        return finalName;
     }
 }

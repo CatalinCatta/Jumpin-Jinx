@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Manages the saving of custom game maps and configurations.
@@ -10,37 +12,49 @@ using UnityEngine;
 [RequireComponent(typeof(GameBuilder))]
 public class GameBuildSave : MonoBehaviour
 {
-    private string _fileName;
     private GameBuilder _gameBuilder;
-
+    private LvlManager _lvlManager;
+    [SerializeField] private TMP_InputField title;
+    
     private void Awake() => _gameBuilder = GetComponent<GameBuilder>();
+
+    private void Start()
+    {
+        _lvlManager = LvlManager.Instance;
+        title.text = _lvlManager.LvlTitle;
+    }
 
     /// <summary>
     /// Changes the filename used for saving.
     /// </summary>
-    public void ChangeFileName(string newFileName) => _fileName = newFileName;
+    public void ChangeFileName(string newFileName) => title.text =
+        Utility.ReturnFirstPossibleName(title.text,
+            Directory.GetDirectories(Path.GetFullPath(@"CustomLevels")).ToList());
 
     /// <summary>
     /// Saves the current map configuration to a JSON file.
     /// </summary>
     public void SaveMap()
     {
-        var lvlManager = LvlManager.Instance;
-        
         try
         {
-            var path = Path.GetFullPath(@"CustomLevels");
-            var finalPath = path + $"/{lvlManager.LvlTitle}.json";
-
+            var path = Path.Join(Path.GetFullPath(@"CustomLevels"), _lvlManager.LvlTitle);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            else if (File.Exists(finalPath))
+            var finalPath = Path.Join(path, $"{_lvlManager.LvlTitle}.json");
+
+            
+            if (File.Exists(finalPath))
             {
                 File.Delete(finalPath);
-                lvlManager.LvlTitle = _fileName;
-                finalPath = path + $"/{lvlManager.LvlTitle}.json";
+                title.text = _lvlManager.LvlTitle = Utility.ReturnFirstPossibleName(title.text,
+                    Directory.GetDirectories(Path.GetFullPath(@"CustomLevels")).ToList());
+                finalPath = Path.Join(path, $"{_lvlManager.LvlTitle}.json");
             }
 
             File.WriteAllText(finalPath, JsonConvert.SerializeObject(new[] { MapObjects() }));
+            var screenshotPath = Path.Join(path, "Screenshot.jpg");
+            if (File.Exists(screenshotPath)) File.Delete(screenshotPath);
+            ScreenCapture.CaptureScreenshot(screenshotPath,2);
         }
         catch (IOException ex)
         {
@@ -62,59 +76,17 @@ public class GameBuildSave : MonoBehaviour
             var str = new StringBuilder();
             for (var j = 0; j < _gameBuilder.Columns; j++)
             {
-                switch (_gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Block)
-                {
-                    case ObjectBuildType.Null:
-                        break;
-                    case ObjectBuildType.Dirt:
-                        str.Append('D');
-                        continue;
-                    case ObjectBuildType.StaticGrass:
-                        str.Append('G');
-                        continue;
-                    case ObjectBuildType.HalfSlopeDirt:
-                        str.Append('}');
-                        continue;
-                    case ObjectBuildType.HalfSlopeDirtRotated:
-                        str.Append('{');
-                        continue;
-                    case ObjectBuildType.SlopeDirt:
-                        str.Append('>');
-                        continue;
-                    case ObjectBuildType.SlopeDirtRotated:
-                        str.Append('<');
-                        continue;
-                }
+                var element = _gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Block;
+                if (element == ObjectBuildType.Null)
+                    element = _gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Object;
 
-                switch (_gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Object)
-                {
-                    case ObjectBuildType.Null:
-                        break;
-                    case ObjectBuildType.Player:
-                        str.Append('P');
-                        continue;
-                    case ObjectBuildType.EndLvl:
-                        str.Append('X');
-                        continue;
-                    case ObjectBuildType.Coin:
-                        str.Append('C');
-                        continue;
-                    case ObjectBuildType.Health:
-                        str.Append('H');
-                        continue;
-                    case ObjectBuildType.Spider:
-                        str.Append('S');
-                        continue;
-                }
-
-                str.Append(' ');
+                str.Append(element != ObjectBuildType.Null ? Dictionaries.ObjectBuild[element].character : ' ');
             }
 
             line.Add(str.ToString());
         }
 
         lvl.Maps = line.ToArray();
-
         return lvl;
     }
 }
