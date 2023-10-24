@@ -131,7 +131,7 @@ public class LvlGenerator : MonoBehaviour
                 _ => Quaternion.identity
             },
             isPlatform ? tilesParent :
-            _platforms[row+1, column] != null ? _platforms[row+1, column].transform : new GameObject().transform);
+            _platforms[row + 1, column] != null ? _platforms[row + 1, column].transform : new GameObject().transform);
 
         if (isPlatform) _platforms[row, column] = objectCreated;
         

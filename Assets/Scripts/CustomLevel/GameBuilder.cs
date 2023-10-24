@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,14 +11,17 @@ public class GameBuilder : MonoBehaviour
 
     [Header("Object Builder")] [NonSerialized]
     public ObjectBuilder SelectedObject;
-    private Transform _currentButton;
-
+    public Transform _currentButton;
+    public Sprite selectedButton, deselectedButton;
+    public TextMeshProUGUI playerCounter, endLvlCounter;
+    
     [Header("Building Place")] [SerializeField]
     private GameObject buildPlacePrefab, buildingPlacesParent;
 
     [Header("Utilities")]
     [SerializeField] private GameObject currentMenu;
     [NonSerialized] public GameObject[,] BuildingPlaces;
+    [NonSerialized] public (int x, int y) PlayerPosition = (-1, -1), EndLvlPosition = (-1, -1); 
 
     private void Start() => BuildBuildPlaces();
 
@@ -69,14 +73,14 @@ public class GameBuilder : MonoBehaviour
     {
         if (button == _currentButton) return;
 
-        _currentButton.GetComponent<Image>().color = new Color(.5f, .5f, .5f, 1f);
+        _currentButton.GetComponent<Image>().sprite = deselectedButton;
         _currentButton.GetChild(0).GetComponent<Image>().color = new Color(.5f, .5f, .5f, 1f);
 
         DeselectCurrentItem();
 
         _currentButton = button;
 
-        button.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+        button.GetComponent<Image>().sprite = selectedButton;
         button.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
     }
 

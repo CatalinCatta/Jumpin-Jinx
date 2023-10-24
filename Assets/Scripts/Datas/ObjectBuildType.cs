@@ -61,9 +61,9 @@ public static partial class Dictionaries
         { ObjectBuildType.HalfSlopeDirtRotated, (ObjectBuildCategory.Block, '{', PrefabManager.Instance.halfSlopeGrass) },
         { ObjectBuildType.SlopeDirt, (ObjectBuildCategory.Block, '>', PrefabManager.Instance.slopeGrass) },
         { ObjectBuildType.SlopeDirtRotated, (ObjectBuildCategory.Block, '<', PrefabManager.Instance.slopeGrass) },
-        
-        { ObjectBuildType.Acid, (ObjectBuildCategory.Damage, 'W', PrefabManager.Instance.acid) },
-        { ObjectBuildType.AcidBottom, (ObjectBuildCategory.Damage, 'M', PrefabManager.Instance.acidBottom) },
+        { ObjectBuildType.Acid, (ObjectBuildCategory.Block, 'W', PrefabManager.Instance.acid) },
+        { ObjectBuildType.AcidBottom, (ObjectBuildCategory.Block, 'M', PrefabManager.Instance.acidBottom) },
+
         { ObjectBuildType.SpikeUpsideDown, (ObjectBuildCategory.Damage, 'S', PrefabManager.Instance.spike) },
         { ObjectBuildType.Spike, (ObjectBuildCategory.Damage, 's', PrefabManager.Instance.spike) },
         { ObjectBuildType.SpikeLeft, (ObjectBuildCategory.Damage, '[', PrefabManager.Instance.spike) },
