@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,13 +7,29 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraResize : MonoBehaviour
 {
-    private void Start()
-    {
-        float size, yPosition;
-        var resolution = Screen.currentResolution;
-        var resolutionAsFloat = (float)resolution.width / resolution.height;
+    private float _currentResolution;
 
-        switch (resolutionAsFloat)
+    private void Update()
+    {
+        if (WasResolutionChanged()) ChangeResolution();
+    }
+
+    private bool WasResolutionChanged()
+    {
+        // var resolution = Screen.currentResolution;
+        var newResolution = (float)Screen.width / Screen.height;
+        var wasChanged = Math.Abs(newResolution - _currentResolution) < .05f;
+        _currentResolution = newResolution;
+        
+        return wasChanged;
+    }
+
+    private void ChangeResolution()
+    {
+        
+        float size, yPosition;
+
+        switch (_currentResolution)
         {
             case >= 1.7f:
                 size = 11;
@@ -55,7 +72,7 @@ public class CameraResize : MonoBehaviour
                 break;
 
             default:
-                size = 19 + 1.5f * (resolutionAsFloat - 1f) * 10;
+                size = 19 + 1.5f * (_currentResolution - 1f) * 10;
                 yPosition = 3;
                 break;
         }
@@ -63,4 +80,5 @@ public class CameraResize : MonoBehaviour
         GetComponent<Camera>().orthographicSize = size;
         transform.position = new Vector3(0, yPosition, -15);
     }
+    
 }

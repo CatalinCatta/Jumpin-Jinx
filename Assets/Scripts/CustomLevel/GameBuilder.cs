@@ -11,12 +11,14 @@ public class GameBuilder : MonoBehaviour
 
     [Header("Object Builder")] [NonSerialized]
     public ObjectBuilder SelectedObject;
-    public Transform _currentButton;
+    public Transform currentButton;
     public Sprite selectedButton, deselectedButton;
     public TextMeshProUGUI playerCounter, endLvlCounter;
-    
+
     [Header("Building Place")] [SerializeField]
-    private GameObject buildPlacePrefab, buildingPlacesParent;
+    private GameObject buildPlacePrefab;
+
+    [SerializeField] private Transform buildingPlacesParent;
 
     [Header("Utilities")]
     [SerializeField] private GameObject currentMenu;
@@ -41,7 +43,10 @@ public class GameBuilder : MonoBehaviour
         for (var j = 0; j < Columns; j++)
             BuildingPlaces[i, j] = Instantiate(buildPlacePrefab,
                 new Vector3((j - (Columns - 1) / 2) * 1.28f, (i - (Rows - 1) / 2) * 1.28f, -10), Quaternion.identity,
-                buildingPlacesParent.transform);
+                buildingPlacesParent);
+
+        buildingPlacesParent.localScale = new Vector3(.8f, .8f, 1f);
+        buildingPlacesParent.position = new Vector3(4f, -2f, -1f);
     }
 
     /// <summary>
@@ -71,14 +76,14 @@ public class GameBuilder : MonoBehaviour
     /// </summary>
     public void ActivateButton(Transform button)
     {
-        if (button == _currentButton) return;
+        if (button == currentButton) return;
 
-        _currentButton.GetComponent<Image>().sprite = deselectedButton;
-        _currentButton.GetChild(0).GetComponent<Image>().color = new Color(.5f, .5f, .5f, 1f);
+        currentButton.GetComponent<Image>().sprite = deselectedButton;
+        currentButton.GetChild(0).GetComponent<Image>().color = new Color(.5f, .5f, .5f, 1f);
 
         DeselectCurrentItem();
 
-        _currentButton = button;
+        currentButton = button;
 
         button.GetComponent<Image>().sprite = selectedButton;
         button.GetChild(0).GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
