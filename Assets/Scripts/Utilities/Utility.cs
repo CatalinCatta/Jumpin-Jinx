@@ -249,13 +249,13 @@ public static class Utility
     public static string TimeToString(float time) => time switch
     {
         > 360 =>
-            $"{Mathf.FloorToInt(time / 3600):00}:{Mathf.FloorToInt(time % 3600 / 60):00}:{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 1000 % 1000):000}",
+            $"{Mathf.FloorToInt(time / 3600):00}:{Mathf.FloorToInt(time % 3600 / 60):00}:{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 100 % 100):00}",
 
         > 60 =>
-            $"{Mathf.FloorToInt(time % 3600 / 60):00}:{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 1000 % 1000):000}",
+            $"{Mathf.FloorToInt(time % 3600 / 60):00}:{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 100 % 100):00}",
 
         _ => 
-            $"{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 1000 % 1000):000}"
+            $"{Mathf.FloorToInt(time % 60):00}:{Mathf.FloorToInt(time * 100 % 100):00}"
     };
     
     public static float StringToTime(string formattedTime)
