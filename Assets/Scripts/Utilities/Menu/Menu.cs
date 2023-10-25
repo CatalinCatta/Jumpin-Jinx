@@ -8,9 +8,11 @@ public class Menu : MonoBehaviour
 {
     private Animator _canvasAnimator;
     private SettingsManager _settingsManager;
+    private LvlManager _lvlManager;
     
     private void Start()
     {
+        _lvlManager = LvlManager.Instance;
         _settingsManager = SettingsManager.Instance;
         _canvasAnimator = GetComponent<Animator>();
         Time.timeScale = 1f;
@@ -23,13 +25,13 @@ public class Menu : MonoBehaviour
     public void StartEndlessRun()
     {
         PlayerManager.Instance.Save();
-        LvlManager.Instance.StartScene((int)Scene.Endless);
+        _lvlManager.StartScene((int)Scene.Endless);
     }
 
     /// <summary>
     /// Reopen main menu.
     /// </summary>
-    public void Restart() => LvlManager.Instance.StartScene((int)Scene.Menu);
+    public void Restart() => _lvlManager.StartScene((int)Scene.Menu);
 
     /// <summary>
     /// Close app. 
@@ -41,7 +43,11 @@ public class Menu : MonoBehaviour
     /// </summary>
     /// <param name="lvl">Level to run.</param>
     /// <remarks>Levels starts form 1.</remarks>
-    public void StartLevel(int lvl) => LvlManager.Instance.StartScene(lvl);
+    public void StartLevel(int lvl)
+    {
+        _lvlManager.IsCampaign = true;
+        _lvlManager.StartScene(lvl);
+    }
 
     public void OpenSettings()
     {

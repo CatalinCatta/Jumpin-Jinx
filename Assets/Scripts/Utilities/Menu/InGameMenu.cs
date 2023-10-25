@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,10 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class InGameMenu : MonoBehaviour
 {
+    private LvlManager _lvlManager;
+
+    private void Start() => _lvlManager = LvlManager.Instance;
+
     /// <summary>
     /// Return to main menu.
     /// </summary>
@@ -14,12 +19,12 @@ public class InGameMenu : MonoBehaviour
     /// <summary>
     /// Restart current level.
     /// </summary>
-    public void RestartLevel() => LvlManager.Instance.StartScene(LvlManager.Instance.CurrentLvl);
+    public void RestartLevel() =>_lvlManager.StartScene(_lvlManager.CurrentLvl);
 
     /// <summary>
     /// Start next level.
     /// </summary>
-    public void NextLevel() => LvlManager.Instance.StartScene(LvlManager.Instance.CurrentLvl + 1);
+    public void NextLevel() => _lvlManager.StartScene(_lvlManager.CurrentLvl + 1);
 
     /// <summary>
     /// Stop/Resume current level by modifying the time scale.

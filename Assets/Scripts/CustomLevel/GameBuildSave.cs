@@ -41,7 +41,6 @@ public class GameBuildSave : MonoBehaviour
             var path = Path.Join(Path.GetFullPath(@"CustomLevels"), _lvlManager.LvlTitle);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             var finalPath = Path.Join(path, $"{_lvlManager.LvlTitle}.json");
-
             
             if (File.Exists(finalPath))
             {
@@ -51,7 +50,7 @@ public class GameBuildSave : MonoBehaviour
                 finalPath = Path.Join(path, $"{_lvlManager.LvlTitle}.json");
             }
 
-            File.WriteAllText(finalPath, JsonConvert.SerializeObject(new[] { MapObjects() }));
+            File.WriteAllText(finalPath, JsonConvert.SerializeObject(MapObjects()));
             var screenshotPath = Path.Join(path, "Screenshot.jpg");
             if (File.Exists(screenshotPath)) File.Delete(screenshotPath);
             ScreenCapture.CaptureScreenshot(screenshotPath,2);
@@ -71,7 +70,7 @@ public class GameBuildSave : MonoBehaviour
         var lvl = new Level();
         var line = new List<string>();
 
-        for (var i = 0; i < _gameBuilder.Rows; i++)
+        for (var i = _gameBuilder.Rows - 1; i > -1 ; i--)
         {
             var str = new StringBuilder();
             for (var j = 0; j < _gameBuilder.Columns; j++)

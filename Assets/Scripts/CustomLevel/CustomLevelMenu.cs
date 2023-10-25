@@ -12,25 +12,35 @@ using UnityEngine.UI;
 public class CustomLevelMenu : MonoBehaviour
 {
     private readonly List<string> _savesNames = new();
-
+    private LvlManager _lvlManager;
+    
     [SerializeField] private Transform pagesParent;
     [SerializeField] private GameObject pagePrefab, savePrefab, createPrefab;
     
     private void Start()
     {
         var path = Path.GetFullPath(@"CustomLevels");
+        _lvlManager = LvlManager.Instance;
         
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
         PrepareBook(path);
     }
     
-    public void StartMapBuilder()
+    private void StartMapBuilder()
     {
-        var lvlManager = LvlManager.Instance;
-        lvlManager.LvlTitle = Utility.ReturnFirstPossibleName("New map", _savesNames);
-        lvlManager.StartScene(-1);
+        SetUpLvlTitle();
+        _lvlManager.StartScene(-1);
     }
 
+    private void SetUpLvlTitle() => _lvlManager.LvlTitle = Utility.ReturnFirstPossibleName("New map", _savesNames);
+    
+    public void StartLvl(string title)
+    {
+        _lvlManager.LvlTitle = title;
+        _lvlManager.IsCampaign = false;
+        _lvlManager.StartScene(1);
+    }
+    
     private void PrepareBook(string path)
     {
         foreach (var save in Directory.GetDirectories(path).ToList().Where(save =>
@@ -95,6 +105,11 @@ public class CustomLevelMenu : MonoBehaviour
         var lastTimeEdited = File.GetLastWriteTime(Path.Join(title, Path.GetFileNameWithoutExtension(title) + ".json"));
         save.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
             { lastTimeEdited.ToString("HH:mm:ss"), lastTimeEdited.ToString("dd/MM/yyyy") });
+
+        save.GetChild(5).GetComponent<Button>().onClick.AddListener(() =>
+        {
+            StartLvl(Path.GetFileNameWithoutExtension(title));
+        });
     }
 
 }

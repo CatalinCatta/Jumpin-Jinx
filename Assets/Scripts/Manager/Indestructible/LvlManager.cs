@@ -14,6 +14,7 @@ public class LvlManager : IndestructibleManager<LvlManager>
     [NonSerialized] public int CurrentLvl, CoinsInLevel;
     [NonSerialized] public Scene CurrentScene;
     [NonSerialized] public (int, int, int) TimerLimitForStars;
+    [NonSerialized] public bool IsCampaign;
 
     private static SettingsManager _settings;
 
@@ -26,7 +27,7 @@ public class LvlManager : IndestructibleManager<LvlManager>
     public void StartScene(int lvl)
     {
         CurrentLvl = lvl;
-        CurrentScene = lvl >= 1 ? Scene.Champaign : (Scene)lvl;
+        CurrentScene = lvl >= 1 ? Scene.Campaign : (Scene)lvl;
 
         _settings.Save();
         StartCoroutine(LoadAsync(Dictionaries.Scene[CurrentScene], lvl == 13));

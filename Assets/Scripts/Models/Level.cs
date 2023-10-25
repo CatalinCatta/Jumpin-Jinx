@@ -2,10 +2,11 @@
 
 public class Level
 {
-    public string Name { get; set; }
-    
     [JsonProperty("map")]
     public string[] Maps { get; set; }
-    
-    public int[] TimerLimitForStars;
+
+    public int[] TimerLimitForStars { get; set; } =
+    {
+        10_000, 10_000, 10_000
+    };
 }

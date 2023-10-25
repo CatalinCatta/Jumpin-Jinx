@@ -5,7 +5,7 @@ public enum Scene
     Menu = -2,
     Custom,
     Endless,
-    Champaign 
+    Campaign 
 }
 
 public static partial class Dictionaries
@@ -15,6 +15,6 @@ public static partial class Dictionaries
         { global::Scene.Menu, "StartMenu" },
         { global::Scene.Custom, "Local Game" },
         { global::Scene.Endless, "EndlessRun" },
-        { global::Scene.Champaign, "Grass Lvl" }
+        { global::Scene.Campaign, "Grass Lvl" }
     };
 }

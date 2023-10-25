@@ -155,7 +155,6 @@ public class BuildingPlace : MonoBehaviour
             {
                 case ObjectBuildType.Player:
                     _gameBuilder.playerCounter.text = "0";
-                    Debug.Log(_gameBuilder.PlayerPosition);
                     if (_gameBuilder.PlayerPosition != (-1, -1) && _gameBuilder.PlayerPosition != arrayPosition)
                         specialObject = _gameBuilder.BuildingPlaces[_gameBuilder.PlayerPosition.x,
                             _gameBuilder.PlayerPosition.y];
@@ -164,7 +163,6 @@ public class BuildingPlace : MonoBehaviour
                 
                 case ObjectBuildType.EndLvl:
                     _gameBuilder.endLvlCounter.text = "0";
-                    Debug.Log(_gameBuilder.EndLvlPosition);
                     if (_gameBuilder.EndLvlPosition != (-1, -1) && _gameBuilder.EndLvlPosition != arrayPosition)
                         specialObject = _gameBuilder.BuildingPlaces[_gameBuilder.EndLvlPosition.x,
                             _gameBuilder.EndLvlPosition.y];

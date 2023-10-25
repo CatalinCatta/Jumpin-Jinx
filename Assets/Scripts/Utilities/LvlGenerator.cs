@@ -30,11 +30,14 @@ public class LvlGenerator : MonoBehaviour
 
         try
         {
-            var lvl =
-                JsonConvert.DeserializeObject<Level[]>(Resources.Load<TextAsset>("LevelData/maps").text)[
-                    _lvlManager.CurrentLvl - 1];
-            var map = lvl.Maps;
+            var lvl = _lvlManager.IsCampaign
+                ? JsonConvert.DeserializeObject<Level[]>(Resources.Load<TextAsset>(Path.Join("LevelData", "maps"))
+                    .text)[_lvlManager.CurrentLvl - 1]
+                : JsonConvert.DeserializeObject<Level>(File.ReadAllText(Path.Join(Path.GetFullPath(@"CustomLevels"),
+                    _lvlManager.LvlTitle, _lvlManager.LvlTitle + ".json")));
             
+            var map = lvl.Maps;
+
             _height = map.Length;
             _length = map[0].Length;
             _platforms = new GameObject[_height, _length];
@@ -60,7 +63,7 @@ public class LvlGenerator : MonoBehaviour
             Debug.Log("Error deserializing JSON: " + ex.Message);
         }
 
-        StartTutorial();
+        if (_lvlManager.IsCampaign) StartTutorial();
     }
 
     private void StartTutorial()
@@ -95,7 +98,6 @@ public class LvlGenerator : MonoBehaviour
     private void GenerateObject(char character, int row, int column, bool isPlatform)
     {
         if (row == _height - 1) CreateBottomGround(character, row, column);
-
         var objectDetails = Dictionaries.ObjectBuild.FirstOrDefault(kv => kv.Value.character == character);
 
         if (objectDetails.Equals(
