@@ -49,8 +49,8 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
         SetUpUpgrades();
         SetUpBuffs();
         
-        Gold = 5_000;
-        Gems = 50;
+        Gold = 0;
+        Gems = 0;
 
         SetUpEnhancement();
     }
