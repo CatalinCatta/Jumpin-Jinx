@@ -30,10 +30,10 @@ public class LvlManager : IndestructibleManager<LvlManager>
         CurrentScene = lvl >= 1 ? Scene.Campaign : (Scene)lvl;
 
         _settings.Save();
-        StartCoroutine(LoadAsync(Dictionaries.Scene[CurrentScene], lvl == 13));
+        StartCoroutine(LoadAsync(Dictionaries.Scene[CurrentScene]));
     }
 
-    private static IEnumerator LoadAsync(string scene, bool delay)
+    private static IEnumerator LoadAsync(string scene)
     {
         var loadingScreen = GameObject.Find("Loading Screen").transform;
         var progressbar = loadingScreen.GetChild(1);
@@ -42,10 +42,11 @@ public class LvlManager : IndestructibleManager<LvlManager>
         loadingScreen.GetChild(0).gameObject.SetActive(true);
         progressbar.gameObject.SetActive(true);
         progressbar.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-            quote[Utility.GetRandomNumberExcludingZero(quote.Count)];
-
-        if (delay) yield return new WaitForSeconds(10);
-
+            quote[Utility.GetRandomNumberBetween(0, quote.Count)];
+        
+        Debug.Log(_settings.Language);
+        Debug.Log(Dictionaries.Quote[_settings.Language].Count);
+        
         var operation = SceneManager.LoadSceneAsync(scene);
         var slider = progressbar.GetChild(0).GetComponent<Slider>();
         var percentage = progressbar.GetChild(2).GetComponent<TextMeshProUGUI>();
