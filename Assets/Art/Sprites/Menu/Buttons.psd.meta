@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 29af8d024f7dd3042ac8fe7f81be6012
+guid: cb9328c4268f9f3439a757a84f4304d1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -52,7 +52,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -129,85 +129,109 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 715636_sport-svg (9)_0
+      name: White
       rect:
         serializedVersion: 2
-        x: 27
-        y: 523
-        width: 921
-        height: 1204
+        x: 7
+        y: 789
+        width: 815
+        height: 242
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8812974330f168941849e975a310b4e4
-      internalID: -1671501780
+      spriteID: 9bd22492739a88748bafacebf23dc93e
+      internalID: -1219511355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 715636_sport-svg (9)_1
+      name: LightColoured
       rect:
         serializedVersion: 2
-        x: 1050
-        y: 545
-        width: 876
-        height: 1156
+        x: 28
+        y: 384
+        width: 787
+        height: 365
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 989369f23801aec40accfff413008d5c
-      internalID: 134389367
+      spriteID: 50b0bc2b1aff637488eb3b71a2742cf9
+      internalID: 506055522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 715636_sport-svg (9)_2
+      name: DarkColoured
       rect:
         serializedVersion: 2
-        x: 508
-        y: 43
-        width: 873
-        height: 422
+        x: 36
+        y: 9
+        width: 778
+        height: 355
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82182e05460eca8408ccf0b52d926c34
-      internalID: 356512030
+      spriteID: 6cbb816a82359134aa6cc7b2fb3921c2
+      internalID: -1482668597
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline: []
+    outline:
+    - - {x: 307, y: -159}
+      - {x: -306, y: -159}
+      - {x: -383, y: -237}
+      - {x: -383, y: -423}
+      - {x: -295, y: -518}
+      - {x: 309, y: -518}
+      - {x: 376, y: -513}
+      - {x: 399, y: -437}
+      - {x: 399, y: -245}
+    - - {x: -346, y: 226}
+      - {x: -391, y: 195}
+      - {x: -391, y: -110}
+      - {x: -382, y: -143}
+      - {x: 352, y: -143}
+      - {x: 400, y: -60}
+      - {x: 400, y: 145}
+      - {x: 339, y: 226}
+    - - {x: -407, y: 508}
+      - {x: -412, y: 498}
+      - {x: -412, y: 308}
+      - {x: -393, y: 262}
+      - {x: 372, y: 262}
+      - {x: 407, y: 295}
+      - {x: 407, y: 508}
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      715636_sport-svg (9)_0: -1671501780
-      715636_sport-svg (9)_1: 134389367
-      715636_sport-svg (9)_2: 356512030
+      DarkColoured: -1482668597
+      LightColoured: 506055522
+      White: -1219511355
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
+  pSDShowRemoveMatteOption: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

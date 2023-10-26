@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GrassMid (2) (1)_0
+      name: AcidWater1
       rect:
         serializedVersion: 2
         x: 0
@@ -137,7 +137,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_1
+      name: AcidWater2
       rect:
         serializedVersion: 2
         x: 128
@@ -158,7 +158,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_2
+      name: AcidWater3
       rect:
         serializedVersion: 2
         x: 256
@@ -179,7 +179,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_3
+      name: AcidWater4
       rect:
         serializedVersion: 2
         x: 384
@@ -200,7 +200,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_4
+      name: AcidWater5
       rect:
         serializedVersion: 2
         x: 0
@@ -221,7 +221,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_5
+      name: AcidWater6
       rect:
         serializedVersion: 2
         x: 128
@@ -242,7 +242,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_6
+      name: AcidWater7
       rect:
         serializedVersion: 2
         x: 256
@@ -263,7 +263,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_7
+      name: AcidWater8
       rect:
         serializedVersion: 2
         x: 384
@@ -284,7 +284,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_8
+      name: AcidWater9
       rect:
         serializedVersion: 2
         x: 0
@@ -305,7 +305,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_9
+      name: AcidWater10
       rect:
         serializedVersion: 2
         x: 128
@@ -326,7 +326,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_10
+      name: AcidWater11
       rect:
         serializedVersion: 2
         x: 256
@@ -347,7 +347,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -360,15 +360,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_11
+      name: AcidWater12
       rect:
         serializedVersion: 2
         x: 384
-        y: 256
+        y: 257
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_12
+      name: AcidWater13
       rect:
         serializedVersion: 2
         x: 0
@@ -389,7 +389,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_13
+      name: AcidWater14
       rect:
         serializedVersion: 2
         x: 128
@@ -410,7 +410,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_14
+      name: AcidWater15
       rect:
         serializedVersion: 2
         x: 256
@@ -431,7 +431,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -444,7 +444,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_15
+      name: AcidWater16
       rect:
         serializedVersion: 2
         x: 384
@@ -452,7 +452,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -465,7 +465,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GrassMid (2) (1)_16
+      name: AcidWater17
       rect:
         serializedVersion: 2
         x: 0
@@ -473,7 +473,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -496,23 +496,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GrassMid (2) (1)_0: -31526085
-      GrassMid (2) (1)_1: 644609649
-      GrassMid (2) (1)_10: -1673488286
-      GrassMid (2) (1)_11: -1494361428
-      GrassMid (2) (1)_12: -360735035
-      GrassMid (2) (1)_13: 882438533
-      GrassMid (2) (1)_14: -1569667405
-      GrassMid (2) (1)_15: -2039753390
-      GrassMid (2) (1)_16: -1570624362
-      GrassMid (2) (1)_2: -271507810
-      GrassMid (2) (1)_3: -35541628
-      GrassMid (2) (1)_4: 1919048134
-      GrassMid (2) (1)_5: 1493589620
-      GrassMid (2) (1)_6: -1391963742
-      GrassMid (2) (1)_7: 1105441861
-      GrassMid (2) (1)_8: 77461686
-      GrassMid (2) (1)_9: 1962640495
+      AcidWater1: -31526085
+      AcidWater10: 1962640495
+      AcidWater11: -1673488286
+      AcidWater12: -1494361428
+      AcidWater13: -360735035
+      AcidWater14: 882438533
+      AcidWater15: -1569667405
+      AcidWater16: -2039753390
+      AcidWater17: -1570624362
+      AcidWater2: 644609649
+      AcidWater3: -271507810
+      AcidWater4: -35541628
+      AcidWater5: 1919048134
+      AcidWater6: 1493589620
+      AcidWater7: -1391963742
+      AcidWater8: 1105441861
+      AcidWater9: 77461686
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

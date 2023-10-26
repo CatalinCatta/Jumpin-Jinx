@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lvl icons_0
+      name: Body
       rect:
         serializedVersion: 2
         x: 120
@@ -137,7 +137,7 @@ TextureImporter:
         width: 510
         height: 510
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lvl icons_1
+      name: ActiveStar
       rect:
         serializedVersion: 2
         x: 847
@@ -158,7 +158,7 @@ TextureImporter:
         width: 526
         height: 504
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lvl icons_3
+      name: Lock
       rect:
         serializedVersion: 2
         x: 217
@@ -179,7 +179,7 @@ TextureImporter:
         width: 343
         height: 482
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lvl icons_4
+      name: ClosedStar
       rect:
         serializedVersion: 2
         x: 847
@@ -200,7 +200,7 @@ TextureImporter:
         width: 526
         height: 504
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,11 +223,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      lvl icons_0: -1714009524
-      lvl icons_1: 501995732
+      ActiveStar: 501995732
+      Body: -1714009524
+      ClosedStar: 857094619
+      Lock: 1789003611
       lvl icons_2: 548005005
-      lvl icons_3: 1789003611
-      lvl icons_4: 857094619
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 1
