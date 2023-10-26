@@ -50,7 +50,6 @@ public class PlayerControl : MonoBehaviour
         _playerManager = PlayerManager.Instance;
         _settingsManager = SettingsManager.Instance;
         
-        // Calculate movement minAndMaxSpeed and jump power based on game level
         MovementSpeed = _endlessRun
             ? 7f * (_playerManager!.Upgrades[(int)UpgradeType.MovementSpeed].Quantity / 20f + 1f)
             : 10f; //   7f =>   24.5f
@@ -200,10 +199,17 @@ public class PlayerControl : MonoBehaviour
         foreach (var objectCollider in Physics2D.OverlapAreaAll(playerPosition + new Vector3(-.35f, 0, 0),
                      playerPosition + new Vector3(.35f, -.5f, 0)))
         {
-            if (!objectCollider.CompareTag("Ground")) continue;
+            if (objectCollider.CompareTag("Ground"))
+            {
 
-            _localTransform.SetParent(objectCollider.transform);
-            return true;
+                _localTransform.SetParent(objectCollider.transform);
+                return true;
+            }
+            else if (objectCollider.CompareTag("Death") && _playerStatus.SpeedBuffActive)
+            {
+                transform.SetParent(null);
+                return true;
+            }
         }
 
         return false;

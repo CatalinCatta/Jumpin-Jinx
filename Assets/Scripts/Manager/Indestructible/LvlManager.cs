@@ -44,9 +44,6 @@ public class LvlManager : IndestructibleManager<LvlManager>
         progressbar.GetChild(1).GetComponent<TextMeshProUGUI>().text =
             quote[Utility.GetRandomNumberBetween(0, quote.Count)];
         
-        Debug.Log(_settings.Language);
-        Debug.Log(Dictionaries.Quote[_settings.Language].Count);
-        
         var operation = SceneManager.LoadSceneAsync(scene);
         var slider = progressbar.GetChild(0).GetComponent<Slider>();
         var percentage = progressbar.GetChild(2).GetComponent<TextMeshProUGUI>();

@@ -43,11 +43,9 @@ public class WorldGenerator : MonoBehaviour
         {
             var playerManager = PlayerManager.Instance;
             verticalMaxJumpGap = (int)(playerManager.Upgrades[(int)UpgradeType.JumpPower].Quantity / 16.66666f) + 1;
-            // horizontalMaxJumpGap = 
         }
 
         _currentChunk = (int)(startingPosition.x / chunkLength / unitSize);
-        //GenerateMap(chunkHeight - 1 - (int)(startingPosition.y / unitSize), (int)(startingPosition.x / unitSize), true);
         SetUpFirstPlatform();
         
         for (var i = 0; i < chunkLength; i++)
@@ -57,6 +55,7 @@ public class WorldGenerator : MonoBehaviour
     
     private void Update()
     {
+        if (player == null) return;
         if (player.position.x < _currentChunk * chunkLength * unitSize) return;
         
         _currentChunk++;
