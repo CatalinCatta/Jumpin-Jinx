@@ -72,7 +72,9 @@ public class Enemy : MonoBehaviour
             _animator.Play("Die");
         }
         else if (!colliderGameObject.CompareTag("Ground"))
-            Physics2D.IgnoreCollision(col, _collider2D);
+        {
+            if (!colliderGameObject.CompareTag("Player")) Physics2D.IgnoreCollision(col, _collider2D);
+        }
         else if (position.y > colliderTransform.position.y) _transform.SetParent(colliderTransform);
     }
     
