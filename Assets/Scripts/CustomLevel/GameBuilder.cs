@@ -39,11 +39,11 @@ public class GameBuilder : MonoBehaviour
         
         BuildingPlaces = new GameObject[Rows, Columns];
 
-        for (var i = 0; i < Rows; i++)
+        for (var i = Rows-1; i > -1 ; i--)
         for (var j = 0; j < Columns; j++)
-            BuildingPlaces[i, j] = Instantiate(buildPlacePrefab,
+            (BuildingPlaces[i, j] = Instantiate(buildPlacePrefab,
                 new Vector3((j - (Columns - 1) / 2) * 1.28f, (i - (Rows - 1) / 2) * 1.28f, -10), Quaternion.identity,
-                buildingPlacesParent);
+                buildingPlacesParent)).GetComponent<BuildingPlace>().PositionInArray = (i, j);
 
         buildingPlacesParent.localScale = new Vector3(.8f, .8f, 1f);
         buildingPlacesParent.position = new Vector3(4f, -2f, -1f);

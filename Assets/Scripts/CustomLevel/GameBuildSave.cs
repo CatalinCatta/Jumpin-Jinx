@@ -70,14 +70,14 @@ public class GameBuildSave : MonoBehaviour
         var lvl = new Level();
         var line = new List<string>();
 
-        for (var i = _gameBuilder.Rows - 1; i > -1 ; i--)
+        for (var i = 0; i < _gameBuilder.Rows ; i++)
         {
             var str = new StringBuilder();
             for (var j = 0; j < _gameBuilder.Columns; j++)
             {
-                var element = _gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Block;
+                var element = _gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().block;
                 if (element == ObjectBuildType.Null)
-                    element = _gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().Object;
+                    element = _gameBuilder.BuildingPlaces[i, j].GetComponent<BuildingPlace>().objectType;
 
                 str.Append(element != ObjectBuildType.Null ? Dictionaries.ObjectBuild[element].character : ' ');
             }
