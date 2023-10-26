@@ -45,6 +45,15 @@ MonoBehaviour:
     m_Localized: Anulare
     m_Metadata:
       m_Items: []
+  - m_Id: 26523634671046656
+    m_Localized: Sunteti sigur ca doriti sa stergeti aceasta salvare? Aceasta actiune
+      nu poate fi anulata.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26524664871800832
+    m_Localized: Sigur doriti sa stergeti {0}?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

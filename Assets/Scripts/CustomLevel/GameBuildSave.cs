@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 /// <summary>
 /// Manages the saving of custom game maps and configurations.
@@ -27,9 +28,21 @@ public class GameBuildSave : MonoBehaviour
     /// <summary>
     /// Changes the filename used for saving.
     /// </summary>
-    public void ChangeFileName(string newFileName) => title.text =
-        Utility.ReturnFirstPossibleName(title.text,
+    public void ChangeFileName(string newFileName) => title.text = title.text == _lvlManager.LvlTitle
+        ? title.text
+        : _lvlManager.LvlTitle = Utility.ReturnFirstPossibleName(title.text,
             Directory.GetDirectories(Path.GetFullPath(@"CustomLevels")).ToList());
+
+    public void StartGame() => StartCoroutine(StartGameCoroutine());
+
+    private IEnumerator StartGameCoroutine()
+    {
+        SaveMap();
+        yield return 0;
+        _lvlManager.LvlTitle = title.text;
+        _lvlManager.IsCampaign = false;
+        _lvlManager.StartScene(1);
+    }
 
     /// <summary>
     /// Saves the current map configuration to a JSON file.
@@ -41,16 +54,9 @@ public class GameBuildSave : MonoBehaviour
             var path = Path.Join(Path.GetFullPath(@"CustomLevels"), _lvlManager.LvlTitle);
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             var finalPath = Path.Join(path, $"{_lvlManager.LvlTitle}.json");
-            
-            if (File.Exists(finalPath))
-            {
-                File.Delete(finalPath);
-                title.text = _lvlManager.LvlTitle = Utility.ReturnFirstPossibleName(title.text,
-                    Directory.GetDirectories(Path.GetFullPath(@"CustomLevels")).ToList());
-                finalPath = Path.Join(path, $"{_lvlManager.LvlTitle}.json");
-            }
-
+            if (File.Exists(finalPath)) File.Delete(finalPath);
             File.WriteAllText(finalPath, JsonConvert.SerializeObject(MapObjects()));
+            
             var screenshotPath = Path.Join(path, "Screenshot.jpg");
             if (File.Exists(screenshotPath)) File.Delete(screenshotPath);
             ScreenCapture.CaptureScreenshot(screenshotPath,2);
@@ -70,7 +76,7 @@ public class GameBuildSave : MonoBehaviour
         var lvl = new Level();
         var line = new List<string>();
 
-        for (var i = 0; i < _gameBuilder.Rows ; i++)
+        for (var i = _gameBuilder.Rows - 1; i > -1; i--)
         {
             var str = new StringBuilder();
             for (var j = 0; j < _gameBuilder.Columns; j++)

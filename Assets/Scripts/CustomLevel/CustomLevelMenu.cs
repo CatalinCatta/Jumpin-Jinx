@@ -13,9 +13,10 @@ public class CustomLevelMenu : MonoBehaviour
 {
     private readonly List<string> _savesNames = new();
     private LvlManager _lvlManager;
+    private int _lastPageNr = 1;
     
     [SerializeField] private Transform pagesParent;
-    [SerializeField] private GameObject pagePrefab, savePrefab, createPrefab;
+    [SerializeField] private GameObject pagePrefab, savePrefab, createPrefab, confirmationPopUp;
     
     private void Start()
     {
@@ -23,7 +24,11 @@ public class CustomLevelMenu : MonoBehaviour
         _lvlManager = LvlManager.Instance;
         
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-        PrepareBook(path);
+        foreach (var save in Directory.GetDirectories(path).ToList().Where(save =>
+                     File.Exists(Path.Join(save, Path.GetFileNameWithoutExtension(save) + ".json"))))
+            _savesNames.Add(save);
+        PrepareBook();
+        pagesParent.GetChild(1).gameObject.SetActive(true);
     }
     
     private void StartMapBuilder()
@@ -34,19 +39,41 @@ public class CustomLevelMenu : MonoBehaviour
 
     private void SetUpLvlTitle() => _lvlManager.LvlTitle = Utility.ReturnFirstPossibleName("New map", _savesNames);
     
-    public void StartLvl(string title)
+    private void StartLvl(string title)
     {
         _lvlManager.LvlTitle = title;
         _lvlManager.IsCampaign = false;
         _lvlManager.StartScene(1);
     }
-    
-    private void PrepareBook(string path)
+
+    private void EditMapBuilder(string title)
     {
-        foreach (var save in Directory.GetDirectories(path).ToList().Where(save =>
-                     File.Exists(Path.Join(save, Path.GetFileNameWithoutExtension(save) + ".json"))))
-            _savesNames.Add(save);
-        
+        _lvlManager.LvlTitle = title;
+        _lvlManager.StartScene(-1);
+    }
+
+    private void OpenDeleteConfirmationPopUp(string path)
+    {
+        confirmationPopUp.SetActive(true);
+        var popupTransform = confirmationPopUp.transform.GetChild(0);
+        popupTransform.GetChild(0).GetComponent<ParameterizedLocalizedString>()
+            .SetObject(new object[] { Path.GetFileNameWithoutExtension(path) });
+        popupTransform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { DeleteSave(path); });
+    }
+    
+    private void DeleteSave(string path)
+    {
+        Directory.Delete(path, true);
+        var childNr = pagesParent.childCount - 1;
+        for (var i =  childNr; i > 0; i--) Destroy(pagesParent.GetChild(i).gameObject);
+        _savesNames.Remove(path);
+        PrepareBook();
+        pagesParent.GetChild(childNr +  _lastPageNr).gameObject.SetActive(true);
+    }
+    
+    
+    private void PrepareBook()
+    {
         Transform lastPage = null;
         var maxPage = (int)Math.Ceiling((double)(_savesNames.Count + 1) / 3);
         
@@ -57,7 +84,6 @@ public class CustomLevelMenu : MonoBehaviour
                 SetUpSaves(lastPage.GetChild(j - 3 * i), _savesNames[j]);
         }
 
-        pagesParent.GetChild(1).gameObject.SetActive(true);
         Instantiate(createPrefab, lastPage!.GetChild(_savesNames.Count % 3)).GetComponent<Button>().onClick
             .AddListener(StartMapBuilder);
     }
@@ -75,6 +101,7 @@ public class CustomLevelMenu : MonoBehaviour
             {
                 page.gameObject.SetActive(false);
                 pagesParent.GetChild(currentPage).gameObject.SetActive(true);
+                _lastPageNr = currentPage;
             });
 
         if (currentPage + 1 == maxPage) nextButton.gameObject.SetActive(false);
@@ -83,6 +110,7 @@ public class CustomLevelMenu : MonoBehaviour
             {
                 page.gameObject.SetActive(false);
                 pagesParent.GetChild(currentPage + 2).gameObject.SetActive(true);
+                _lastPageNr = currentPage + 2;
             });
         
         handler.GetChild(2).GetComponent<TextMeshProUGUI>().text = $"{currentPage + 1}/{maxPage}";
@@ -106,10 +134,17 @@ public class CustomLevelMenu : MonoBehaviour
         save.GetChild(2).GetComponent<ParameterizedLocalizedString>().SetObject(new object[]
             { lastTimeEdited.ToString("HH:mm:ss"), lastTimeEdited.ToString("dd/MM/yyyy") });
 
+        save.GetChild(3).GetComponent<Button>().onClick.AddListener(() =>
+        {
+            EditMapBuilder(Path.GetFileNameWithoutExtension(title));
+        });
+        
         save.GetChild(5).GetComponent<Button>().onClick.AddListener(() =>
         {
             StartLvl(Path.GetFileNameWithoutExtension(title));
         });
+
+        save.GetChild(6).GetComponent<Button>().onClick.AddListener(() => { OpenDeleteConfirmationPopUp(title); });
     }
 
 }

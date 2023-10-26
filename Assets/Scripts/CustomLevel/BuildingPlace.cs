@@ -150,10 +150,8 @@ public class BuildingPlace : MonoBehaviour
                 ChangeObject(_gameBuilder.BuildingPlaces[x, y].GetComponent<BuildingPlace>(), null, BuildType.Object);
         }
 
-        bool IsSolidBlock(BuildingPlace buildingPlace) =>buildingPlace.block is not ObjectBuildType.Null
-            and not ObjectBuildType.SlopeDirt and not ObjectBuildType.SlopeDirtRotated
-            and not ObjectBuildType.HalfSlopeDirt and not ObjectBuildType.HalfSlopeDirtRotated;
-
+        bool IsSolidBlock(BuildingPlace buildingPlace) => buildingPlace.block is not ObjectBuildType.Null
+            and not ObjectBuildType.SlopeDirt and not ObjectBuildType.SlopeDirtRotated;
     }
 
     private void ClearSpikes(bool temporary)
@@ -162,7 +160,6 @@ public class BuildingPlace : MonoBehaviour
         var isSpikeOnLeft = _buildingPlaceLeft != null && _buildingPlaceLeft.objectType == ObjectBuildType.SpikeLeft;
         var isSpikeOnRight = _buildingPlaceRight != null && _buildingPlaceRight.objectType == ObjectBuildType.SpikeRight;
 
-        Debug.Log((isSpikeUnder, isSpikeOnLeft, isSpikeOnRight));
         if (temporary)
         {
             if (isSpikeUnder) ShowOneItem(_buildingPlaceDown, false, BuildType.Object);

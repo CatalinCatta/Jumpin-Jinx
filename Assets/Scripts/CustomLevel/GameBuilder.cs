@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,7 +28,7 @@ public class GameBuilder : MonoBehaviour
     [SerializeField] private GameObject currentMenu;
     [NonSerialized] public GameObject[,] BuildingPlaces;
     [NonSerialized] public (int x, int y) PlayerPosition = (-1, -1), EndLvlPosition = (-1, -1); 
-
+    
     private void Start() => BuildBuildPlaces();
 
     /// <summary>
@@ -38,12 +42,55 @@ public class GameBuilder : MonoBehaviour
         Rows = 17;
         
         BuildingPlaces = new GameObject[Rows, Columns];
+        var lvlManager = LvlManager.Instance;
 
-        for (var i = Rows-1; i > -1 ; i--)
-        for (var j = 0; j < Columns; j++)
-            (BuildingPlaces[i, j] = Instantiate(buildPlacePrefab,
-                new Vector3((j - (Columns - 1) / 2) * 1.28f, (i - (Rows - 1) / 2) * 1.28f, -10), Quaternion.identity,
-                buildingPlacesParent)).GetComponent<BuildingPlace>().PositionInArray = (i, j);
+        var path = Path.Join(Path.GetFullPath(@"CustomLevels"), lvlManager.LvlTitle);
+        var prebuilt = Directory.Exists(path);
+        var map = new string[Rows];
+        if (prebuilt)
+        {
+            var finalPath = Path.Join(path, lvlManager.LvlTitle + ".json");
+            prebuilt = File.Exists(finalPath); 
+            if (prebuilt) map = JsonConvert.DeserializeObject<Level>(File.ReadAllText(finalPath)).Maps;
+        }
+        
+        for (var i = 0; i < Rows ; i++)
+        {
+            for (var j = 0; j < Columns; j++)
+            {
+                var buildPlace = BuildingPlaces[i, j] = Instantiate(buildPlacePrefab,
+                    new Vector3((j - (Columns - 1) / 2) * 1.28f, (i - (Rows - 1) / 2) * 1.28f, -10),
+                    Quaternion.identity, buildingPlacesParent);
+                buildPlace.GetComponent<BuildingPlace>().PositionInArray = (i, j);
+                if (!prebuilt) continue;
+                
+                var objectToBuild= Dictionaries.ObjectBuild.FirstOrDefault(kv => kv.Value.character == map[Rows-i-1][j]);
+
+                switch (objectToBuild.Value.category)
+                {
+                    case ObjectBuildCategory.Block:
+                        buildPlace.GetComponent<BuildingPlace>().block = objectToBuild.Key;
+                        break;
+                    
+                    case ObjectBuildCategory.Plant:
+                        buildPlace.GetComponent<BuildingPlace>().environment = objectToBuild.Key;
+                        break;
+
+                    default:
+                        buildPlace.GetComponent<BuildingPlace>().objectType = objectToBuild.Key;
+                        break;
+                }
+
+                var spriteTransform = buildPlace.transform.GetChild(0).GetChild(objectToBuild.Value.category switch
+                {
+                    ObjectBuildCategory.Block => 0,
+                    ObjectBuildCategory.Plant => 1,
+                    _ => 2
+                });
+                spriteTransform.GetComponent<SpriteRenderer>().sprite = objectToBuild.Value.sprite;
+                spriteTransform.rotation = objectToBuild.Value.rotation;
+            }
+        }
 
         buildingPlacesParent.localScale = new Vector3(.8f, .8f, 1f);
         buildingPlacesParent.position = new Vector3(4f, -2f, -1f);

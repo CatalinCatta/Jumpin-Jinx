@@ -42,6 +42,10 @@ public class LvlGenerator : MonoBehaviour
             _length = map[0].Length;
             _platforms = new GameObject[_height, _length];
 
+            for (var x = 0; x < _length; x++)
+                Instantiate(_prefabManager.acid, new Vector3(x - _length / 2, -_height / 2, 2) * 1.28f,
+                    Quaternion.identity, tilesParent);
+            
             for (var i = 0; i < _height; i++)
             for (var j = 0; j < _length; j++)
                 GenerateObject(map[i][j], i, j, true);
@@ -97,14 +101,14 @@ public class LvlGenerator : MonoBehaviour
 
     private void GenerateObject(char character, int row, int column, bool isPlatform)
     {
-        if (row == _height - 1) CreateBottomGround(character, row, column);
         var objectDetails = Dictionaries.ObjectBuild.FirstOrDefault(kv => kv.Value.character == character);
-
-        if (objectDetails.Equals(
-                default(
-                    KeyValuePair<ObjectBuildType, (ObjectBuildCategory category, char character, GameObject prefab
-                        )>)) || (isPlatform && objectDetails.Value.category != ObjectBuildCategory.Block) ||
+        if (Dictionaries.ObjectBuild.All(kv => kv.Value.character != character) ||
+            (isPlatform && objectDetails.Value.category != ObjectBuildCategory.Block) ||
             (!isPlatform && objectDetails.Value.category == ObjectBuildCategory.Block)) return;
+
+        if (row == _height - 1 && objectDetails.Value.category == ObjectBuildCategory.Block &&
+            objectDetails.Key is not ObjectBuildType.Acid and not ObjectBuildType.AcidBottom)
+            CreateBottomGround(column);
 
         if (objectDetails.Key == ObjectBuildType.Coin) _coinsCounter++;
 
@@ -175,11 +179,11 @@ public class LvlGenerator : MonoBehaviour
         }
     }
 
-    private void CreateBottomGround(char character, int row, int column)
+    private void CreateBottomGround(int column)
     {
         for (var i = 1; i < 11; i++)
-            Instantiate(character == Dictionaries.ObjectBuild[ObjectBuildType.Acid].character ? _prefabManager.acidBottom : _prefabManager.dirt,
-                new Vector2((column - _length / 2) * 1.28f, -(row + i - _height / 2) * 1.28f), Quaternion.identity,
+            Instantiate(_prefabManager.dirt,
+                new Vector2((column - _length / 2) * 1.28f, -(_height / 2 + i) * 1.28f), Quaternion.identity,
                 tilesParent);
     }
 }

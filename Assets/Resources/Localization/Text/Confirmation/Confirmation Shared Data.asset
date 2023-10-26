@@ -39,6 +39,14 @@ MonoBehaviour:
     m_Key: Cancel
     m_Metadata:
       m_Items: []
+  - m_Id: 26523634671046656
+    m_Key: Delete Custom Lvl Message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26524664871800832
+    m_Key: Delete Custom Lvl Title
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

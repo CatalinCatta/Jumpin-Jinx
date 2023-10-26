@@ -1,6 +1,6 @@
 ﻿[
   {
-    "name": "lvl 1",
+    "namp": "lvl 1",
     "map": [
       "                             ",
       "                             ",
@@ -20,14 +20,14 @@
       " P      C  <GGGGG>          C",
       "GGGGGGGGGGG{DDDDD}GGGGGGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 2",
+    "namp": "lvl 2",
     "map": [
       "                             ",
       "                             ",
@@ -47,14 +47,14 @@
       " P       <{DDDDDDDDDDDD    C ",
       "GGGGGGGGG{DDDDDDDDDDDDDGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 3",
+    "namp": "lvl 3",
     "map": [
       "                             ",
       "                             ",
@@ -74,14 +74,14 @@
       " P                           ",
       "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 4",
+    "namp": "lvl 4",
     "map": [
       "                             ",
       "                             ",
@@ -99,16 +99,16 @@
       "         C         C         ",
       "                             ",
       " P            C            X ",
-      "GGGGGGGWWWWWGGGGGWWWWWGGGGGGG"
+      "GGGGGGG     GGGGG     GGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 5",
+    "namp": "lvl 5",
     "map": [
       "                             ",
       "                             ",
@@ -126,16 +126,16 @@
       "        GGGGGDDD            X",
       "             DDD           <G",
       " P        C  DDD             ",
-      "GGGGGWWGGGGGGDDDGGGGGGWWWWGWW"
+      "GGGGG  GGGGGGDDDGGGGGG    G  "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 6",
+    "namp": "lvl 6",
     "map": [
       "                             ",
       "                             ",
@@ -153,16 +153,16 @@
       "                         <GGG",
       "                             ",
       " P      <GGGGGGG>            ",
-      "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
+      "GGGGG   {DDDDDDD}     GGG    "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 7",
+    "namp": "lvl 7",
     "map": [
       "                             ",
       "                             ",
@@ -182,14 +182,14 @@
       " P     SSSSS  C  SSSSS     X ",
       "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 8",
+    "namp": "lvl 8",
     "map": [
       "                             ",
       "                             ",
@@ -207,16 +207,16 @@
       "        GGGGGGD]            X",
       "             [D]           <G",
       " P        C  [D]             ",
-      "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+      "GGGGG  GGGGGGGDGGGGGGG    G  "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 9",
+    "namp": "lvl 9",
     "map": [
       "                             ",
       "                             ",
@@ -234,16 +234,16 @@
       "                         <GGG",
       "                             ",
       " P      <GGGGGGG>            ",
-      "GGGGGWWW{DDDDDDD}WWWWWGGGWWWW"
+      "GGGGG   {DDDDDDD}     GGG    "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 10",
+    "namp": "lvl 10",
     "map": [
       "                             ",
       "                             ",
@@ -261,16 +261,16 @@
       "       TTTTT     TTTTT       ",
       "              C              ",
       " P     SSSSSTTTTTSSSSS     X ",
-      "GGGGGGGGGGGGWWWWWGGGGGGGGGGGG"
+      "GGGGGGGGGGGG     GGGGGGGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 11",
+    "namp": "lvl 11",
     "map": [
       "                             ",
       "                             ",
@@ -288,16 +288,16 @@
       "        GGTTTGD]            X",
       "             [D]           <G",
       " P        C  [D]             ",
-      "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+      "GGGGG  GGGGGGGDGGGGGGG    G  "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 12",
+    "namp": "lvl 12",
     "map": [
       "                             ",
       "                             ",
@@ -315,16 +315,16 @@
       "                         <GGG",
       "                             ",
       " P      <GGTTTGG>            ",
-      "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
+      "GGGGG   {DD   DD}     GGG    "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 13",
+    "namp": "lvl 13",
     "map": [
       "                             ",
       "                             ",
@@ -338,20 +338,20 @@
       "                             ",
       "                             ",
       "                             ",
-      "        EC         C E       ",
+      "        pC         C p       ",
       "       TTTTT     TTTTT       ",
-      "            E C E            ",
+      "            p C p            ",
       " P     SSSS<GTTTG>SSSS     X ",
-      "GGGGGGGGGGG{WWWWW}GGGGGGGGGGG"
+      "GGGGGGGGGGG{     }GGGGGGGGGGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 14",
+    "namp": "lvl 14",
     "map": [
       "                             ",
       "                             ",
@@ -361,51 +361,51 @@
       "                   {DDD}     ",
       "                             ",
       "C                            ",
-      "GG>        E  SSS   EE     <G",
+      "GG>        p  SSS   pp     <G",
       "]        <GGGGGGGGGGGG>      ",
       "]       <{DDDDDDDDDDDD}      ",
-      "TTG>    s    [D]      s    E ",
-      "           E [D]         TGGG",
+      "TTG>    s    [D]      s    p ",
+      "           p [D]         TGGG",
       "        GGTTTGD]            X",
       "             [D]           <G",
-      " P        C E[D]  E          ",
-      "GGGGGWWGGGGGGGDGGGGGGGWWWWGWW"
+      " P        C p[D]  p          ",
+      "GGGGG  GGGGGGGDGGGGGGG    G  "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 15",
+    "namp": "lvl 15",
     "map": [
       "                             ",
       "                             ",
-      "          SS  E  X  EE SS    ",
+      "          SS  p  X  pp SS    ",
       "         <GGGGGGGGGTTTTGG>   ",
       "         {DDDDDDD            ",
-      "                           EC",
+      "                           pC",
       "   TTG]                  <GGG",
-      "     s        C E        {DDD",
+      "     s        C p        {DDD",
       "S          <GGGGG>           ",
-      "GG                    E      ",
+      "GG                    p      ",
       "]                   [GTTT    ",
-      "]    E E                     ",
+      "]    p p                     ",
       "GTTGGTTTGGG>               CS",
       "                         <GGG",
-      "            E E              ",
+      "            p p              ",
       " P      <GGTTTGG>            ",
-      "GGGGGWWW{DDWWWDD}WWWWWGGGWWWW"
+      "GGGGG   {DD   DD}     GGG    "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 16",
+    "namp": "lvl 16",
     "map": [
       "                             ",
       "                             ",
@@ -425,14 +425,14 @@
       " P                     C  DDD",
       "GGGGGGGGGG^^^^^^^^^GGGGGGGDDD"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 17",
+    "namp": "lvl 17",
     "map": [
       "                             ",
       "                             ",
@@ -442,44 +442,44 @@
       "                    DDD}     ",
       "                             ",
       "                             ",
-      "           E  SSS   EE       ",
+      "           p  SSS   pp       ",
       "         <GGGGGGGGGGGG>      ",
       "    00  <{DDDDDDDDDDDD}     ^",
-      "^^GG    s    [D]      s    E ",
+      "^^GG    s    [D]      s    p ",
       "             [D]         TGGG",
       "             [D]             ",
       "             [D]             ",
-      " P        C E[D]  E         X",
-      "GGGG^^WWGGGGGGDGGGGGGGWWWWGGG"
+      " P        C p[D]  p         X",
+      "GGGG^^  GGGGGGDGGGGGGG    GGG"
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
     ]
   },
   {
-    "name": "lvl 18",
+    "namp": "lvl 18",
     "map": [
       "                             ",
       "                             ",
-      "          SS  E  X  EE SS    ",
+      "          SS  p  X  pp SS    ",
       "         <GGGGGGGGGTTTTGG>   ",
       "         {DDDDDDD            ",
-      "                           EC",
+      "                           pC",
       "   TTG]                  <GGG",
-      "     s        C E        {DDD",
+      "     s        C p        {DDD",
       "           <GGGGG>           ",
       "o                          O ",
       "                             ",
-      "     E E                     ",
+      "     p p                     ",
       "GTTGGTTTGGG>               CS",
       "                         <GGG",
       "                             ",
       " P                           ",
-      "GGGGGbbbWWWWWWWWWWWWWWGGGWWWW"
+      "GGGGGbbb              GGG    "
     ],
-    "timerLimitForStars": [
+    "timprLimitForStars": [
       7,
       10,
       20
