@@ -31,6 +31,12 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         base.Awake();
     }
 
+    private void Update()
+    {
+        var resolution = Screen.currentResolution;
+        Resolution = Utility.ConvertResolutionTupleToIndex(resolution);
+    }
+
     public void SwitchMenuState(Toggle newState) => IsMenuOpened = newState.isOn;
     
     /// <summary>

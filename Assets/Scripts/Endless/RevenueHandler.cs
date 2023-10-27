@@ -87,8 +87,8 @@ public class RevenueHandler : MonoBehaviour
     {
         switch (deal)
         {
-            /*case 0:
-                return;*/
+            case 0:
+                return;
             
             case 7:
                 UpdateGems(_playerManager.Gems > 1_000 ? -1_000 : -_playerManager.Gems);
