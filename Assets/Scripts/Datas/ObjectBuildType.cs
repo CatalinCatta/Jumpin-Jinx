@@ -141,12 +141,12 @@ public static partial class Dictionaries
             {
                 ObjectBuildType.SpikeLeft,
                 (ObjectBuildCategory.Damage, '[', PrefabManager.Instance.spike, PrefabManager.Instance.spikeSprite,
-                    Quaternion.Euler(0, 0, 270))
+                    Quaternion.Euler(0, 0, 90))
             },
             {
                 ObjectBuildType.SpikeRight,
                 (ObjectBuildCategory.Damage, ']', PrefabManager.Instance.spike, PrefabManager.Instance.spikeSprite,
-                    Quaternion.Euler(0, 0, 90))
+                    Quaternion.Euler(0, 0, 270))
             },
             {
                 ObjectBuildType.PlantPlaceHolder,

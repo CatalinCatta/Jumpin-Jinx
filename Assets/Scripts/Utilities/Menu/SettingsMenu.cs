@@ -81,13 +81,13 @@ public class SettingsMenu : MonoBehaviour
             controls.GetChild(keyId).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         Transform GetDisplayChild(int childId) => display.GetChild(childId).GetChild(1);
+        
+        var resolution = Screen.currentResolution;
+        Screen.SetResolution(resolution.width, resolution.height, settingsManager.Fullscreen);
     }
 
     private void Start()
     {
-        var resolution = Screen.currentResolution;
-        Screen.SetResolution(resolution.width, resolution.height, settingsManager.Fullscreen);
-
         switch (settingsManager.CurrentCategoryTab)
         {
             case SettingsFrames.Sounds:

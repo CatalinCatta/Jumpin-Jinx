@@ -20,7 +20,6 @@ public class RandomEnvironmentCreator : MonoBehaviour
         _transform = transform;
         _prefabManager = PrefabManager.Instance;
         CreateEnvironment();
-
     }
 
     private void CreateEnvironment()

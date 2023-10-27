@@ -43,8 +43,14 @@ public class LvlGenerator : MonoBehaviour
             _platforms = new GameObject[_height, _length];
 
             for (var x = 0; x < _length; x++)
+            {
                 Instantiate(_prefabManager.acid, new Vector3(x - _length / 2, -_height / 2, 2) * 1.28f,
                     Quaternion.identity, tilesParent);
+                Instantiate(_prefabManager.ghostBlock, new Vector3(x - _length / 2, -_height / 2 - 1, 2) * 1.28f,
+                    Quaternion.identity, tilesParent);
+                Instantiate(_prefabManager.ghostBlock, new Vector3(x - _length / 2, _height / 2, 2) * 1.28f,
+                    Quaternion.identity, tilesParent);
+            }
             
             for (var i = 0; i < _height; i++)
             for (var j = 0; j < _length; j++)
@@ -128,17 +134,12 @@ public class LvlGenerator : MonoBehaviour
                         ObjectBuildType.SpikeRight => new Vector2((column - _length / 2) * 1.28f - .5f,
                             -(row - _height / 2) * 1.28f),
                         _ => new Vector2((column - _length / 2) * 1.28f, -(row - _height / 2) * 1.28f)
-                    }, objectDetails.Key switch
-            {
-                ObjectBuildType.SpikeUpsideDown => Quaternion.Euler(0, 0, 180),
-                ObjectBuildType.SpikeLeft => Quaternion.Euler(0, 0, 90),
-                ObjectBuildType.SpikeRight => Quaternion.Euler(0, 0, -90),
-                ObjectBuildType.SlopeDirtRotated or ObjectBuildType.HalfSlopeDirtRotated => Quaternion.Euler(0, 180, 0),
-                _ => Quaternion.identity
-            },
+                    }, objectDetails.Value.rotation,
             isPlatform ? tilesParent :
             _platforms[row + 1, column] != null ? _platforms[row + 1, column].transform : new GameObject().transform);
 
+        if (objectDetails.Key == ObjectBuildType.Spider) objectCreated.transform.position -= new Vector3(0, 1.3f, 0);
+        
         if (isPlatform) _platforms[row, column] = objectCreated;
         
         if (objectCreated.TryGetComponent<SidewaysMoving>(out var sidewaysMoving))

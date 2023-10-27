@@ -80,11 +80,11 @@ public class Enemy : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Bullet"))
-        {
-            _isDead = true;
-            _animator.Play("Die");
-        }
+        if (!col.gameObject.CompareTag("Bullet")) return;
+
+        _rigidBody.velocity = Vector3.zero;
+        _isDead = true;
+        _animator.Play("Die");
     }
 
     private void SelfDestroy() => Destroy(gameObject);

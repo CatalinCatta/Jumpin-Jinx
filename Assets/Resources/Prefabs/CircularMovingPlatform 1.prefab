@@ -177,6 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb898b529c34ab786f4660ce1a88183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideWhitGhostBlock: 1
+  collideWhitGhostBlock: 0
   rotationSpeed: 0
   rotationAngle: 4

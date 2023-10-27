@@ -8,31 +8,26 @@ public abstract class MovingObject : MonoBehaviour
     [SerializeField] public bool collideWhitGhostBlock = true;
     protected Transform Transform;
     protected bool InCollisionWithGhostBlock, Endless;
-    [NonSerialized] public List<GameObject> IgnoredObjects;
     
     private void Start()
     {
         Transform = transform;
         Endless = LvlManager.Instance.CurrentScene == Scene.Endless;
-        IgnoredObjects = new List<GameObject>();
         SetUp();
         StartCoroutine(Move());
     }
 
     protected abstract void SetUp();
     protected abstract IEnumerator Move();
-    
-    private void OnCollisionEnter2D(Collision2D collision)
+
+
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        var colliderObject = collision.gameObject;
-        if (collideWhitGhostBlock && colliderObject.CompareTag("GhostBlock") &&
-            !IgnoredObjects.Contains(colliderObject)) InCollisionWithGhostBlock = true;
+        if (collideWhitGhostBlock && col.gameObject.CompareTag("GhostBlock"))InCollisionWithGhostBlock = true;
     }
     
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        var colliderObject = collision.gameObject;
-        if (collideWhitGhostBlock && colliderObject.CompareTag("GhostBlock") &&
-            !IgnoredObjects.Contains(colliderObject)) InCollisionWithGhostBlock = false;
+        if (collideWhitGhostBlock && col.gameObject.CompareTag("GhostBlock"))InCollisionWithGhostBlock = false;
     }
 }

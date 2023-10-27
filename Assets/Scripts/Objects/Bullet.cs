@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
         _speed = LvlManager.Instance.CurrentLvl == 0
             ? 1f + PlayerManager.Instance.Upgrades[(int)UpgradeType.Attack].Quantity * 0.18f
             : 5f; // 1f => 10f
+        _speed = transform.rotation == Quaternion.Euler(0, 0, 0) ? _speed : -_speed;
         StartCoroutine(DestroyAfterDelay());
     }
 
