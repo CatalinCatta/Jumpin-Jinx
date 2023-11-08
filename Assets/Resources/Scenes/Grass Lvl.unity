@@ -3693,6 +3693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8e47c4c29b1a74ea249ff1e0d7cc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changePosition: 1
 --- !u!1 &1227243360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4859,7 +4860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634099514503069145, guid: be9d8dc0193b09b4ba56d8466bb95eb8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.9999695
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be9d8dc0193b09b4ba56d8466bb95eb8, type: 3}

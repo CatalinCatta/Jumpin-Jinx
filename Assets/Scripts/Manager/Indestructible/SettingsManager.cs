@@ -17,9 +17,9 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         JumpBuffKeyCode,
         PauseKeyCode;
 
-    [NonSerialized] public int Resolution;
-    [NonSerialized] public bool Fullscreen, Vsync;
-    [NonSerialized] public Language Language;
+    public int Resolution;
+    public bool Fullscreen, Vsync;
+    public Language Language;
 
     [NonSerialized] public string LastMenuName;
     [NonSerialized] public SettingsFrames CurrentCategoryTab;
@@ -29,12 +29,6 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
     {
         Load();
         base.Awake();
-    }
-
-    private void Update()
-    {
-        var resolution = Screen.currentResolution;
-        Resolution = Utility.ConvertResolutionTupleToIndex(resolution);
     }
 
     public void SwitchMenuState(Toggle newState) => IsMenuOpened = newState.isOn;
@@ -94,7 +88,7 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         IsMenuOpened = true;
 
         GeneralVolume = 1f;
-        MusicVolume = 0.5f;
+        MusicVolume = .5f;
         SoundEffectVolume = 1f;
 
         JumpKeyCode = KeyCode.W;
@@ -105,7 +99,7 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         JumpBuffKeyCode = KeyCode.LeftControl;
         PauseKeyCode = KeyCode.P;
 
-        Resolution = Utility.ConvertResolutionTupleToIndex(Screen.currentResolution);
+        Resolution = Utility.ConvertResolutionTupleToIndex(Screen.width, Screen.height);
         Fullscreen = true;
         Vsync = QualitySettings.vSyncCount > 0;
         Language = Language.English;

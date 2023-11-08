@@ -55,7 +55,7 @@ public class PlayerControl : MonoBehaviour
             : 10f; //   7f =>   24.5f
         JumpPower = _endlessRun
             ? 700f * (_playerManager!.Upgrades[(int)UpgradeType.JumpPower].Quantity / 20f + 1f)
-            : 1000f; // 700f => 2450f
+            : 1050f; // 700f => 2450f
     }
 
     private void Update()
@@ -201,15 +201,13 @@ public class PlayerControl : MonoBehaviour
         {
             if (objectCollider.CompareTag("Ground"))
             {
-
                 _localTransform.SetParent(objectCollider.transform);
                 return true;
             }
-            else if (objectCollider.CompareTag("Death") && _playerStatus.SpeedBuffActive)
-            {
-                transform.SetParent(null);
-                return true;
-            }
+
+            if (!objectCollider.CompareTag("Death") || !_playerStatus.SpeedBuffActive) continue;
+            transform.SetParent(null);
+            return true;
         }
 
         return false;

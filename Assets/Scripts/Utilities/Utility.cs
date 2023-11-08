@@ -163,9 +163,8 @@ public static class Utility
     /// <summary>
     /// Converts a resolution tuple to a resolution index.
     /// </summary>
-    /// <param name="rez">The resolution tuple (width, height).</param>
     /// <returns>The resolution index.</returns>
-    public static int ConvertResolutionTupleToIndex(Resolution rez) => (rez.width, rez.height) switch
+    public static int ConvertResolutionTupleToIndex(int width, int height) => (width, height) switch
     {
         (640, 360) => 0,
 

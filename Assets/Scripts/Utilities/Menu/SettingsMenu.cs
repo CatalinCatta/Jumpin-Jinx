@@ -13,8 +13,9 @@ using UnityEngine.UI;
 /// </summary>
 public class SettingsMenu : MonoBehaviour
 {
-    [SerializeField] private Transform background, sounds, controls, display; 
+    [SerializeField] private Transform background, cameraTransform , sounds, controls, display; 
     [SerializeField] private SettingsManager settingsManager;
+    
     
     #region Current Pressed Key
 
@@ -81,9 +82,6 @@ public class SettingsMenu : MonoBehaviour
             controls.GetChild(keyId).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
 
         Transform GetDisplayChild(int childId) => display.GetChild(childId).GetChild(1);
-        
-        var resolution = Screen.currentResolution;
-        Screen.SetResolution(resolution.width, resolution.height, settingsManager.Fullscreen);
     }
 
     private void Start()
@@ -160,6 +158,7 @@ public class SettingsMenu : MonoBehaviour
         _vSyncTransform.GetChild(0).gameObject.SetActive(settingsManager.Vsync);
         _vSyncTransform.GetChild(1).gameObject.SetActive(!settingsManager.Vsync);
 
+        _language.value = (int)settingsManager.Language;
         ShowLanguageOptions();
     }
     #endregion
@@ -297,10 +296,6 @@ public class SettingsMenu : MonoBehaviour
         SetUpKeyCodeText(_pauseKey.tmp, KeyCodeInTextFormat(settingsManager.PauseKeyCode));
     }
     
-    public float colorTimeOnRed = 0.5f;
-    public float changeColorBackToNormal = 0.5f;
-
-
     private IEnumerator AlertKeyAlreadyInUse(Component currentKeyUserFrame, [CanBeNull] string keyUsed = "")
     {
         Image currentKeyUserFrameImage = null;
@@ -320,20 +315,17 @@ public class SettingsMenu : MonoBehaviour
         }
 
         background.parent.GetComponent<Animator>().Play("ShakeSettings");
-        yield return new WaitForSeconds(colorTimeOnRed);
+        yield return new WaitForSeconds(.5f);
         var startTime = Time.time;
 
-        while (Time.time - startTime < changeColorBackToNormal)
+        while (Time.time - startTime < .5f)
         {
-            Debug.Log(currentKeyUserFrame);
-            Debug.Log(currentKeyUserFrame.GetComponent<TextMeshProUGUI>());
-            Debug.Log(keyUsed);
             if (keyUsed != "")
                 currentKeyUserFrame.GetComponent<TextMeshProUGUI>().color = Color.Lerp(new Color(1, 0, 0, 0), Color.red,
-                    (Time.time - startTime) / changeColorBackToNormal);
+                    (Time.time - startTime) / .5f);
             else
                 currentKeyUserFrameImage!.color = Color.Lerp(Color.red, originalColor,
-                    (Time.time - startTime) / changeColorBackToNormal);
+                    (Time.time - startTime) / .5f);
 
             yield return null;
         }
@@ -353,26 +345,41 @@ public class SettingsMenu : MonoBehaviour
     /// <summary>
     /// Saves the selected general sounds volume.
     /// </summary>
-    public void SaveGeneralSoundsVolume() => SaveSound(_generalSoundTransform);
+    public void SaveGeneralSoundsVolume() 
+    {
+        var value = GetSoundValue(_generalSoundTransform);
+        settingsManager.GeneralVolume = value;
+        SaveSound(_generalSoundTransform, value);
+    }
 
     /// <summary>
     /// Saves the selected music volume.
     /// </summary>
-    public void SaveMusicVolume() => SaveSound(_musicTransform);
+    public void SaveMusicVolume() 
+    {
+        var value = GetSoundValue(_musicTransform);
+        settingsManager.MusicVolume = value;
+        SaveSound(_musicTransform, value);
+    }
 
     /// <summary>
     /// Saves the selected sfx volume.
     /// </summary>
-    public void SaveSfxSound() => SaveSound(_sfxTransform);
-
-    private void SaveSound(Transform soundTransform)
+    public void SaveSfxSound()
     {
-        if (soundTransform == null) return;
-        var value = soundTransform.GetChild(1).GetComponent<Slider>().value;
+        var value = GetSoundValue(_sfxTransform);
         settingsManager.SoundEffectVolume = value;
-        SetUpSoundText(soundTransform, value);
-        SettingsManager.SetUpSound(FindObjectOfType<Camera>().transform);
+        SaveSound(_sfxTransform, value);
     }
+
+    private void SaveSound(Transform soundTransform, float value)
+    {
+        SetUpSoundText(soundTransform, value);
+        SettingsManager.SetUpSound(cameraTransform);
+    }
+
+    private static float GetSoundValue(Transform element) => element.GetChild(1).GetComponent<Slider>().value;
+    
     #endregion
 
     #region Save Key Code
@@ -460,10 +467,8 @@ public class SettingsMenu : MonoBehaviour
     /// </summary>
     public void SaveResolution()
     {
-
         var resolutionBeforeTransformation = _resolution.value;
         var resolution = Utility.ConvertResolutionIndexToTuple(resolutionBeforeTransformation);
-
         settingsManager.Resolution = resolutionBeforeTransformation;
         Screen.SetResolution(resolution.Item1, resolution.Item2, settingsManager.Fullscreen);
     }

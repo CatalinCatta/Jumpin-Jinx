@@ -8,18 +8,23 @@ using UnityEngine;
 public class CameraResize : MonoBehaviour
 {
     private float _currentResolution;
+    public bool changePosition;
+    private SettingsManager _settingsManager;
+
+    private void Start() => _settingsManager = SettingsManager.Instance;
 
     private void Update()
     {
-        if (WasResolutionChanged()) ChangeResolution();
+        if (WasResolutionChanged() && changePosition) ChangeResolution();
     }
 
     private bool WasResolutionChanged()
     {
-        // var resolution = Screen.currentResolution;
         var newResolution = (float)Screen.width / Screen.height;
         var wasChanged = Math.Abs(newResolution - _currentResolution) < .05f;
         _currentResolution = newResolution;
+        _settingsManager.Resolution = Utility.ConvertResolutionTupleToIndex(Screen.width, Screen.height);
+        _settingsManager.Fullscreen = Screen.fullScreen;
         
         return wasChanged;
     }
