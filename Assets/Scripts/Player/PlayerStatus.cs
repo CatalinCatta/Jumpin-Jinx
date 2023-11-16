@@ -41,7 +41,10 @@ public class PlayerStatus : MonoBehaviour
     
     [Header("Utilities")]
     private bool _endlessRun;
-    
+
+    private static readonly int SpeedBuffAnimatorBool = Animator.StringToHash("SpeedBuffActive");
+    private static readonly int JumpBuffAnimatorBool = Animator.StringToHash("JumpBuffActive");
+
     private void Awake()
     {
         if (display == null) display = GameObject.FindWithTag("Status");
@@ -129,7 +132,7 @@ public class PlayerStatus : MonoBehaviour
     public void ConsumeJumpBuff()
     {
         if (_jumpBuffs == 0 || !_endlessRun) return;
-
+        
         _jumpBuffs--;
         ShowJumpBuffs();
         StartCoroutine(PowerUpTimer(BuffType.JumpBuff,
@@ -170,7 +173,7 @@ public class PlayerStatus : MonoBehaviour
     {
         var buffDetail = Dictionaries.BuffDetails[buffType];
         if (!buffDetail.activatable) yield break;
-
+        
         SwitchPowerStatus(true);
 
         var rectTransform = timerGameObject.GetComponent<RectTransform>();
@@ -199,11 +202,11 @@ public class PlayerStatus : MonoBehaviour
             switch (buffType)
             {
                 case BuffType.SpeedBuff:
-                    SpeedBuffActive = active;
+                    _playerControl.Animator.SetBool(SpeedBuffAnimatorBool, SpeedBuffActive = active);
                     _playerControl.MovementSpeed *= amount;
                     break;
                 case BuffType.JumpBuff:
-                    JumpBuffActive = active;
+                    _playerControl.Animator.SetBool(JumpBuffAnimatorBool, JumpBuffActive = active);
                     _playerControl.JumpPower *= amount;
                     break;
             }

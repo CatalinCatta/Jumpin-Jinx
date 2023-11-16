@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -27,20 +26,21 @@ public class PlayerControl : MonoBehaviour
     private PlayerAudioControl _playerAudioControl;
     private PlayerStatus _playerStatus;
     private Rigidbody2D _rigidbody;
-    private Animator _animator;
+    [NonSerialized] public Animator Animator;
 
     [Header("Utilities")]
     [SerializeField] private GameObject bullet;
     private PlayerManager _playerManager;
     private SettingsManager _settingsManager;
     private bool _endlessRun;
-    
+    private static readonly int Shoot = Animator.StringToHash("Shoot");
+
     private void Awake()
     {
         _localTransform = transform;
         _playerStatus = GetComponent<PlayerStatus>();
         _playerAudioControl = GetComponent<PlayerAudioControl>();
-        _animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -69,7 +69,7 @@ public class PlayerControl : MonoBehaviour
 
         var grounded = IsGrounded();
 
-        _animator.SetBool(InAir, grounded);
+        Animator.SetBool(InAir, !grounded);
 
         if (grounded)
         {
@@ -87,7 +87,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(_settingsManager.SpeedBuffKeyCode) && !_playerStatus.SpeedBuffActive)
             _playerStatus.ConsumeSpeedBuff();
 
-        if (!_isFireActivated && Input.GetKey(_settingsManager.FireKeyCode)) Fire();
+        Animator.SetBool(Shoot, Input.GetKey(_settingsManager.FireKeyCode));
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class PlayerControl : MonoBehaviour
             FlipCharacter();
             _playerAudioControl.PlayWalkSound();
         }
-        _animator.SetBool(Walk, _movement.x != 0);
+        Animator.SetBool(Walk, _movement.x != 0);
 
         _rigidbody.velocity = _movementTestActive
             ? Vector2.SmoothDamp(_rigidbody.velocity, _movement * MovementSpeed, ref _smoothVelocity, .1f)
@@ -155,33 +155,16 @@ public class PlayerControl : MonoBehaviour
     /// </summary>
     public void ChangeMovementTest() => _movementTestActive = !_movementTestActive;
 
-    private void Fire()
+    public void Fire()
     {
-        if (_isFireActivated) return;
-
-        // TODO: Add animation.
-        
         _playerAudioControl.PlayShootArrowSound();
-
-        StartCoroutine(CreateBullet());
-    }
-
-    private IEnumerator CreateBullet()
-    {
-        _isFireActivated = true;
-
-        yield return new WaitForSeconds(_endlessRun
-            ? 1.25f - PlayerManager.Instance.Upgrades[(int)UpgradeType.Attack].Quantity * .0225f
-            : .25f); // 1.25f => .125f
 
         Instantiate(bullet,
             _localTransform.position +
-            new Vector3(_localTransform.rotation == Quaternion.Euler(0, 0, 0) ? -.4f : .4f, 1.5f),
+            new Vector3(_localTransform.rotation == Quaternion.Euler(0, 0, 0) ? -.1f : .1f, 1.6f),
             _localTransform.rotation);
-
-        _isFireActivated = false;
     }
-
+    
     /// <summary>
     /// Flips the character's sprite horizontally based on movement direction.
     /// </summary>
@@ -197,7 +180,7 @@ public class PlayerControl : MonoBehaviour
         var playerPosition = _localTransform.position;
 
         foreach (var objectCollider in Physics2D.OverlapAreaAll(playerPosition + new Vector3(-.35f, 0, 0),
-                     playerPosition + new Vector3(.35f, -.5f, 0)))
+                     playerPosition + new Vector3(.35f, -.8f, 0)))
         {
             if (objectCollider.CompareTag("Ground"))
             {

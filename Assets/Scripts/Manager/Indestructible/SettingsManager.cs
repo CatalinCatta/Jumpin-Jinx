@@ -17,9 +17,9 @@ public class SettingsManager : IndestructibleManager<SettingsManager>
         JumpBuffKeyCode,
         PauseKeyCode;
 
-    public int Resolution;
-    public bool Fullscreen, Vsync;
-    public Language Language;
+    [NonSerialized] public int Resolution;
+    [NonSerialized] public bool Fullscreen, Vsync;
+    [NonSerialized] public Language Language;
 
     [NonSerialized] public string LastMenuName;
     [NonSerialized] public SettingsFrames CurrentCategoryTab;
