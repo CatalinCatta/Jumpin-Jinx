@@ -179,8 +179,10 @@ public class PlayerControl : MonoBehaviour
     {
         var playerPosition = _localTransform.position;
 
-        foreach (var objectCollider in Physics2D.OverlapAreaAll(playerPosition + new Vector3(-.35f, 0, 0),
-                     playerPosition + new Vector3(.35f, -.8f, 0)))
+        Debug.DrawLine(playerPosition + new Vector3(-.35f, 1f, 0), playerPosition + new Vector3(.35f, .8f, 0), Color.red);
+        
+        foreach (var objectCollider in Physics2D.OverlapAreaAll(playerPosition + new Vector3(-.35f, 1f, 0),
+                     playerPosition + new Vector3(.35f, .8f, 0)))
         {
             if (objectCollider.CompareTag("Ground"))
             {
