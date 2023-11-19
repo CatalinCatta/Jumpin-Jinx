@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class SkinHandlerButton : MonoBehaviour
 {
     [SerializeField] private bool isPrevButton;
@@ -12,9 +11,6 @@ public class SkinHandlerButton : MonoBehaviour
     {
         if (isPrevButton) bodyPartSelector.PrevSkin();
         else if (isNextButton) bodyPartSelector.NextSkin();
-        else if (isPurchaseButton)
-        {
-            
-        }
+        else if (isPurchaseButton) bodyPartSelector.Buy();
     }
 }

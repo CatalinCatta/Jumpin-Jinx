@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -9,6 +10,9 @@ public class PlayerSkinEditor : MonoBehaviour
     [NonSerialized] public BodyPartHandler SelectedBodyPart;
     [NonSerialized] public bool SkinEditorEnabled;
     private float _characterOriginalPosition, _outlineOriginalPosition;
+    private RevenueHandler _revenueHandler;
+    
+    private void Awake() => _revenueHandler = GetComponent<RevenueHandler>();
 
     private void Start()
     {
@@ -16,11 +20,46 @@ public class PlayerSkinEditor : MonoBehaviour
         _outlineOriginalPosition = outline.position.x;
     }
 
+    public void ActivateSelector()
+    {
+        line.startColor = line.endColor = Color.green;
+        
+        var selectedBodyPartTransform = SelectedBodyPart.transform;
+        selectedBodyPartTransform.GetComponent<Collider2D>().enabled = false;
+        
+        var selector = selectedBodyPartTransform.GetChild(0);
+        selector.gameObject.SetActive(true);
+
+        line.SetPosition(1, selector.position);
+        line.sortingOrder = selectedBodyPartTransform.GetComponent<SpriteRenderer>().sortingOrder;
+    }
+
+    public void DeactivateSelector()
+    {
+        line.startColor = line.endColor = Color.clear;
+        if (SelectedBodyPart == null)return;
+        var selectedBodyPartTransform = SelectedBodyPart.transform;
+        selectedBodyPartTransform.GetComponent<Collider2D>().enabled = true;
+        if (selectedBodyPartTransform.childCount == 0) return;
+        selectedBodyPartTransform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    public bool TryToPurchaseBodyPart(string bodyPart, Skin skin)
+    {
+        if (_revenueHandler.TryToConsumeGold(Dictionaries.Skin[skin].price))
+        {
+            //save skin
+            return true;
+        }
+        
+        return false;
+    }
+    
     private void MoveCharacterInMiddle() => StartCoroutine(MoveSmoothly(true));
     
     private void MoveCharacterToOriginalPosition() => StartCoroutine(MoveSmoothly(false));
 
-    private System.Collections.IEnumerator MoveSmoothly(bool centerIt)
+    private IEnumerator MoveSmoothly(bool centerIt)
     {
         var startCharacterPosition = character.position;
         var startOutlinePosition = outline.position;
@@ -46,20 +85,6 @@ public class PlayerSkinEditor : MonoBehaviour
         SkinEditorEnabled = centerIt;
         DeactivateSelector();
     }
-    
-    public void ActivateSelector()
-    {
-        line.startColor = line.endColor = Color.green;
-        
-        var selectedBodyPartTransform = SelectedBodyPart.transform;
-        selectedBodyPartTransform.GetComponent<Collider2D>().enabled = false;
-        
-        var selector = selectedBodyPartTransform.GetChild(0);
-        selector.gameObject.SetActive(true);
-
-        line.SetPosition(1, selector.position);
-        line.sortingOrder = selectedBodyPartTransform.GetComponent<SpriteRenderer>().sortingOrder;
-    }
 
     private void Update()
     {
@@ -67,15 +92,5 @@ public class PlayerSkinEditor : MonoBehaviour
             line.SetPosition(0,
                 SelectedBodyPart.transform.GetComponent<SpriteSkin>().boneTransforms[0].position +
                 Vector3.up * (SelectedBodyPart.name == "Armor" ? 1.5f : 0));
-    }
-
-    public void DeactivateSelector()
-    {
-        line.startColor = line.endColor = Color.clear;
-        if (SelectedBodyPart == null)return;
-        var selectedBodyPartTransform = SelectedBodyPart.transform;
-        selectedBodyPartTransform.GetComponent<Collider2D>().enabled = true;
-        if (selectedBodyPartTransform.childCount == 0) return;
-        selectedBodyPartTransform.GetChild(0).gameObject.SetActive(false);
     }
 }

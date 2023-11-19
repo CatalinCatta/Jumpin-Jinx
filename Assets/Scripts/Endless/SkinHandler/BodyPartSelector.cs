@@ -28,6 +28,12 @@ public class BodyPartSelector : MonoBehaviour
       ChangeSkin();
    }
 
+   public void Buy()
+   {
+      if (_transform.parent.GetComponent<BodyPartHandler>().TryToPurchaseSkin(_category, _currentSkin))
+         HandlePaymentStatus();
+   }
+
    private void ChangeSkin()
    {
       var transformParent = _transform.parent;
@@ -35,19 +41,26 @@ public class BodyPartSelector : MonoBehaviour
          .SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
       transformParent.parent.parent.GetChild(0).GetChild(transformParent.GetSiblingIndex())
          .GetComponent<SpriteResolver>().SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
-      
-      var payButton = _transform.GetChild(1);
-      var price = Dictionaries.Skin[_currentSkin].price;
-      if (price == 0) payButton.gameObject.SetActive(false);
-      else
-      {
-         payButton.gameObject.SetActive(true);
-         payButton.GetChild(0).GetComponent<TextMeshPro>().text = Utility.FormatDoubleWithUnits(price, false);
-      }
-   
+
+      HandlePaymentStatus();
       ChangeAllSkinSelectors();
    }
    
+   private void HandlePaymentStatus()
+   {
+      var payButton = _transform.GetChild(1);
+      var price = Dictionaries.Skin[_currentSkin].price;
+      var usableSkin = price == 0;
+      payButton.gameObject.SetActive(!usableSkin);
+      
+      var selectedIcon = _transform.GetChild(5);
+      selectedIcon.GetComponent<SpriteRenderer>().color =
+         selectedIcon.GetChild(1).GetComponent<SpriteRenderer>().color = usableSkin ? Color.green : Color.red;
+
+      if (!usableSkin)
+         payButton.GetChild(0).GetComponent<TextMeshPro>().text = Utility.FormatDoubleWithUnits(price, false);
+   }
+
    private void ChangeAllSkinSelectors()
    {
       ChangeSkinSelector(0, GetPrevSkin(GetPrevSkin(_currentSkin)));

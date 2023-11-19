@@ -12,6 +12,8 @@ public class BodyPartHandler : MonoBehaviour
         if (skinEditor == null) skinEditor = FindObjectOfType<PlayerSkinEditor>();
     }
 
+    public bool TryToPurchaseSkin(string bodyPart, Skin skin) => skinEditor.TryToPurchaseBodyPart(bodyPart, skin);
+
     private void Update()
     {
         if (!skinEditor.SkinEditorEnabled) skinEditor.SelectedBodyPart._sprite.color = Color.clear;
