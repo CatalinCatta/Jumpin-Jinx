@@ -19,10 +19,10 @@ public class PlayerSkinEditor : MonoBehaviour
         _revenueHandler = GetComponent<RevenueHandler>();
         _playerManager = PlayerManager.Instance;
     }
-    
+
     private void Start()
     {
-        _characterOriginalPosition= character.position.x;
+        _characterOriginalPosition = character.position.x;
         _outlineOriginalPosition = outline.position.x;
     }
 
@@ -61,10 +61,20 @@ public class PlayerSkinEditor : MonoBehaviour
                 
         return true;
     }
+
+    public void SaveSkinPreference()
+    {
+        foreach (Transform bodyPart in outline)
+            if (bodyPart.childCount > 0 &&
+                bodyPart.GetChild(0).TryGetComponent<BodyPartSelector>(out var bodyPartSelector))
+                bodyPartSelector.ChangeToLastPurchasedSkin();
+    }
     
     private void MoveCharacterInMiddle() => StartCoroutine(MoveSmoothly(true));
     
     private void MoveCharacterToOriginalPosition() => StartCoroutine(MoveSmoothly(false));
+
+    private void FastCloseSkinMenu() => SwitchSkinMenu(false);
 
     private IEnumerator MoveSmoothly(bool centerIt)
     {
@@ -84,15 +94,23 @@ public class PlayerSkinEditor : MonoBehaviour
             yield return null;
         }
 
-        character.position = new Vector3(centerIt ? 0 : _characterOriginalPosition, startCharacterPosition.y,
-            startCharacterPosition.z);
-        outline.position = new Vector3(centerIt ? 0 : _outlineOriginalPosition, startOutlinePosition.y,
-            startOutlinePosition.z);
-        
-        SkinEditorEnabled = centerIt;
-        DeactivateSelector();
+        SwitchSkinMenu(centerIt);
     }
 
+    private void SwitchSkinMenu(bool activate)
+    {
+        var startCharacterPosition = character.position;
+        var startOutlinePosition = outline.position;
+        
+        character.position = new Vector3(activate ? 0 : _characterOriginalPosition, startCharacterPosition.y,
+            startCharacterPosition.z);
+        outline.position = new Vector3(activate ? 0 : _outlineOriginalPosition, startOutlinePosition.y,
+            startOutlinePosition.z);
+        SkinEditorEnabled = activate;
+        
+        DeactivateSelector();
+    }
+    
     private void Update()
     {
         if (SelectedBodyPart != null)

@@ -1,22 +1,26 @@
 using UnityEngine;
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine.U2D.Animation;
 
 public class BodyPartSelector : MonoBehaviour
 {
-   private Skin _currentSkin = Skin.Classic;
+   private Skin _currentSkin;
    private Transform _transform;
    private string _category;
    private PlayerManager _playerManager;
-
-   private void Awake() => _playerManager = PlayerManager.Instance;
+   private Skin _lastUsableSkin;
 
    private void Start()
    {
+      _playerManager = PlayerManager.Instance;
       _transform = transform;
       _category = _transform.parent.GetComponent<SpriteResolver>().GetCategory();
+      _lastUsableSkin = _currentSkin = Dictionaries.Skin
+         .FirstOrDefault(kv => kv.Value.name == _playerManager.CurrentSkin[_category]).Key;
       ChangeSkin();
+      gameObject.SetActive(false);
    }
 
    public void PrevSkin()
@@ -37,8 +41,19 @@ public class BodyPartSelector : MonoBehaviour
          HandlePaymentStatus();
    }
 
+   public void ChangeToLastPurchasedSkin()
+   {
+      _playerManager.CurrentSkin[_category] = Dictionaries.Skin[_lastUsableSkin].name;
+      if (HasBoughtTheSkin()) return;
+
+      var selectedSkin = _lastUsableSkin;
+      while (_currentSkin != selectedSkin) NextSkin();
+   }
+
    private void ChangeSkin()
    {
+      if (HasBoughtTheSkin()) _lastUsableSkin = _currentSkin;
+
       var transformParent = _transform.parent;
       transformParent.GetComponent<SpriteResolver>()
          .SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
@@ -52,8 +67,7 @@ public class BodyPartSelector : MonoBehaviour
    private void HandlePaymentStatus()
    {
       var payButton = _transform.GetChild(1);
-      var price = Dictionaries.Skin[_currentSkin].price;
-      var usableSkin = _playerManager.Skins.ContainsKey(Dictionaries.Skin[_currentSkin].name);
+      var usableSkin = HasBoughtTheSkin();
       payButton.gameObject.SetActive(!usableSkin);
       
       var selectedIcon = _transform.GetChild(5);
@@ -61,7 +75,7 @@ public class BodyPartSelector : MonoBehaviour
          selectedIcon.GetChild(1).GetComponent<SpriteRenderer>().color = usableSkin ? Color.green : Color.red;
 
       if (!usableSkin)
-         payButton.GetChild(0).GetComponent<TextMeshPro>().text = Utility.FormatDoubleWithUnits(price, false);
+         payButton.GetChild(0).GetComponent<TextMeshPro>().text = Utility.FormatDoubleWithUnits(Dictionaries.Skin[_currentSkin].price, false);
    }
 
    private void ChangeAllSkinSelectors()
@@ -72,6 +86,9 @@ public class BodyPartSelector : MonoBehaviour
       ChangeSkinSelector(3, GetNextSkin(_currentSkin));
       ChangeSkinSelector(4, GetNextSkin(GetNextSkin(_currentSkin)));
    }
+
+   private bool HasBoughtTheSkin() => _playerManager.Skins.ContainsKey(Dictionaries.Skin[_currentSkin].name) &&
+                                      _playerManager.Skins[Dictionaries.Skin[_currentSkin].name].Contains(_category);
    
    private void ChangeSkinSelector(int skinNr, Skin newSkin) =>
       _transform.GetChild(0).GetChild(skinNr).GetComponent<SpriteRenderer>().sprite = _transform.parent.parent

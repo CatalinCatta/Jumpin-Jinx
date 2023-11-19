@@ -10,6 +10,7 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
     [NonSerialized] public Enhancement[] Upgrades, Buffs;
     [NonSerialized] public int Gold, Gems;
     [NonSerialized] public Dictionary<string, List<string>> Skins;
+    [NonSerialized] public Dictionary<string, string> CurrentSkin;
 
     protected override void Awake()
     {
@@ -39,6 +40,9 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
         if (player.Skins == null) SetUpSkins();
         else Skins = player.Skins;
         
+        if (player.CurrentSkin == null) SetUpCurrentSkin();
+        else CurrentSkin = player.CurrentSkin;
+        
         SetUpEnhancement();
     }
 
@@ -60,6 +64,7 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
         Gems = 0;
 
         SetUpEnhancement();
+        SetUpCurrentSkin();
     }
 
     private void SetUpEnhancement()
@@ -84,5 +89,11 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
     private void SetUpSkins() => Skins = new Dictionary<string, List<string>>
         { { Dictionaries.Skin[Skin.Classic].name, PrefabManager.Instance.playerSkins.GetCategoryNames().ToList() } };
     
+    private void SetUpCurrentSkin()
+    {
+        CurrentSkin = new Dictionary<string, string>();
+        foreach (var bodyPart in PrefabManager.Instance.playerSkins.GetCategoryNames())
+            CurrentSkin.Add(bodyPart, Dictionaries.Skin[Skin.Classic].name);
+    }
     private static int PriceCalculator(int lvl) => (lvl + 1) * 15;
 }

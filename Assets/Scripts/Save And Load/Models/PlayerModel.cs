@@ -10,6 +10,7 @@ public class PlayerModel
     public int gold, gems;
     public Enhancement[] upgrades, buffs;
     public Dictionary<string, List<string>> Skins;
+    public Dictionary<string, string> CurrentSkin;
 
     /// <summary>
     /// Initializes a new instance of the PlayerModel class.
@@ -24,5 +25,6 @@ public class PlayerModel
         buffs = playerManager.Buffs;
 
         Skins = playerManager.Skins;
+        CurrentSkin = playerManager.CurrentSkin;
     }
 }

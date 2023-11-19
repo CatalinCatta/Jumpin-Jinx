@@ -16,7 +16,8 @@ public class BodyPartHandler : MonoBehaviour
 
     private void Update()
     {
-        if (!skinEditor.SkinEditorEnabled) skinEditor.SelectedBodyPart._sprite.color = Color.clear;
+        if (!skinEditor.SkinEditorEnabled && skinEditor.SelectedBodyPart != null)
+            skinEditor.SelectedBodyPart._sprite.color = Color.clear;
     }
 
     private void OnMouseOver()
