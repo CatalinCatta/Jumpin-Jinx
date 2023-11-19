@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class PrefabManager : IndestructibleManager<PrefabManager>
 {
@@ -70,4 +71,7 @@ public class PrefabManager : IndestructibleManager<PrefabManager>
 
     [Header("PlantsSprites")] [SerializeField]
     public Sprite plantPlaceHolderSprite;
+
+    [Header("OtherStuffs")] [SerializeField]
+    public SpriteLibraryAsset playerSkins;
 }

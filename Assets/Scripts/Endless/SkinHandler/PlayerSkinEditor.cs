@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -11,9 +12,14 @@ public class PlayerSkinEditor : MonoBehaviour
     [NonSerialized] public bool SkinEditorEnabled;
     private float _characterOriginalPosition, _outlineOriginalPosition;
     private RevenueHandler _revenueHandler;
+    private PlayerManager _playerManager;
     
-    private void Awake() => _revenueHandler = GetComponent<RevenueHandler>();
-
+    private void Awake()
+    {
+        _revenueHandler = GetComponent<RevenueHandler>();
+        _playerManager = PlayerManager.Instance;
+    }
+    
     private void Start()
     {
         _characterOriginalPosition= character.position.x;
@@ -46,13 +52,14 @@ public class PlayerSkinEditor : MonoBehaviour
 
     public bool TryToPurchaseBodyPart(string bodyPart, Skin skin)
     {
-        if (_revenueHandler.TryToConsumeGold(Dictionaries.Skin[skin].price))
-        {
-            //save skin
-            return true;
-        }
+        if (!_revenueHandler.TryToConsumeGold(Dictionaries.Skin[skin].price)) return false;
         
-        return false;
+        var skinName = Dictionaries.Skin[skin].name;
+
+        if (_playerManager.Skins.ContainsKey(skinName)) _playerManager.Skins[skinName].Add(bodyPart);
+        else _playerManager.Skins.Add(skinName, new List<string> { bodyPart });
+                
+        return true;
     }
     
     private void MoveCharacterInMiddle() => StartCoroutine(MoveSmoothly(true));

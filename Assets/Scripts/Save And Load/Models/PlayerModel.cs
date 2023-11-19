@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Represents the model for a player in a game.
@@ -7,7 +8,8 @@
 public class PlayerModel
 {
     public int gold, gems;
-    public Enhancement[] Upgrades, Buffs;
+    public Enhancement[] upgrades, buffs;
+    public Dictionary<string, List<string>> Skins;
 
     /// <summary>
     /// Initializes a new instance of the PlayerModel class.
@@ -18,7 +20,9 @@ public class PlayerModel
         gold = playerManager.Gold;
         gems = playerManager.Gems;
 
-        Upgrades = playerManager.Upgrades;
-        Buffs = playerManager.Buffs;
+        upgrades = playerManager.Upgrades;
+        buffs = playerManager.Buffs;
+
+        Skins = playerManager.Skins;
     }
 }

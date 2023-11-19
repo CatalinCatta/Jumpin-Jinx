@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Manages player-related data and upgrades.
@@ -7,7 +9,8 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
 {
     [NonSerialized] public Enhancement[] Upgrades, Buffs;
     [NonSerialized] public int Gold, Gems;
-    
+    [NonSerialized] public Dictionary<string, List<string>> Skins;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,12 +30,15 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
         Gold = player.gold;
         Gems = player.gems;
 
-        if (player.Upgrades == null) SetUpUpgrades();
-        else Upgrades = player.Upgrades;
+        if (player.upgrades == null) SetUpUpgrades();
+        else Upgrades = player.upgrades;
 
-        if (player.Buffs == null) SetUpBuffs();
-        else Buffs = player.Buffs;
+        if (player.buffs == null) SetUpBuffs();
+        else Buffs = player.buffs;
 
+        if (player.Skins == null) SetUpSkins();
+        else Skins = player.Skins;
+        
         SetUpEnhancement();
     }
 
@@ -48,6 +54,7 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
     {
         SetUpUpgrades();
         SetUpBuffs();
+        SetUpSkins();
         
         Gold = 0;
         Gems = 0;
@@ -73,6 +80,9 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
         Buffs = new Enhancement[Enum.GetValues(typeof(BuffType)).Length];
         for (var i = 0; i < Enum.GetValues(typeof(BuffType)).Length; i++) Buffs[i] = new Enhancement();
     }
+
+    private void SetUpSkins() => Skins = new Dictionary<string, List<string>>
+        { { Dictionaries.Skin[Skin.Classic].name, PrefabManager.Instance.playerSkins.GetCategoryNames().ToList() } };
     
     private static int PriceCalculator(int lvl) => (lvl + 1) * 15;
 }

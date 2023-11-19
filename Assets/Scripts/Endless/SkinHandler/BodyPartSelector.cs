@@ -8,6 +8,9 @@ public class BodyPartSelector : MonoBehaviour
    private Skin _currentSkin = Skin.Classic;
    private Transform _transform;
    private string _category;
+   private PlayerManager _playerManager;
+
+   private void Awake() => _playerManager = PlayerManager.Instance;
 
    private void Start()
    {
@@ -50,7 +53,7 @@ public class BodyPartSelector : MonoBehaviour
    {
       var payButton = _transform.GetChild(1);
       var price = Dictionaries.Skin[_currentSkin].price;
-      var usableSkin = price == 0;
+      var usableSkin = _playerManager.Skins.ContainsKey(Dictionaries.Skin[_currentSkin].name);
       payButton.gameObject.SetActive(!usableSkin);
       
       var selectedIcon = _transform.GetChild(5);
