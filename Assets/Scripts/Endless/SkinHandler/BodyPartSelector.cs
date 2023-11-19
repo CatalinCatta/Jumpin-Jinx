@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using TMPro;
 using UnityEngine.U2D.Animation;
 
 public class BodyPartSelector : MonoBehaviour
@@ -12,27 +13,39 @@ public class BodyPartSelector : MonoBehaviour
    {
       _transform = transform;
       _category = _transform.parent.GetComponent<SpriteResolver>().GetCategory();
+      ChangeSkin();
    }
 
    public void PrevSkin()
    {
       _currentSkin = GetPrevSkin(_currentSkin);
       ChangeSkin();
-      ChangeAllSkinSelectors();
    }
 
    public void NextSkin()
    {
       _currentSkin = GetNextSkin(_currentSkin);
       ChangeSkin();
-      ChangeAllSkinSelectors();
    }
 
    private void ChangeSkin()
    {
-      var transformParent =_transform.parent; 
-      transformParent.GetComponent<SpriteResolver>().SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
-      transformParent.parent.parent.GetChild(0).GetChild(transformParent.GetSiblingIndex()).GetComponent<SpriteResolver>().SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
+      var transformParent = _transform.parent;
+      transformParent.GetComponent<SpriteResolver>()
+         .SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
+      transformParent.parent.parent.GetChild(0).GetChild(transformParent.GetSiblingIndex())
+         .GetComponent<SpriteResolver>().SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
+      
+      var payButton = _transform.GetChild(1);
+      var price = Dictionaries.Skin[_currentSkin].price;
+      if (price == 0) payButton.gameObject.SetActive(false);
+      else
+      {
+         payButton.gameObject.SetActive(true);
+         payButton.GetChild(0).GetComponent<TextMeshPro>().text = Utility.FormatDoubleWithUnits(price, false);
+      }
+   
+      ChangeAllSkinSelectors();
    }
    
    private void ChangeAllSkinSelectors()

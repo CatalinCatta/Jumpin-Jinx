@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 8645838520084742438}
   - component: {fileID: 3765815427418882804}
   - component: {fileID: 257842403454003788}
+  - component: {fileID: 7813714089970355050}
   m_Layer: 0
   m_Name: NextButton
   m_TagString: Untagged
@@ -499,6 +500,27 @@ MonoBehaviour:
   isNextButton: 1
   isPurchaseButton: 0
   bodyPartSelector: {fileID: 1410382304389711707}
+--- !u!50 &7813714089970355050
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8645838520084742436}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &8645838520336920394
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +617,7 @@ GameObject:
   - component: {fileID: 8645838520354729060}
   - component: {fileID: 295316960948264710}
   - component: {fileID: 4731565382122138449}
+  - component: {fileID: 644753683431381438}
   m_Layer: 0
   m_Name: PrevButton
   m_TagString: Untagged
@@ -744,6 +767,27 @@ MonoBehaviour:
   isNextButton: 0
   isPurchaseButton: 0
   bodyPartSelector: {fileID: 1410382304389711707}
+--- !u!50 &644753683431381438
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8645838520354729082}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &8645838520424293850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1545,7 @@ GameObject:
   - component: {fileID: 8645838521260549910}
   - component: {fileID: 3136327676168405945}
   - component: {fileID: 805027228030959212}
+  - component: {fileID: 2326684340478770689}
   m_Layer: 0
   m_Name: Price
   m_TagString: Untagged
@@ -1644,6 +1689,27 @@ MonoBehaviour:
   isNextButton: 0
   isPurchaseButton: 1
   bodyPartSelector: {fileID: 1410382304389711707}
+--- !u!50 &2326684340478770689
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8645838521260549908}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &8645838521395027685
 GameObject:
   m_ObjectHideFlags: 0

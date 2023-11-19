@@ -168,12 +168,12 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 7281372714021276480, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Left Ear
-    m_Hash: 82799394
+  - m_Name: LeftEar
+    m_Hash: 7204449
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Classic Ear
-      m_Hash: 1045830194
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 3221963293616670761, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 3221963293616670761, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
@@ -199,8 +199,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -5006381740127348933, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Left Foot
-    m_Hash: 927537887
+  - m_Name: LeftFoot
+    m_Hash: 412649584
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -230,8 +230,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 4340923958430698081, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Left Lower Leg
-    m_Hash: 1048947835
+  - m_Name: LeftLowerLeg
+    m_Hash: 693811658
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -261,8 +261,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 5238748371979574017, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Left Shoulder
-    m_Hash: 776933074
+  - m_Name: LeftShoulder
+    m_Hash: 759586984
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -292,8 +292,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 1038960677274632830, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Left Upper Leg
-    m_Hash: 517621080
+  - m_Name: LeftUpperLeg
+    m_Hash: 104681301
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -323,8 +323,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 7776323304629280489, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Lower Body
-    m_Hash: 104383160
+  - m_Name: LowerBody
+    m_Hash: 1063186137
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -354,8 +354,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -6555549642950973740, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Right Ear
-    m_Hash: 123983230
+  - m_Name: RightEar
+    m_Hash: 6099868
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -385,8 +385,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -3214819984590015130, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Right Foot
-    m_Hash: 358058942
+  - m_Name: RightFoot
+    m_Hash: 454309420
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -416,8 +416,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -5871180480626952785, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Right Lower Leg
-    m_Hash: 509145880
+  - m_Name: RightLowerLeg
+    m_Hash: 840605319
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -435,8 +435,8 @@ MonoBehaviour:
       m_Sprite: {fileID: -4844223116528854939, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4844223116528854939, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Punk
-      m_Hash: 426607868
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 981934974250893317, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 981934974250893317, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
@@ -447,8 +447,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 7622038879975338821, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Right Shoulder
-    m_Hash: 653882328
+  - m_Name: RightShoulder
+    m_Hash: 906381285
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -478,8 +478,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 3522162917564647220, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Right Upper Leg
-    m_Hash: 1040652859
+  - m_Name: RightUpperLeg
+    m_Hash: 494757912
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -509,8 +509,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 4405104028319560767, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Ripped Arm
-    m_Hash: 628640123
+  - m_Name: RippedArm
+    m_Hash: 679961131
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic
@@ -540,8 +540,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -240715374589438104, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 5
-  - m_Name: Upper Body
-    m_Hash: 608168995
+  - m_Name: UpperBody
+    m_Hash: 520161274
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Classic

@@ -12,20 +12,24 @@ public class BodyPartHandler : MonoBehaviour
         if (skinEditor == null) skinEditor = FindObjectOfType<PlayerSkinEditor>();
     }
 
+    private void Update()
+    {
+        if (!skinEditor.SkinEditorEnabled) skinEditor.SelectedBodyPart._sprite.color = Color.clear;
+    }
+
     private void OnMouseOver()
     {
-        if (!skinEditor.skinEditorEnabled || skinEditor.SelectedBodyPart == this) return;
-       
-        _sprite.color = Color.yellow;
-        if (!Input.GetMouseButton(0)) return;
-        
+        if (skinEditor.SkinEditorEnabled && skinEditor.SelectedBodyPart != this) _sprite.color = Color.yellow;
+    }
+
+    private void OnMouseDown()
+    {
+        if (!skinEditor.SkinEditorEnabled) return;
+  
         _sprite.color = Color.green;
-        if (skinEditor.SelectedBodyPart != null)
-        {
-            skinEditor.SelectedBodyPart._sprite.color = Color.clear;
-            skinEditor.DeactivateSelector();
-        }
-        
+        if (skinEditor.SelectedBodyPart != null) skinEditor.SelectedBodyPart._sprite.color = Color.clear;
+
+        skinEditor.DeactivateSelector();
         skinEditor.SelectedBodyPart = this;
         skinEditor.ActivateSelector();
     }
