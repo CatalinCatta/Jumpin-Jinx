@@ -17,28 +17,28 @@ MonoBehaviour:
     m_Hash: 538130548
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Arm
-      m_Hash: 538130548
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -7827589634057918176, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7827589634057918176, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Arm_0
-      m_Hash: 963823543
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 6900807961594487619, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6900807961594487619, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Arm_1
-      m_Hash: 242612001
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 5797269799923486552, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5797269799923486552, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Arm_2
-      m_Hash: 394045083
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -940456482848928902, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -940456482848928902, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Arm_3
-      m_Hash: 544970253
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -2136019795824918345, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2136019795824918345, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -48,28 +48,28 @@ MonoBehaviour:
     m_Hash: 1055314424
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Armor
-      m_Hash: 1055314424
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -6448691508999890224, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6448691508999890224, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Armor_0
-      m_Hash: 932353241
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 6346115602872572596, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6346115602872572596, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Armor_1
-      m_Hash: 9806927
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -5267020427806452213, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5267020427806452213, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Armor_2
-      m_Hash: 429716981
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -5085295746889966035, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5085295746889966035, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Armor_3
-      m_Hash: 781960547
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 6331052427378212945, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6331052427378212945, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -79,28 +79,28 @@ MonoBehaviour:
     m_Hash: 171295057
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Eye
-      m_Hash: 171295057
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 1220725761064106383, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1220725761064106383, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Eye_0
-      m_Hash: 367048654
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 85273378782673639, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 85273378782673639, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Eye_1
-      m_Hash: 585598808
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -4670596183647469117, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4670596183647469117, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Eye_2
-      m_Hash: 1005508322
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 5299589601481059133, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5299589601481059133, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Eye_3
-      m_Hash: 216655476
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 7101607195511047952, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7101607195511047952, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -110,28 +110,28 @@ MonoBehaviour:
     m_Hash: 122744241
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Hand
-      m_Hash: 122744241
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -6345613999427919306, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6345613999427919306, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Hand_0
-      m_Hash: 960947620
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -6327818457497791348, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6327818457497791348, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Hand_1
-      m_Hash: 239195442
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 5586457866779683806, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5586457866779683806, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Hand_2
-      m_Hash: 390628488
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -9048259942926787000, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -9048259942926787000, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Hand_3
-      m_Hash: 542094366
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -2562624408997414372, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2562624408997414372, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -141,28 +141,28 @@ MonoBehaviour:
     m_Hash: 130111906
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Head
-      m_Hash: 130111906
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -9207757452873316018, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -9207757452873316018, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Head_0
-      m_Hash: 346379058
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -3743438235549944083, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3743438235549944083, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Head_1
-      m_Hash: 597844900
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -1182552031296002573, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -1182552031296002573, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Head_2
-      m_Hash: 984298014
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -6346353257857941309, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6346353257857941309, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Head_3
-      m_Hash: 229376648
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 7281372714021276480, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7281372714021276480, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -172,28 +172,28 @@ MonoBehaviour:
     m_Hash: 82799394
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Left Ear
-      m_Hash: 82799394
+    - m_Name: Classic Ear
+      m_Hash: 1045830194
       m_Sprite: {fileID: 3221963293616670761, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 3221963293616670761, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Left Ear_0
-      m_Hash: 670144983
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 679318141412558744, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 679318141412558744, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Left Ear_1
-      m_Hash: 284600641
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 5578362709770651999, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5578362709770651999, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Left Ear_2
-      m_Hash: 167770363
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -3912649633129261814, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3912649633129261814, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Left Ear_3
-      m_Hash: 1056491629
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -5006381740127348933, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5006381740127348933, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -203,28 +203,28 @@ MonoBehaviour:
     m_Hash: 927537887
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Left Foot
-      m_Hash: 927537887
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -5166434499877148800, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5166434499877148800, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Left Foot_0
-      m_Hash: 568456235
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 4281562134221639560, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4281562134221639560, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Left Foot_1
-      m_Hash: 384222397
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -650715798456649583, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -650715798456649583, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Left Foot_2
-      m_Hash: 267359495
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -291959451270031575, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -291959451270031575, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Left Foot_3
-      m_Hash: 954770833
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 4340923958430698081, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4340923958430698081, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -234,28 +234,28 @@ MonoBehaviour:
     m_Hash: 1048947835
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Left Lower Leg
-      m_Hash: 1048947835
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 8065980418841226807, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 8065980418841226807, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Left Lower Leg_0
-      m_Hash: 159945395
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 1929748789561457829, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1929748789561457829, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Left Lower Leg_1
-      m_Hash: 1049600549
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -2154622226871280271, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2154622226871280271, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Left Lower Leg_2
-      m_Hash: 663155615
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 3137474704711153604, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 3137474704711153604, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Left Lower Leg_3
-      m_Hash: 276939529
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 5238748371979574017, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5238748371979574017, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -265,28 +265,28 @@ MonoBehaviour:
     m_Hash: 776933074
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Left Shoulder
-      m_Hash: 776933074
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 607633384353235338, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 607633384353235338, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Left Shoulder_0
-      m_Hash: 244680477
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -7891928369190369315, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7891928369190369315, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Left Shoulder_1
-      m_Hash: 965916555
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 1679351226518344109, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1679351226518344109, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Left Shoulder_2
-      m_Hash: 547087921
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 121885793945866832, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 121885793945866832, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Left Shoulder_3
-      m_Hash: 396154535
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 1038960677274632830, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1038960677274632830, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -296,28 +296,28 @@ MonoBehaviour:
     m_Hash: 517621080
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Left Upper Leg
-      m_Hash: 517621080
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 7009229665624672933, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7009229665624672933, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Left Upper Leg_0
-      m_Hash: 787996497
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 3260585217386872067, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 3260585217386872067, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Left Upper Leg_1
-      m_Hash: 435220423
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 1312168826067138799, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1312168826067138799, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Left Upper Leg_2
-      m_Hash: 16367229
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -2149055901308834113, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2149055901308834113, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Left Upper Leg_3
-      m_Hash: 939429611
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 7776323304629280489, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7776323304629280489, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -327,28 +327,28 @@ MonoBehaviour:
     m_Hash: 104383160
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Lower Body
-      m_Hash: 104383160
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 7981053389325103379, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7981053389325103379, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Lower Body_0
-      m_Hash: 55943900
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 6305454139075497025, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6305454139075497025, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Lower Body_1
-      m_Hash: 877826634
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 4622164388771822913, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4622164388771822913, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Lower Body_2
-      m_Hash: 760988656
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 6517149484290367697, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6517149484290367697, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Lower Body_3
-      m_Hash: 442299238
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -6555549642950973740, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6555549642950973740, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -358,28 +358,28 @@ MonoBehaviour:
     m_Hash: 123983230
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Right Ear
-      m_Hash: 123983230
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -5707840096608724424, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5707840096608724424, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Right Ear_0
-      m_Hash: 489084552
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -6343166861167964900, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6343166861167964900, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Right Ear_1
-      m_Hash: 706864670
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -517073321829159572, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -517073321829159572, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Right Ear_2
-      m_Hash: 858306468
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 6063321153941621338, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6063321153941621338, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Right Ear_3
-      m_Hash: 70223666
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -3214819984590015130, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3214819984590015130, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -389,28 +389,28 @@ MonoBehaviour:
     m_Hash: 358058942
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Right Foot
-      m_Hash: 358058942
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 5749886067211253586, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5749886067211253586, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Right Foot_0
-      m_Hash: 437219073
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -1714407885299210721, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -1714407885299210721, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Right Foot_1
-      m_Hash: 755523479
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -1724686660741819189, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -1724686660741819189, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Right Foot_2
-      m_Hash: 872484397
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -6845306128603140931, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6845306128603140931, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Right Foot_3
-      m_Hash: 50740923
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -5871180480626952785, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5871180480626952785, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -420,28 +420,28 @@ MonoBehaviour:
     m_Hash: 509145880
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Right Lower Leg
-      m_Hash: 509145880
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 1281558439051628000, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1281558439051628000, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Right Lower Leg_0
-      m_Hash: 1015809647
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 4716308472296017200, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4716308472296017200, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Right Lower Leg_1
-      m_Hash: 193672953
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -4844223116528854939, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4844223116528854939, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Right Lower Leg_2
-      m_Hash: 310536003
+    - m_Name: Punk
+      m_Hash: 426607868
       m_Sprite: {fileID: 981934974250893317, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 981934974250893317, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Right Lower Leg_3
-      m_Hash: 629495765
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 7622038879975338821, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7622038879975338821, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -451,28 +451,28 @@ MonoBehaviour:
     m_Hash: 653882328
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Right Shoulder
-      m_Hash: 653882328
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 1677539717985009098, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1677539717985009098, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Right Shoulder_0
-      m_Hash: 449735328
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -20609816030575133, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -20609816030575133, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Right Shoulder_1
-      m_Hash: 768170550
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 1939683514660075504, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1939683514660075504, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Right Shoulder_2
-      m_Hash: 885001100
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -7466497879884727959, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7466497879884727959, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Right Shoulder_3
-      m_Hash: 63388442
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 3522162917564647220, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 3522162917564647220, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -482,28 +482,28 @@ MonoBehaviour:
     m_Hash: 1040652859
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Right Upper Leg
-      m_Hash: 1040652859
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -6198405145581456174, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6198405145581456174, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Right Upper Leg_0
-      m_Hash: 468929421
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -6947502083922512567, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6947502083922512567, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Right Upper Leg_1
-      m_Hash: 754219803
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 5243602817026430588, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5243602817026430588, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Right Upper Leg_2
-      m_Hash: 905783969
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 2321983753694307596, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 2321983753694307596, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Right Upper Leg_3
-      m_Hash: 49945143
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 4405104028319560767, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4405104028319560767, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -513,28 +513,28 @@ MonoBehaviour:
     m_Hash: 628640123
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Ripped Arm
-      m_Hash: 628640123
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -4140598778001618062, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4140598778001618062, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Ripped Arm_0
-      m_Hash: 434642873
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: -6833519936247416704, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6833519936247416704, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Ripped Arm_1
-      m_Hash: 787427119
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: 5793374183311639140, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5793374183311639140, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Ripped Arm_2
-      m_Hash: 937852565
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: -4976103880434397758, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4976103880434397758, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Ripped Arm_3
-      m_Hash: 14765571
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -240715374589438104, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -240715374589438104, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -544,28 +544,28 @@ MonoBehaviour:
     m_Hash: 608168995
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Upper Body
-      m_Hash: 608168995
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: -1531985288885464206, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -1531985288885464206, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Upper Body_0
-      m_Hash: 221667013
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 4678143852396841568, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4678143852396841568, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Upper Body_1
-      m_Hash: 976318035
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -6724583021524937584, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6724583021524937584, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Upper Body_2
-      m_Hash: 590888937
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 7000286350257872229, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 7000286350257872229, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Upper Body_3
-      m_Hash: 339677055
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: -6650581971177003690, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -6650581971177003690, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
@@ -575,28 +575,28 @@ MonoBehaviour:
     m_Hash: 273257995
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Wire
-      m_Hash: 273257995
+    - m_Name: Classic
+      m_Hash: 1012013105
       m_Sprite: {fileID: 5934510881968239472, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5934510881968239472, guid: e04e4a2e416196149b4f3c27d4e89248, type: 3}
-    - m_Name: Wire_0
-      m_Hash: 549166139
+    - m_Name: Goblin
+      m_Hash: 908782230
       m_Sprite: {fileID: 5558350907347691127, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5558350907347691127, guid: f301a477bb69f2e46872a62a46fd623e, type: 3}
-    - m_Name: Wire_1
-      m_Hash: 398240941
+    - m_Name: DarkWitch
+      m_Hash: 850289355
       m_Sprite: {fileID: -3301049266410067456, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3301049266410067456, guid: d2d0b25a7f0ab28438f66366e5d693b9, type: 3}
-    - m_Name: Wire_2
-      m_Hash: 246807831
+    - m_Name: Spike
+      m_Hash: 779695502
       m_Sprite: {fileID: 49035743625401155, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 49035743625401155, guid: 06eef7b2b6c31c440b3cc8cfe1970d69, type: 3}
-    - m_Name: Wire_3
-      m_Hash: 968019329
+    - m_Name: D.D.D.
+      m_Hash: 899439602
       m_Sprite: {fileID: 6265521921994219883, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 6265521921994219883, guid: b5355506ca31d0e46a3c4e56698beeb2, type: 3}

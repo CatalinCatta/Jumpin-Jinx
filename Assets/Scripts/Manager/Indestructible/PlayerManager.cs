@@ -7,7 +7,7 @@ public class PlayerManager : IndestructibleManager<PlayerManager>
 {
     [NonSerialized] public Enhancement[] Upgrades, Buffs;
     [NonSerialized] public int Gold, Gems;
-
+    
     protected override void Awake()
     {
         base.Awake();
