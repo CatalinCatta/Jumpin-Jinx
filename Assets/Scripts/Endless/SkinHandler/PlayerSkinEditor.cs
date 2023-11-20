@@ -1,29 +1,64 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class PlayerSkinEditor : MonoBehaviour
 {
     [SerializeField] private LineRenderer line;
-    [SerializeField] private Transform character, outline;
+    [SerializeField] private Transform skinCounter, character, outline;
     [NonSerialized] public BodyPartHandler SelectedBodyPart;
     [NonSerialized] public bool SkinEditorEnabled;
-    private float _characterOriginalPosition, _outlineOriginalPosition;
+    private float _characterOriginalPosition;
     private RevenueHandler _revenueHandler;
     private PlayerManager _playerManager;
-    
+    private Dictionary<Skin, (int owned, int total)> _skinPartsCounter;
+
     private void Awake()
     {
         _revenueHandler = GetComponent<RevenueHandler>();
         _playerManager = PlayerManager.Instance;
+        _skinPartsCounter = new Dictionary<Skin, (int, int)>();
+        for (var i = 0; i < Enum.GetValues(typeof(Skin)).Length; i++) _skinPartsCounter.Add((Skin)i, (0, 0));
     }
 
-    private void Start()
+    private void Start() => _characterOriginalPosition = character.position.x;
+
+    public void CountSkins(Skin skin, int value, bool ownTheSkin)
     {
-        _characterOriginalPosition = character.position.x;
-        _outlineOriginalPosition = outline.position.x;
+        _skinPartsCounter[skin] = (_skinPartsCounter[skin].owned + (ownTheSkin ? value : 0),
+            _skinPartsCounter[skin].total + value);
+
+        var count = _skinPartsCounter.Count(item => item.Value.total > 0);
+        var orderedList = _skinPartsCounter.ToList();
+        orderedList.Sort((pair1, pair2) => pair2.Value.total.CompareTo(pair1.Value.total));
+
+        var childNr = skinCounter.childCount;
+        for (var i = 0; i < childNr; i++)
+        {
+            var isUsingTheText = childNr - i <= count;
+            skinCounter.GetChild(i).gameObject.SetActive(isUsingTheText);
+            if (!isUsingTheText) continue;
+
+            var positionInOrderedList = i - Mathf.Max(childNr - count, 0);
+            skinCounter.GetChild(i).GetComponent<TextMeshProUGUI>().text =
+                $"{Dictionaries.Skin[orderedList[positionInOrderedList].Key].name}: {Utility.FormatDoubleWithUnits(orderedList[positionInOrderedList].Value.total / .19, true)}% ({orderedList[positionInOrderedList].Value.owned}/{orderedList[positionInOrderedList].Value.total})";
+        }
+
+        if (childNr >= count) return;
+
+        int owned = 0, total = 0;
+        for (var i = 0; i <= count - childNr; i++)
+        {
+            owned += orderedList[count - i - 1].Value.owned;
+            total += orderedList[count - i - 1].Value.total;
+        }
+            
+        skinCounter.GetChild(childNr - 1).GetComponent<TextMeshProUGUI>().text =
+            $"Other: {Utility.FormatDoubleWithUnits(total / .19, true)}% ({owned}/{total})";
     }
 
     public void ActivateSelector()
@@ -74,22 +109,23 @@ public class PlayerSkinEditor : MonoBehaviour
     
     private void MoveCharacterToOriginalPosition() => StartCoroutine(MoveSmoothly(false));
 
-    private void FastCloseSkinMenu() => SwitchSkinMenu(false);
-
+    private void FastCloseSkinMenu() 
+    {
+        DeactivateSelector();
+        SwitchSkinMenu(false);
+    }
+    
     private IEnumerator MoveSmoothly(bool centerIt)
     {
         var startCharacterPosition = character.position;
-        var startOutlinePosition = outline.position;
         var elapsedTime = 0f;
+        DeactivateSelector();
 
         while (elapsedTime < .5f)
         {
             character.position = Vector3.Lerp(startCharacterPosition,
                 new Vector3(centerIt ? 0 : _characterOriginalPosition, startCharacterPosition.y,
                     startCharacterPosition.z), elapsedTime / .5f);
-            outline.position = Vector3.Lerp(startOutlinePosition,
-                new Vector3(centerIt ? 0 : _outlineOriginalPosition, startOutlinePosition.y, startOutlinePosition.z),
-                elapsedTime / .5f);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -100,15 +136,10 @@ public class PlayerSkinEditor : MonoBehaviour
     private void SwitchSkinMenu(bool activate)
     {
         var startCharacterPosition = character.position;
-        var startOutlinePosition = outline.position;
         
         character.position = new Vector3(activate ? 0 : _characterOriginalPosition, startCharacterPosition.y,
             startCharacterPosition.z);
-        outline.position = new Vector3(activate ? 0 : _outlineOriginalPosition, startOutlinePosition.y,
-            startOutlinePosition.z);
         SkinEditorEnabled = activate;
-        
-        DeactivateSelector();
     }
     
     private void Update()

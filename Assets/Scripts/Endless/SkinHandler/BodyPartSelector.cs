@@ -6,39 +6,35 @@ using UnityEngine.U2D.Animation;
 
 public class BodyPartSelector : MonoBehaviour
 {
-   private Skin _currentSkin;
-   private Transform _transform;
    private string _category;
+   private Skin _currentSkin, _lastUsableSkin;
+   private Transform _transform, _parent;
    private PlayerManager _playerManager;
-   private Skin _lastUsableSkin;
+   private BodyPartHandler _bodyPartHandler;
 
    private void Start()
    {
       _playerManager = PlayerManager.Instance;
       _transform = transform;
-      _category = _transform.parent.GetComponent<SpriteResolver>().GetCategory();
-      _lastUsableSkin = _currentSkin = Dictionaries.Skin
-         .FirstOrDefault(kv => kv.Value.name == _playerManager.CurrentSkin[_category]).Key;
-      ChangeSkin();
+      _parent = _transform.parent;
+      _category = _parent.GetComponent<SpriteResolver>().GetCategory();
+      _bodyPartHandler = _parent.GetComponent<BodyPartHandler>();
+      ChangeSkin(_lastUsableSkin = _currentSkin = Dictionaries.Skin
+         .FirstOrDefault(kv => kv.Value.name == _playerManager.CurrentSkin[_category]).Key);
       gameObject.SetActive(false);
    }
 
-   public void PrevSkin()
-   {
-      _currentSkin = GetPrevSkin(_currentSkin);
-      ChangeSkin();
-   }
+   public void PrevSkin() => ChangeSkin(GetPrevSkin(_currentSkin));
 
-   public void NextSkin()
-   {
-      _currentSkin = GetNextSkin(_currentSkin);
-      ChangeSkin();
-   }
+   public void NextSkin() => ChangeSkin(GetNextSkin(_currentSkin));
 
    public void Buy()
    {
-      if (_transform.parent.GetComponent<BodyPartHandler>().TryToPurchaseSkin(_category, _currentSkin))
-         HandlePaymentStatus();
+      if (!_bodyPartHandler.TryToPurchaseSkin(_category, _currentSkin)) return;
+      
+      HandlePaymentStatus();
+      _bodyPartHandler.ChangeSkinCounter(_currentSkin, -1, false);
+      _bodyPartHandler.ChangeSkinCounter(_currentSkin, +1, true);
    }
 
    public void ChangeToLastPurchasedSkin()
@@ -50,18 +46,29 @@ public class BodyPartSelector : MonoBehaviour
       while (_currentSkin != selectedSkin) NextSkin();
    }
 
-   private void ChangeSkin()
+   private void ChangeSkin(Skin newSkin)
    {
+      SetUpCounter(newSkin);
+      
       if (HasBoughtTheSkin()) _lastUsableSkin = _currentSkin;
 
-      var transformParent = _transform.parent;
-      transformParent.GetComponent<SpriteResolver>()
+      _parent.GetComponent<SpriteResolver>()
          .SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
-      transformParent.parent.parent.GetChild(0).GetChild(transformParent.GetSiblingIndex())
+      _parent.parent.parent.GetChild(0).GetChild(_parent.GetSiblingIndex())
          .GetComponent<SpriteResolver>().SetCategoryAndLabel(_category, Dictionaries.Skin[_currentSkin].name);
 
       HandlePaymentStatus();
       ChangeAllSkinSelectors();
+   }
+
+   private void SetUpCounter(Skin newSkin)
+   {
+      if (newSkin != _currentSkin)
+      {
+         _bodyPartHandler.ChangeSkinCounter(_currentSkin, -1, HasBoughtTheSkin());
+         _currentSkin = newSkin;
+      }
+      _bodyPartHandler.ChangeSkinCounter(_currentSkin, +1, HasBoughtTheSkin());
    }
    
    private void HandlePaymentStatus()
@@ -91,7 +98,7 @@ public class BodyPartSelector : MonoBehaviour
                                       _playerManager.Skins[Dictionaries.Skin[_currentSkin].name].Contains(_category);
    
    private void ChangeSkinSelector(int skinNr, Skin newSkin) =>
-      _transform.GetChild(0).GetChild(skinNr).GetComponent<SpriteRenderer>().sprite = _transform.parent.parent
+      _transform.GetChild(0).GetChild(skinNr).GetComponent<SpriteRenderer>().sprite = _parent.parent
          .GetComponent<SpriteLibrary>().GetSprite(_category, Dictionaries.Skin[newSkin].name);
 
    private static Skin GetPrevSkin(Skin currentSkin) =>

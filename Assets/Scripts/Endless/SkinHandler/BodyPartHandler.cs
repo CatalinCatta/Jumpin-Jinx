@@ -14,6 +14,8 @@ public class BodyPartHandler : MonoBehaviour
 
     public bool TryToPurchaseSkin(string bodyPart, Skin skin) => skinEditor.TryToPurchaseBodyPart(bodyPart, skin);
 
+    public void ChangeSkinCounter(Skin skin, int value, bool ownTheSkin) => skinEditor.CountSkins(skin, value, ownTheSkin);
+    
     private void Update()
     {
         if (!skinEditor.SkinEditorEnabled && skinEditor.SelectedBodyPart != null)
