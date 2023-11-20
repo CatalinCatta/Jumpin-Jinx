@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 /// <summary>
 /// This class controls the player character in the game.
